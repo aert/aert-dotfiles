@@ -1,0 +1,34 @@
+[user]
+	name = #{MY_NAME}
+	email = #{MY_EMAIL}
+[github]
+    user = #{MY_GITHUB_USER}
+[giggle]
+	main-window-maximized = false
+	main-window-geometry = 1203x800+92+41
+	history-view-vpane-position = 514
+	main-window-view = HistoryView
+	file-view-vpane-position = 267
+[alias]
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    co = commit -a
+	di = diff --color-words
+    pe = diff --stat 
+
+[color]
+    ui = auto
+    interactive = auto
+[merge]
+    #tool = meld
+    tool = diffuse
+[diff]
+    tool = diffuse
+    suppressBlankEmpty = true
+    mnemonicprefix = true
+    #noprefix = true
+[mergetool "vimdiff3"]
+    cmd = vim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+[credential]
+	helper = cache
+[core]
+	quotepath = off
