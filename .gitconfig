@@ -1,8 +1,8 @@
 [user]
-	name = XX
-	email = xxxxxxxx@xxxxxxxxx
+	name = #{MY_NAME}
+	email = #{MY_EMAIL}
 [github]
-    user = xxxxxxx
+    user = #{MY_GITHUB_USER}
 [giggle]
 	main-window-maximized = false
 	main-window-geometry = 1203x800+92+41
