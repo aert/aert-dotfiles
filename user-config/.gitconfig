@@ -10,9 +10,9 @@
 	main-window-view = HistoryView
 	file-view-vpane-position = 267
 [alias]
-    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     co = commit -a
-	di = diff --color-words
+    di = diff --color-words
     pe = diff --stat 
 
 [color]
