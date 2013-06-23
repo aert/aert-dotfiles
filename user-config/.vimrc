@@ -16,6 +16,8 @@ Bundle 'davidhalter/jedi-vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'saltstack/salt-vim'
 Bundle 'kien/ctrlp.vim'
+Bundle 'kien/ctrlp.vim'
+Bundle "myusuf3/numbers.vim"
 
 " ### Bundle Configs
 
@@ -39,18 +41,31 @@ let g:ctrlp_working_path_mode = ''
 " ### My Personal Config
 " ######################
 
+" Ignore some file
+set wildignore=*.swp,*.bak,*.pyc,*.class
+set cursorline
+set pastetoggle=<F3>
+set colorcolumn=80 
+
 syntax enable
-set gfn=Ubuntu\ Mono\ 10
+set gfn=Ubuntu\ Mono\ 12
 set nu
 autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown,ctp set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php,ctp set omnifunc=phpcomplete#CompletePHP
+autocmd FileType vim set omnifunc=syntaxcomplete#Complete
 
 autocmd BufEnter * silent! lcd %:p:h
 
 if has('gui_running')
     "colorscheme solarized
     "set background=dark
-    colorscheme smyck
-    set lines=45 columns=150
+    "colorscheme herald
+    colorscheme Mustang
+    set lines=43 columns=140
     set nomousehide
 else
     "set background=dark
@@ -64,6 +79,9 @@ set shiftwidth=4
 set tabstop=4
 set smarttab
 set expandtab
+set textwidth=79
+set softtabstop=4
+set shiftround
 
 " disable backups
 set nobackup
@@ -90,6 +108,10 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+
+"Useful when moving accross long lines
+map j gj
+map k gk
 
 " shortcuts to common commands
 let mapleader = ","
