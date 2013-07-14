@@ -16,8 +16,8 @@ Bundle 'davidhalter/jedi-vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'saltstack/salt-vim'
 Bundle 'kien/ctrlp.vim'
-Bundle 'kien/ctrlp.vim'
 Bundle "myusuf3/numbers.vim"
+Bundle "hdima/python-syntax"
 
 " ### Bundle Configs
 
@@ -37,6 +37,13 @@ nmap <F9> :TagbarToggle<CR>
 
 " CtrlP
 let g:ctrlp_working_path_mode = ''
+
+" Python.vim
+let python_highlight_all = 1 
+
+" Syntastic
+let g:syntastic_auto_loc_list=1
+let g:syntastic_loc_list_height=5
 
 " ### My Personal Config
 " ######################
@@ -116,6 +123,17 @@ map k gk
 " shortcuts to common commands
 let mapleader = ","
 
+" Add the virtualenv's site-packages to vim path
+py << EOF
+import os.path
+import sys
+import vim
+if 'VIRTUAL_ENV' in os.environ:
+    project_base_dir = os.environ['VIRTUAL_ENV']
+    sys.path.insert(0, project_base_dir)
+    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+    execfile(activate_this, dict(__file__=activate_this))
+EOF
 
 filetype plugin indent on
 filetype plugin on
