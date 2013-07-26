@@ -18,6 +18,7 @@ Bundle 'saltstack/salt-vim'
 Bundle 'kien/ctrlp.vim'
 Bundle "myusuf3/numbers.vim"
 Bundle "hdima/python-syntax"
+Bundle 'vim-scripts/Align'
 
 " ### Bundle Configs
 
@@ -55,7 +56,7 @@ set pastetoggle=<F3>
 set colorcolumn=80 
 
 syntax enable
-set gfn=Ubuntu\ Mono\ 12
+set gfn=Ubuntu\ Mono\ 10
 set nu
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
