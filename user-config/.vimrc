@@ -16,7 +16,6 @@ Bundle 'davidhalter/jedi-vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'saltstack/salt-vim'
 Bundle 'kien/ctrlp.vim'
-Bundle "myusuf3/numbers.vim"
 Bundle "hdima/python-syntax"
 Bundle 'vim-scripts/Align'
 
