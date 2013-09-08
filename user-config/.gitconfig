@@ -14,8 +14,10 @@
     co = commit -a
     di = diff --color-words
     pe = diff --stat 
+    st = status
 
 [color]
+    status = auto
     ui = auto
     interactive = auto
 [merge]
