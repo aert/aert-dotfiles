@@ -18,6 +18,7 @@ Bundle 'saltstack/salt-vim'
 Bundle 'kien/ctrlp.vim'
 Bundle "hdima/python-syntax"
 Bundle 'vim-scripts/Align'
+Bundle 'mattn/emmet-vim'
 
 " ### Bundle Configs
 
@@ -72,7 +73,8 @@ if has('gui_running')
     "set background=dark
     "colorscheme herald
     colorscheme Mustang
-    set lines=43 columns=140
+    "set lines=43 columns=140
+    set lines=999 columns=999
     set nomousehide
 else
     "set background=dark
