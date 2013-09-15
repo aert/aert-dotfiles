@@ -49,6 +49,9 @@ let g:syntastic_loc_list_height=5
 " ### My Personal Config
 " ######################
 
+" MACROS
+let @t='i( ) TASK ``+categ @=system(''date -u -Iseconds'')kJi``hhvhhhhxhhhxhhhxhhhr-hhhxhhhx'
+
 " Ignore some file
 set wildignore=*.swp,*.bak,*.pyc,*.class
 set cursorline
