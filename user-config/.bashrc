@@ -122,4 +122,5 @@ source /usr/local/bin/virtualenvwrapper.sh
 
 alias ouvrir='xdg-open'
 
+# https://github.com/vberger/sh-git-prompt/blob/master/prompt.sh
 [[ $- == *i* ]] && . ~/bin/prompt.sh
