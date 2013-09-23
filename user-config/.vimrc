@@ -19,6 +19,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle "hdima/python-syntax"
 Bundle 'vim-scripts/Align'
 Bundle 'mattn/emmet-vim'
+Bundle 'aklt/plantuml-syntax'
 
 " ### Bundle Configs
 
