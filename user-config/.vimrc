@@ -20,6 +20,7 @@ Bundle "hdima/python-syntax"
 Bundle 'vim-scripts/Align'
 Bundle 'mattn/emmet-vim'
 Bundle 'aklt/plantuml-syntax'
+Bundle 'tpope/vim-surround.git'
 
 " ### Bundle Configs
 
@@ -38,7 +39,7 @@ let NERDTreeIgnore = ['\.pyc$', '\.bak$']
 nmap <F9> :TagbarToggle<CR>
 
 " CtrlP
-let g:ctrlp_working_path_mode = ''
+let g:ctrlp_working_path_mode = 'ra'
 
 " Python.vim
 let python_highlight_all = 1 
@@ -47,8 +48,30 @@ let python_highlight_all = 1
 let g:syntastic_auto_loc_list=1
 let g:syntastic_loc_list_height=5
 
+" Surround - Django
+let b:surround_{char2nr("v")} = "{{ \r }}"
+let b:surround_{char2nr("{")} = "{{ \r }}"
+let b:surround_{char2nr("%")} = "{% \r %}"
+let b:surround_{char2nr("b")} = "{% block \1block name: \1 %}\r{% endblock \1\1 %}"
+let b:surround_{char2nr("i")} = "{% if \1condition: \1 %}\r{% endif %}"
+let b:surround_{char2nr("w")} = "{% with \1with: \1 %}\r{% endwith %}"
+let b:surround_{char2nr("f")} = "{% for \1for loop: \1 %}\r{% endfor %}"
+let b:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
+
 " ### My Personal Config
 " ######################
+
+" Django
+autocmd BufEnter *html map <F10> :setfiletype htmldjango<CR>
+autocmd BufEnter *html map <S-F10> :setfiletype django<CR>
+
+" Automatic reloading of .vimrc
+autocmd! bufwritepost .vimrc source %
+set ignorecase
+
+" Better copy & paste
+set pastetoggle=<F3>
+set clipboard=unnamed
 
 " MACROS
 let @t='i( ) TASK ``+categ @=system(''date -u -Iseconds'')kJi``hhvhhhhxhhhxhhhxhhhr-hhhxhhhx'
@@ -56,8 +79,8 @@ let @t='i( ) TASK ``+categ @=system(''date -u -Iseconds'')kJi``hhvhhhhxhhhxh
 " Ignore some file
 set wildignore=*.swp,*.bak,*.pyc,*.class
 set cursorline
-set pastetoggle=<F3>
 set colorcolumn=80 
+set nowrap
 
 syntax enable
 set gfn=Ubuntu\ Mono\ 10
@@ -146,6 +169,9 @@ filetype plugin on
 
 " ### MY KEY MAPPINGS
 " ###################
+
+nnoremap ,p :tabprevious<CR>
+nnoremap ,n :tabnext<CR>
 
 " ,cd to change to current file dir & print pwd
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>

@@ -101,7 +101,7 @@ PrintGitPrompt() {
     then
         # we take care of printing virtualenv
         PS1="${_OLD_VIRTUAL_PS1}"
-        GitPrompt="${gpColBlue}($(basename "${VIRTUAL_ENV}"))${ResetColor} ${GitPrompt}"
+        GitPrompt="${gpColBGreen}($(basename "${VIRTUAL_ENV}"))${ResetColor} ${GitPrompt}"
     fi
 
     echo -ne "${GitPrompt}"
