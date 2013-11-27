@@ -21,6 +21,7 @@ Bundle 'vim-scripts/Align'
 Bundle 'mattn/emmet-vim'
 Bundle 'aklt/plantuml-syntax'
 Bundle 'tpope/vim-surround.git'
+Bundle 'evanmiller/nginx-vim-syntax'
 
 " ### Bundle Configs
 
@@ -39,12 +40,13 @@ let NERDTreeIgnore = ['\.pyc$', '\.bak$']
 nmap <F9> :TagbarToggle<CR>
 
 " CtrlP
-let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_working_path_mode = 'r'
 
 " Python.vim
 let python_highlight_all = 1 
 
 " Syntastic
+let g:syntastic_python_checkers=['flake8']
 let g:syntastic_auto_loc_list=1
 let g:syntastic_loc_list_height=5
 
@@ -83,7 +85,7 @@ set colorcolumn=80
 set nowrap
 
 syntax enable
-set gfn=Ubuntu\ Mono\ 10
+set gfn=Ubuntu\ Mono\ 12
 set nu
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
@@ -102,7 +104,7 @@ if has('gui_running')
     colorscheme Mustang
     "set lines=43 columns=140
     set lines=999 columns=999
-    set nomousehide
+    set mousehide
 else
     "set background=dark
     colorscheme elflord
@@ -153,16 +155,16 @@ map k gk
 let mapleader = ","
 
 " Add the virtualenv's site-packages to vim path
-py << EOF
-import os.path
-import sys
-import vim
-if 'VIRTUAL_ENV' in os.environ:
-    project_base_dir = os.environ['VIRTUAL_ENV']
-    sys.path.insert(0, project_base_dir)
-    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-    execfile(activate_this, dict(__file__=activate_this))
-EOF
+"py << EOF
+"import os.path
+"import sys
+"import vim
+"if 'VIRTUAL_ENV' in os.environ:
+"    project_base_dir = os.environ['VIRTUAL_ENV']
+"    sys.path.insert(0, project_base_dir)
+"    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+"    execfile(activate_this, dict(__file__=activate_this))
+"EOF
 
 filetype plugin indent on
 filetype plugin on
