@@ -22,6 +22,7 @@ Bundle 'mattn/emmet-vim'
 Bundle 'aklt/plantuml-syntax'
 Bundle 'tpope/vim-surround.git'
 Bundle 'evanmiller/nginx-vim-syntax'
+Bundle 'Valloric/YouCompleteMe'
 
 " ### Bundle Configs
 
@@ -38,6 +39,9 @@ let NERDTreeIgnore = ['\.pyc$', '\.bak$']
 
 " TAGBAR
 nmap <F9> :TagbarToggle<CR>
+let g:tagbar_sort = 0
+let g:tagbar_compact = 1
+
 
 " CtrlP
 let g:ctrlp_working_path_mode = 'r'
