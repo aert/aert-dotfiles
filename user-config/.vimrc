@@ -176,8 +176,9 @@ filetype plugin on
 " ### MY KEY MAPPINGS
 " ###################
 
-nnoremap ,p :tabprevious<CR>
-nnoremap ,n :tabnext<CR>
+nnoremap ,h :tabprevious<CR>
+nnoremap ,l :tabnext<CR>
+nnoremap ,d :NERDTreeToggle<CR>
 
 " ,cd to change to current file dir & print pwd
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
