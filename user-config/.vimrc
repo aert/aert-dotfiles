@@ -89,7 +89,8 @@ set colorcolumn=80
 set nowrap
 
 syntax enable
-set gfn=Ubuntu\ Mono\ 12
+"set gfn=Ubuntu\ Mono\ 12
+set gfn=Monaco\ 10
 set nu
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
