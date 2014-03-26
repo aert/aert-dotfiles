@@ -1,0 +1,52 @@
+{
+	"bold_folder_labels": true,
+	"caret_style": "solid",
+	"close_windows_when_empty": false,
+	"color_scheme": "Packages/User/Tomorrow-Night (SL).tmTheme",
+	"enable_telemetry": false,
+	"ensure_newline_at_eof_on_save": true,
+	"file_exclude_patterns":
+	[
+		".coverage",
+		"*.pid",
+		"*.pyc"
+	],
+	"find_selected_text": true,
+	"fold_buttons": false,
+	"folder_exclude_patterns":
+	[
+		".svn",
+		".idea",
+		"*.egg",
+		"*.egg-info",
+		".git",
+		".hg",
+		"CVS",
+		"_build",
+		"dist",
+		"build",
+		"__pycache__"
+	],
+	"font_face": "Ubuntu Mono",
+	"font_options":
+	[
+		"subpixel_antialias"
+	],
+	"font_size": 13.0,
+	"highlight_line": true,
+	"highlight_modified_tabs": true,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	//"preview_on_click": false,
+	"rulers":
+	[
+		79
+	],
+	"tab_size": 4,
+	"theme": "Soda Dark.sublime-theme",
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": true,
+	"wrap_width": 80
+}
