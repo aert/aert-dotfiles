@@ -1,6 +1,4 @@
 [user]
-	name = {{git.name}}
-	email = {{git.email}}
 [color]
     status = auto
     ui = auto
@@ -14,6 +12,13 @@
     di = diff --color-words
     pe = diff --stat 
     st = status
+    unstage = reset HEAD --
+    # resets all uncomitted changes and files
+    abort = reset --hard HEAD
+    # shows diff only for files staged to commit
+    di-staged = diff --cached
+    # change last commit message
+    recommit = commit --amend
 [merge]
     tool = diffuse
 [diff]
