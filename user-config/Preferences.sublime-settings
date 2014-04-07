@@ -24,8 +24,6 @@
 		".hg",
 		"CVS",
 		"_build",
-		"dist",
-		"build",
 		"__pycache__"
 	],
 	"font_face": "Ubuntu Mono",
@@ -36,10 +34,12 @@
 	"font_size": 13.0,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
+	"hot_exit": false,
 	"ignored_packages":
 	[
 		"Vintage"
 	],
+	"remember_open_files": false,
 	"rulers":
 	[
 		79
@@ -48,6 +48,5 @@
 	"tab_size": 4,
 	"theme": "Soda Dark.sublime-theme",
 	"translate_tabs_to_spaces": true,
-	"trim_trailing_white_space_on_save": true,
-	//"wrap_width": 80
+	"trim_trailing_white_space_on_save": true
 }
