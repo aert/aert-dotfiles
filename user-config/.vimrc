@@ -31,6 +31,8 @@ Bundle 'Raimondi/delimitMate'
 Bundle 'elzr/vim-json'
 Bundle 'maksimr/vim-jsbeautify'
 Bundle 'einars/js-beautify'
+Bundle 'digitaltoad/vim-jade'
+Bundle 'groenewege/vim-less'
 
 
 " ### Bundle Configs
@@ -111,8 +113,8 @@ set colorcolumn=80
 set nowrap
 
 syntax enable
-"set gfn=Ubuntu\ Mono\ 12
-set gfn=Monaco\ 10
+set gfn=Ubuntu\ Mono\ 10
+"set gfn=Monaco\ 10
 set nu
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
@@ -132,6 +134,7 @@ if has('gui_running')
     "set lines=43 columns=140
     set lines=999 columns=999
     set mousehide
+    set guioptions-=T
 else
     "set background=dark
     colorscheme elflord
