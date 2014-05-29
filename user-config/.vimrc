@@ -112,9 +112,12 @@ set cursorline
 set colorcolumn=80 
 set nowrap
 
+" this turns off physical line wrapping (ie: automatic insertion of newlines)
+set textwidth=0 wrapmargin=0
+
 syntax enable
-set gfn=Ubuntu\ Mono\ 10
-"set gfn=Monaco\ 10
+"set gfn=Ubuntu\ Mono\ 10
+set gfn=Monaco\ 10
 set nu
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
