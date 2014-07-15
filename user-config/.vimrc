@@ -2,6 +2,8 @@
 " ###########
 filetype off
 
+let $PATH=$PATH . ':$(npm bin)'
+
 set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 
@@ -33,6 +35,9 @@ Bundle 'maksimr/vim-jsbeautify'
 Bundle 'einars/js-beautify'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'groenewege/vim-less'
+Bundle 'fholgado/minibufexpl.vim'
+Bundle 'sjl/gundo.vim'
+Bundle 'mileszs/ack.vim'
 
 
 " ### Bundle Configs
@@ -76,11 +81,17 @@ let b:surround_{char2nr("f")} = "{% for \1for loop: \1 %}\r{% endfor %}"
 let b:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
 
 " YCM
+" Settings from https://code.djangoproject.com/wiki/UsingVimWithDjango
+let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
+let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
+let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
+let g:ycm_complete_in_comments = 1 " Completion in comments
+let g:ycm_complete_in_strings = 1 " Completion in string
 " These are the tweaks I apply to YCM's config, you don't need them but they might help.
 " YCM gives you popups and splits by default that some people might not like, so these should tidy it up a bit for you.
-let g:ycm_add_preview_to_completeopt=0
-let g:ycm_confirm_extra_conf=0
-set completeopt-=preview
+"let g:ycm_add_preview_to_completeopt=0
+"let g:ycm_confirm_extra_conf=0
+"set completeopt-=preview
 
 
 " Js Beautifier
@@ -114,6 +125,10 @@ set nowrap
 
 " this turns off physical line wrapping (ie: automatic insertion of newlines)
 set textwidth=0 wrapmargin=0
+
+" Foldmethod
+set foldmethod=indent
+set foldlevel=99
 
 syntax enable
 "set gfn=Ubuntu\ Mono\ 10
@@ -208,6 +223,8 @@ filetype plugin on
 nnoremap ,h :tabprevious<CR>
 nnoremap ,l :tabnext<CR>
 nnoremap ,d :NERDTreeToggle<CR>
+nnoremap <F5> :GundoToggle<CR>
+nmap <leader>a <Esc>:Ack!
 
 " ,cd to change to current file dir & print pwd
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
