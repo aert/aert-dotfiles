@@ -1,3 +1,10 @@
+" Reruirements
+" ============
+"
+" * pip install rst2ctags
+"
+"
+
 " ### Vundle
 " ###########
 filetype off
@@ -11,7 +18,7 @@ Bundle 'gmarik/vundle'
 
 " My Bundles
 Bundle 'tpope/vim-fugitive'
-Bundle 'aert/vim-powerline'
+"Bundle 'aert/vim-powerline'
 Bundle 'scrooloose/nerdtree'
 Bundle 'majutsushi/tagbar'
 Bundle 'davidhalter/jedi-vim'
@@ -38,6 +45,10 @@ Bundle 'groenewege/vim-less'
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'mileszs/ack.vim'
+Bundle 'bling/vim-airline'
+Bundle 'tpope/vim-rails'
+Bundle 'lukaszkorecki/CoffeeTags'
+
 
 
 " ### Bundle Configs
@@ -157,6 +168,22 @@ else
     "set background=dark
     colorscheme elflord
 endif
+
+" RST
+let g:tagbar_type_rst = {
+    \ 'ctagstype': 'rst',
+    \ 'ctagsbin' : '~/bin/rst2ctags.py',
+    \ 'ctagsargs' : '-f - --sort=yes',
+    \ 'kinds' : [
+        \ 's:sections',
+        \ 'i:images'
+    \ ],
+    \ 'sro' : '|',
+    \ 'kind2scope' : {
+        \ 's' : 'section',
+    \ },
+    \ 'sort': 0,
+\ }
 
 " ### Settings from https://github.com/tmacwill/vimrc/blob/master/.vimrc
 
