@@ -24,5 +24,7 @@ export PATH=~/bin:~/bin/android-studio/sdk/platform-tools:~/bin/android-studio/s
 export PATH=~/bin/gradle-1.10/bin:$PATH
 alias npm-exec='PATH=$(npm bin):$PATH'
 alias bower-exec='npm-exec bower'
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+#export PATH="$HOME/.rbenv/bin:$PATH"
+#eval "$(rbenv init -)"
+
+alias ouvrir='xdg-open'
