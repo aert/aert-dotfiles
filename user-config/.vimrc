@@ -48,14 +48,14 @@ Bundle 'mileszs/ack.vim'
 Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-rails'
 Bundle 'lukaszkorecki/CoffeeTags'
-
+Bundle 'croaker/mustang-vim'
 
 
 " ### Bundle Configs
 
 " Powerline
 set laststatus=2 
-set fillchars+=stl:\ ,stlnc:\
+"set fillchars+=stl:\ ,stlnc:\
 set encoding=utf-8
 
 " NerdTree
@@ -110,6 +110,9 @@ autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
 autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 
+" Vim Airline
+let g:airline_powerline_fonts=1
+
 " ### My Personal Config
 " ######################
 
@@ -156,10 +159,10 @@ autocmd FileType vim set omnifunc=syntaxcomplete#Complete
 autocmd BufEnter * silent! lcd %:p:h
 
 if has('gui_running')
-    "colorscheme solarized
-    "set background=dark
+    colorscheme solarized
+    set background=dark
     "colorscheme herald
-    colorscheme Mustang
+    "colorscheme mustang
     "set lines=43 columns=140
     set lines=999 columns=999
     set mousehide
