@@ -1,4 +1,4 @@
-" Reruirements
+" Requirements
 " ============
 "
 " * pip install rst2ctags
@@ -18,14 +18,14 @@ Bundle 'gmarik/vundle'
 
 " My Bundles
 Bundle 'tpope/vim-fugitive'
-"Bundle 'aert/vim-powerline'
+Bundle 'aert/vim-powerline'
 Bundle 'scrooloose/nerdtree'
 Bundle 'majutsushi/tagbar'
 Bundle 'davidhalter/jedi-vim'
 Bundle 'scrooloose/syntastic'
-Bundle 'saltstack/salt-vim'
+"Bundle 'saltstack/salt-vim'
 Bundle 'kien/ctrlp.vim'
-Bundle "hdima/python-syntax"
+"Bundle "hdima/python-syntax"
 Bundle 'vim-scripts/Align'
 Bundle 'mattn/emmet-vim'
 Bundle 'aklt/plantuml-syntax'
@@ -36,19 +36,20 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'jelera/vim-javascript-syntax'
 Bundle 'pangloss/vim-javascript'
 Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'Raimondi/delimitMate'
+"Bundle 'Raimondi/delimitMate'
 Bundle 'elzr/vim-json'
-Bundle 'maksimr/vim-jsbeautify'
+"Bundle 'maksimr/vim-jsbeautify'
 Bundle 'einars/js-beautify'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'groenewege/vim-less'
-Bundle 'fholgado/minibufexpl.vim'
+"Bundle 'fholgado/minibufexpl.vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'mileszs/ack.vim'
-Bundle 'bling/vim-airline'
-Bundle 'tpope/vim-rails'
+"Bundle 'bling/vim-airline'
+"Bundle 'tpope/vim-rails'
 Bundle 'lukaszkorecki/CoffeeTags'
 Bundle 'croaker/mustang-vim'
+Bundle 'airblade/vim-gitgutter'
 
 
 " ### Bundle Configs
@@ -111,7 +112,7 @@ autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
 autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 
 " Vim Airline
-let g:airline_powerline_fonts=1
+"let g:airline_powerline_fonts=1
 
 " ### My Personal Config
 " ######################
@@ -147,6 +148,7 @@ set foldlevel=99
 syntax enable
 "set gfn=Ubuntu\ Mono\ 10
 set gfn=Monaco\ 10
+"set gfn=Fira\ Mono\ 10
 set nu
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
