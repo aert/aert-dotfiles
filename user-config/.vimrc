@@ -50,6 +50,7 @@ Bundle 'mileszs/ack.vim'
 Bundle 'lukaszkorecki/CoffeeTags'
 Bundle 'croaker/mustang-vim'
 Bundle 'airblade/vim-gitgutter'
+Bundle 'jnurmine/Zenburn'
 
 
 " ### Bundle Configs
@@ -114,6 +115,9 @@ autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 " Vim Airline
 "let g:airline_powerline_fonts=1
 
+" Indent Guide
+let g:indent_guides_guide_size=1
+
 " ### My Personal Config
 " ######################
 
@@ -161,8 +165,9 @@ autocmd FileType vim set omnifunc=syntaxcomplete#Complete
 autocmd BufEnter * silent! lcd %:p:h
 
 if has('gui_running')
-    colorscheme solarized
-    set background=dark
+    "colorscheme solarized
+    "set background=dark
+    colorscheme zenburn
     "colorscheme herald
     "colorscheme mustang
     "set lines=43 columns=140
