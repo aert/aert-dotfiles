@@ -51,6 +51,7 @@ Bundle 'lukaszkorecki/CoffeeTags'
 Bundle 'croaker/mustang-vim'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'jnurmine/Zenburn'
+Bundle 'chrisbra/NrrwRgn'
 
 
 " ### Bundle Configs
