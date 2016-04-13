@@ -52,9 +52,20 @@ Bundle 'croaker/mustang-vim'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'jnurmine/Zenburn'
 Bundle 'chrisbra/NrrwRgn'
+Bundle 'mxw/vim-jsx'
+Bundle 'easymotion/vim-easymotion'
+Bundle 'moll/vim-node'
+Bundle 'othree/javascript-libraries-syntax.vim'
+Bundle 'jiangmiao/auto-pairs'
 
 
 " ### Bundle Configs
+
+" javascript-libraries-syntax
+let g:used_javascript_libs = 'jquery,underscore,react,requirejs'
+
+" "vim-jsx
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
 " Powerline
 set laststatus=2 
@@ -65,7 +76,7 @@ set encoding=utf-8
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 nmap <silent> <F8> :NERDTreeToggle<CR>
 let NERDTreeShowBookmarks=1
-let NERDTreeIgnore = ['\.pyc$', '\.bak$']
+let NERDTreeIgnore = ['\.pyc$', '\.bak$', 'node_modules']
 
 " TAGBAR
 nmap <F9> :TagbarToggle<CR>
@@ -80,6 +91,7 @@ let g:ctrlp_working_path_mode = 'r'
 let python_highlight_all = 1 
 
 " Syntastic
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_auto_loc_list=1
 let g:syntastic_loc_list_height=5
@@ -122,6 +134,8 @@ let g:indent_guides_guide_size=1
 " ### My Personal Config
 " ######################
 
+set clipboard=unnamedplus
+
 " Django
 autocmd BufEnter *html map <F10> :setfiletype htmldjango<CR>
 autocmd BufEnter *html map <S-F10> :setfiletype django<CR>
@@ -152,13 +166,14 @@ set foldlevel=99
 
 syntax enable
 "set gfn=Ubuntu\ Mono\ 10
-set gfn=Monaco\ 10
+set gfn=Consolas\ 11
 "set gfn=Fira\ Mono\ 10
 set nu
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown,ctp set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType javascript setl sw=2 sts=2 et
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php,ctp set omnifunc=phpcomplete#CompletePHP
 autocmd FileType vim set omnifunc=syntaxcomplete#Complete
@@ -175,6 +190,8 @@ if has('gui_running')
     set lines=999 columns=999
     set mousehide
     set guioptions-=T
+    set guioptions-=r
+    set guioptions-=L
 else
     "set background=dark
     colorscheme elflord
