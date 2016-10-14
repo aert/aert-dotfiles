@@ -2,7 +2,7 @@
 " ============
 "
 " * pip install rst2ctags
-"
+" * apt-get install ack-grep
 "
 
 " ### Vundle
@@ -18,48 +18,59 @@ Bundle 'gmarik/vundle'
 
 " My Bundles
 Bundle 'tpope/vim-fugitive'
-Bundle 'aert/vim-powerline'
+"Bundle 'aert/vim-powerline'
+Bundle 'vim-airline/vim-airline'
+Bundle 'vim-airline/vim-airline-themes'
 Bundle 'scrooloose/nerdtree'
 Bundle 'majutsushi/tagbar'
 Bundle 'davidhalter/jedi-vim'
 Bundle 'scrooloose/syntastic'
 "Bundle 'saltstack/salt-vim'
 Bundle 'kien/ctrlp.vim'
-"Bundle "hdima/python-syntax"
+"Bundle 'hdima/python-syntax'
 Bundle 'vim-scripts/Align'
-Bundle 'mattn/emmet-vim'
-Bundle 'aklt/plantuml-syntax'
+"Bundle 'mattn/emmet-vim'
+"Bundle 'aklt/plantuml-syntax'
 Bundle 'tpope/vim-surround.git'
 Bundle 'evanmiller/nginx-vim-syntax'
-Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Valloric/YouCompleteMe'
 Bundle 'kchmck/vim-coffee-script'
-Bundle 'jelera/vim-javascript-syntax'
+"Bundle 'jelera/vim-javascript-syntax'
 Bundle 'pangloss/vim-javascript'
 Bundle 'nathanaelkane/vim-indent-guides'
 "Bundle 'Raimondi/delimitMate'
-Bundle 'elzr/vim-json'
-"Bundle 'maksimr/vim-jsbeautify'
+"Bundle 'elzr/vim-json'
 Bundle 'einars/js-beautify'
-Bundle 'digitaltoad/vim-jade'
-Bundle 'groenewege/vim-less'
+"Bundle 'digitaltoad/vim-jade'
+"Bundle 'groenewege/vim-less'
 "Bundle 'fholgado/minibufexpl.vim'
 Bundle 'sjl/gundo.vim'
-Bundle 'mileszs/ack.vim'
+Bundle 'dyng/ctrlsf.vim'
 "Bundle 'bling/vim-airline'
 "Bundle 'tpope/vim-rails'
 Bundle 'lukaszkorecki/CoffeeTags'
 Bundle 'croaker/mustang-vim'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'jnurmine/Zenburn'
-Bundle 'chrisbra/NrrwRgn'
+"Bundle 'chrisbra/NrrwRgn'
 Bundle 'mxw/vim-jsx'
 Bundle 'easymotion/vim-easymotion'
 Bundle 'moll/vim-node'
 Bundle 'othree/javascript-libraries-syntax.vim'
 Bundle 'jiangmiao/auto-pairs'
-
+Bundle 'gcmt/taboo.vim'
+Bundle 'xolox/vim-misc'
+Bundle 'xolox/vim-session'
+"Bundle 'vim-scripts/AnsiEsc.vim'
+Bundle 'sickill/vim-monokai'
 
 " ### Bundle Configs
+" Taboo
+set guioptions-=e
+let g:taboo_tab_format = ' %N-%f%m '
+
+" Airline
+let g:airline_theme = 'wombat'
 
 " javascript-libraries-syntax
 let g:used_javascript_libs = 'jquery,underscore,react,requirejs'
@@ -82,7 +93,6 @@ let NERDTreeIgnore = ['\.pyc$', '\.bak$', 'node_modules']
 nmap <F9> :TagbarToggle<CR>
 let g:tagbar_sort = 0
 let g:tagbar_compact = 1
-
 
 " CtrlP
 let g:ctrlp_working_path_mode = 'r'
@@ -119,11 +129,14 @@ let g:ycm_complete_in_strings = 1 " Completion in string
 "let g:ycm_confirm_extra_conf=0
 "set completeopt-=preview
 
+" CtrlSF
+let g:ctrlsf_default_root='project'
+
 
 " Js Beautifier
-autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
-autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+"autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+"autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+"autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 
 " Vim Airline
 "let g:airline_powerline_fonts=1
@@ -131,25 +144,36 @@ autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 " Indent Guide
 let g:indent_guides_guide_size=1
 
+" Taboo
+set ssop-=folds      " do not store folds
+set ssop+=tabpages,globals
+
+" vim-session
+let g:session_autosave='no'
+let g:session_autoload='no'
+
 " ### My Personal Config
 " ######################
 
 set clipboard=unnamedplus
 
+" Tabs
+:set guitablabel=%N\ %f
+
 " Django
-autocmd BufEnter *html map <F10> :setfiletype htmldjango<CR>
-autocmd BufEnter *html map <S-F10> :setfiletype django<CR>
+"autocmd BufEnter *html map <F10> :setfiletype htmldjango<CR>
+"autocmd BufEnter *html map <S-F10> :setfiletype django<CR>
 
 " Automatic reloading of .vimrc
-autocmd! bufwritepost .vimrc source %
+"autocmd! bufwritepost .vimrc source %
 set ignorecase
 
 " Better copy & paste
 set pastetoggle=<F3>
-set clipboard=unnamed
+"set clipboard=unnamed
 
 " MACROS
-let @t='i( ) TASK ``+categ @=system(''date -u -Iseconds'')kJi``hhvhhhhxhhhxhhhxhhhr-hhhxhhhx'
+"let @t='i( ) TASK ``+categ @=system(''date -u -Iseconds'')kJi``hhvhhhhxhhhxhhhxhhhr-hhhxhhhx'
 
 " Ignore some file
 set wildignore=*.swp,*.bak,*.pyc,*.class
@@ -169,14 +193,14 @@ syntax enable
 set gfn=Consolas\ 11
 "set gfn=Fira\ Mono\ 10
 set nu
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown,ctp set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType javascript setl sw=2 sts=2 et
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php,ctp set omnifunc=phpcomplete#CompletePHP
-autocmd FileType vim set omnifunc=syntaxcomplete#Complete
+"autocmd FileType python set omnifunc=pythoncomplete#Complete
+"autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+"autocmd FileType html,markdown,ctp set omnifunc=htmlcomplete#CompleteTags
+"autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+"autocmd FileType javascript setl sw=2 sts=2 et
+"autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+"autocmd FileType php,ctp set omnifunc=phpcomplete#CompletePHP
+"autocmd FileType vim set omnifunc=syntaxcomplete#Complete
 
 autocmd BufEnter * silent! lcd %:p:h
 
@@ -215,13 +239,13 @@ let g:tagbar_type_rst = {
 
 " ### Settings from https://github.com/tmacwill/vimrc/blob/master/.vimrc
 
-" Expand tabs to 4 spaces
-set shiftwidth=4
-set tabstop=4
+" Expand tabs to 2 spaces
+set shiftwidth=2
+set tabstop=2
 set smarttab
 set expandtab
 set textwidth=79
-set softtabstop=4
+set softtabstop=2
 set shiftround
 
 " disable backups
@@ -240,6 +264,10 @@ set scrolloff=5
 
 " enable mouse support
 set mouse=a
+if &term =~ '^screen'
+    " tmux knows the extended mouse mode
+    set ttymouse=xterm2
+endif
 
 " close buffer when tab is closed
 set nohidden
@@ -278,6 +306,7 @@ filetype plugin on
 nnoremap ,h :tabprevious<CR>
 nnoremap ,l :tabnext<CR>
 nnoremap ,d :NERDTreeToggle<CR>
+nnoremap ,f :CtrlSF 
 nnoremap <F5> :GundoToggle<CR>
 nmap <leader>a <Esc>:Ack!
 
