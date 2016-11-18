@@ -9,7 +9,8 @@
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #ZSH_THEME="robbyrussell"
 #ZSH_THEME="agnoster"
-ZSH_THEME="cloud"
+#ZSH_THEME="cloud"
+ZSH_THEME="amuse"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -53,7 +54,7 @@ ZSH_THEME="cloud"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git encode64 aws rails)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -91,30 +92,24 @@ export WORKON_HOME=~/Code/.envs
 export PROJECT_HOME=~/Code
 source /usr/local/bin/virtualenvwrapper.sh
 
-export ANDROID_HOME=~/bin/android-studio/sdk
+source /usr/etc/git-extras-completion.zsh
+
+export ANDROID_HOME=~/Android/Sdk
 export PATH=~/bin:~/bin/android-studio/sdk/platform-tools:~/bin/android-studio/sdk/tools:$PATH
 export PATH=~/bin/gradle-1.10/bin:$PATH
 alias npm-exec='PATH=$(npm bin):$PATH'
 alias bower-exec='npm-exec bower'
 
 export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 eval "$(rbenv init -)"
 
 alias ouvrir='xdg-open'
 alias cdgit='cd $(git rev-parse --show-cdup)'
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 [ -s "/home/ari/.dnx/dnvm/dnvm.sh" ] && . "/home/ari/.dnx/dnvm/dnvm.sh" # Load dnvm
 
 export NVM_DIR="/home/ari/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-# History Search
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-
-bindkey  '^[[A'  history-beginning-search-backward-end
-bindkey  '^[[B'  history-beginning-search-forward-end
-
-# make Ctrl+U delete from cursor to the beginning of the line
-bindkey \^U backward-kill-line

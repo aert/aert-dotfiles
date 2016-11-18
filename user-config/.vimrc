@@ -63,6 +63,7 @@ Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-session'
 "Bundle 'vim-scripts/AnsiEsc.vim'
 Bundle 'sickill/vim-monokai'
+Bundle 'jpo/vim-railscasts-theme'
 
 " ### Bundle Configs
 " Taboo
@@ -189,9 +190,10 @@ set foldmethod=indent
 set foldlevel=99
 
 syntax enable
-"set gfn=Ubuntu\ Mono\ 10
-set gfn=Consolas\ 11
-"set gfn=Fira\ Mono\ 10
+"set gfn=Ubuntu\ Mono\ 13
+"set gfn=Consolas\ 11
+"set gfn=Fira\ Code\ Medium\ 13
+set gfn=Fira\ Mono\ Medium\ 11
 set nu
 "autocmd FileType python set omnifunc=pythoncomplete#Complete
 "autocmd FileType css set omnifunc=csscomplete#CompleteCSS
@@ -204,18 +206,25 @@ set nu
 
 autocmd BufEnter * silent! lcd %:p:h
 
+" add jbuilder syntax highlighting
+au BufNewFile,BufRead *.json.jbuilder set ft=ruby
+
+colorscheme railscasts
+
 if has('gui_running')
     "colorscheme solarized
-    "set background=dark
-    colorscheme zenburn
+    "set background=light
+    "colorscheme zenburn
     "colorscheme herald
     "colorscheme mustang
     "set lines=43 columns=140
     set lines=999 columns=999
     set mousehide
+    set guioptions-=m
     set guioptions-=T
     set guioptions-=r
     set guioptions-=L
+    set ghr=0
 else
     "set background=dark
     colorscheme elflord
@@ -306,6 +315,7 @@ filetype plugin on
 nnoremap ,h :tabprevious<CR>
 nnoremap ,l :tabnext<CR>
 nnoremap ,d :NERDTreeToggle<CR>
+nnoremap ,t :TagbarToggle<CR>
 nnoremap ,f :CtrlSF 
 nnoremap <F5> :GundoToggle<CR>
 nmap <leader>a <Esc>:Ack!
