@@ -90,7 +90,7 @@ source $ZSH/oh-my-zsh.sh
 # --- AERT --------------------------------------------------------------------
 
 export WORKON_HOME=~/Code/.envs
-export PROJECT_HOME=~/Code
+export PROJECT_HOME=~/Code/venv
 source /usr/local/bin/virtualenvwrapper.sh
 
 source /usr/etc/git-extras-completion.zsh

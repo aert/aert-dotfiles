@@ -47,7 +47,6 @@ Bundle 'einars/js-beautify'
 Bundle 'sjl/gundo.vim'
 Bundle 'dyng/ctrlsf.vim'
 "Bundle 'bling/vim-airline'
-"Bundle 'tpope/vim-rails'
 Bundle 'lukaszkorecki/CoffeeTags'
 Bundle 'croaker/mustang-vim'
 Bundle 'airblade/vim-gitgutter'
@@ -64,6 +63,7 @@ Bundle 'xolox/vim-session'
 "Bundle 'vim-scripts/AnsiEsc.vim'
 Bundle 'sickill/vim-monokai'
 Bundle 'jpo/vim-railscasts-theme'
+Bundle 'tpope/vim-rails'
 
 " ### Bundle Configs
 " Taboo
@@ -315,10 +315,16 @@ filetype plugin on
 nnoremap ,h :tabprevious<CR>
 nnoremap ,l :tabnext<CR>
 nnoremap ,d :NERDTreeToggle<CR>
+nnoremap ,e :tabnew<CR>
+nnoremap ,n :NERDTreeFind<CR>
 nnoremap ,t :TagbarToggle<CR>
 nnoremap ,f :CtrlSF 
+nnoremap ,,,f CtrlSFToggle
+vmap     ,f <Plug>CtrlSFVwordPath
 nnoremap <F5> :GundoToggle<CR>
 nmap <leader>a <Esc>:Ack!
+nnoremap ,p :CtrlPTag<CR>
+nmap s <Plug>(easymotion-overwin-f)
 
 " ,cd to change to current file dir & print pwd
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
