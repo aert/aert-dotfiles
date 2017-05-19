@@ -106,11 +106,18 @@ export PATH="$HOME/.local/bin:$PATH"
 eval "$(rbenv init -)"
 
 alias ouvrir='xdg-open'
+alias cb='xclip -sel clip'
 alias cdgit='cd $(git rev-parse --show-cdup)'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-[ -s "/home/ari/.dnx/dnvm/dnvm.sh" ] && . "/home/ari/.dnx/dnvm/dnvm.sh" # Load dnvm
+#[ -s "/home/ari/.dnx/dnvm/dnvm.sh" ] && . "/home/ari/.dnx/dnvm/dnvm.sh" # Load dnvm
 
 export NVM_DIR="/home/ari/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/Code/gowork
+export PATH="$HOME/.cargo/bin:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
