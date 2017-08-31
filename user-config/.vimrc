@@ -33,7 +33,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'ctrlpvim/ctrlp.vim'
 "Bundle 'hdima/python-syntax'
 Bundle 'vim-scripts/Align'
-"Bundle 'mattn/emmet-vim'
+Bundle 'mattn/emmet-vim'
 "Bundle 'aklt/plantuml-syntax'
 Bundle 'tpope/vim-surround.git'
 Bundle 'evanmiller/nginx-vim-syntax'
@@ -74,8 +74,15 @@ Plugin 'fatih/vim-go'
 Plugin 'sbdchd/neoformat'
 Plugin 'flowtype/vim-flow'
 Plugin 'galooshi/vim-import-js'
+Plugin 'mtscout6/syntastic-local-eslint.vim'
+Plugin 'tpope/vim-endwise.git'
+Plugin 'scrooloose/nerdcommenter'
 
 " ### Bundle Configs
+
+" Emmet
+autocmd FileType html,css,javascript.jsx EmmetInstall
+
 " Taboo
 set guioptions-=e
 let g:taboo_tab_format = ' %N-%f%m '
@@ -117,7 +124,7 @@ let g:tagbar_compact = 1
 
 " CtrlP
 let g:ctrlp_working_path_mode = 'r'
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|vendor|target|dist)|(\.(swp|ico|git|svn))$'
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|vendor|target|dist|coverage|build)|(\.(swp|ico|git|svn))$'
 
 " Python.vim
 let python_highlight_all = 1 
@@ -156,10 +163,20 @@ let g:ycm_complete_in_strings = 1 " Completion in string
 "let g:ycm_add_preview_to_completeopt=0
 "let g:ycm_confirm_extra_conf=0
 "set completeopt-=preview
+"
+" Flow
+let g:flow#autoclose = 1
 
 " CtrlSF
 let g:ctrlsf_default_root='project'
-
+let g:ctrlsf_auto_close = 1
+let g:ctrlsf_default_view_mode = 'compact'
+let g:ctrlsf_mapping = {
+    \ "split"   : "i",
+    \ "vsplit"  : "s",
+    \ "tab"     : "t",
+    \ }
+let g:ctrlsf_ignore_dir = ["node_modules", "coverage", "dist", "vendor", "target", "build"]
 
 " Js Beautifier
 "autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
@@ -194,10 +211,10 @@ let g:go_highlight_build_constraints = 1
 " NeoFormat
 let g:neoformat_enabled_javascript = ['prettier']
 let g:neoformat_enabled_ruby = ['rubocop']
-let g:neoformat_enabled_css = ['csscomb']
-let g:neoformat_enabled_sass = ['csscomb']
-let g:neoformat_enabled_scss = ['csscomb']
-let g:neoformat_enabled_less = ['csscomb']
+let g:neoformat_enabled_css = ['prettier']
+let g:neoformat_enabled_sass = ['prettier']
+let g:neoformat_enabled_scss = ['prettier']
+let g:neoformat_enabled_less = ['prettier']
 augroup fmt
   autocmd!
   autocmd BufWritePre * Neoformat
@@ -241,7 +258,7 @@ set foldlevel=99
 syntax enable
 "set gfn=Ubuntu\ Mono\ 13
 "set gfn=Consolas\ 11
-set gfn=Fira\ Mono\ Medium\ 12
+set gfn=Fira\ Mono\ Medium\ 11
 set nu
 set relativenumber
 "autocmd FileType python set omnifunc=pythoncomplete#Complete
@@ -259,13 +276,13 @@ autocmd BufEnter * silent! lcd %:p:h
 au BufNewFile,BufRead *.json.jbuilder set ft=ruby
 
 if has('gui_running')
-    colorscheme solarized
-    set background=dark
+    "colorscheme solarized
+    "set background=dark
     "set background=light
     "colorscheme zenburn
     "colorscheme herald
     "colorscheme mustang
-    "colorscheme railscasts
+    colorscheme railscasts
     "set lines=43 columns=140
     set lines=999 columns=999
     set mousehide
@@ -275,8 +292,12 @@ if has('gui_running')
     set guioptions-=L
     set ghr=0
 else
-    colorscheme default
-    "set background=dark
+    "colorscheme monokai
+    colorscheme koehler
+    let g:solarized_termcolors=256
+    hi TabLineFill ctermfg=LightGreen ctermbg=NONE
+    hi TabLine ctermfg=Grey ctermbg=NONE
+    hi TabLineSel ctermfg=White ctermbg=NONE
 endif
 
 set colorcolumn=80 
@@ -365,6 +386,7 @@ filetype plugin on
 " ### MY KEY MAPPINGS
 " ###################
 
+nnoremap ,c :let @+ = expand("%:p").":".line('.')<cr>
 nnoremap ,h :tabprevious<CR>
 nnoremap ,l :tabnext<CR>
 nnoremap ,d :NERDTreeToggle<CR>
@@ -372,12 +394,13 @@ nnoremap ,e :tabnew<CR>
 nnoremap ,n :NERDTreeFind<CR>
 nnoremap ,t :TagbarToggle<CR>
 nnoremap ,f :CtrlSF 
-nnoremap ,,,f CtrlSFToggle
-vmap     ,f <Plug>CtrlSFVwordPath
+nnoremap ,,,f :CtrlSFToggle<CR>
+vmap     ,f <Plug>CtrlSFVwordExec
+vmap     ,,f <Plug>CtrlSFVwordPath
 "nnoremap <F5> :GundoToggle<CR>
-nmap <leader>a <Esc>:Ack!
 nnoremap ,p :CtrlPTag<CR>
 nmap s <Plug>(easymotion-overwin-f)
+nnoremap ,r :YcmCompleter GoToReferences<CR>
 
 " ,cd to change to current file dir & print pwd
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>

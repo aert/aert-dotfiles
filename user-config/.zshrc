@@ -55,7 +55,7 @@ ZSH_THEME="miloshadzic"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git encode64 aws rails)
+plugins=(git encode64 aws rake-fast rails)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -110,8 +110,6 @@ alias cb='xclip -sel clip'
 alias cdgit='cd $(git rev-parse --show-cdup)'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-#[ -s "/home/ari/.dnx/dnvm/dnvm.sh" ] && . "/home/ari/.dnx/dnvm/dnvm.sh" # Load dnvm
-
 export NVM_DIR="/home/ari/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
@@ -121,3 +119,4 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+eval "$(direnv hook zsh)"
