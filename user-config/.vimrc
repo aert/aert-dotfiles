@@ -9,10 +9,11 @@
 " ###########
 filetype off
 
-"let npm_bin=system('npm bin')
+let npm_bin=system('npm bin')
 "let yarn_bin="/home/ari/.nvm/versions/node/v7.8.0/bin"
 
 "let $PATH=$PATH . ":" . yarn_bin . ":" . npm_bin
+let $PATH=$PATH . ":" . npm_bin
 set shell=zsh
 
 set rtp+=~/.vim/bundle/vundle
@@ -20,75 +21,73 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 
-" My Bundles
+"### system ###################################################################
+" code analysis
+Bundle 'scrooloose/syntastic'
+Bundle 'davidhalter/jedi-vim'
+" completion
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'jiangmiao/auto-pairs'
+Plugin 'scrooloose/nerdcommenter'
+Bundle 'mattn/emmet-vim'
+" format
+Plugin 'sbdchd/neoformat'
+" git
 Bundle 'tpope/vim-fugitive'
-"Bundle 'aert/vim-powerline'
-Bundle 'vim-airline/vim-airline'
-Bundle 'vim-airline/vim-airline-themes'
+Bundle 'airblade/vim-gitgutter'
+" motion
+Bundle 'easymotion/vim-easymotion'
+Bundle 'gcmt/taboo.vim'
+" navigation
+"Bundle 'ctrlpvim/ctrlp.vim'
+Bundle 'junegunn/fzf'
+Bundle 'junegunn/fzf.vim'
+Bundle 'dyng/ctrlsf.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'majutsushi/tagbar'
-Bundle 'davidhalter/jedi-vim'
-Bundle 'scrooloose/syntastic'
-"Bundle 'saltstack/salt-vim'
-Bundle 'ctrlpvim/ctrlp.vim'
-"Bundle 'hdima/python-syntax'
-Bundle 'vim-scripts/Align'
-Bundle 'mattn/emmet-vim'
-"Bundle 'aklt/plantuml-syntax'
-Bundle 'tpope/vim-surround.git'
-Bundle 'evanmiller/nginx-vim-syntax'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'kchmck/vim-coffee-script'
-"Bundle 'jelera/vim-javascript-syntax'
-Bundle 'pangloss/vim-javascript'
-Bundle 'nathanaelkane/vim-indent-guides'
-"Bundle 'Raimondi/delimitMate'
-"Bundle 'elzr/vim-json'
-Bundle 'einars/js-beautify'
-"Bundle 'digitaltoad/vim-jade'
-"Bundle 'groenewege/vim-less'
-"Bundle 'fholgado/minibufexpl.vim'
-"Bundle 'sjl/gundo.vim'
-Bundle 'dyng/ctrlsf.vim'
-"Bundle 'bling/vim-airline'
-Bundle 'lukaszkorecki/CoffeeTags'
+" themes
 Bundle 'croaker/mustang-vim'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'jnurmine/Zenburn'
-"Bundle 'chrisbra/NrrwRgn'
-Bundle 'mxw/vim-jsx'
-Bundle 'easymotion/vim-easymotion'
-Bundle 'moll/vim-node'
-Bundle 'othree/javascript-libraries-syntax.vim'
-Bundle 'jiangmiao/auto-pairs'
-Bundle 'gcmt/taboo.vim'
-Bundle 'xolox/vim-misc'
-Bundle 'xolox/vim-session'
-"Bundle 'vim-scripts/AnsiEsc.vim'
 Bundle 'sickill/vim-monokai'
-Bundle 'jpo/vim-railscasts-theme'
-Bundle 'tpope/vim-rails'
-Bundle 'rust-lang/rust.vim'
-Bundle 'ngmy/vim-rubocop'
+Bundle 'junegunn/seoul256.vim'
+Bundle 'itchyny/lightline.vim'
+"### languages ################################################################
+" go
 Plugin 'fatih/vim-go'
-Plugin 'sbdchd/neoformat'
-Plugin 'flowtype/vim-flow'
+" javascript
 Plugin 'galooshi/vim-import-js'
 Plugin 'mtscout6/syntastic-local-eslint.vim'
+Bundle 'pangloss/vim-javascript'
+Bundle 'mxw/vim-jsx'
+Bundle 'othree/javascript-libraries-syntax.vim'
+Bundle 'einars/js-beautify'
+" rails
+Bundle 'tpope/vim-rails'
+Bundle 'ngmy/vim-rubocop'
 Plugin 'tpope/vim-endwise.git'
-Plugin 'scrooloose/nerdcommenter'
+" rust
+Bundle 'rust-lang/rust.vim'
 
-" ### Bundle Configs
+"##############################################################################
+"### Bundle Configs ###########################################################
+"##############################################################################
+
+" Go Vim
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
 
 " Emmet
 autocmd FileType html,css,javascript.jsx EmmetInstall
+let g:user_emmet_leader_key='<C-X>'
 
 " Taboo
 set guioptions-=e
 let g:taboo_tab_format = ' %N-%f%m '
 
-" Airline
-let g:airline_theme = 'wombat'
+" LightLine
+let g:lightline = {
+      \ 'colorscheme': 'seoul256',
+      \ }
+set laststatus=2 
 
 " javascript-libraries-syntax
 let g:used_javascript_libs = 'jquery,underscore,react,requirejs'
@@ -96,20 +95,9 @@ let g:used_javascript_libs = 'jquery,underscore,react,requirejs'
 " "vim-jsx
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
-" Flow
-"Use locally installed flow
-let local_flow = finddir('node_modules', '.;') . '/.bin/flow'
-if matchstr(local_flow, "^\/\\w") == ''
-    let local_flow= getcwd() . "/" . local_flow
-endif
-if executable(local_flow)
-  let g:flow#flowpath = local_flow
-endif
-
-" Powerline
-set laststatus=2 
-"set fillchars+=stl:\ ,stlnc:\
-set encoding=utf-8
+" Indent Guides
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size=1
 
 " NerdTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
@@ -121,10 +109,6 @@ let NERDTreeIgnore = ['\.pyc$', '\.bak$', 'node_modules']
 nmap <F9> :TagbarToggle<CR>
 let g:tagbar_sort = 0
 let g:tagbar_compact = 1
-
-" CtrlP
-let g:ctrlp_working_path_mode = 'r'
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|vendor|target|dist|coverage|build)|(\.(swp|ico|git|svn))$'
 
 " Python.vim
 let python_highlight_all = 1 
@@ -138,7 +122,7 @@ let g:syntastic_ruby_checkers = ['rubocop']
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_auto_loc_list=1
 let g:syntastic_loc_list_height=5
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 " Surround - Django
@@ -160,12 +144,19 @@ let g:ycm_complete_in_comments = 1 " Completion in comments
 let g:ycm_complete_in_strings = 1 " Completion in string
 " These are the tweaks I apply to YCM's config, you don't need them but they might help.
 " YCM gives you popups and splits by default that some people might not like, so these should tidy it up a bit for you.
-"let g:ycm_add_preview_to_completeopt=0
-"let g:ycm_confirm_extra_conf=0
-"set completeopt-=preview
-"
-" Flow
-let g:flow#autoclose = 1
+let g:ycm_add_preview_to_completeopt=0
+let g:ycm_confirm_extra_conf=0
+set completeopt-=preview
+
+" CtrlP
+"let g:ctrlp_working_path_mode = 'r'
+"let g:ctrlp_custom_ignore = '\v[\/](node_modules|vendor|target|dist|coverage|build)|(\.(swp|ico|git|svn))$'
+"let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+"if executable('ag')
+  "let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+"endif
+
+" Fzf
 
 " CtrlSF
 let g:ctrlsf_default_root='project'
@@ -178,24 +169,9 @@ let g:ctrlsf_mapping = {
     \ }
 let g:ctrlsf_ignore_dir = ["node_modules", "coverage", "dist", "vendor", "target", "build"]
 
-" Js Beautifier
-"autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-"autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
-"autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
-
-" Vim Airline
-"let g:airline_powerline_fonts=1
-
-" Indent Guide
-let g:indent_guides_guide_size=1
-
 " Taboo
 set ssop-=folds      " do not store folds
 set ssop+=tabpages,globals
-
-" vim-session
-let g:session_autosave='no'
-let g:session_autoload='no'
 
 " vim-go
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
@@ -228,20 +204,11 @@ set clipboard=unnamedplus
 " Tabs
 :set guitablabel=%N\ %f
 
-" Django
-"autocmd BufEnter *html map <F10> :setfiletype htmldjango<CR>
-"autocmd BufEnter *html map <S-F10> :setfiletype django<CR>
-
-" Automatic reloading of .vimrc
-"autocmd! bufwritepost .vimrc source %
 set ignorecase
 
 " Better copy & paste
 set pastetoggle=<F3>
 "set clipboard=unnamed
-
-" MACROS
-"let @t='i( ) TASK ``+categ @=system(''date -u -Iseconds'')kJi``hhvhhhhxhhhxhhhxhhhr-hhhxhhhx'
 
 " Ignore some file
 set wildignore+=*.swp,*.bak,*.pyc,*.class
@@ -254,6 +221,17 @@ set textwidth=0 wrapmargin=0
 " Foldmethod
 set foldmethod=indent
 set foldlevel=99
+
+set incsearch
+set hlsearch
+set noshowmatch
+let loaded_matchparen = 1
+set ttyfast
+set backspace=indent,eol,start
+set smartcase
+" Reselect visual block after indent/outdent
+vnoremap < <gv
+vnoremap > >gv
 
 syntax enable
 "set gfn=Ubuntu\ Mono\ 13
@@ -293,11 +271,13 @@ if has('gui_running')
     set ghr=0
 else
     "colorscheme monokai
-    colorscheme koehler
+    colorscheme seoul256
+    "let g:seoul256_background = 235
+    set background=dark
     let g:solarized_termcolors=256
-    hi TabLineFill ctermfg=LightGreen ctermbg=NONE
-    hi TabLine ctermfg=Grey ctermbg=NONE
-    hi TabLineSel ctermfg=White ctermbg=NONE
+    "hi TabLineFill ctermfg=LightGreen ctermbg=NONE
+    "hi TabLine ctermfg=Grey ctermbg=NONE
+    "hi TabLineSel ctermfg=White ctermbg=NONE
 endif
 
 set colorcolumn=80 
@@ -320,7 +300,9 @@ let g:tagbar_type_rst = {
     \ 'sort': 0,
 \ }
 
-" ### Settings from https://github.com/tmacwill/vimrc/blob/master/.vimrc
+""""""""""""""""""""""
+"      Settings      "
+""""""""""""""""""""""
 
 " Expand tabs to 2 spaces
 set shiftwidth=2
@@ -330,17 +312,21 @@ set expandtab
 set textwidth=79
 set softtabstop=2
 set shiftround
+set ttyscroll=3                 " Speedup scrolling
+set autoread                    " Automatically read changed files
+set noerrorbells                " No beeps
+set encoding=utf-8              " Set default encoding to UTF-8
+set showcmd                     " Show me what I'm typing
+set splitright                  " Vertical windows should be split to right
+set splitbelow                  " Horizontal windows should split to bottom
+set autowrite                   " Automatically save before :next, :make etc.
+"set nocursorcolumn              " Do not highlight column (speeds up highlighting)
+"set nocursorline                " Do not highlight cursor (speeds up highlighting)
+"set lazyredraw                  " Wait to redraw
 
-" disable backups
 set nobackup
 set nowritebackup
 set noswapfile
-
-" disable annoying beep on errors
-set noerrorbells
-if has('autocmd')
-  autocmd GUIEnter * set vb t_vb=
-endif
 
 " keep at least 5 lines below the cursor
 set scrolloff=5
@@ -386,21 +372,38 @@ filetype plugin on
 " ### MY KEY MAPPINGS
 " ###################
 
+map <C-n> :cnext<CR>
+map <C-p> :cprevious<CR>
+
 nnoremap ,c :let @+ = expand("%:p").":".line('.')<cr>
 nnoremap ,h :tabprevious<CR>
 nnoremap ,l :tabnext<CR>
 nnoremap ,d :NERDTreeToggle<CR>
 nnoremap ,e :tabnew<CR>
 nnoremap ,n :NERDTreeFind<CR>
-nnoremap ,t :TagbarToggle<CR>
+"nnoremap ,t :TagbarToggle<CR>
+nnoremap ,p :TagbarToggle<CR>
 nnoremap ,f :CtrlSF 
-nnoremap ,,,f :CtrlSFToggle<CR>
+nnoremap ,,f :CtrlSFToggle<CR>
 vmap     ,f <Plug>CtrlSFVwordExec
-vmap     ,,f <Plug>CtrlSFVwordPath
 "nnoremap <F5> :GundoToggle<CR>
-nnoremap ,p :CtrlPTag<CR>
 nmap s <Plug>(easymotion-overwin-f)
 nnoremap ,r :YcmCompleter GoToReferences<CR>
+nmap ; :Buffers<CR>
+nmap ,t :GFiles<CR>
+nmap ,r :Tags<CR>
+nmap <SPACE> :noh<CR>
+
+nnoremap ,ga :Git add %:p<CR><CR>
+nnoremap ,gs :Gstatus<CR>
+nnoremap ,gc :Gcommit<CR>
+nnoremap ,gp :Gpush<CR>
+nnoremap ,gb :Gblame<CR>
+nnoremap ,gd :Gdiff<CR>
+
+nnoremap ,w :ImportJSWord<CR>
+
+nnoremap ,pc :CtrlPClearAllCaches<CR>
 
 " ,cd to change to current file dir & print pwd
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>

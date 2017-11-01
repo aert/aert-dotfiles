@@ -101,14 +101,21 @@ export PATH=~/bin/gradle-1.10/bin:$PATH
 alias npm-exec='PATH=$(npm bin):$PATH'
 alias bower-exec='npm-exec bower'
 
+#-- rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 eval "$(rbenv init -)"
+
+#-- pyenv
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 alias ouvrir='xdg-open'
 alias cb='xclip -sel clip'
 alias cdgit='cd $(git rev-parse --show-cdup)'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+alias tcopy='tmux show-buffer | cb && alert "$(tmux show-buffer)"'
 
 export NVM_DIR="/home/ari/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -118,5 +125,13 @@ export GOPATH=$HOME/Code/gowork
 export PATH="$HOME/.cargo/bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# fzf + ag configuration
+export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_DEFAULT_OPTS='
+--color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108
+--color info:108,prompt:109,spinner:108,pointer:168,marker:168
+'
 
 eval "$(direnv hook zsh)"
