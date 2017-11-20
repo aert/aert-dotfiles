@@ -5,9 +5,8 @@
 " * apt-get install ack-grep
 "
 
-" ### Vundle
+" ### Vim-Plug
 " ###########
-filetype off
 
 let npm_bin=system('npm bin')
 "let yarn_bin="/home/ari/.nvm/versions/node/v7.8.0/bin"
@@ -15,61 +14,85 @@ let npm_bin=system('npm bin')
 "let $PATH=$PATH . ":" . yarn_bin . ":" . npm_bin
 let $PATH=$PATH . ":" . npm_bin
 set shell=zsh
+let g:python3_host_prog = '/home/ari/.pyenv/versions/3.6.3/bin/python'
 
-set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
-
-Bundle 'gmarik/vundle'
+call plug#begin('~/.vim/bundle')
 
 "### system ###################################################################
+Plug 'tpope/vim-dispatch'
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/goyo.vim'
 " code analysis
-Bundle 'scrooloose/syntastic'
-Bundle 'davidhalter/jedi-vim'
+Plug 'scrooloose/syntastic'
+Plug 'davidhalter/jedi-vim'
 " completion
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'jiangmiao/auto-pairs'
-Plugin 'scrooloose/nerdcommenter'
-Bundle 'mattn/emmet-vim'
+Plug 'roxma/nvim-completion-manager'
+Plug 'calebeby/ncm-css'
+Plug 'jiangmiao/auto-pairs'
+Plug 'scrooloose/nerdcommenter'
+Plug 'mattn/emmet-vim'
 " format
-Plugin 'sbdchd/neoformat'
+Plug 'sbdchd/neoformat'
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown'] }
 " git
-Bundle 'tpope/vim-fugitive'
-Bundle 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'shumphrey/fugitive-gitlab.vim'
+Plug 'airblade/vim-gitgutter'
 " motion
-Bundle 'easymotion/vim-easymotion'
-Bundle 'gcmt/taboo.vim'
+Plug 'easymotion/vim-easymotion'
+"Plug 'gcmt/taboo.vim'
 " navigation
-"Bundle 'ctrlpvim/ctrlp.vim'
-Bundle 'junegunn/fzf'
-Bundle 'junegunn/fzf.vim'
-Bundle 'dyng/ctrlsf.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'majutsushi/tagbar'
+Plug 'junegunn/fzf', { 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'dyng/ctrlsf.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'majutsushi/tagbar'
+" tests
+Plug 'janko-m/vim-test'
 " themes
-Bundle 'croaker/mustang-vim'
-Bundle 'sickill/vim-monokai'
-Bundle 'junegunn/seoul256.vim'
-Bundle 'itchyny/lightline.vim'
+Plug 'croaker/mustang-vim'
+Plug 'sickill/vim-monokai'
+Plug 'junegunn/seoul256.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'mhinz/vim-janah'
 "### languages ################################################################
+Plug 'sheerun/vim-polyglot'
+" css
+Plug 'ap/vim-css-color'
 " go
-Plugin 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'] }
 " javascript
-Plugin 'galooshi/vim-import-js'
-Plugin 'mtscout6/syntastic-local-eslint.vim'
-Bundle 'pangloss/vim-javascript'
-Bundle 'mxw/vim-jsx'
-Bundle 'othree/javascript-libraries-syntax.vim'
-Bundle 'einars/js-beautify'
+Plug 'galooshi/vim-import-js'
+Plug 'mtscout6/syntastic-local-eslint.vim'
+Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
 " rails
-Bundle 'tpope/vim-rails'
-Bundle 'ngmy/vim-rubocop'
-Plugin 'tpope/vim-endwise.git'
+Plug 'tpope/vim-rails', { 'for' : ['ruby'] }
+Plug 'tpope/vim-bundler', { 'for' : ['ruby'] }
+Plug 'ngmy/vim-rubocop', { 'for' : ['ruby'] }
+Plug 'tpope/vim-endwise'
 " rust
-Bundle 'rust-lang/rust.vim'
+"Bundle 'rust-lang/rust.vim'
+
+call plug#end()
 
 "##############################################################################
 "### Bundle Configs ###########################################################
 "##############################################################################
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme = "atomic"
+set laststatus=2 
+
+
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
+" vim test
+let test#strategy = "dispatch"
 
 " Go Vim
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
@@ -81,13 +104,7 @@ let g:user_emmet_leader_key='<C-X>'
 
 " Taboo
 set guioptions-=e
-let g:taboo_tab_format = ' %N-%f%m '
-
-" LightLine
-let g:lightline = {
-      \ 'colorscheme': 'seoul256',
-      \ }
-set laststatus=2 
+"let g:taboo_tab_format = ' %N-%f%m '
 
 " javascript-libraries-syntax
 let g:used_javascript_libs = 'jquery,underscore,react,requirejs'
@@ -104,11 +121,18 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 nmap <silent> <F8> :NERDTreeToggle<CR>
 let NERDTreeShowBookmarks=1
 let NERDTreeIgnore = ['\.pyc$', '\.bak$', 'node_modules']
+let g:NERDTreeWinPos = "right"
+let NERDTreeQuitOnOpen=1
 
 " TAGBAR
-nmap <F9> :TagbarToggle<CR>
 let g:tagbar_sort = 0
 let g:tagbar_compact = 1
+let g:tagbar_left = 1
+let g:tagbar_autoclose = 1
+let g:tagbar_autofocus = 1
+let g:tagbar_indent = 1
+let g:tagbar_expand = 1
+let g:tagbar_autopreview = 1
 
 " Python.vim
 let python_highlight_all = 1 
@@ -148,15 +172,33 @@ let g:ycm_add_preview_to_completeopt=0
 let g:ycm_confirm_extra_conf=0
 set completeopt-=preview
 
-" CtrlP
-"let g:ctrlp_working_path_mode = 'r'
-"let g:ctrlp_custom_ignore = '\v[\/](node_modules|vendor|target|dist|coverage|build)|(\.(swp|ico|git|svn))$'
-"let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-"if executable('ag')
-  "let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-"endif
-
 " Fzf
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
+command! -bang -nargs=* GitAg
+  \ call fzf#vim#ag(<q-args>, {'dir': systemlist('git rev-parse --show-toplevel')[0]}, <bang>0)
 
 " CtrlSF
 let g:ctrlsf_default_root='project'
@@ -193,7 +235,7 @@ let g:neoformat_enabled_scss = ['prettier']
 let g:neoformat_enabled_less = ['prettier']
 augroup fmt
   autocmd!
-  autocmd BufWritePre * Neoformat
+  autocmd BufWritePre * undojoin | Neoformat
 augroup END
 
 " ### My Personal Config
@@ -202,7 +244,7 @@ augroup END
 set clipboard=unnamedplus
 
 " Tabs
-:set guitablabel=%N\ %f
+":set guitablabel=%N\ %f
 
 set ignorecase
 
@@ -270,8 +312,8 @@ if has('gui_running')
     set guioptions-=L
     set ghr=0
 else
-    "colorscheme monokai
-    colorscheme seoul256
+    "colorscheme seoul256
+    colorscheme janah
     "let g:seoul256_background = 235
     set background=dark
     let g:solarized_termcolors=256
@@ -312,7 +354,6 @@ set expandtab
 set textwidth=79
 set softtabstop=2
 set shiftround
-set ttyscroll=3                 " Speedup scrolling
 set autoread                    " Automatically read changed files
 set noerrorbells                " No beeps
 set encoding=utf-8              " Set default encoding to UTF-8
@@ -339,7 +380,8 @@ if &term =~ '^screen'
 endif
 
 " close buffer when tab is closed
-set nohidden
+"set nohidden
+set hidden
 
 " better moving between windows
 map <C-j> <C-W>j
@@ -354,21 +396,6 @@ map k gk
 " shortcuts to common commands
 let mapleader = ","
 
-" Add the virtualenv's site-packages to vim path
-"py << EOF
-"import os.path
-"import sys
-"import vim
-"if 'VIRTUAL_ENV' in os.environ:
-"    project_base_dir = os.environ['VIRTUAL_ENV']
-"    sys.path.insert(0, project_base_dir)
-"    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-"    execfile(activate_this, dict(__file__=activate_this))
-"EOF
-
-filetype plugin indent on
-filetype plugin on
-
 " ### MY KEY MAPPINGS
 " ###################
 
@@ -376,25 +403,26 @@ map <C-n> :cnext<CR>
 map <C-p> :cprevious<CR>
 
 nnoremap ,c :let @+ = expand("%:p").":".line('.')<cr>
-nnoremap ,h :tabprevious<CR>
-nnoremap ,l :tabnext<CR>
+"nnoremap ,h :bprevious<CR>
 nnoremap ,d :NERDTreeToggle<CR>
-nnoremap ,e :tabnew<CR>
+"nnoremap ,e :tabnew<CR>
+tnoremap ,e <C-\><C-n> 
 nnoremap ,n :NERDTreeFind<CR>
 "nnoremap ,t :TagbarToggle<CR>
-nnoremap ,p :TagbarToggle<CR>
+nnoremap ,tt :TagbarToggle<CR>
 nnoremap ,f :CtrlSF 
 nnoremap ,,f :CtrlSFToggle<CR>
 vmap     ,f <Plug>CtrlSFVwordExec
 "nnoremap <F5> :GundoToggle<CR>
 nmap s <Plug>(easymotion-overwin-f)
-nnoremap ,r :YcmCompleter GoToReferences<CR>
+nnoremap ,l :Lines<CR>
+nnoremap ,a :GitAg!<CR>
 nmap ; :Buffers<CR>
 nmap ,t :GFiles<CR>
 nmap ,r :Tags<CR>
 nmap <SPACE> :noh<CR>
 
-nnoremap ,ga :Git add %:p<CR><CR>
+nnoremap ,ga :Git add %<CR>
 nnoremap ,gs :Gstatus<CR>
 nnoremap ,gc :Gcommit<CR>
 nnoremap ,gp :Gpush<CR>
