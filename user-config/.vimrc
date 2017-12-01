@@ -26,8 +26,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'scrooloose/syntastic'
 Plug 'davidhalter/jedi-vim'
 " completion
-Plug 'roxma/nvim-completion-manager'
-Plug 'calebeby/ncm-css'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --js-completer' }
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdcommenter'
 Plug 'mattn/emmet-vim'
@@ -62,12 +61,12 @@ Plug 'mhinz/vim-janah'
 Plug 'sheerun/vim-polyglot'
 " css
 Plug 'ap/vim-css-color'
+Plug 'hail2u/vim-css3-syntax', { 'for' : ['css', 'less', 'scss'] }
 " go
 Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'] }
 " javascript
 Plug 'galooshi/vim-import-js'
 Plug 'mtscout6/syntastic-local-eslint.vim'
-Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
 " rails
 Plug 'tpope/vim-rails', { 'for' : ['ruby'] }
 Plug 'tpope/vim-bundler', { 'for' : ['ruby'] }
@@ -326,22 +325,6 @@ set colorcolumn=80
 highlight ColorColumn ctermbg=235 guibg=#2c2d27
 "let &colorcolumn=join(range(81,999),",")
 
-" RST
-let g:tagbar_type_rst = {
-    \ 'ctagstype': 'rst',
-    \ 'ctagsbin' : '~/bin/rst2ctags.py',
-    \ 'ctagsargs' : '-f - --sort=yes',
-    \ 'kinds' : [
-        \ 's:sections',
-        \ 'i:images'
-    \ ],
-    \ 'sro' : '|',
-    \ 'kind2scope' : {
-        \ 's' : 'section',
-    \ },
-    \ 'sort': 0,
-\ }
-
 """"""""""""""""""""""
 "      Settings      "
 """"""""""""""""""""""
@@ -406,7 +389,6 @@ nnoremap ,c :let @+ = expand("%:p").":".line('.')<cr>
 "nnoremap ,h :bprevious<CR>
 nnoremap ,d :NERDTreeToggle<CR>
 "nnoremap ,e :tabnew<CR>
-tnoremap ,e <C-\><C-n> 
 nnoremap ,n :NERDTreeFind<CR>
 "nnoremap ,t :TagbarToggle<CR>
 nnoremap ,tt :TagbarToggle<CR>
