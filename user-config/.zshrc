@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/ari/.oh-my-zsh
+export ZSH=/home/ari/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -94,6 +94,7 @@ export PROJECT_HOME=~/Code/venv
 source /usr/local/bin/virtualenvwrapper.sh
 
 source /usr/etc/git-extras-completion.zsh
+source <(kubectl completion zsh)
 
 export ANDROID_HOME=~/Android/Sdk
 export PATH=~/bin:~/bin/android-studio/sdk/platform-tools:~/bin/android-studio/sdk/tools:$PATH
@@ -133,5 +134,10 @@ export FZF_DEFAULT_OPTS='
 --color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108
 --color info:108,prompt:109,spinner:108,pointer:168,marker:168
 '
+
+# tmuxinator
+export EDITOR='vim'
+alias mux_td_up="tmuxinator start td"
+alias mux_td_down="tmuxinator stop td; cd ~/Code/tolaroid/tolaroid-api && make compose_down"
 
 eval "$(direnv hook zsh)"

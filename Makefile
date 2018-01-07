@@ -10,6 +10,7 @@ update:
 	cp ~/.ackrc user-config/
 	cp /etc/fstab system-config/etc/
 	cp -R ~/.byobu user-config/
+	cp -R ~/.config/tmuxinator user-config/.config/
 
 update-danger:
 	cp ~/.gitconfig user-config/

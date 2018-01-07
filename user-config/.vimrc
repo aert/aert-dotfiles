@@ -48,12 +48,12 @@ Plug 'junegunn/fzf.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
+Plug 'arithran/vim-delete-hidden-buffers'
 " tests
 Plug 'janko-m/vim-test'
 " themes
 Plug 'croaker/mustang-vim'
 Plug 'sickill/vim-monokai'
-Plug 'junegunn/seoul256.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-janah'
@@ -295,13 +295,13 @@ autocmd BufEnter * silent! lcd %:p:h
 au BufNewFile,BufRead *.json.jbuilder set ft=ruby
 
 if has('gui_running')
-    "colorscheme solarized
+    colorscheme solarized
     "set background=dark
-    "set background=light
+    set background=light
     "colorscheme zenburn
     "colorscheme herald
     "colorscheme mustang
-    colorscheme railscasts
+    "colorscheme janah
     "set lines=43 columns=140
     set lines=999 columns=999
     set mousehide
@@ -311,14 +311,11 @@ if has('gui_running')
     set guioptions-=L
     set ghr=0
 else
-    "colorscheme seoul256
-    colorscheme janah
-    "let g:seoul256_background = 235
     set background=dark
-    let g:solarized_termcolors=256
-    "hi TabLineFill ctermfg=LightGreen ctermbg=NONE
-    "hi TabLine ctermfg=Grey ctermbg=NONE
-    "hi TabLineSel ctermfg=White ctermbg=NONE
+    colorscheme janah
+    "colorscheme solarized
+    "set background=light
+    "let g:solarized_termcolors=256
 endif
 
 set colorcolumn=80 
@@ -366,6 +363,9 @@ endif
 "set nohidden
 set hidden
 
+set wrapmargin=0
+set textwidth=0
+
 " better moving between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
@@ -404,16 +404,18 @@ nmap ,t :GFiles<CR>
 nmap ,r :Tags<CR>
 nmap <SPACE> :noh<CR>
 
-nnoremap ,ga :Git add %<CR>
+nnoremap ,ga :Gwrite<CR>
 nnoremap ,gs :Gstatus<CR>
 nnoremap ,gc :Gcommit<CR>
 nnoremap ,gp :Gpush<CR>
 nnoremap ,gb :Gblame<CR>
 nnoremap ,gd :Gdiff<CR>
+nnoremap ,gb :Gbrowse<CR>
 
 nnoremap ,w :ImportJSWord<CR>
 
 nnoremap ,pc :CtrlPClearAllCaches<CR>
+nnoremap ,bc :DeleteHiddenBuffers<CR>
 
 " ,cd to change to current file dir & print pwd
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
