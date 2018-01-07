@@ -137,7 +137,9 @@ export FZF_DEFAULT_OPTS='
 
 # tmuxinator
 export EDITOR='vim'
-alias mux_td_up="tmuxinator start td"
-alias mux_td_down="tmuxinator stop td; cd ~/Code/tolaroid/tolaroid-api && make compose_down"
+alias mux_tdup="tmuxinator start td"
+alias mux_tddown="tmuxinator stop td; cd ~/Code/tolaroid/tolaroid-api && make compose_down"
+alias mux_otup="tmuxinator start ot"
+alias mux_otdown="tmuxinator stop ot; cd ~/Code/orchtech/ot-hr-saas && make compose_down"
 
 eval "$(direnv hook zsh)"
