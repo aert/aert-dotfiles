@@ -96,8 +96,11 @@ source /usr/local/bin/virtualenvwrapper.sh
 source /usr/etc/git-extras-completion.zsh
 source <(kubectl completion zsh)
 
-export ANDROID_HOME=~/Android/Sdk
-export PATH=~/bin:~/bin/android-studio/sdk/platform-tools:~/bin/android-studio/sdk/tools:$PATH
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$ANDROID_HOME/tools:$PATH
+export PATH=$ANDROID_HOME/platform-tools:$PATH
+#export PATH=~/bin/android-studio/sdk/platform-tools:~/bin/android-studio/sdk/tools:$PATH
+export PATH=~/bin:$PATH
 export PATH=~/bin/gradle-1.10/bin:$PATH
 alias npm-exec='PATH=$(npm bin):$PATH'
 alias bower-exec='npm-exec bower'
@@ -118,8 +121,12 @@ alias cdgit='cd $(git rev-parse --show-cdup)'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias tcopy='tmux show-buffer | cb && alert "$(tmux show-buffer)"'
 
+#-- node
 export NVM_DIR="/home/ari/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+#-- yarn
+export PATH="$HOME/.yarn/bin:$PATH"
 
 export PATH=$PATH:/usr/local/go/bin
 export GOPATH=$HOME/Code/gowork
