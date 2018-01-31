@@ -35,6 +35,7 @@ Plug 'prettier/vim-prettier', {
 " git
 Plug 'tpope/vim-fugitive'
 Plug 'shumphrey/fugitive-gitlab.vim'
+Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
 " motion
 Plug 'easymotion/vim-easymotion'
