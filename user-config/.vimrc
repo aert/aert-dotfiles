@@ -9,12 +9,9 @@
 " ###########
 
 let npm_bin=system('npm bin')
-"let yarn_bin="/home/ari/.nvm/versions/node/v7.8.0/bin"
-
-"let $PATH=$PATH . ":" . yarn_bin . ":" . npm_bin
 let $PATH=$PATH . ":" . npm_bin
 set shell=zsh
-let g:python3_host_prog = '/home/ari/.pyenv/versions/3.6.3/bin/python'
+let g:python3_host_prog = '~/.pyenv/versions/3.6.3/bin/python'
 
 call plug#begin('~/.vim/bundle')
 
@@ -117,7 +114,6 @@ let g:indent_guides_guide_size=1
 
 " NerdTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-nmap <silent> <F8> :NERDTreeToggle<CR>
 let NERDTreeShowBookmarks=1
 let NERDTreeIgnore = ['\.pyc$', '\.bak$', 'node_modules']
 let g:NERDTreeWinPos = "right"
@@ -391,31 +387,28 @@ nnoremap ,d :NERDTreeToggle<CR>
 "nnoremap ,e :tabnew<CR>
 nnoremap ,n :NERDTreeFind<CR>
 "nnoremap ,t :TagbarToggle<CR>
-nnoremap ,tt :TagbarToggle<CR>
 nnoremap ,f :CtrlSF 
 nnoremap ,,f :CtrlSFToggle<CR>
 vmap     ,f <Plug>CtrlSFVwordExec
 "nnoremap <F5> :GundoToggle<CR>
 nmap s <Plug>(easymotion-overwin-f)
 nnoremap ,l :Lines<CR>
+nnoremap ,b :BLines<CR>
 nnoremap ,a :GitAg!<CR>
 nmap ; :Buffers<CR>
 nmap ,t :GFiles<CR>
 nmap ,r :Tags<CR>
+nmap ,k :History<CR>
 nmap <SPACE> :noh<CR>
 
 nnoremap ,ga :Gwrite<CR>
 nnoremap ,gs :Gstatus<CR>
 nnoremap ,gc :Gcommit<CR>
 nnoremap ,gp :Gpush<CR>
-nnoremap ,gb :Gblame<CR>
 nnoremap ,gd :Gdiff<CR>
 nnoremap ,gb :Gbrowse<CR>
 
 nnoremap ,w :ImportJSWord<CR>
-
-nnoremap ,pc :CtrlPClearAllCaches<CR>
-nnoremap ,bc :DeleteHiddenBuffers<CR>
 
 " ,cd to change to current file dir & print pwd
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
