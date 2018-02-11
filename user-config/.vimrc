@@ -52,8 +52,8 @@ Plug 'janko-m/vim-test'
 " themes
 Plug 'croaker/mustang-vim'
 Plug 'sickill/vim-monokai'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-janah'
 "### languages ################################################################
 Plug 'sheerun/vim-polyglot'
@@ -195,6 +195,12 @@ autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 command! -bang -nargs=* GitAg
   \ call fzf#vim#ag(<q-args>, {'dir': systemlist('git rev-parse --show-toplevel')[0]}, <bang>0)
+
+command! -bang -nargs=* GitAgFiles
+  \ call fzf#run(fzf#wrap(
+       \ {'source': 'ag -i -g '.shellescape(<q-args>), 
+       \  'dir': systemlist('git rev-parse --show-toplevel')[0]})
+       \, <bang>0)
 
 " CtrlSF
 let g:ctrlsf_default_root='project'
@@ -379,6 +385,21 @@ let mapleader = ","
 " ### MY KEY MAPPINGS
 " ###################
 
+function! s:getVisualSelection()
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+
+    if len(lines) == 0
+        return ""
+    endif
+
+    let lines[-1] = lines[-1][:column_end - (&selection == "inclusive" ? 1 : 2)]
+    let lines[0] = lines[0][column_start - 1:]
+
+    return join(lines, "\n")
+endfunction
+
 map <C-n> :cnext<CR>
 map <C-p> :cprevious<CR>
 
@@ -392,15 +413,20 @@ nnoremap ,f :CtrlSF
 nnoremap ,,f :CtrlSFToggle<CR>
 vmap     ,f <Plug>CtrlSFVwordExec
 "nnoremap <F5> :GundoToggle<CR>
-nmap s <Plug>(easymotion-overwin-f)
 nnoremap ,l :Lines<CR>
-nnoremap ,b :BLines<CR>
 nnoremap ,a :GitAg!<CR>
-nmap ; :Buffers<CR>
+vmap ,a <Esc>:GitAg! <C-R>=<SID>getVisualSelection()<CR><CR>
+nnoremap ,b :Buffers<CR>
+nmap ; :BLines<CR>
+vmap ; <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ,t :GFiles<CR>
+vmap ,t <Esc>:GitAgFiles! <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ,r :Tags<CR>
 nmap ,k :History<CR>
 nmap <SPACE> :noh<CR>
+nnoremap ,e :tabnew<CR>
+
+nmap s <Plug>(easymotion-overwin-f)
 
 nnoremap ,ga :Gwrite<CR>
 nnoremap ,gs :Gstatus<CR>

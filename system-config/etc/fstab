@@ -11,6 +11,7 @@ UUID=af673ad5-06ef-44be-bbfd-88f1b64f0409 /               ext4    noatime,errors
 
 # AERT: optimisations SSD 
 tmpfs   /tmp                            tmpfs   defaults,size=2g    0    0 
+tmpfs   /_ramdisk                       tmpfs   defaults,size=2g    0    0 
 tmpfs   /var/cache/apt/archives         tmpfs   defaults,size=3g    0    0 
 tmpfs   /var/log                        tmpfs   defaults,nosuid,nodev,noatime,mode=0755,size=5% 0 0 
 
