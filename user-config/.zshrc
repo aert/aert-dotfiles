@@ -99,21 +99,19 @@ source <(kubectl completion zsh)
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$ANDROID_HOME/tools:$PATH
 export PATH=$ANDROID_HOME/platform-tools:$PATH
-#export PATH=~/bin/android-studio/sdk/platform-tools:~/bin/android-studio/sdk/tools:$PATH
 export PATH=~/bin:$PATH
 export PATH=~/bin/gradle-1.10/bin:$PATH
-alias npm-exec='PATH=$(npm bin):$PATH'
-alias bower-exec='npm-exec bower'
 
 #-- rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
 eval "$(rbenv init -)"
 
+export PATH="$HOME/.local/bin:$PATH"
+
 #-- pyenv
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+#export PATH="$HOME/.pyenv/bin:$PATH"
+#eval "$(pyenv init -)"
+#eval "$(pyenv virtualenv-init -)"
 
 alias ouvrir='xdg-open'
 alias cb='xclip -sel clip'
@@ -122,8 +120,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias tcopy='tmux show-buffer | cb && alert "$(tmux show-buffer)"'
 
 #-- node
-export NVM_DIR="/home/ari/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+#export NVM_DIR="/home/ari/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use
 
 #-- yarn
 export PATH="$HOME/.yarn/bin:$PATH"
@@ -148,5 +146,7 @@ alias mux_tdup="tmuxinator start td"
 alias mux_tddown="tmuxinator stop td; cd ~/Code/tolaroid/tolaroid-api && make compose_down"
 alias mux_otup="tmuxinator start ot"
 alias mux_otdown="tmuxinator stop ot; cd ~/Code/orchtech/ot-hr-saas && make compose_down"
+alias mux_accup="tmuxinator start acc"
+alias mux_accdown="tmuxinator stop acc; cd ~/Code/accelerator/acceleratorapp && make compose_down"
 
 eval "$(direnv hook zsh)"
