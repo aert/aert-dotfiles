@@ -120,8 +120,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias tcopy='tmux show-buffer | cb && alert "$(tmux show-buffer)"'
 
 #-- node
-#export NVM_DIR="/home/ari/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use
+export NVM_DIR="/home/ari/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use
 
 #-- yarn
 export PATH="$HOME/.yarn/bin:$PATH"

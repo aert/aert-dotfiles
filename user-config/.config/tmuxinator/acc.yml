@@ -47,13 +47,17 @@ windows:
       layout: tiled
       panes:
         - docker:
+          - nvm use
           - make compose_down
           - make compose_up
         - node:
+          - nvm use
           - npm run start
 
   - react:
       layout: main-vertical
       panes:
-        - 
-        - vim package.json
+        - nvm use
+        - editor:
+          - nvm use
+          - vim package.json

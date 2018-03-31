@@ -65,6 +65,7 @@ Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'] }
 " javascript
 Plug 'galooshi/vim-import-js'
 Plug 'mtscout6/syntastic-local-eslint.vim'
+Plug 'jparise/vim-graphql'
 " rails
 Plug 'tpope/vim-rails', { 'for' : ['ruby'] }
 Plug 'tpope/vim-bundler', { 'for' : ['ruby'] }
