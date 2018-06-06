@@ -57,7 +57,7 @@ windows:
           - bundle exec sidekiq
         - guard:
           - cd bureau
-          - bundle exec guard
+          - echo "bundle exec guard"
 
   - rails:
       root: ~/Code/orchtech/ot-hr-saas/bureau

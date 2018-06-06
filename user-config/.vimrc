@@ -50,10 +50,10 @@ Plug 'arithran/vim-delete-hidden-buffers'
 " tests
 Plug 'janko-m/vim-test'
 " themes
-Plug 'croaker/mustang-vim'
-Plug 'sickill/vim-monokai'
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
+"Plug 'croaker/mustang-vim'
+"Plug 'sickill/vim-monokai'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-janah'
 "### languages ################################################################
 Plug 'sheerun/vim-polyglot'
@@ -80,7 +80,7 @@ call plug#end()
 "### Bundle Configs ###########################################################
 "##############################################################################
 
-let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme = "atomic"
 set laststatus=2 
@@ -103,6 +103,9 @@ let g:user_emmet_leader_key='<C-X>'
 " Taboo
 set guioptions-=e
 "let g:taboo_tab_format = ' %N-%f%m '
+
+" Vim Gutter
+set updatetime=100
 
 " javascript-libraries-syntax
 let g:used_javascript_libs = 'jquery,underscore,react,requirejs'
@@ -323,7 +326,7 @@ else
 endif
 
 set colorcolumn=80 
-highlight ColorColumn ctermbg=235 guibg=#2c2d27
+"highlight ColorColumn ctermbg=235 guibg=#2c2d27
 "let &colorcolumn=join(range(81,999),",")
 
 """"""""""""""""""""""
