@@ -58,7 +58,7 @@ windows:
           - rails s
         - rails-guard:
           - cd ./tolaroid-api
-          - bundle exec guard
+          - echo "bundle exec guard"
         - yarn:
           - cd ./tolaroid
           - yarn start
