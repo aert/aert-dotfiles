@@ -234,7 +234,8 @@ let g:go_highlight_build_constraints = 1
 
 " NeoFormat
 let g:neoformat_enabled_javascript = ['prettier']
-let g:neoformat_enabled_ruby = ['rubocop']
+"let g:neoformat_enabled_ruby = ['rubocop']
+let g:neoformat_enabled_ruby = []
 let g:neoformat_enabled_css = ['prettier']
 let g:neoformat_enabled_sass = ['prettier']
 let g:neoformat_enabled_scss = ['prettier']
