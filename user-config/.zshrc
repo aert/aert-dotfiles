@@ -148,5 +148,7 @@ alias mux_otup="tmuxinator start ot"
 alias mux_otdown="tmuxinator stop ot; cd ~/Code/orchtech/ot-hr-saas && make compose_down"
 alias mux_accup="tmuxinator start acc"
 alias mux_accdown="tmuxinator stop acc; cd ~/Code/accelerator/acceleratorapp && make compose_down"
+alias mux_scriptxup="tmuxinator scriptx acc"
+alias mux_scriptxdown="tmuxinator stop scriptx; cd ~/Code/scriptx/scriptx-io-rails-service && make compose_down"
 
 eval "$(direnv hook zsh)"
