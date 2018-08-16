@@ -50,9 +50,6 @@ windows:
           - cd ./scriptx-io-rails-service
           - make compose_down
           - make compose_up
-        - rails:
-          - cd ./scriptx-io-rails-service
-          - rails s
         - yarn:
           - cd ./scriptx-io-web-front-end
           - npm start
