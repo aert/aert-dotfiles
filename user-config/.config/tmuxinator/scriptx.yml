@@ -58,12 +58,10 @@ windows:
       root: ~/Code/scriptx/scriptx-io-web-front-end
       layout: main-vertical
       panes:
-        - 
         - vim package.json
 
   - rails:
       root: ~/Code/scriptx/scriptx-io-rails-service
       layout: main-vertical
       panes:
-        - 
         - vim Gemfile
