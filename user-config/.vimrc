@@ -407,6 +407,8 @@ endfunction
 
 map <C-n> :cnext<CR>
 map <C-p> :cprevious<CR>
+map <C-l> 10zl
+map <C-h> 10zh
 
 nnoremap ,c :let @+ = expand("%:p").":".line('.')<cr>
 "nnoremap ,h :bprevious<CR>
