@@ -56,7 +56,6 @@ ZSH_THEME="miloshadzic"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git encode64 aws rake-fast rails)
-
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -89,6 +88,18 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # --- AERT --------------------------------------------------------------------
 
+SPACESHIP_PROMPT_ADD_NEWLINE=false
+SPACESHIP_CHAR_SYMBOL="❯"
+SPACESHIP_CHAR_SUFFIX=" "
+
+# Simplify prompt if we're using Hyper
+if [[ "$TERM_PROGRAM" == "Hyper" ]]; then
+  SPACESHIP_PROMPT_SEPARATE_LINE=false
+  SPACESHIP_DIR_SHOW=false
+  SPACESHIP_GIT_BRANCH_SHOW=false
+fi
+source ~/.zsh_plugins.sh
+
 export WORKON_HOME=~/Code/.envs
 export PROJECT_HOME=~/Code/venv
 source /usr/local/bin/virtualenvwrapper.sh
@@ -103,8 +114,8 @@ export PATH=~/bin:$PATH
 export PATH=~/bin/gradle-1.10/bin:$PATH
 
 #-- rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+# export PATH="$HOME/.rbenv/bin:$PATH"
+# eval "$(rbenv init -)"
 
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -129,6 +140,8 @@ export PATH="$HOME/.yarn/bin:$PATH"
 export PATH=$PATH:/usr/local/go/bin
 export GOPATH=$HOME/Code/gowork
 export PATH="$HOME/.cargo/bin:$PATH"
+
+export BAT_THEME="zenburn" 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # fzf + ag configuration

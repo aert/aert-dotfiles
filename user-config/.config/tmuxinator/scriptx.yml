@@ -49,19 +49,19 @@ windows:
         - docker:
           - cd ./scriptx-io-rails-service
           - make compose_down
-          - make compose_up
+          - make compose_api_run_rails
         - yarn:
           - cd ./scriptx-io-web-front-end
           - npm start
-
-  - angular:
-      root: ~/Code/scriptx/scriptx-io-web-front-end
-      layout: main-vertical
-      panes:
-        - vim package.json
 
   - rails:
       root: ~/Code/scriptx/scriptx-io-rails-service
       layout: main-vertical
       panes:
         - vim Gemfile
+
+  - angular:
+      root: ~/Code/scriptx/scriptx-io-web-front-end
+      layout: main-vertical
+      panes:
+        - vim package.json

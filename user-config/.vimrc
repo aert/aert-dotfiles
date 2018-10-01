@@ -35,6 +35,7 @@ Plug 'prettier/vim-prettier', {
 " git
 Plug 'tpope/vim-fugitive'
 Plug 'shumphrey/fugitive-gitlab.vim'
+Plug 'tommcdo/vim-fubitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
 " motion
@@ -405,10 +406,19 @@ function! s:getVisualSelection()
     return join(lines, "\n")
 endfunction
 
+function! FZFHistory()
+  let directory = substitute(system("git rev-parse --show-toplevel"), '\n$', '', '')
+  if !v:shell_error
+    :call fzf#run(fzf#wrap({'source': 'git --no-pager log --name-only -10 --decorate=short --pretty=format:', 'dir': directory}))
+  else
+    :History
+  endif
+endfunction
+
 map <C-n> :cnext<CR>
 map <C-p> :cprevious<CR>
-map <C-l> 10zl
-map <C-h> 10zh
+map <C-0> 10zl
+map <C-9> 10zh
 
 nnoremap ,c :let @+ = expand("%:p").":".line('.')<cr>
 "nnoremap ,h :bprevious<CR>
@@ -429,7 +439,8 @@ vmap ; <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ,t :GFiles<CR>
 vmap ,t <Esc>:GitAgFiles! <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ,r :Tags<CR>
-nmap ,k :History<CR>
+" nmap ,k :History<CR>
+nmap ,k :call FZFHistory()<CR>
 nmap <SPACE> :noh<CR>
 nnoremap ,e :tabnew<CR>
 
