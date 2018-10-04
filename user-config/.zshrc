@@ -7,12 +7,10 @@ export ZSH=/home/ari/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
-#ZSH_THEME="agnoster"
 #ZSH_THEME="cloud"
 #ZSH_THEME="amuse"
-ZSH_THEME="miloshadzic"
-
+#ZSH_THEME="miloshadzic"
+ZSH_THEME="spaceship"
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -92,13 +90,41 @@ SPACESHIP_PROMPT_ADD_NEWLINE=false
 SPACESHIP_CHAR_SYMBOL="❯"
 SPACESHIP_CHAR_SUFFIX=" "
 
-# Simplify prompt if we're using Hyper
-if [[ "$TERM_PROGRAM" == "Hyper" ]]; then
-  SPACESHIP_PROMPT_SEPARATE_LINE=false
-  SPACESHIP_DIR_SHOW=false
-  SPACESHIP_GIT_BRANCH_SHOW=false
-fi
-source ~/.zsh_plugins.sh
+SPACESHIP_PROMPT_ORDER=(
+  time          # Time stampts section
+  user          # Username section
+  dir           # Current directory section
+# host          # Hostname section
+  git           # Git section (git_branch + git_status)
+# hg            # Mercurial section (hg_branch  + hg_status)
+  package       # Package version
+  node          # Node.js section
+  ruby          # Ruby section
+# elixir        # Elixir section
+# xcode         # Xcode section
+# swift         # Swift section
+  golang        # Go section
+# php           # PHP section
+  rust          # Rust section
+# haskell       # Haskell Stack section
+# julia         # Julia section
+# docker        # Docker section
+  aws           # Amazon Web Services section
+  venv          # virtualenv section
+# conda         # conda virtualenv section
+  pyenv         # Pyenv section
+# dotnet        # .NET section
+# ember         # Ember.js section
+# kubecontext   # Kubectl context section
+  exec_time     # Execution time
+  line_sep      # Line break
+# battery       # Battery level and status
+  vi_mode       # Vi-mode indicator
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
+# source ~/.zsh_plugins.sh
 
 export WORKON_HOME=~/Code/.envs
 export PROJECT_HOME=~/Code/venv
