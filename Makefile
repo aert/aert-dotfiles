@@ -13,5 +13,8 @@ update:
 	cp -R ~/.byobu user-config/
 	cp -R ~/.config/tmuxinator user-config/.config/
 
+	cp ~/.ctags user-config/
+	cp -R ~/.git_template user-config/
+
 update-danger:
 	cp ~/.gitconfig user-config/

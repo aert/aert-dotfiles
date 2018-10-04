@@ -51,11 +51,10 @@ Plug 'arithran/vim-delete-hidden-buffers'
 " tests
 Plug 'janko-m/vim-test'
 " themes
-"Plug 'croaker/mustang-vim'
-"Plug 'sickill/vim-monokai'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-janah'
+
 "### languages ################################################################
 Plug 'sheerun/vim-polyglot'
 " css
@@ -113,10 +112,6 @@ let g:used_javascript_libs = 'jquery,underscore,react,requirejs'
 
 " "vim-jsx
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
-
-" Indent Guides
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_guide_size=1
 
 " NerdTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
@@ -430,16 +425,18 @@ nnoremap ,f :CtrlSF
 nnoremap ,,f :CtrlSFToggle<CR>
 vmap     ,f <Plug>CtrlSFVwordExec
 "nnoremap <F5> :GundoToggle<CR>
-nnoremap ,l :Lines<CR>
+"nnoremap ,l :Lines<CR>
 nnoremap ,a :GitAg!<CR>
 vmap ,a <Esc>:GitAg! <C-R>=<SID>getVisualSelection()<CR><CR>
 nnoremap ,b :Buffers<CR>
-nmap ; :BLines<CR>
-vmap ; <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
+nmap ; :BTags<CR>
+vmap ; <Esc>:BTags <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ,t :GFiles<CR>
 vmap ,t <Esc>:GitAgFiles! <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ,r :Tags<CR>
-" nmap ,k :History<CR>
+vmap ,r <Esc>:Tags <C-R>=<SID>getVisualSelection()<CR><CR>
+nmap ,l :BLines<CR>
+vmap ,l <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ,k :call FZFHistory()<CR>
 nmap <SPACE> :noh<CR>
 nnoremap ,e :tabnew<CR>
