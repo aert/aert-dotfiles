@@ -46,7 +46,8 @@ Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'majutsushi/tagbar'
+Plug 'vim-scripts/taglist.vim'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'arithran/vim-delete-hidden-buffers'
 " tests
 Plug 'janko-m/vim-test'
@@ -54,6 +55,7 @@ Plug 'janko-m/vim-test'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-janah'
+"Plug 'vim-scripts/TagHighlight'
 
 "### languages ################################################################
 Plug 'sheerun/vim-polyglot'
@@ -111,7 +113,7 @@ set updatetime=100
 let g:used_javascript_libs = 'jquery,underscore,react,requirejs'
 
 " "vim-jsx
-let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+let g:jsx_ext_required = 1
 
 " NerdTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
@@ -120,15 +122,16 @@ let NERDTreeIgnore = ['\.pyc$', '\.bak$', 'node_modules']
 let g:NERDTreeWinPos = "right"
 let NERDTreeQuitOnOpen=1
 
-" TAGBAR
-let g:tagbar_sort = 0
-let g:tagbar_compact = 1
-let g:tagbar_left = 1
-let g:tagbar_autoclose = 1
-let g:tagbar_autofocus = 1
-let g:tagbar_indent = 1
-let g:tagbar_expand = 1
-let g:tagbar_autopreview = 1
+" Taglist
+let Tlist_Show_One_File = 1
+let Tlist_Close_On_Select = 1
+let Tlist_Exit_OnlyWindow = 1
+"let Tlist_GainFocus_On_ToggleOpen = 1
+let Tlist_Compact_Format = 1
+let Tlist_Enable_Fold_Column = 0
+let Tlist_Display_Tag_Scope = 0
+let Tlist_Display_Prototype = 1
+let tlist_javascript_settings = 'javascript;x:a-controller;y:a-filter;f:a-factory;z:a-service;d:a-directive;m:a-module;r:a-route;s:a-scope;A:Arrays;C:Classes;E:Exports;F:Functions;G:Generators;I:Imports;M:Methods;O:Objects;P:Properties;T:Tags;V:Variables'
 
 " Python.vim
 let python_highlight_all = 1 
@@ -137,6 +140,7 @@ let python_highlight_all = 1
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+set statusline+=%{gutentags#statusline()}
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_ruby_checkers = ['rubocop']
 let g:syntastic_python_checkers=['flake8']
@@ -295,6 +299,9 @@ set relativenumber
 
 autocmd BufEnter * silent! lcd %:p:h
 
+" disable syntax hl on big files
+au BufReadPost * if getfsize(bufname("%")) > 102400 | set syntax= | endif
+
 " add jbuilder syntax highlighting
 au BufNewFile,BufRead *.json.jbuilder set ft=ruby
 
@@ -414,18 +421,15 @@ map <C-n> :cnext<CR>
 map <C-p> :cprevious<CR>
 map <C-0> 10zl
 map <C-9> 10zh
+nnoremap t :<c-u>rightbelow vertical stjump <c-r><c-w><cr>
+nnoremap T <c-w>T
 
 nnoremap ,c :let @+ = expand("%:p").":".line('.')<cr>
-"nnoremap ,h :bprevious<CR>
 nnoremap ,d :NERDTreeToggle<CR>
-"nnoremap ,e :tabnew<CR>
 nnoremap ,n :NERDTreeFind<CR>
-"nnoremap ,t :TagbarToggle<CR>
 nnoremap ,f :CtrlSF 
 nnoremap ,,f :CtrlSFToggle<CR>
 vmap     ,f <Plug>CtrlSFVwordExec
-"nnoremap <F5> :GundoToggle<CR>
-"nnoremap ,l :Lines<CR>
 nnoremap ,a :GitAg!<CR>
 vmap ,a <Esc>:GitAg! <C-R>=<SID>getVisualSelection()<CR><CR>
 nnoremap ,b :Buffers<CR>
@@ -440,6 +444,7 @@ vmap ,l <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ,k :call FZFHistory()<CR>
 nmap <SPACE> :noh<CR>
 nnoremap ,e :tabnew<CR>
+nmap <TAB> :TlistToggle<CR>
 
 nmap s <Plug>(easymotion-overwin-f)
 
