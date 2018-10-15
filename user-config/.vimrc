@@ -215,7 +215,7 @@ let g:ctrlsf_mapping = {
     \ "vsplit"  : "s",
     \ "tab"     : "t",
     \ }
-let g:ctrlsf_ignore_dir = ["node_modules", "coverage", "dist", "vendor", "target", "build", "vendor"]
+let g:ctrlsf_ignore_dir = ["node_modules", "coverage", "dist", "vendor", "target", "build", "vendor", "tags"]
 
 " Taboo
 set ssop-=folds      " do not store folds
