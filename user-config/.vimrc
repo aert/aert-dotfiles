@@ -65,9 +65,9 @@ Plug 'hail2u/vim-css3-syntax', { 'for' : ['css', 'less', 'scss'] }
 " go
 Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'] }
 " javascript
-Plug 'galooshi/vim-import-js'
-Plug 'mtscout6/syntastic-local-eslint.vim'
-Plug 'jparise/vim-graphql'
+Plug 'galooshi/vim-import-js', { 'for': ['javascript', 'typescript', 'graphql'] }
+Plug 'mtscout6/syntastic-local-eslint.vim', { 'for': ['javascript', 'typescript', 'graphql'] }
+Plug 'jparise/vim-graphql', { 'for': ['javascript', 'typescript', 'graphql'] }
 " rails
 Plug 'tpope/vim-rails', { 'for' : ['ruby'] }
 Plug 'tpope/vim-bundler', { 'for' : ['ruby'] }
@@ -166,6 +166,7 @@ let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
 let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
 let g:ycm_complete_in_comments = 1 " Completion in comments
 let g:ycm_complete_in_strings = 1 " Completion in string
+let g:ycm_auto_trigger = 1
 " These are the tweaks I apply to YCM's config, you don't need them but they might help.
 " YCM gives you popups and splits by default that some people might not like, so these should tidy it up a bit for you.
 let g:ycm_add_preview_to_completeopt=0
@@ -236,6 +237,7 @@ let g:go_highlight_build_constraints = 1
 let g:neoformat_enabled_javascript = ['prettier']
 "let g:neoformat_enabled_ruby = ['rubocop']
 let g:neoformat_enabled_ruby = []
+let g:neoformat_enabled_python = ['black']
 let g:neoformat_enabled_css = ['prettier']
 let g:neoformat_enabled_sass = ['prettier']
 let g:neoformat_enabled_scss = ['prettier']
