@@ -1,34 +1,41 @@
 [user]
+	;name = abdourakhmane
+  ;email = dev.aert@gmail.com
+
 [color]
-    status = auto
-    ui = auto
-    interactive = auto
+	status = auto
+	ui = true
+	interactive = auto
 
 [push]
 	default = simple
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-    co = commit -a
-    di = diff --color-words
-    pe = diff --stat 
-    st = status
-    unstage = reset HEAD --
-    # resets all uncomitted changes and files
-    abort = reset --hard HEAD
-    # shows diff only for files staged to commit
-    di-staged = diff --cached
-    # change last commit message
-    recommit = commit --amend
+  lf = log --pretty=format: --name-only
+	co = commit
+	ck = checkout
+	di = diff --color-words
+	dis = diff --color-words --staged
+	pe = diff --stat
+	st = status
+	unstage = reset HEAD --
+	# resets all uncomitted changes and files
+	abort = reset --hard HEAD
+	# shows diff only for files staged to commit
+	di-staged = diff --cached
+	# change last commit message
+	recommit = commit --amend
 [merge]
-    tool = diffuse
+	tool = meld
 [diff]
-    tool = diffuse
-    suppressBlankEmpty = true
-    mnemonicprefix = true
+	tool = meld
+	suppressBlankEmpty = true
+	mnemonicprefix = true
 [core]
 	quotepath = off
 	autocrlf = input
-    editor = vim
+	editor = vim
+	pager = diff-so-fancy | less --tabs=4 -RFX
 
 [giggle]
 	main-window-maximized = false
@@ -36,3 +43,17 @@
 	main-window-view = FileView
 	history-view-vpane-position = 412
 	file-view-vpane-position = 421
+[init]
+	templatedir = ~/.git_template
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = yellow
+	frag = magenta bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse

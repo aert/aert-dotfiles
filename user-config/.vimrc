@@ -37,6 +37,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'tommcdo/vim-fubitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'junegunn/gv.vim'
 Plug 'airblade/vim-gitgutter'
 " motion
 Plug 'easymotion/vim-easymotion'
@@ -450,6 +451,7 @@ nmap <TAB> :TlistToggle<CR>
 
 nmap s <Plug>(easymotion-overwin-f)
 
+nnoremap ,gv :GV!<CR>
 nnoremap ,ga :Gwrite<CR>
 nnoremap ,gs :Gstatus<CR>
 nnoremap ,gc :Gcommit<CR>
