@@ -53,7 +53,8 @@ ZSH_THEME="spaceship"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git encode64 aws rake-fast rails)
+# NOTE:  zsh-syntax-highlighting must be at the end
+plugins=(git encode64 aws rake-fast rails zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -191,3 +192,5 @@ alias mux_scriptxup="tmuxinator scriptx acc"
 alias mux_scriptxdown="tmuxinator stop scriptx; cd ~/Code/scriptx/scriptx-io-rails-service && make compose_down"
 
 eval "$(direnv hook zsh)"
+
+alias x="exa -l --time-style long-iso --git"

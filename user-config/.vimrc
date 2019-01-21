@@ -23,7 +23,8 @@ Plug 'junegunn/goyo.vim'
 Plug 'scrooloose/syntastic'
 Plug 'davidhalter/jedi-vim'
 " completion
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --js-completer' }
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --js-completer' }
+
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdcommenter'
 Plug 'mattn/emmet-vim'
@@ -139,6 +140,9 @@ let Tlist_Display_Tag_Scope = 0
 let Tlist_Display_Prototype = 1
 let tlist_javascript_settings = 'javascript;x:a-controller;y:a-filter;f:a-factory;z:a-service;d:a-directive;m:a-module;r:a-route;s:a-scope;A:Arrays;C:Classes;E:Exports;F:Functions;G:Generators;I:Imports;M:Methods;O:Objects;P:Properties;T:Tags;V:Variables'
 
+" Fugitive
+autocmd QuickFixCmdPost *grep* cwindow
+
 " Python.vim
 let python_highlight_all = 1 
 
@@ -165,18 +169,19 @@ let b:surround_{char2nr("w")} = "{% with \1with: \1 %}\r{% endwith %}"
 let b:surround_{char2nr("f")} = "{% for \1for loop: \1 %}\r{% endfor %}"
 let b:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
 
+
 " YCM
 " Settings from https://code.djangoproject.com/wiki/UsingVimWithDjango
-let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
-let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
-let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
-let g:ycm_complete_in_comments = 1 " Completion in comments
-let g:ycm_complete_in_strings = 1 " Completion in string
-let g:ycm_auto_trigger = 1
-" These are the tweaks I apply to YCM's config, you don't need them but they might help.
-" YCM gives you popups and splits by default that some people might not like, so these should tidy it up a bit for you.
-let g:ycm_add_preview_to_completeopt=0
-let g:ycm_confirm_extra_conf=0
+" let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
+" let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
+" let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
+" let g:ycm_complete_in_comments = 1 " Completion in comments
+" let g:ycm_complete_in_strings = 1 " Completion in string
+" let g:ycm_auto_trigger = 1
+" " These are the tweaks I apply to YCM's config, you don't need them but they might help.
+" " YCM gives you popups and splits by default that some people might not like, so these should tidy it up a bit for you.
+" let g:ycm_add_preview_to_completeopt=0
+" let g:ycm_confirm_extra_conf=0
 set completeopt-=preview
 
 " Fzf
@@ -240,8 +245,9 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 
 " NeoFormat
-let g:neoformat_enabled_javascript = ['prettier']
+"let g:neoformat_enabled_javascript = ['prettier']
 "let g:neoformat_enabled_ruby = ['rubocop']
+let g:neoformat_enabled_javascript = []
 let g:neoformat_enabled_ruby = []
 let g:neoformat_enabled_python = ['black']
 let g:neoformat_enabled_css = ['prettier']
@@ -315,8 +321,8 @@ au BufNewFile,BufRead *.json.jbuilder set ft=ruby
 
 if has('gui_running')
     colorscheme solarized
-    "set background=dark
-    set background=light
+    set background=dark
+    "set background=light
     "colorscheme zenburn
     "colorscheme herald
     "colorscheme mustang
@@ -463,6 +469,7 @@ nnoremap ,gc :Gcommit<CR>
 nnoremap ,gp :Gpush<CR>
 nnoremap ,gd :Gdiff<CR>
 nnoremap ,gb :Gbrowse<CR>
+nnoremap ,gl :Glog<CR><CR>
 
 nnoremap ,w :ImportJSWord<CR>
 
