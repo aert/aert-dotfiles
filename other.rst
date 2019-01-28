@@ -23,13 +23,27 @@ Theme:
 
 Extensions:
 
-* Alternatetab
 * Appindicator support
 * Caffeine
-* Drop down terminal
-* Places status indicator
-* User themes
-* Virtualbox vm search provider
+- AlternateTab
+- Docker Integration
+- Dynamic Top Bar
+- GNOME Vagrant Indicator
+- Hide Top Bar
+- Media Player Indicator
+- Native Window Placement
+- Pixel Saver
+- Places Status Indicator
+- Refresh Wifi Connections
+- Removable Drive Menu
+- Right Click Down
+- Sound Input & Output Device Chooser
+- Status Area Horizontal Spacing
+- system-monitor
+- TopIcons Plus
+- User Themes
+- Window Corner Preview
+- Workspaces to Dock
 
 Fonts:
 
