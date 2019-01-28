@@ -56,6 +56,7 @@ ZSH_THEME="spaceship"
 # NOTE:  zsh-syntax-highlighting must be at the end
 plugins=(git encode64 aws rake-fast rails zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
 
 # User configuration
 

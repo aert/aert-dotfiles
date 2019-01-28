@@ -337,8 +337,9 @@ if has('gui_running')
     set ghr=0
 else
     set background=dark
-    colorscheme janah
-    "colorscheme solarized
+    let g:solarized_termtrans=1
+    "colorscheme janah
+    colorscheme solarized
     "set background=light
     "let g:solarized_termcolors=256
 endif
