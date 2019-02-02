@@ -19,6 +19,7 @@ call plug#begin('~/.vim/bundle')
 Plug 'tpope/vim-dispatch'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
+Plug 'luochen1990/rainbow'
 " code analysis
 Plug 'scrooloose/syntastic'
 Plug 'davidhalter/jedi-vim'
@@ -42,7 +43,6 @@ Plug 'junegunn/gv.vim'
 Plug 'airblade/vim-gitgutter'
 " motion
 Plug 'easymotion/vim-easymotion'
-"Plug 'gcmt/taboo.vim'
 " navigation
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -84,7 +84,12 @@ call plug#end()
 "### Bundle Configs ###########################################################
 "##############################################################################
 
-"let g:airline#extensions#tabline#enabled = 1
+" Rainbow
+let g:rainbow_active = 1
+
+" Vim Airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_powerline_fonts = 1
 let g:airline_theme = "atomic"
 set laststatus=2 
@@ -103,6 +108,11 @@ autocmd FileType go nmap <leader>r  <Plug>(go-run)
 " Emmet
 autocmd FileType html,css,javascript.jsx EmmetInstall
 let g:user_emmet_leader_key='<C-X>'
+let g:user_emmet_settings = {
+\  'javascript.jsx' : {
+\      'extends' : 'jsx',
+\  },
+\}
 
 " Taboo
 set guioptions-=e
