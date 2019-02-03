@@ -1,6 +1,6 @@
 # ~/.tmuxinator/td.yml
 
-name: td
+name: scriptx
 root: ~/Code/scriptx
 
 # Optional tmux socket
