@@ -195,3 +195,8 @@ alias mux_scriptxdown="tmuxinator stop scriptx; cd ~/Code/scriptx/scriptx-io-rai
 eval "$(direnv hook zsh)"
 
 alias x="exa -l --time-style long-iso --git"
+
+
+chpwd() {
+  x
+}
