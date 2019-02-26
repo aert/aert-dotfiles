@@ -10,11 +10,17 @@ update:
 	cp ~/.zsh_plugins.txt user-config/
 	cp ~/.ackrc user-config/
 	cp /etc/fstab system-config/etc/
+	#-- tmux
+	rm -rf user-config/.byobu user-config/.config/tmuxinator
 	cp -R ~/.byobu user-config/
 	cp -R ~/.config/tmuxinator user-config/.config/
-
+	#-- git/ctags
+	rm -rf user-config/.git_template
 	cp ~/.ctags user-config/
 	cp -R ~/.git_template user-config/
+	#-- my_scripts
+	rm -rf ./my_scripts
+	cp -R ~/bin/my_scripts/ ./
 
 update-danger:
 	cp ~/.gitconfig user-config/

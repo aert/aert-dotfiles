@@ -138,7 +138,7 @@ source <(kubectl completion zsh)
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$ANDROID_HOME/tools:$PATH
 export PATH=$ANDROID_HOME/platform-tools:$PATH
-export PATH=~/bin:$PATH
+export PATH=~/bin:~/bin/my_scripts:$PATH
 export PATH=~/bin/gradle-1.10/bin:$PATH
 
 #-- rbenv
