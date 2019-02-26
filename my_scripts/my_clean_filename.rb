@@ -3,6 +3,10 @@
 require 'pathname'
 require 'fileutils'
 
+IGNORE_DIRS = [
+  '.svn', '.git'
+].freeze
+
 module WithSay
   def say(message, subitem = false, count = 0, index = 0, error = false, subitem_level = 1)
     msg = nil
@@ -65,6 +69,7 @@ class UselessFilesRemover
   end
 
   def process_dir(path)
+    return if IGNORE_DIRS.include?(path.basename.to_s)
     path.each_child do |p|
       if p.directory? then process_dir(p)
       elsif p.file? then process_file(p)
@@ -107,6 +112,7 @@ class OneFileDirToFileHandler
   end
 
   def process_dir(path, is_root_dir = false)
+    return if IGNORE_DIRS.include?(path.basename.to_s)
     path.each_child do |p|
       process_dir(p) if p.directory?
     end
@@ -159,6 +165,7 @@ class EmptyDirRemover
   end
 
   def process_dir(path, is_root_dir = false)
+    return if IGNORE_DIRS.include?(path.basename.to_s)
     path.each_child do |p|
       process_dir(p) if p.directory?
     end
@@ -208,6 +215,7 @@ class FilenameCleaner
   end
 
   def process_dir(path)
+    return if IGNORE_DIRS.include?(path.basename.to_s)
     orig, cleaned, dest = clean(path, true)
 
     if orig != cleaned
