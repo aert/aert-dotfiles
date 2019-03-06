@@ -26,7 +26,7 @@ Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'scrooloose/syntastic'
 Plug 'davidhalter/jedi-vim'
 " completion
-"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --js-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer --rust-completer' }
 
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdcommenter'
@@ -172,6 +172,9 @@ let g:syntastic_loc_list_height=5
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
+" GutenTags
+let g:gutentags_cache_dir = '~/.cache/gutentags'
+
 " Surround - Django
 let b:surround_{char2nr("v")} = "{{ \r }}"
 let b:surround_{char2nr("{")} = "{{ \r }}"
@@ -185,17 +188,17 @@ let b:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
 
 " YCM
 " Settings from https://code.djangoproject.com/wiki/UsingVimWithDjango
-" let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
+let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
 " let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
-" let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
+let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
 " let g:ycm_complete_in_comments = 1 " Completion in comments
 " let g:ycm_complete_in_strings = 1 " Completion in string
-" let g:ycm_auto_trigger = 1
+let g:ycm_auto_trigger = 1
 " " These are the tweaks I apply to YCM's config, you don't need them but they might help.
 " " YCM gives you popups and splits by default that some people might not like, so these should tidy it up a bit for you.
 " let g:ycm_add_preview_to_completeopt=0
 " let g:ycm_confirm_extra_conf=0
-set completeopt-=preview
+" set completeopt-=preview
 
 " Fzf
 let g:fzf_colors =
@@ -484,6 +487,11 @@ nnoremap ,gp :Gpush<CR>
 nnoremap ,gd :Gdiff<CR>
 nnoremap ,gb :Gbrowse<CR>
 nnoremap ,gl :Glog<CR><CR>
+
+au FileType rust nmap gd <Plug>(rust-def)
+au FileType rust nmap gs <Plug>(rust-def-split)
+au FileType rust nmap gx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>rd <Plug>(rust-doc)
 
 nnoremap ,w :ImportJSWord<CR>
 
