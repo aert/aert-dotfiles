@@ -20,6 +20,8 @@ Plug 'tpope/vim-dispatch'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'luochen1990/rainbow'
+Plug 'vim-scripts/AnsiEsc.vim'
+
 " code analysis
 Plug 'scrooloose/syntastic'
 Plug 'davidhalter/jedi-vim'
