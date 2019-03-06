@@ -78,7 +78,8 @@ Plug 'tpope/vim-bundler', { 'for' : ['ruby'] }
 Plug 'ngmy/vim-rubocop', { 'for' : ['ruby'] }
 Plug 'tpope/vim-endwise'
 " rust
-"Bundle 'rust-lang/rust.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
 
 call plug#end()
 

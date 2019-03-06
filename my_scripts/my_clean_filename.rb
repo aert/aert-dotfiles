@@ -191,7 +191,7 @@ class FilenameCleaner
     x264
     epub pdf
     mp3 flac ogg
-    blueray bluray avi hdrip dvdrip webm webrip brrip yify
+    blueray bluray avi hdrip dvdrip webm webrip brrip yify xvid evo ac3 imax
   ].freeze
 
   def initialize(simulate = true)
@@ -220,10 +220,10 @@ class FilenameCleaner
 
     if orig != cleaned
       display(orig, cleaned, dest)
-      return if @simulate
-
-      FileUtils.mv path, dest
-      path = dest
+      unless @simulate
+        FileUtils.mv path, dest
+        path = dest
+      end
     end
 
     path.each_child do |p|
@@ -257,7 +257,7 @@ class FilenameCleaner
     IGNORE_WORDS.each do |w|
       cleaned.gsub!(/^#{w}\b|\b#{w}$|\b#{w}\b/i, '')
     end
-    cleaned = cleaned.squeeze(' ')
+    cleaned = cleaned.squeeze(' ').squeeze('-')
                      .strip
                      .gsub(/^\-+|^\_|\-+$|\_+$\)/, '')
                      .strip
