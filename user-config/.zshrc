@@ -152,6 +152,9 @@ export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
+#-- pipenv
+export SHELL=/bin/zsh
+
 alias ouvrir='xdg-open'
 alias cb='xclip -sel clip'
 alias cdgit='cd $(git rev-parse --show-cdup)'

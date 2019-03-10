@@ -21,6 +21,11 @@ Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'luochen1990/rainbow'
 Plug 'vim-scripts/AnsiEsc.vim'
+Plug 'tpope/vim-surround'
+
+" snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " code analysis
 Plug 'scrooloose/syntastic'
@@ -86,6 +91,12 @@ call plug#end()
 "##############################################################################
 "### Bundle Configs ###########################################################
 "##############################################################################
+
+" UtilSnips
+let g:UltiSnipsExpandTrigger       = "<c-j>"
+let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
+let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
 
 " Rainbow
 let g:rainbow_active = 1
@@ -189,7 +200,7 @@ let b:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
 " YCM
 " Settings from https://code.djangoproject.com/wiki/UsingVimWithDjango
 let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
-" let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
+let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
 let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
 " let g:ycm_complete_in_comments = 1 " Completion in comments
 " let g:ycm_complete_in_strings = 1 " Completion in string
@@ -274,6 +285,12 @@ augroup fmt
   autocmd!
   autocmd BufWritePre * undojoin | Neoformat
 augroup END
+
+" JEDI 
+let g:jedi#goto_command = "<leader>rd"
+let g:jedi#goto_assignments_command = "<leader>rg"
+let g:jedi#use_splits_not_buffers = "right"
+let g:jedi#usages_command = "<leader>ru"
 
 " ### My Personal Config
 " ######################
