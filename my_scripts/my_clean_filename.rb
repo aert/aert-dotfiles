@@ -39,13 +39,18 @@ end
 class UselessFilesRemover
   include WithSay
 
-  IGNORE = [
+  REMOVE_NAMES = [
     'visit for more books.txt',
     'tutsgalaxy com.txt',
-    'www yts ag.jpg',
     'bookflare net.txt',
-    'free audiobook version.txt',
-    'www yify-torrents com.jpg'
+    'free audiobook version.txt'
+  ].freeze
+
+  REMOVE_PATTERNS = [
+    /downloaded from.*\.txt$/i,
+    /.*\.url$/i,
+    /^www yts.*\.jpg$/i,
+    /^www yify.*\.jpg$/i
   ].freeze
 
   def initialize(simulate = true)
@@ -70,6 +75,7 @@ class UselessFilesRemover
 
   def process_dir(path)
     return if IGNORE_DIRS.include?(path.basename.to_s)
+
     path.each_child do |p|
       if p.directory? then process_dir(p)
       elsif p.file? then process_file(p)
@@ -79,7 +85,9 @@ class UselessFilesRemover
 
   def process_file(path)
     basename = path.basename.to_s
-    return unless IGNORE.include?(basename.downcase)
+    delete_file = REMOVE_NAMES.include?(basename.downcase)
+    delete_file ||= REMOVE_PATTERNS.any? { |x| x.match(basename) }
+    return unless delete_file
 
     say path.to_s, true
     return if @simulate
@@ -188,10 +196,11 @@ class FilenameCleaner
   include WithSay
 
   IGNORE_WORDS = %w[
-    x264
+    x264 x265 720p 1080p
     epub pdf
     mp3 flac ogg
     blueray bluray avi hdrip dvdrip webm webrip brrip yify xvid evo ac3 imax
+    galaxytv
   ].freeze
 
   def initialize(simulate = true)
@@ -250,7 +259,7 @@ class FilenameCleaner
     orig = path.realpath.basename(is_dir ? '' : '.*').to_s
     cleaned = orig.tr('[{', '(')
                   .tr(']}', ')')
-                  .gsub(/\b\.$|\b\.\b/, '-') # dots in middle
+                  .gsub(/\b\.$|\b\.\b/, ' ') # dots in middle
                   .gsub(/\(.*\)/, '')
                   .gsub(/[^'_\-\p{Alnum}\p{Arabic}]/i, ' ')
                   .gsub(/ \d+p/, '') # 720p

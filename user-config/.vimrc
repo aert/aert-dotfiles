@@ -177,7 +177,8 @@ set statusline+=%*
 set statusline+=%{gutentags#statusline()}
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_ruby_checkers = ['rubocop']
-let g:syntastic_python_checkers=['flake8']
+"let g:syntastic_python_checkers=['flake8']
+let g:syntastic_python_checkers=['prospector']
 let g:syntastic_auto_loc_list=1
 let g:syntastic_loc_list_height=5
 let g:syntastic_check_on_open = 0
@@ -459,7 +460,7 @@ endfunction
 function! FZFHistory()
   let directory = substitute(system("git rev-parse --show-toplevel"), '\n$', '', '')
   if !v:shell_error
-    :call fzf#run(fzf#wrap({'source': 'git --no-pager log --name-only -10 --decorate=short --pretty=format:', 'dir': directory}))
+    :call fzf#run(fzf#wrap({'source': 'git --no-pager log --name-only -100 --decorate=short --pretty=format:', 'dir': directory}))
   else
     :History
   endif
