@@ -64,6 +64,8 @@ Plug 'janko-m/vim-test'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-janah'
+"Plug 'NLKNguyen/papercolor-theme'
+Plug 'morhetz/gruvbox'
 "Plug 'vim-scripts/TagHighlight'
 
 "### languages ################################################################
@@ -105,10 +107,11 @@ let g:rainbow_active = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_powerline_fonts = 1
-let g:airline_theme = "atomic"
+"let g:airline_theme = "atomic"
 set laststatus=2 
 
-
+" Goyo / LimeLight
+let g:limelight_conceal_ctermfg = 'black'
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
@@ -212,30 +215,30 @@ let g:ycm_auto_trigger = 1
 " let g:ycm_confirm_extra_conf=0
 " set completeopt-=preview
 
-" Fzf
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-
-function! s:fzf_statusline()
-  " Override statusline as you like
-  highlight fzf1 ctermfg=161 ctermbg=251
-  highlight fzf2 ctermfg=23 ctermbg=251
-  highlight fzf3 ctermfg=237 ctermbg=251
-  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-endfunction
-autocmd! User FzfStatusLine call <SID>fzf_statusline()
+"" Fzf
+"let g:fzf_colors =
+"\ { 'fg':      ['fg', 'Normal'],
+"  \ 'bg':      ['bg', 'Normal'],
+"  \ 'hl':      ['fg', 'Comment'],
+"  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+"  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+"  \ 'hl+':     ['fg', 'Statement'],
+"  \ 'info':    ['fg', 'PreProc'],
+"  \ 'border':  ['fg', 'Ignore'],
+"  \ 'prompt':  ['fg', 'Conditional'],
+"  \ 'pointer': ['fg', 'Exception'],
+"  \ 'marker':  ['fg', 'Keyword'],
+"  \ 'spinner': ['fg', 'Label'],
+"  \ 'header':  ['fg', 'Comment'] }
+"
+"function! s:fzf_statusline()
+"  " Override statusline as you like
+"  highlight fzf1 ctermfg=161 ctermbg=251
+"  highlight fzf2 ctermfg=23 ctermbg=251
+"  highlight fzf3 ctermfg=237 ctermbg=251
+"  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+"endfunction
+"autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 command! -bang -nargs=* GitAg
   \ call fzf#vim#ag(<q-args>, {'dir': systemlist('git rev-parse --show-toplevel')[0]}, <bang>0)
@@ -353,9 +356,13 @@ au BufReadPost * if getfsize(bufname("%")) > 102400 | set syntax= | endif
 " add jbuilder syntax highlighting
 au BufNewFile,BufRead *.json.jbuilder set ft=ruby
 
+"set termguicolors
+"let g:gruvbox_italic=1
+set background=dark
+colorscheme gruvbox
+
 if has('gui_running')
-    colorscheme solarized
-    set background=dark
+    "set background=dark
     "set background=light
     "colorscheme zenburn
     "colorscheme herald
@@ -370,12 +377,9 @@ if has('gui_running')
     set guioptions-=L
     set ghr=0
 else
-    set background=dark
-    let g:solarized_termtrans=1
+    "set background=dark
+    "let g:solarized_termtrans=1
     "colorscheme janah
-    colorscheme solarized
-    "set background=light
-    "let g:solarized_termcolors=256
 endif
 
 set colorcolumn=80 
