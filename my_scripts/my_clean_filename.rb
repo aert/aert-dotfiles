@@ -2,6 +2,7 @@
 
 require 'pathname'
 require 'fileutils'
+require 'active_support/inflector'
 
 IGNORE_DIRS = [
   '.svn', '.git'
@@ -121,6 +122,7 @@ class OneFileDirToFileHandler
 
   def process_dir(path, is_root_dir = false)
     return if IGNORE_DIRS.include?(path.basename.to_s)
+
     path.each_child do |p|
       process_dir(p) if p.directory?
     end
@@ -174,6 +176,7 @@ class EmptyDirRemover
 
   def process_dir(path, is_root_dir = false)
     return if IGNORE_DIRS.include?(path.basename.to_s)
+
     path.each_child do |p|
       process_dir(p) if p.directory?
     end
@@ -225,6 +228,7 @@ class FilenameCleaner
 
   def process_dir(path)
     return if IGNORE_DIRS.include?(path.basename.to_s)
+
     orig, cleaned, dest = clean(path, true)
 
     if orig != cleaned
@@ -257,12 +261,13 @@ class FilenameCleaner
   def clean(path, is_dir = false)
     ext = is_dir ? '' : path.realpath.extname
     orig = path.realpath.basename(is_dir ? '' : '.*').to_s
-    cleaned = orig.tr('[{', '(')
-                  .tr(']}', ')')
-                  .gsub(/\b\.$|\b\.\b/, ' ') # dots in middle
-                  .gsub(/\(.*\)/, '')
-                  .gsub(/[^'_\-\p{Alnum}\p{Arabic}]/i, ' ')
-                  .gsub(/ \d+p/, '') # 720p
+    cleaned = ActiveSupport::Inflector.transliterate(orig).to_s
+    cleaned = cleaned.tr('[{', '(')
+                     .tr(']}', ')')
+                     .gsub(/\b\.$|\b\.\b/, ' ') # dots in middle
+                     .gsub(/\(.*\)/, '')
+                     .gsub(/[^'_\-\p{Alnum}\p{Arabic}]/i, ' ')
+                     .gsub(/ \d+p/, '') # 720p
     IGNORE_WORDS.each do |w|
       cleaned.gsub!(/^#{w}\b|\b#{w}$|\b#{w}\b/i, '')
     end
