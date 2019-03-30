@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
 
+# Requirements:
+#
+# - gem install activesupport
+
 require 'pathname'
 require 'fileutils'
 require 'active_support/inflector'
