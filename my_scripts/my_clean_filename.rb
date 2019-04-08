@@ -206,8 +206,8 @@ class FilenameCleaner
     x264 x265 720p 1080p
     epub pdf
     mp3 flac ogg
-    blueray bluray avi hdrip dvdrip webm webrip brrip yify xvid evo ac3 imax
-    galaxytv
+    blueray bluray avi hdtv hdrip dvdrip webm webrip brrip yify xvid evo ac3 imax
+    galaxytv wrcr
   ].freeze
 
   def initialize(simulate = true)

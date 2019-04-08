@@ -278,6 +278,7 @@ let g:go_highlight_build_constraints = 1
 " NeoFormat
 "let g:neoformat_enabled_javascript = ['prettier']
 "let g:neoformat_enabled_ruby = ['rubocop']
+let g:neoformat_enabled_html = []
 let g:neoformat_enabled_javascript = []
 let g:neoformat_enabled_ruby = []
 let g:neoformat_enabled_python = ['black']

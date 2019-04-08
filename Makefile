@@ -3,6 +3,7 @@ update:
 	# Vim
 	# ===
 	cp ~/.vimrc user-config/
+	cp -R ~/.i3 user-config/
 	# Other
 	# =====
 	#cp ~/.config/sublime-text-3/Packages/User/Preferences.sublime-settings user-config/
