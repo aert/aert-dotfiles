@@ -189,6 +189,18 @@ bar {
 
 # ARI #################################################################
 
+mode "exit: [h]ibernate, [l]ogout, [r]eboot, [s]hutdown" {
+  bindsym h exec systemctl suspend
+  bindsym l exec i3-msg exit
+  bindsym r exec systemctl reboot
+  bindsym s exec systemctl shutdown
+  bindsym Escape mode "default"
+  bindsym Return mode "default"
+}
+
+bindsym $mod+XF86Eject mode "exit: [h]ibernate, [l]ogout, [r]eboot, [s]hutdown"
+
+
 new_window 1pixel
 workspace_layout default
 hide_edge_borders vertical
@@ -218,11 +230,13 @@ bindsym XF86AudioPrev exec playerctl previous
 # black background
 #exec --no-startup-id 'xsetroot -solid "#000000"
 exec --no-startup-id nitrogen --restore
+exec --no-startup-id compton
 
 # So that volume buttons and battery warnings work: https://faq.i3wm.org/question/279/how-do-you-use-i3-comfortably/#342
 exec gnome-settings-daemon
+exec "sh $HOME/.screenlayout/home.layout.sh"
 exec nm-applet
-#exec redshift
+exec gtk-redshift
 #exec volumeicon
 exec pnmixer
 exec blueman-applet

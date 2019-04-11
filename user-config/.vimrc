@@ -320,7 +320,7 @@ set nowrap
 set textwidth=0 wrapmargin=0
 
 " Foldmethod
-set foldmethod=indent
+set foldmethod=marker
 set foldlevel=99
 
 set incsearch
