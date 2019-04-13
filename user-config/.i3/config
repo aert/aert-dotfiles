@@ -52,7 +52,7 @@ set $right semicolon
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -179,6 +179,13 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# Open specific applications in floating mode
+for_window [class="Shutter"] floating enable
+
+# switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
+#
+
 # Colors
 set $bg-color 	         #000000
 set $inactive-bg-color   #000000
@@ -211,25 +218,24 @@ bar {
 
 # ARI #################################################################
 
+# Set shut down, restart and locking features
+set $mode_system exit: [s]uspend, [l]ogout, [r]eboot, [h]halt
 mode "exit: [s]uspend, [l]ogout, [r]eboot, [h]halt" {
-  bindsym s exec systemctl suspend
-  bindsym l exec i3-msg exit
-  bindsym r exec systemctl reboot
-  bindsym h exec systemctl halt
+  bindsym s exec systemctl suspend, mode "default"
+  bindsym l exec i3-msg exit, mode "default"
+  bindsym r exec systemctl reboot, mode "default"
+  bindsym h exec systemctl poweroff, mode "default"
   bindsym Escape mode "default"
   bindsym Return mode "default"
 }
 
-bindsym $mod+XF86Eject mode "exit: [s]uspend, [l]ogout, [r]eboot, [h]halt"
+bindsym $mod+XF86Eject mode "$mode_system"
 
 
 new_window 1pixel
 workspace_layout default
 hide_edge_borders vertical
 
-#bindsym $mod+d exec synapse
-#bindsym $mod+d exec rofi -show run -font "ubuntu mono 18" -fg "#505050" -bg "#000000" -hlfg "#ffb964" -hlbg "#000000" -width 30 -lines 5 -padding 20 -separator-style none -hide-scrollbar -bw 4 -bc "#111111"
-#bindsym $mod+d exec "rofi -combi-modi window,drun -show combi -modi combi -font 'ubuntu mono 14' -fg '#505050' -bg '#000000' -hlfg '#ffb964' -hlbg '#000000' -width 30 -lines 15 -padding 20 -separator-style none -hide-scrollbar -bw 4 -bc '#111111'"
 bindsym $mod+d exec "rofi -combi-modi window,drun,ssh -show combi -modi combi -font 'ubuntu mono 14' -fg '#505050' -bg '#000000' -hlfg '#ffb964' -hlbg '#000000' -width 30 -lines 15 -padding 20 -separator-style none -hide-scrollbar -bw 4 -bc '#111111'"
 bindsym $mod+g exec gnome-screensaver-command --lock
 bindsym $mod+Shift+g exec "gksudo pm-suspend && gnome-screensaver-command --lock"
@@ -254,7 +260,7 @@ bindsym XF86AudioPrev exec playerctl previous
 # black background
 #exec --no-startup-id 'xsetroot -solid "#000000"
 exec --no-startup-id nitrogen --restore
-exec --no-startup-id compton
+exec --no-startup-id compton -b
 
 # So that volume buttons and battery warnings work: https://faq.i3wm.org/question/279/how-do-you-use-i3-comfortably/#342
 exec gnome-settings-daemon
