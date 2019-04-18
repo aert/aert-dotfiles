@@ -5,13 +5,12 @@
 " * apt-get install ack-grep
 "
 
-" ### Vim-Plug
-" ###########
-
 let npm_bin=system('npm bin')
 let $PATH=$PATH . ":" . npm_bin
 set shell=zsh
 let g:python3_host_prog = '~/.pyenv/versions/3.6.3/bin/python'
+
+"-- Vim-Plug ---------------------------------------------------------------{{{
 
 call plug#begin('~/.vim/bundle')
 
@@ -90,6 +89,8 @@ Plug 'racer-rust/vim-racer'
 
 call plug#end()
 
+"-- Vim-Plug ---------------------------------------------------------------}}}
+
 "##############################################################################
 "### Bundle Configs ###########################################################
 "##############################################################################
@@ -130,10 +131,6 @@ let g:user_emmet_settings = {
 \      'extends' : 'jsx',
 \  },
 \}
-
-" Taboo
-set guioptions-=e
-"let g:taboo_tab_format = ' %N-%f%m '
 
 " Vim Gutter
 set updatetime=100
@@ -260,10 +257,6 @@ let g:ctrlsf_mapping = {
     \ }
 let g:ctrlsf_ignore_dir = ["node_modules", "coverage", "dist", "vendor", "target", "build", "vendor", "tags"]
 
-" Taboo
-set ssop-=folds      " do not store folds
-set ssop+=tabpages,globals
-
 " vim-go
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
@@ -322,6 +315,7 @@ set textwidth=0 wrapmargin=0
 " Foldmethod
 set foldmethod=marker
 set foldlevel=99
+set foldlevel=0
 
 set incsearch
 set hlsearch
