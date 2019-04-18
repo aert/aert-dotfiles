@@ -55,7 +55,8 @@ class UselessFilesRemover
     /downloaded from.*\.txt$/i,
     /.*\.url$/i,
     /^www yts.*\.jpg$/i,
-    /^www yify.*\.jpg$/i
+    /^www yify.*\.jpg$/i,
+    /^ahashare.*\.txt$/i
   ].freeze
 
   def initialize(simulate = true)
