@@ -142,8 +142,8 @@ export PATH=~/bin:~/bin/my_scripts:$PATH
 export PATH=~/bin/gradle-1.10/bin:$PATH
 
 #-- rbenv
-# export PATH="$HOME/.rbenv/bin:$PATH"
-# eval "$(rbenv init -)"
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 
 export PATH="$HOME/.local/bin:$PATH"
 
