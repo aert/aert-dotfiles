@@ -267,10 +267,8 @@ class FilenameCleaner
     ext = is_dir ? '' : path.realpath.extname
     orig = path.realpath.basename(is_dir ? '' : '.*').to_s
     cleaned = ActiveSupport::Inflector.transliterate(orig).to_s
-    cleaned = cleaned.tr('[{', '(')
-                     .tr(']}', ')')
-                     .gsub(/\b\.$|\b\.\b/, ' ') # dots in middle
-                     .gsub(/\(.*\)/, '')
+    cleaned = cleaned.gsub(/\b\.$|\b\.\b/, ' ') # dots in middle
+                     .gsub(/\[.*\]/, '')
                      .gsub(/[^'_\-\p{Alnum}\p{Arabic}]/i, ' ')
                      .gsub(/ \d+p/, '') # 720p
     IGNORE_WORDS.each do |w|
@@ -278,7 +276,7 @@ class FilenameCleaner
     end
     cleaned = cleaned.squeeze(' ').squeeze('-')
                      .strip
-                     .gsub(/^\-+|^\_|\-+$|\_+$\)/, '')
+                     .gsub(/(^\-+|^\_|\-+$|\_+$)/, '')
                      .strip
     cleaned += ext
 
