@@ -267,10 +267,10 @@ exec --no-startup-id compton -b
 exec --no-startup-id gnome-settings-daemon
 exec "sh $HOME/.screenlayout/home.layout.sh"
 exec nm-applet
-exec gtk-redshift
-#exec volumeicon
+# exec gtk-redshift
 exec pnmixer
 exec blueman-applet
+exec --no-startup-id synapse -s
 
 exec --no-startup-id "setxkbmap -model pc105 -layout fr,fr -option grp:alt_shift_toggle"
 
