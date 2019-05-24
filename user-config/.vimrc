@@ -58,6 +58,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'vim-scripts/taglist.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'arithran/vim-delete-hidden-buffers'
+" Plug 'majutsushi/tagbar'
 " tests
 Plug 'janko-m/vim-test'
 " themes
@@ -74,7 +75,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'ap/vim-css-color'
 Plug 'hail2u/vim-css3-syntax', { 'for' : ['css', 'less', 'scss'] }
 " go
-Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'] }
+Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'], 'do': ':GoUpdateBinaries' }
 " javascript
 Plug 'galooshi/vim-import-js', { 'for': ['javascript', 'typescript', 'graphql'] }
 Plug 'mtscout6/syntastic-local-eslint.vim', { 'for': ['javascript', 'typescript', 'graphql'] }
@@ -158,12 +159,40 @@ let NERDTreeQuitOnOpen=1
 let Tlist_Show_One_File = 1
 let Tlist_Close_On_Select = 1
 let Tlist_Exit_OnlyWindow = 1
-"let Tlist_GainFocus_On_ToggleOpen = 1
+let Tlist_GainFocus_On_ToggleOpen = 1
 let Tlist_Compact_Format = 1
 let Tlist_Enable_Fold_Column = 0
 let Tlist_Display_Tag_Scope = 0
-let Tlist_Display_Prototype = 1
+let Tlist_Display_Prototype = 0
+let Tlist_WinWidth = 40
+let Tlist_Sort_Type = "order"
 let tlist_javascript_settings = 'javascript;x:a-controller;y:a-filter;f:a-factory;z:a-service;d:a-directive;m:a-module;r:a-route;s:a-scope;A:Arrays;C:Classes;E:Exports;F:Functions;G:Generators;I:Imports;M:Methods;O:Objects;P:Properties;T:Tags;V:Variables'
+let tlist_ruby_settings = 'ruby;m:modules;c:classes;C:constants;b:attributes;h:associations;n:named_scopes;e:exposures;a:aasm_events;d:describes;F:methods singleton;f:methods'
+
+" TagBar
+" let g:tagbar_left = 1
+" let g:tagbar_autoclose = 1
+" let g:tagbar_sort = 0
+" let g:tagbar_compact = 1
+" let g:tagbar_ctags_bin = '/usr/bin/ctags'
+" let g:tagbar_type_ruby = {
+"             \ 'ctagstype' : 'ruby',
+"             \ 'kinds'     : [
+"                 \ 'c:classes',
+"                 \ 'f:methods',
+"                 \ 'm:modules',
+"                 \ 'F:singleton methods',
+"                 \ 'C:constants',
+"                 \ 'h:associations',
+"                 \ 'n:named_scopes',
+"                 \ 'e:exposures',
+"                 \ 'a:aasm_events',
+"                 \ 'd:describes'
+"             \ ],
+"             \ 'kind2scope'     : {
+"                 \ 'c': 'classes'
+"             \ }
+"       \ }
 
 " Fugitive
 autocmd QuickFixCmdPost *grep* cwindow
@@ -243,7 +272,7 @@ command! -bang -nargs=* GitAg
 
 command! -bang -nargs=* GitAgFiles
   \ call fzf#run(fzf#wrap(
-       \ {'source': 'ag -i -g '.shellescape(<q-args>), 
+       \ {'source': 'ag -i -U -g '.shellescape(<q-args>), 
        \  'dir': systemlist('git rev-parse --show-toplevel')[0]})
        \, <bang>0)
 
@@ -354,15 +383,11 @@ au BufNewFile,BufRead *.json.jbuilder set ft=ruby
 
 "set termguicolors
 "let g:gruvbox_italic=1
-" set background=dark
 " colorscheme gruvbox
+set background=light
+colorscheme solarized
 
 if has('gui_running')
-    "set background=dark
-    "set background=light
-    "colorscheme zenburn
-    "colorscheme herald
-    "colorscheme mustang
     "colorscheme janah
     "set lines=43 columns=140
     set lines=999 columns=999
@@ -376,7 +401,6 @@ else
     set background=light
     "let g:solarized_termtrans=1
     "colorscheme janah
-    colorscheme solarized
 endif
 
 set colorcolumn=80 
@@ -494,7 +518,7 @@ vmap ,l <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ,k :call FZFHistory()<CR>
 nmap <SPACE> :noh<CR>
 nnoremap ,e :tabnew<CR>
-nmap <TAB> :TlistToggle<CR>
+nmap ,<TAB> :TlistToggle<CR>
 
 nmap s <Plug>(easymotion-overwin-f)
 
