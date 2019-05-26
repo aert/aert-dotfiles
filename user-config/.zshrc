@@ -56,7 +56,7 @@ ZSH_THEME="spaceship"
 # NOTE:  zsh-syntax-highlighting must be at the end
 plugins=(git encode64 aws rake-fast rails zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=250'
 
 # User configuration
 
@@ -128,12 +128,12 @@ SPACESHIP_PROMPT_ORDER=(
 )
 # source ~/.zsh_plugins.sh
 
-export WORKON_HOME=~/Code/.envs
-export PROJECT_HOME=~/Code/venv
-source /usr/local/bin/virtualenvwrapper.sh
+#export WORKON_HOME=~/Code/.envs
+#export PROJECT_HOME=~/Code/venv
+#source /usr/local/bin/virtualenvwrapper.sh
 
-source /usr/etc/git-extras-completion.zsh
-source <(kubectl completion zsh)
+#source /usr/etc/git-extras-completion.zsh
+#source <(kubectl completion zsh)
 
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$ANDROID_HOME/tools:$PATH
