@@ -168,6 +168,8 @@ let Tlist_WinWidth = 40
 let Tlist_Sort_Type = "order"
 let tlist_javascript_settings = 'javascript;x:a-controller;y:a-filter;f:a-factory;z:a-service;d:a-directive;m:a-module;r:a-route;s:a-scope;A:Arrays;C:Classes;E:Exports;F:Functions;G:Generators;I:Imports;M:Methods;O:Objects;P:Properties;T:Tags;V:Variables'
 let tlist_ruby_settings = 'ruby;m:modules;c:classes;C:constants;b:attributes;h:associations;n:named_scopes;e:exposures;a:aasm_events;d:describes;F:methods singleton;f:methods'
+let tlist_markdown_settings = 'markdown;1:h1;2:h2;3:h3;4:h4'
+let tlist_rust_settings = 'rust;f:function definitions;T:type definitions;g:enumeration names;s:structure names;m:module names;c:static constants;t:traits;i:trait implementations;d:macro definitions'
 
 " TagBar
 " let g:tagbar_left = 1
@@ -193,6 +195,9 @@ let tlist_ruby_settings = 'ruby;m:modules;c:classes;C:constants;b:attributes;h:a
 "                 \ 'c': 'classes'
 "             \ }
 "       \ }
+
+" NerdCommenter
+let g:NERDSpaceDelims = 1
 
 " Fugitive
 autocmd QuickFixCmdPost *grep* cwindow
@@ -515,6 +520,8 @@ nmap ,r :Tags<CR>
 vmap ,r <Esc>:Tags <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ,l :BLines<CR>
 vmap ,l <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
+nmap ! :BLines<CR>
+vmap ! <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ,k :call FZFHistory()<CR>
 nmap <SPACE> :noh<CR>
 nnoremap ,e :tabnew<CR>

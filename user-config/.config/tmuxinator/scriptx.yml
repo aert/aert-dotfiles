@@ -47,12 +47,15 @@ windows:
       layout: tiled
       panes:
         - docker:
-          - cd ./scriptx-io-rails-service
-          - make compose_down
-          - make compose_api_run_rails
+            - cd ./scriptx-io-rails-service
+            - make compose_down
+            - make compose_api_run_rails
+        - logs:
+            - cd ./scriptx-io-rails-service
+            - tail -f log/script_x.log
         - yarn:
-          - cd ./scriptx-io-web-front-end
-          - npm start
+            - cd ./scriptx-io-web-front-end
+            - npm start
 
   - rails:
       root: ~/Code/scriptx/scriptx-io-rails-service
