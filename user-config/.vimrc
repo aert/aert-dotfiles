@@ -64,9 +64,9 @@ Plug 'janko-m/vim-test'
 " themes
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'mhinz/vim-janah'
+"Plug 'mhinz/vim-janah'
 "Plug 'NLKNguyen/papercolor-theme'
-Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox'
 "Plug 'vim-scripts/TagHighlight'
 
 "### languages ################################################################
@@ -104,7 +104,7 @@ let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
 let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
 
 " Rainbow
-let g:rainbow_active = 1
+let g:rainbow_active = 0      " use :RainbowToggle
 
 " Vim Airline
 let g:airline#extensions#tabline#enabled = 1
@@ -512,6 +512,7 @@ vmap     ,f <Plug>CtrlSFVwordExec
 nnoremap ,a :GitAg!<CR>
 vmap ,a <Esc>:GitAg! <C-R>=<SID>getVisualSelection()<CR><CR>
 nnoremap ,b :Buffers<CR>
+nnoremap 0 :Buffers<CR>
 nmap ; :BTags<CR>
 vmap ; <Esc>:BTags <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ,t :GFiles<CR>
