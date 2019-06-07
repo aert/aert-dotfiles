@@ -69,9 +69,9 @@ Plug 'janko-m/vim-test'
 " themes
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-"Plug 'mhinz/vim-janah'
-"Plug 'NLKNguyen/papercolor-theme'
-"Plug 'morhetz/gruvbox'
+" Plug 'edkolev/tmuxline.vim'
+" Plug 'drewtempelmeyer/palenight.vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
 "Plug 'vim-scripts/TagHighlight'
 
 "### languages ################################################################
@@ -97,20 +97,21 @@ Plug 'racer-rust/vim-racer', { 'for' : ['rust', 'toml'] }
 
 call plug#end()
 
-"-- Vim-Plug ---------------------------------------------------------------}}}
+"-- Vim-Plug ---------------------------------------------------------------" Fzf }}}
 
 "##############################################################################
 "### Bundle Configs ###########################################################
 "##############################################################################
 
-" Deoplete
+" Deoplete {{{
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
 let g:deoplete#sources#go#builtin_objects = 1
 let g:deoplete#sources#go#unimported_packages = 1
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+" Deoplete }}}
 
-" LanguageClient
+" LanguageClient {{{
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
@@ -119,13 +120,22 @@ let g:LanguageClient_serverCommands = {
     \ 'ruby': ['solargraph', 'stdio'],
     \ 'go': ['gopls'],
     \ }
+" LanguageClient }}}
 
-" ALE
+" status line / airline {{{
 set statusline+=%#warningmsg#
 set statusline+=%*
 set statusline+=%{gutentags#statusline()}
 
 let g:airline#extensions#ale#enabled = 1
+let g:airline_statusline_ontop=1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline_powerline_fonts = 1
+set laststatus=2 
+" status line / airline }}}
+
+" ALE {{{
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_open_list = 1
 let g:ale_list_window_size = 5
@@ -142,32 +152,30 @@ let g:ale_linters = {
  \}
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
+" ALE }}}
 
-" UtilSnips
+" UtilSnips {{{
 let g:UltiSnipsExpandTrigger       = "<c-j>"
 let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
 let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
+" UtilSnips }}}
 
-" Rainbow
+" Rainbow {{{
 let g:rainbow_active = 0      " use :RainbowToggle
+" Rainbow }}}
 
-" Vim Airline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline_powerline_fonts = 1
-"let g:airline_theme = "atomic"
-set laststatus=2 
-
-" Goyo / LimeLight
+" Goyo / LimeLight {{{
 let g:limelight_conceal_ctermfg = 'black'
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
+" Goyo / LimeLight }}}
 
-" vim test
+" vim test {{{
 let test#strategy = "dispatch"
+" vim test }}}
 
-" Emmet
+" Emmet {{{
 autocmd FileType html,css,javascript.jsx EmmetInstall
 let g:user_emmet_leader_key='<C-X>'
 let g:user_emmet_settings = {
@@ -175,29 +183,34 @@ let g:user_emmet_settings = {
 \      'extends' : 'jsx',
 \  },
 \}
+" Emmet }}}
 
-" Vim Gutter
+" Vim Gutter {{{
 set updatetime=100
 let g:gitgutter_sign_added = '❖'
 let g:gitgutter_sign_modified = '•'
 let g:gitgutter_sign_removed = '✘'
 " let g:gitgutter_sign_removed_first_line = '^^'
 " let g:gitgutter_sign_modified_removed = 'ww'
+" Vim Gutter }}}
 
-" javascript-libraries-syntax
+" javascript-libraries-syntax {{{
 let g:used_javascript_libs = 'jquery,underscore,react,requirejs'
+" javascript-libraries-syntax }}}
 
-" "vim-jsx
+" vim-jsx {{{
 let g:jsx_ext_required = 1
+" vim-jsx }}}
 
-" NerdTree
+" NerdTree {{{
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let NERDTreeShowBookmarks=1
 let NERDTreeIgnore = ['\.pyc$', '\.bak$', 'node_modules']
 let g:NERDTreeWinPos = "right"
 let NERDTreeQuitOnOpen=1
+" NerdTree }}}
 
-" Taglist
+" Taglist {{{
 let Tlist_Show_One_File = 1
 let Tlist_Close_On_Select = 1
 let Tlist_Exit_OnlyWindow = 1
@@ -212,8 +225,9 @@ let tlist_javascript_settings = 'javascript;x:a-controller;y:a-filter;f:a-factor
 let tlist_ruby_settings = 'ruby;m:modules;c:classes;C:constants;b:attributes;h:associations;n:named_scopes;e:exposures;a:aasm_events;d:describes;F:methods singleton;f:methods;t:tests'
 let tlist_markdown_settings = 'markdown;1:h1;2:h2;3:h3;4:h4'
 let tlist_rust_settings = 'rust;f:function definitions;T:type definitions;g:enumeration names;s:structure names;m:module names;c:static constants;t:traits;i:trait implementations;d:macro definitions'
+" Taglist }}}
 
-" TagBar
+" TagBar {{{
 let g:tagbar_left = 1
 let g:tagbar_autoclose = 1
 let g:tagbar_sort = 0
@@ -238,20 +252,25 @@ let g:tagbar_type_ruby = {
                 \ 'c': 'classes'
             \ }
       \ }
+" TagBar }}}
 
-" NerdCommenter
+" NerdCommenter {{{
 let g:NERDSpaceDelims = 1
+" NerdCommenter }}}
 
-" Fugitive
+" Fugitive {{{
 autocmd QuickFixCmdPost *grep* cwindow
+" Fugitive }}}
 
-" Python.vim
+" Python.vim {{{
 let python_highlight_all = 1 
+" Python.vim }}}
 
-" GutenTags
+" GutenTags {{{
 let g:gutentags_cache_dir = '~/.cache/gutentags'
+" GutenTags }}}
 
-" Surround - Django
+" Surround - Django {{{
 let b:surround_{char2nr("v")} = "{{ \r }}"
 let b:surround_{char2nr("{")} = "{{ \r }}"
 let b:surround_{char2nr("%")} = "{% \r %}"
@@ -260,23 +279,17 @@ let b:surround_{char2nr("i")} = "{% if \1condition: \1 %}\r{% endif %}"
 let b:surround_{char2nr("w")} = "{% with \1with: \1 %}\r{% endwith %}"
 let b:surround_{char2nr("f")} = "{% for \1for loop: \1 %}\r{% endfor %}"
 let b:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
+" Surround - Django }}}
 
-
-" YCM
+" YCM {{{
 " Settings from https://code.djangoproject.com/wiki/UsingVimWithDjango
 let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
 let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
 let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
-" let g:ycm_complete_in_comments = 1 " Completion in comments
-" let g:ycm_complete_in_strings = 1 " Completion in string
 let g:ycm_auto_trigger = 1
-" " These are the tweaks I apply to YCM's config, you don't need them but they might help.
-" " YCM gives you popups and splits by default that some people might not like, so these should tidy it up a bit for you.
-" let g:ycm_add_preview_to_completeopt=0
-" let g:ycm_confirm_extra_conf=0
-" set completeopt-=preview
+" YCM }}}
 
-"" Fzf
+" Fzf {{{
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -309,8 +322,9 @@ command! -bang -nargs=* GitAgFiles
        \ {'source': 'ag -i -U -g '.shellescape(<q-args>), 
        \  'dir': systemlist('git rev-parse --show-toplevel')[0]})
        \, <bang>0)
+" Fzf }}}
 
-" CtrlSF
+" CtrlSF {{{
 let g:ctrlsf_default_root='project'
 let g:ctrlsf_auto_close = 1
 let g:ctrlsf_default_view_mode = 'compact'
@@ -320,8 +334,9 @@ let g:ctrlsf_mapping = {
     \ "tab"     : "t",
     \ }
 let g:ctrlsf_ignore_dir = ["node_modules", "coverage", "dist", "vendor", "target", "build", "vendor", "tags"]
+" CtrlSF }}}
 
-" vim-go
+" vim-go {{{
 let g:go_list_type = "quickfix"
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -342,8 +357,9 @@ let g:go_def_mapping_enabled = 0
 
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
+" vim-go }}}
 
-" NeoFormat
+" NeoFormat {{{
 "let g:neoformat_enabled_javascript = ['prettier']
 "let g:neoformat_enabled_ruby = ['rubocop']
 let g:neoformat_enabled_html = []
@@ -358,12 +374,14 @@ augroup fmt
   autocmd!
   autocmd BufWritePre * undojoin | Neoformat
 augroup END
+" NeoFormat }}}
 
-" JEDI 
+" JEDI  {{{
 let g:jedi#goto_command = "<leader>rd"
 let g:jedi#goto_assignments_command = "<leader>rg"
 let g:jedi#use_splits_not_buffers = "right"
 let g:jedi#usages_command = "<leader>ru"
+" JEDI  }}}
 
 " ### My Personal Config
 " ######################
@@ -407,7 +425,7 @@ vnoremap > >gv
 syntax enable
 "set gfn=Ubuntu\ Mono\ 13
 "set gfn=Consolas\ 11
-set gfn=Fira\ Mono\ Medium\ 11
+set gfn=Operator\ Mono\ Medium\ 11
 set nu
 set relativenumber
 
@@ -419,15 +437,15 @@ au BufReadPost * if getfsize(bufname("%")) > 102400 | set syntax= | endif
 " add jbuilder syntax highlighting
 au BufNewFile,BufRead *.json.jbuilder set ft=ruby
 
-"set termguicolors
-"let g:gruvbox_italic=1
-" colorscheme gruvbox
-set background=light
-colorscheme solarized
+let g:palenight_terminal_italics=1
+" colorscheme palenight
+let g:dracula_colorterm = 0
+let g:airline_theme='dracula'
+colorscheme dracula
+" set background=light
+" colorscheme solarized
 
 if has('gui_running')
-    "colorscheme janah
-    "set lines=43 columns=140
     set lines=999 columns=999
     set mousehide
     set guioptions-=m
@@ -436,9 +454,7 @@ if has('gui_running')
     set guioptions-=L
     set ghr=0
 else
-    set background=light
     "let g:solarized_termtrans=1
-    "colorscheme janah
 endif
 
 set colorcolumn=80 
@@ -501,8 +517,12 @@ map k gk
 " shortcuts to common commands
 let mapleader = ","
 
+" italics
 hi Comment gui=italic cterm=italic
 hi htmlArg gui=italic cterm=italic
+let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
 
 " ### MY KEY MAPPINGS
 " ###################

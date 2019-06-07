@@ -1,5 +1,6 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# zsh profiling
+# https://esham.io/2018/02/zsh-profiling
+# zmodload zsh/zprof
 
 # Path to your oh-my-zsh installation.
 export ZSH=/home/ari/.oh-my-zsh
@@ -56,7 +57,7 @@ ZSH_THEME="spaceship"
 # NOTE:  zsh-syntax-highlighting must be at the end
 plugins=(git encode64 aws rake-fast rails zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=250'
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=244'
 
 # User configuration
 
@@ -163,7 +164,7 @@ alias tcopy='tmux show-buffer | cb && alert "$(tmux show-buffer)"'
 
 #-- node
 export NVM_DIR="/home/ari/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use
+# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use
 
 #-- yarn
 export PATH="$HOME/.yarn/bin:$PATH"
@@ -180,16 +181,11 @@ export BAT_THEME="zenburn"
 export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
-#export FZF_DEFAULT_OPTS='
-#--color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108
-#--color info:108,prompt:109,spinner:108,pointer:168,marker:168
-#'
+
 export FZF_DEFAULT_OPTS='
 --layout=reverse
 --height 50%
 --border
---color fg:240,bg:230,hl:33,fg+:241,bg+:221,hl+:33
---color info:33,prompt:33,pointer:166,marker:166,spinner:33
 '
 
 # tmuxinator
@@ -203,6 +199,7 @@ alias mux_accdown="tmuxinator stop acc; cd ~/Code/accelerator/acceleratorapp && 
 alias mux_scriptxup="tmuxinator scriptx acc"
 alias mux_scriptxdown="tmuxinator stop scriptx; cd ~/Code/scriptx/scriptx-io-rails-service && make compose_down"
 alias vim='nvim'
+alias ssh='TERM=xterm-256color ssh' # don't send custom $TERM with italics
 
 eval "$(direnv hook zsh)"
 
