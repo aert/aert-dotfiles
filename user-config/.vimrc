@@ -150,8 +150,8 @@ let g:ale_linters = {
  \   'javascript': [ 'prettier', 'eslint' ],
  \   'go': [ 'gofmt' ],
  \}
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
+" let g:ale_set_loclist = 0
+" let g:ale_set_quickfix = 1
 " ALE }}}
 
 " UtilSnips {{{
@@ -232,10 +232,8 @@ let g:tagbar_left = 1
 let g:tagbar_autoclose = 1
 let g:tagbar_sort = 0
 let g:tagbar_compact = 1
-let g:tagbar_ctags_bin = '/usr/bin/ctags'
 let g:tagbar_type_ruby = {
-            \ 'ctagstype' : 'ruby',
-            \ 'kinds'     : [
+            \ 'kinds' : [
                 \ 'c:classes',
                 \ 'f:methods',
                 \ 'm:modules',
@@ -248,9 +246,6 @@ let g:tagbar_type_ruby = {
                 \ 'd:describes',
                 \ 't:tests'
             \ ],
-            \ 'kind2scope'     : {
-                \ 'c': 'classes'
-            \ }
       \ }
 " TagBar }}}
 
