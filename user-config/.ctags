@@ -184,6 +184,7 @@
 --regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2!/a,methods,aasm_events/
 --regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2?/a,methods,aasm_events/
 --regex-ruby=/(^|;)[ \t]*(attribute|attr_accessor|attr_writer|attr_reader|thread_mattr_accessor|thread_mattr_writer|thread_mattr_reader)\(? *:([[:alnum:]_]+)+/\3/b,methods,attributes/
+--regex-ruby=/(^|;)[ \t]*test\(? *[\'\"](.+)[\'\"]/\2?/t,methods,tests/
 
 --langdef=ini
 --langmap=ini:.ini

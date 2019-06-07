@@ -170,6 +170,7 @@ export PATH="$HOME/.yarn/bin:$PATH"
 
 export PATH=$PATH:/usr/local/go/bin
 export GOPATH=$HOME/Code/gowork
+export PATH=$PATH:$GOPATH/bin
 export PATH="$HOME/.cargo/bin:$PATH"
 
 export BAT_THEME="zenburn" 
@@ -201,6 +202,7 @@ alias mux_accup="tmuxinator start acc"
 alias mux_accdown="tmuxinator stop acc; cd ~/Code/accelerator/acceleratorapp && make compose_down"
 alias mux_scriptxup="tmuxinator scriptx acc"
 alias mux_scriptxdown="tmuxinator stop scriptx; cd ~/Code/scriptx/scriptx-io-rails-service && make compose_down"
+alias vim='nvim'
 
 eval "$(direnv hook zsh)"
 

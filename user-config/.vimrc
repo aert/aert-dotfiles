@@ -8,7 +8,7 @@
 let npm_bin=system('npm bin')
 let $PATH=$PATH . ":" . npm_bin
 set shell=zsh
-let g:python3_host_prog = '~/.pyenv/versions/3.6.3/bin/python'
+let g:python3_host_prog = $HOME . '/.pyenv/versions/3.6.3/bin/python'
 
 "-- Vim-Plug ---------------------------------------------------------------{{{
 
@@ -27,10 +27,15 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 " code analysis
-Plug 'scrooloose/syntastic'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+Plug 'w0rp/ale'
 Plug 'davidhalter/jedi-vim'
 " completion
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer --rust-completer' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
 
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdcommenter'
@@ -55,10 +60,10 @@ Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'vim-scripts/taglist.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'arithran/vim-delete-hidden-buffers'
-" Plug 'majutsushi/tagbar'
+Plug 'vim-scripts/taglist.vim'
+Plug 'majutsushi/tagbar'
 " tests
 Plug 'janko-m/vim-test'
 " themes
@@ -70,12 +75,13 @@ Plug 'vim-airline/vim-airline-themes'
 "Plug 'vim-scripts/TagHighlight'
 
 "### languages ################################################################
+" go - must be before vim-poliglot
+Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'], 'do': ':GoUpdateBinaries' }
+" all
 Plug 'sheerun/vim-polyglot'
 " css
 Plug 'ap/vim-css-color'
 Plug 'hail2u/vim-css3-syntax', { 'for' : ['css', 'less', 'scss'] }
-" go
-Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'], 'do': ':GoUpdateBinaries' }
 " javascript
 Plug 'galooshi/vim-import-js', { 'for': ['javascript', 'typescript', 'graphql'] }
 Plug 'mtscout6/syntastic-local-eslint.vim', { 'for': ['javascript', 'typescript', 'graphql'] }
@@ -86,8 +92,8 @@ Plug 'tpope/vim-bundler', { 'for' : ['ruby'] }
 Plug 'ngmy/vim-rubocop', { 'for' : ['ruby'] }
 Plug 'tpope/vim-endwise'
 " rust
-Plug 'rust-lang/rust.vim'
-Plug 'racer-rust/vim-racer'
+Plug 'rust-lang/rust.vim', { 'for' : ['rust', 'toml'] }
+Plug 'racer-rust/vim-racer', { 'for' : ['rust', 'toml'] }
 
 call plug#end()
 
@@ -96,6 +102,46 @@ call plug#end()
 "##############################################################################
 "### Bundle Configs ###########################################################
 "##############################################################################
+
+" Deoplete
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#builtin_objects = 1
+let g:deoplete#sources#go#unimported_packages = 1
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+
+" LanguageClient
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ 'ruby': ['solargraph', 'stdio'],
+    \ 'go': ['gopls'],
+    \ }
+
+" ALE
+set statusline+=%#warningmsg#
+set statusline+=%*
+set statusline+=%{gutentags#statusline()}
+
+let g:airline#extensions#ale#enabled = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_open_list = 1
+let g:ale_list_window_size = 5
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'ruby': ['rubocop', 'solargraph'],
+\   'python': ['prospector'],
+\   'go': ['gopls'],
+\}
+ let g:ale_fixers = {
+ \   'ruby': [ 'rubocop' ],
+ \   'javascript': [ 'prettier', 'eslint' ],
+ \   'go': [ 'gofmt' ],
+ \}
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
 
 " UtilSnips
 let g:UltiSnipsExpandTrigger       = "<c-j>"
@@ -120,10 +166,6 @@ autocmd! User GoyoLeave Limelight!
 
 " vim test
 let test#strategy = "dispatch"
-
-" Go Vim
-autocmd FileType go nmap <leader>b  <Plug>(go-build)
-autocmd FileType go nmap <leader>r  <Plug>(go-run)
 
 " Emmet
 autocmd FileType html,css,javascript.jsx EmmetInstall
@@ -167,34 +209,35 @@ let Tlist_Display_Prototype = 0
 let Tlist_WinWidth = 40
 let Tlist_Sort_Type = "order"
 let tlist_javascript_settings = 'javascript;x:a-controller;y:a-filter;f:a-factory;z:a-service;d:a-directive;m:a-module;r:a-route;s:a-scope;A:Arrays;C:Classes;E:Exports;F:Functions;G:Generators;I:Imports;M:Methods;O:Objects;P:Properties;T:Tags;V:Variables'
-let tlist_ruby_settings = 'ruby;m:modules;c:classes;C:constants;b:attributes;h:associations;n:named_scopes;e:exposures;a:aasm_events;d:describes;F:methods singleton;f:methods'
+let tlist_ruby_settings = 'ruby;m:modules;c:classes;C:constants;b:attributes;h:associations;n:named_scopes;e:exposures;a:aasm_events;d:describes;F:methods singleton;f:methods;t:tests'
 let tlist_markdown_settings = 'markdown;1:h1;2:h2;3:h3;4:h4'
 let tlist_rust_settings = 'rust;f:function definitions;T:type definitions;g:enumeration names;s:structure names;m:module names;c:static constants;t:traits;i:trait implementations;d:macro definitions'
 
 " TagBar
-" let g:tagbar_left = 1
-" let g:tagbar_autoclose = 1
-" let g:tagbar_sort = 0
-" let g:tagbar_compact = 1
-" let g:tagbar_ctags_bin = '/usr/bin/ctags'
-" let g:tagbar_type_ruby = {
-"             \ 'ctagstype' : 'ruby',
-"             \ 'kinds'     : [
-"                 \ 'c:classes',
-"                 \ 'f:methods',
-"                 \ 'm:modules',
-"                 \ 'F:singleton methods',
-"                 \ 'C:constants',
-"                 \ 'h:associations',
-"                 \ 'n:named_scopes',
-"                 \ 'e:exposures',
-"                 \ 'a:aasm_events',
-"                 \ 'd:describes'
-"             \ ],
-"             \ 'kind2scope'     : {
-"                 \ 'c': 'classes'
-"             \ }
-"       \ }
+let g:tagbar_left = 1
+let g:tagbar_autoclose = 1
+let g:tagbar_sort = 0
+let g:tagbar_compact = 1
+let g:tagbar_ctags_bin = '/usr/bin/ctags'
+let g:tagbar_type_ruby = {
+            \ 'ctagstype' : 'ruby',
+            \ 'kinds'     : [
+                \ 'c:classes',
+                \ 'f:methods',
+                \ 'm:modules',
+                \ 'F:singleton methods',
+                \ 'C:constants',
+                \ 'h:associations',
+                \ 'n:named_scopes',
+                \ 'e:exposures',
+                \ 'a:aasm_events',
+                \ 'd:describes',
+                \ 't:tests'
+            \ ],
+            \ 'kind2scope'     : {
+                \ 'c': 'classes'
+            \ }
+      \ }
 
 " NerdCommenter
 let g:NERDSpaceDelims = 1
@@ -204,20 +247,6 @@ autocmd QuickFixCmdPost *grep* cwindow
 
 " Python.vim
 let python_highlight_all = 1 
-
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-set statusline+=%{gutentags#statusline()}
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_ruby_checkers = ['rubocop']
-"let g:syntastic_python_checkers=['flake8']
-let g:syntastic_python_checkers=['prospector']
-let g:syntastic_auto_loc_list=1
-let g:syntastic_loc_list_height=5
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
 
 " GutenTags
 let g:gutentags_cache_dir = '~/.cache/gutentags'
@@ -293,8 +322,6 @@ let g:ctrlsf_mapping = {
 let g:ctrlsf_ignore_dir = ["node_modules", "coverage", "dist", "vendor", "target", "build", "vendor", "tags"]
 
 " vim-go
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 let g:go_list_type = "quickfix"
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -302,6 +329,19 @@ let g:go_highlight_fields = 1
 let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+let g:go_highlight_format_strings = 1
+let g:go_highlight_extra_types = 1
+"let g:go_auto_type_info = 1
+let g:go_addtags_transform = "camelCase"
+let g:go_term_enabled = 1
+" let g:go_auto_sameids = 1
+let g:go_fmt_command = "goimports"
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+let g:go_def_mapping_enabled = 0
+
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
 
 " NeoFormat
 "let g:neoformat_enabled_javascript = ['prettier']
@@ -329,6 +369,7 @@ let g:jedi#usages_command = "<leader>ru"
 " ######################
 
 set clipboard=unnamedplus
+set modeline
 
 " Tabs
 ":set guitablabel=%N\ %f
@@ -369,14 +410,6 @@ syntax enable
 set gfn=Fira\ Mono\ Medium\ 11
 set nu
 set relativenumber
-"autocmd FileType python set omnifunc=pythoncomplete#Complete
-"autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-"autocmd FileType html,markdown,ctp set omnifunc=htmlcomplete#CompleteTags
-"autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-"autocmd FileType javascript setl sw=2 sts=2 et
-"autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-"autocmd FileType php,ctp set omnifunc=phpcomplete#CompletePHP
-"autocmd FileType vim set omnifunc=syntaxcomplete#Complete
 
 autocmd BufEnter * silent! lcd %:p:h
 
@@ -449,8 +482,7 @@ if &term =~ '^screen'
     set ttymouse=xterm2
 endif
 
-" close buffer when tab is closed
-"set nohidden
+" don't close buffer when tab is closed
 set hidden
 
 set wrapmargin=0
@@ -468,6 +500,9 @@ map k gk
 
 " shortcuts to common commands
 let mapleader = ","
+
+hi Comment gui=italic cterm=italic
+hi htmlArg gui=italic cterm=italic
 
 " ### MY KEY MAPPINGS
 " ###################
@@ -511,22 +546,24 @@ nnoremap ,,f :CtrlSFToggle<CR>
 vmap     ,f <Plug>CtrlSFVwordExec
 nnoremap ,a :GitAg!<CR>
 vmap ,a <Esc>:GitAg! <C-R>=<SID>getVisualSelection()<CR><CR>
-nnoremap ,b :Buffers<CR>
-nnoremap 0 :Buffers<CR>
+" nnoremap ,b :Buffers<CR>
+nnoremap à :Buffers<CR>
 nmap ; :BTags<CR>
 vmap ; <Esc>:BTags <C-R>=<SID>getVisualSelection()<CR><CR>
-nmap ,t :GFiles<CR>
+" nmap ,t :GFiles<CR>
+nmap ù :GFiles<CR>
 vmap ,t <Esc>:GitAgFiles! <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ,r :Tags<CR>
 vmap ,r <Esc>:Tags <C-R>=<SID>getVisualSelection()<CR><CR>
-nmap ,l :BLines<CR>
-vmap ,l <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
+" nmap ,l :BLines<CR>
+" vmap ,l <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ! :BLines<CR>
 vmap ! <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ,k :call FZFHistory()<CR>
 nmap <SPACE> :noh<CR>
 nnoremap ,e :tabnew<CR>
 nmap ,<TAB> :TlistToggle<CR>
+nmap <TAB> :TagbarToggle<CR>
 
 nmap s <Plug>(easymotion-overwin-f)
 
@@ -538,6 +575,12 @@ nnoremap ,gp :Gpush<CR>
 nnoremap ,gd :Gdiff<CR>
 nnoremap ,gb :Gbrowse<CR>
 nnoremap ,gl :Glog<CR><CR>
+
+nnoremap <silent> K :call LanguageClient_contextMenu()<CR>
+" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap ,,r :call LanguageClient#textDocument_rename()<CR>
+nnoremap <silent> gd :ALEGoToDefinitionInVSplit<CR>
 
 au FileType rust nmap gd <Plug>(rust-def)
 au FileType rust nmap gs <Plug>(rust-def-split)
