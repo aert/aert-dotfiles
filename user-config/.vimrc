@@ -21,6 +21,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'luochen1990/rainbow'
 Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-abolish'
 
 " snippets
 Plug 'SirVer/ultisnips'
@@ -584,18 +585,25 @@ nmap s <Plug>(easymotion-overwin-f)
 
 nnoremap ,gv :GV!<CR>
 nnoremap ,ga :Gwrite<CR>
-nnoremap ,gs :Gstatus<CR>
-nnoremap ,gc :Gcommit<CR>
+" nnoremap ,gs :Gstatus<CR>
+nnoremap ,gs :GFiles?<CR>
+" nnoremap ,gc :Gcommit<CR>
+nnoremap ,gc :BCommits<CR>
 nnoremap ,gp :Gpush<CR>
 nnoremap ,gd :Gdiff<CR>
 nnoremap ,gb :Gbrowse<CR>
-nnoremap ,gl :Glog<CR><CR>
+" nnoremap ,gl :Glog<CR><CR>
+nnoremap ,gl :Commits<CR>
 
 nnoremap <silent> K :call LanguageClient_contextMenu()<CR>
 " nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 " nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap ,,r :call LanguageClient#textDocument_rename()<CR>
 nnoremap <silent> gd :ALEGoToDefinitionInVSplit<CR>
+
+
+" FileType specific
+au FileType ruby nmap ,p :RuboCop -a<CR>
 
 au FileType rust nmap gd <Plug>(rust-def)
 au FileType rust nmap gs <Plug>(rust-def-split)
