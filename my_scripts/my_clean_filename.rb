@@ -12,6 +12,8 @@ IGNORE_DIRS = [
   '.svn', '.git'
 ].freeze
 
+#-- WithSay ----------------------------------------------------------------{{{
+
 module WithSay
   def say(message, subitem = false, count = 0, index = 0, error = false, subitem_level = 1)
     msg = nil
@@ -41,6 +43,10 @@ module WithSay
   end
 end
 
+#-- WithSay ----------------------------------------------------------------}}}
+
+#-- UselessFilesRemover ----------------------------------------------------{{{
+
 class UselessFilesRemover
   include WithSay
 
@@ -53,6 +59,7 @@ class UselessFilesRemover
 
   REMOVE_PATTERNS = [
     /downloaded from.*\.txt$/i,
+    /.*torrent.downloaded.*/i,
     /.*\.url$/i,
     /^www yts.*\.jpg$/i,
     /^www yify.*\.jpg$/i,
@@ -101,6 +108,10 @@ class UselessFilesRemover
     FileUtils.rm path
   end
 end
+
+#-- UselessFilesRemover ----------------------------------------------------}}}
+
+#-- OneFileDirToFileHandler ------------------------------------------------{{{
 
 class OneFileDirToFileHandler
   include WithSay
@@ -156,6 +167,10 @@ class OneFileDirToFileHandler
   end
 end
 
+#-- OneFileDirToFileHandler ------------------------------------------------}}}
+
+#-- EmptyDirRemover --------------------------------------------------------{{{
+
 class EmptyDirRemover
   include WithSay
 
@@ -199,6 +214,10 @@ class EmptyDirRemover
     FileUtils.rmdir path
   end
 end
+
+#-- EmptyDirRemover --------------------------------------------------------}}}
+
+#-- FilenameCleaner --------------------------------------------------------{{{
 
 class FilenameCleaner
   include WithSay
@@ -293,6 +312,8 @@ class FilenameCleaner
     puts "└─#{dest}"
   end
 end
+
+#-- FilenameCleaner --------------------------------------------------------}}}
 
 sim = !ARGV.include?('-f')
 params = ARGV.reject { |s| s == '-f' }
