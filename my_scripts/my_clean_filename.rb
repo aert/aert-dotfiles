@@ -226,7 +226,8 @@ class FilenameCleaner
     h264 x264 x265 720p 1080p
     epub pdf
     mp3 flac ogg
-    blueray bluray avi hdtv hdrip dvdrip webm webrip brrip yify xvid evo ac3 imax
+    blueray bluray avi hdtv hdrip dvdrip webm webrip brrip yify xvid evo ac3
+    imax bdrip
     galaxytv wrcr tbs deflate
   ].freeze
 
