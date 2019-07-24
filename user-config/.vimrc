@@ -22,6 +22,7 @@ Plug 'luochen1990/rainbow'
 Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-abolish'
+Plug 'editorconfig/editorconfig-vim'
 
 " snippets
 Plug 'SirVer/ultisnips'
@@ -103,6 +104,10 @@ call plug#end()
 "##############################################################################
 "### Bundle Configs ###########################################################
 "##############################################################################
+
+" Editor config {{{
+let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
+" Editor config }}}
 
 " Deoplete {{{
 let g:deoplete#enable_at_startup = 1
