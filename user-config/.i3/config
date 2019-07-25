@@ -57,7 +57,6 @@ bindsym $mod+Return exec i3-sensible-terminal
 # kill focused window
 bindsym $mod+d kill
 bindsym XF86Eject kill
-bindsym $mod+Insert kill
 
 # start dmenu (a program launcher)
 #bindsym $mod+d exec dmenu_run
@@ -238,6 +237,8 @@ default_border none
 bindsym $mod+space exec "rofi -combi-modi window,drun,run -show combi -modi combi -font 'ubuntu mono 14' -fg '#505050' -bg '#000000' -hlfg '#ffb964' -hlbg '#000000' -width 30 -lines 15 -padding 20 -separator-style none -hide-scrollbar -bw 4 -bc '#111111'"
 bindsym $mod+g exec gnome-screensaver-command --lock
 bindsym $mod+Shift+f exec thunar
+# Picture In Picture
+bindsym $mod+Insert exec "i3-msg 'floating toggle; sticky toggle; resize shrink width 10000px; resize grow width 400px; resize shrink height 10000px; resize grow height 250px;move position 10px 10px;'"
 
 #-- Multimedia
 ## Pulse Audio controls
