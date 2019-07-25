@@ -55,10 +55,9 @@ floating_modifier $mod
 bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+d kill
 bindsym XF86Eject kill
 bindsym $mod+Insert kill
-bindsym $mode+Backspace kill
 
 # start dmenu (a program launcher)
 #bindsym $mod+d exec dmenu_run
@@ -236,7 +235,6 @@ workspace_layout default
 hide_edge_borders both
 default_border none
 
-bindsym $mod+d exec "rofi -combi-modi window,drun,run -show combi -modi combi -font 'ubuntu mono 14' -fg '#505050' -bg '#000000' -hlfg '#ffb964' -hlbg '#000000' -width 30 -lines 15 -padding 20 -separator-style none -hide-scrollbar -bw 4 -bc '#111111'"
 bindsym $mod+space exec "rofi -combi-modi window,drun,run -show combi -modi combi -font 'ubuntu mono 14' -fg '#505050' -bg '#000000' -hlfg '#ffb964' -hlbg '#000000' -width 30 -lines 15 -padding 20 -separator-style none -hide-scrollbar -bw 4 -bc '#111111'"
 bindsym $mod+g exec gnome-screensaver-command --lock
 bindsym $mod+Shift+f exec thunar
