@@ -34,7 +34,7 @@ class TpLinkStatus:
             return ""
 
         bar_full = "⣿" if charging else "█"
-        bar_empty = "▁" if charging else "░"
+        bar_empty = "⣀" if charging else "▒"
         num_bars = math.floor(4 * value / 100)
         return f"({bar_full * num_bars}{bar_empty * (4-num_bars)})"
 
