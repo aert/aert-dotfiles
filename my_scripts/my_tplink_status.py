@@ -11,7 +11,6 @@ class TpLinkStatus:
     HOST = "192.168.0.1"
 
     def run(self):
-
         cookies = {"check_cookie": "check_cookie"}
 
         headers = {
@@ -57,7 +56,7 @@ class TpLinkStatus:
         size = float(size or 0)
         width = kwargs.get("width", None)
         if size == 0:
-            return "0" if width is None else "0".center(width)
+            return "." if width is None else ".".center(width)
 
         units = kwargs.get("units", ["B", "kB", "MB", "GB", "TB"])
         num_decs = kwargs.get("num_decs", 2)
@@ -74,5 +73,7 @@ if __name__ == "__main__":
     runner = TpLinkStatus()
     try:
         print(runner.run())
+    except requests.exceptions.ConnectionError:
+        print("M7350(down)")
     except Exception as ex:
         print("M7350(down)", ex)
