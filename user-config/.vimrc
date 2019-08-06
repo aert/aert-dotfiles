@@ -78,7 +78,7 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 
 "### languages ################################################################
 " go - must be before vim-poliglot
-Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'], 'do': ':GoUpdateBinaries' }
+" Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'], 'do': ':GoUpdateBinaries' }
 " all
 Plug 'sheerun/vim-polyglot'
 " css
@@ -355,9 +355,6 @@ let g:go_fmt_command = "goimports"
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
 let g:go_def_mapping_enabled = 0
-
-autocmd FileType go nmap <leader>b  <Plug>(go-build)
-autocmd FileType go nmap <leader>r  <Plug>(go-run)
 " vim-go }}}
 
 " NeoFormat {{{

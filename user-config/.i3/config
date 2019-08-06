@@ -232,8 +232,10 @@ bindsym $mod+Delete mode "$mode_system"
 
 
 workspace_layout default
-hide_edge_borders both
-default_border none
+# hide_edge_borders both
+hide_edge_borders smart
+# default_border none
+default_border pixel 1
 
 bindsym $mod+space exec "rofi -combi-modi window,drun,run -show combi -modi combi -font 'ubuntu mono 14' -fg '#505050' -bg '#000000' -hlfg '#ffb964' -hlbg '#000000' -width 30 -lines 15 -padding 20 -separator-style none -hide-scrollbar -bw 4 -bc '#111111'"
 bindsym $mod+g exec gnome-screensaver-command --lock
@@ -268,6 +270,7 @@ exec --no-startup-id nm-applet
 # exec gtk-redshift
 exec --no-startup-id pnmixer
 exec --no-startup-id blueman-applet
+exec --no-startup-id xfce4-power-manager
 # exec --no-startup-id ulauncher --hide-window
 
 exec --no-startup-id "setxkbmap -model pc105 -layout fr,fr -option grp:alt_shift_toggle"
