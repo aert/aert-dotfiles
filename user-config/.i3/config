@@ -237,13 +237,19 @@ hide_edge_borders smart
 # default_border none
 default_border pixel 1
 
-bindsym $mod+space exec "rofi -combi-modi window,drun,run -show combi -modi combi -font 'ubuntu mono 14' -fg '#505050' -bg '#000000' -hlfg '#ffb964' -hlbg '#000000' -width 30 -lines 15 -padding 20 -separator-style none -hide-scrollbar -bw 4 -bc '#111111'"
+bindsym $mod+space exec "rofi -combi-modi window,drun,run -show combi -modi combi -font 'Monaco Regular 12' -fg '#505050' -bg '#000000' -hlfg '#ffb964' -hlbg '#000000' -width 30 -lines 15 -padding 20 -separator-style none -hide-scrollbar -bw 4 -bc '#111111'"
 bindsym $mod+g exec gnome-screensaver-command --lock
 bindsym $mod+Shift+f exec thunar
 # Picture In Picture
 bindsym $mod+Insert exec "i3-msg 'floating toggle; sticky toggle; resize shrink width 10000px; resize grow width 400px; resize shrink height 10000px; resize grow height 250px;move position 10px 10px;'"
 
 #-- Multimedia
+bindsym XF86Explorer exec thunar
+bindsym XF86HomePage exec brave-browser --force-device-scale-factor=0.9
+bindsym XF86Mail exec thunderbird
+bindsym XF86Calculator exec gnome-calculator
+bindsym XF86Favorites exec KeeWeb
+
 ## Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
