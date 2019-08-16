@@ -6,6 +6,7 @@ update:
 	cp -R ~/.i3 user-config/
 	cp ~/.i3status.conf user-config/
 	cp -R ~/.config/ranger/rifle.conf user-config/config/ranger/
+	cp ~/.config/compton.conf user-config/config/
 	# Other
 	# =====
 	#cp ~/.config/sublime-text-3/Packages/User/Preferences.sublime-settings user-config/
