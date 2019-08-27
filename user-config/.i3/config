@@ -246,7 +246,7 @@ bindsym $mod+Insert exec "i3-msg 'floating toggle; sticky toggle; resize shrink 
 
 #-- Multimedia
 bindsym XF86Explorer exec thunar
-bindsym XF86HomePage exec brave-browser --force-device-scale-factor=0.9
+bindsym XF86HomePage exec brave-browser --force-device-scale-factor=0.86
 bindsym XF86Mail exec thunderbird
 bindsym XF86Calculator exec gnome-calculator
 bindsym XF86Favorites exec KeeWeb
