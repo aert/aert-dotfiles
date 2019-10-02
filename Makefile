@@ -3,6 +3,8 @@ update:
 	# Vim
 	# ===
 	cp ~/.vimrc user-config/
+	cp -R ~/.vim/UltiSnips user-config/.vim
+	# i3
 	cp -R ~/.i3 user-config/
 	cp ~/.i3status.conf user-config/
 	cp -R ~/.config/ranger/rifle.conf user-config/config/ranger/

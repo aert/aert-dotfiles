@@ -1,0 +1,13 @@
+# vim:ft=snippets:
+
+global !p
+import vim
+
+rst_char_len = vim.strwidth
+endglobal
+
+snippet #--- "# <title> ---...---{{{" b
+# ${1:title} `!p snip.rv = (79 - rst_char_len(t[1]) - 6 - 2)*'-' + "{{{"`
+$0
+`!p snip.rv = '# ' + t[1] + ' ' + (79 - rst_char_len(t[1]) - 6 - 2)*'-' + "}}}"`
+endsnippet
