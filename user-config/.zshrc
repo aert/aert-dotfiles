@@ -169,8 +169,10 @@ alias mux_otup="tmuxinator start ot"
 alias mux_otdown="tmuxinator stop ot; cd ~/Code/orchtech/ot-hr-saas && make compose_down"
 alias mux_accup="tmuxinator start acc"
 alias mux_accdown="tmuxinator stop acc; cd ~/Code/accelerator/acceleratorapp && make compose_down"
-alias mux_scriptxup="tmuxinator scriptx acc"
+alias mux_scriptxup="tmuxinator start scriptx"
 alias mux_scriptxdown="tmuxinator stop scriptx; cd ~/Code/scriptx/scriptx-io-rails-service && make compose_down"
+alias mux_qoteitup="tmuxinator start qoteit"
+alias mux_qoteitdown="tmuxinator stop qoteit; cd ~/Code/qoteit/qoteit-web && make compose_down"
 alias vim='nvim'
 alias ssh='TERM=xterm-256color ssh' # don't send custom $TERM with italics
 
