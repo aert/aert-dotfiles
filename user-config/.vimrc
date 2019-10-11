@@ -24,6 +24,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-abolish'
 Plug 'editorconfig/editorconfig-vim'
 
+Plug 'pearofducks/ansible-vim'
+
 " snippets
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -72,8 +74,8 @@ Plug 'janko-m/vim-test'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'edkolev/tmuxline.vim'
-" Plug 'drewtempelmeyer/palenight.vim'
-Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'mhinz/vim-janah'
+" Plug 'dracula/vim', { 'as': 'dracula' }
 "Plug 'vim-scripts/TagHighlight'
 
 "### languages ################################################################
@@ -383,6 +385,11 @@ let g:jedi#use_splits_not_buffers = "right"
 let g:jedi#usages_command = "<leader>ru"
 " JEDI  }}}
 
+" ansible-vim  {{{
+let g:ansible_name_highlight = 'd'
+let g:ansible_extra_keywords_highlight = 1
+" ansible-vim  }}}
+
 " ### My Personal Config
 " ######################
 
@@ -437,11 +444,10 @@ au BufReadPost * if getfsize(bufname("%")) > 102400 | set syntax= | endif
 " add jbuilder syntax highlighting
 au BufNewFile,BufRead *.json.jbuilder set ft=ruby
 
-let g:palenight_terminal_italics=1
-" colorscheme palenight
-let g:dracula_colorterm = 0
-let g:airline_theme='dracula'
-colorscheme dracula
+colorscheme janah
+"let g:dracula_colorterm = 0
+"let g:airline_theme='dracula'
+"colorscheme dracula
 " set background=light
 " colorscheme solarized
 
