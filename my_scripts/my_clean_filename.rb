@@ -60,6 +60,7 @@ class UselessFilesRemover
   REMOVE_PATTERNS = [
     /downloaded from.*\.txt$/i,
     /.*torrent.downloaded.*/i,
+    /.*torrents com.*/i,
     /.*\.url$/i,
     /^www yts.*\.jpg$/i,
     /^www yify.*\.jpg$/i,
@@ -228,7 +229,7 @@ class FilenameCleaner
     mp3 flac ogg
     blueray bluray avi hdtv hdrip dvdrip webm webrip brrip yify xvid evo ac3
     imax bdrip
-    galaxytv wrcr tbs deflate
+    galaxytv galaxyrg wrcr tbs deflate
   ].freeze
 
   def initialize(simulate = true)
