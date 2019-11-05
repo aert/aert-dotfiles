@@ -48,7 +48,7 @@ Plug 'mattn/emmet-vim'
 Plug 'sbdchd/neoformat'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown'] }
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'html'] }
 Plug 'junegunn/vim-easy-align'
 " git
 Plug 'tpope/vim-fugitive'
@@ -526,11 +526,11 @@ map k gk
 let mapleader = ","
 
 " italics
-hi Comment gui=italic cterm=italic
-hi htmlArg gui=italic cterm=italic
-let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
-set termguicolors
+"hi Comment gui=italic cterm=italic
+"hi htmlArg gui=italic cterm=italic
+"let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+"let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+"set termguicolors
 
 " ### MY KEY MAPPINGS
 " ###################
