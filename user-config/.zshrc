@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block, everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # zsh profiling
 # https://esham.io/2018/02/zsh-profiling
 # zmodload zsh/zprof
@@ -12,7 +19,8 @@ export ZSH=/home/ari/.oh-my-zsh
 #ZSH_THEME="cloud"
 #ZSH_THEME="amuse"
 #ZSH_THEME="miloshadzic"
-ZSH_THEME="spaceship"
+# ZSH_THEME="spaceship"
+ZSH_THEME=powerlevel10k/powerlevel10k
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -54,6 +62,7 @@ plugins=(git encode64 rake-fast rails zsh-autosuggestions zsh-syntax-highlightin
 source $ZSH/oh-my-zsh.sh
 
 # plugin: zsh_autosuggest
+# Color Codes: https://en.wikipedia.org/wiki/ANSI_escape_code
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=125'
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
@@ -183,3 +192,6 @@ alias x="exa -l --time-style long-iso --git"
 chpwd() {
   x
 }
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

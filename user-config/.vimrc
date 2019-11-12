@@ -75,7 +75,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'edkolev/tmuxline.vim'
 " Plug 'mhinz/vim-janah'
-Plug 'sainnhe/gruvbox-material'
+Plug 'sainnhe/vim-color-forest-night'
 " Plug 'dracula/vim', { 'as': 'dracula' }
 "Plug 'vim-scripts/TagHighlight'
 
@@ -447,11 +447,14 @@ au BufReadPost * if getfsize(bufname("%")) > 102400 | set syntax= | endif
 " add jbuilder syntax highlighting
 au BufNewFile,BufRead *.json.jbuilder set ft=ruby
 
+if (has("termguicolors"))
+  set termguicolors
+endif
 " colorscheme janah
 set background=dark
-let g:airline_theme = 'minimalist'
-let g:gruvbox_material_transparent_background = 1
-colorscheme gruvbox-material
+" let g:airline_theme = 'minimalist'
+let g:airline_theme = 'forest_night'
+colorscheme forest-night
 "let g:dracula_colorterm = 0
 "let g:airline_theme='dracula'
 "colorscheme dracula
@@ -535,7 +538,6 @@ let mapleader = ","
 "hi htmlArg gui=italic cterm=italic
 "let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
 "let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
-"set termguicolors
 
 " ### MY KEY MAPPINGS
 " ###################
