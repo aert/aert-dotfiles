@@ -74,7 +74,8 @@ Plug 'janko-m/vim-test'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'edkolev/tmuxline.vim'
-Plug 'mhinz/vim-janah'
+" Plug 'mhinz/vim-janah'
+Plug 'sainnhe/gruvbox-material'
 " Plug 'dracula/vim', { 'as': 'dracula' }
 "Plug 'vim-scripts/TagHighlight'
 
@@ -446,7 +447,11 @@ au BufReadPost * if getfsize(bufname("%")) > 102400 | set syntax= | endif
 " add jbuilder syntax highlighting
 au BufNewFile,BufRead *.json.jbuilder set ft=ruby
 
-colorscheme janah
+" colorscheme janah
+set background=dark
+let g:airline_theme = 'minimalist'
+let g:gruvbox_material_transparent_background = 1
+colorscheme gruvbox-material
 "let g:dracula_colorterm = 0
 "let g:airline_theme='dracula'
 "colorscheme dracula

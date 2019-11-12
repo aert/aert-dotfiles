@@ -27,7 +27,7 @@ class TpLinkStatus:
         section_devices = f"{r_devices} {'⣿' * r_strength + '⣀' * (4-r_strength)}"
         section_bat = self.display_bat(r_charging, r_bat)
 
-        return f"{section_speed} ¤ {section_totals} ¤ {section_devices} ¤ M7350⚡{section_bat}"
+        return f"{section_speed} ¤ {section_totals} ¤ {section_devices} ¤ M7350 🎀{section_bat}"
 
     def display_bat(self, charging, value):
         if value > 99:
