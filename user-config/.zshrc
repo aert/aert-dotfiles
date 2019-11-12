@@ -54,7 +54,7 @@ plugins=(git encode64 rake-fast rails zsh-autosuggestions zsh-syntax-highlightin
 source $ZSH/oh-my-zsh.sh
 
 # plugin: zsh_autosuggest
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=244'
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=125'
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
 bindkey '^ ' autosuggest-accept
