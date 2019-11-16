@@ -188,7 +188,7 @@ for_window [urgent=latest] focus
 set $bg-color 	         #2C1211
 set $inactive-bg-color   #2C1211
 set $text-color          #D85959
-set $inactive-text-color #000000
+set $inactive-text-color #8C2C2E
 set $urgent-bg-color 	   #190B0A
 
 # window colors
