@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: UTF-8
 
 # Requirements:
 #
@@ -229,7 +230,7 @@ class FilenameCleaner
     mp3 flac ogg
     blueray bluray avi hdtv hdrip dvdrip webm webrip brrip yify xvid evo ac3
     imax bdrip
-    galaxytv galaxyrg wrcr tbs deflate
+    galaxytv galaxyrg wrcr tbs deflate minx
   ].freeze
 
   def initialize(simulate = true)
@@ -286,7 +287,7 @@ class FilenameCleaner
 
   def clean(path, is_dir = false)
     ext = is_dir ? '' : path.realpath.extname
-    orig = path.realpath.basename(is_dir ? '' : '.*').to_s
+    orig = path.realpath.basename(is_dir ? '' : '.*').to_s.force_encoding('UTF-8')
     cleaned = ActiveSupport::Inflector.transliterate(orig).to_s
     cleaned = cleaned.gsub(/\b\.$|\b\.\b/, ' ') # dots in middle
                      .gsub(/\[.*\]/, '')
@@ -309,9 +310,9 @@ class FilenameCleaner
   end
 
   def display(orig, cleaned, dest)
-    puts "┌─#{orig.to_s.tr("\r", ' ')}"
+    puts "┌─#{orig.tr("\r", ' ')}"
     puts "┼─#{cleaned}"
-    puts "└─#{dest}"
+    puts "└─#{dest.to_s.force_encoding('UTF-8')}"
   end
 end
 
