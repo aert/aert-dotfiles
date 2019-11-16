@@ -145,8 +145,8 @@ alias tcopy='tmux show-buffer | cb && alert "$(tmux show-buffer)"'
 alias sm='smerge .'
 
 #-- node
-export NVM_DIR="/home/ari/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use
+# export NVM_DIR="/home/ari/.nvm"
+## [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use
 
 #-- yarn
 export PATH="$HOME/.yarn/bin:$PATH"
