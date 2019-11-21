@@ -5,14 +5,12 @@
 # that works even if disks are added and removed. See fstab(5).
 #
 # <file system> <mount point>   <type>  <options>       <dump>  <pass>
-# / was on /dev/sda3 during installation
-UUID=c9bed951-0719-4780-a56b-f3d29e65a59f /vm             ext4    noatime,errors=remount-ro 0       1
-UUID=af673ad5-06ef-44be-bbfd-88f1b64f0409 /               ext4    noatime,errors=remount-ro 0       1
+# / was on /dev/sda1 during installation
+UUID=4eb7f6cd-190e-44c0-a59e-d8f61b61f592 /               ext4    noatime,discard,errors=remount-ro 0       1
+/swapfile                                 none            swap    sw              0       0
 
-# AERT: optimisations SSD 
-tmpfs   /tmp                            tmpfs   defaults,size=6g    0    0 
-tmpfs   /_ramdisk                       tmpfs   defaults,size=2g    0    0 
-tmpfs   /var/cache/apt/archives         tmpfs   defaults,size=6g    0    0 
-tmpfs   /var/log                        tmpfs   defaults,nosuid,nodev,noatime,mode=0755,size=5% 0 0 
-
+# AERT: optimisations SSD
+tmpfs   /tmp                            tmpfs   defaults,size=3g    0    0
+tmpfs   /var/cache/apt/archives         tmpfs   defaults,size=4g    0    0
+tmpfs   /var/log                        tmpfs   defaults,nosuid,nodev,noatime,mode=0755,size=5% 0 0
 

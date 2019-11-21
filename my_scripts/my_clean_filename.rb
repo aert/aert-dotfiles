@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-# encoding: UTF-8
 
 # Requirements:
 #
@@ -63,6 +62,7 @@ class UselessFilesRemover
     /.*torrent.downloaded.*/i,
     /.*torrents com.*/i,
     /.*\.url$/i,
+    /^wwrg.*/i,
     /^www yts.*\.jpg$/i,
     /^www yify.*\.jpg$/i,
     /^ahashare.*\.txt$/i
@@ -230,7 +230,7 @@ class FilenameCleaner
     mp3 flac ogg
     blueray bluray avi hdtv hdrip dvdrip webm webrip brrip yify xvid evo ac3
     imax bdrip
-    galaxytv galaxyrg wrcr tbs deflate minx
+    galaxytv galaxyrg wrcr tbs deflate
   ].freeze
 
   def initialize(simulate = true)
@@ -287,10 +287,10 @@ class FilenameCleaner
 
   def clean(path, is_dir = false)
     ext = is_dir ? '' : path.realpath.extname
-    orig = path.realpath.basename(is_dir ? '' : '.*').to_s.force_encoding('UTF-8')
+    orig = path.realpath.basename(is_dir ? '' : '.*').to_s
     cleaned = ActiveSupport::Inflector.transliterate(orig).to_s
     cleaned = cleaned.gsub(/\b\.$|\b\.\b/, ' ') # dots in middle
-                     .gsub(/\[.*\]/, '')
+                     .gsub(/\[.*?\]/, '')
                      .gsub(/[^'_\-\p{Alnum}\p{Arabic}]/i, ' ')
                      .gsub(/ \d+p/, '') # 720p
     IGNORE_WORDS.each do |w|
@@ -310,9 +310,9 @@ class FilenameCleaner
   end
 
   def display(orig, cleaned, dest)
-    puts "┌─#{orig.tr("\r", ' ')}"
+    puts "┌─#{orig.to_s.tr("\r", ' ')}"
     puts "┼─#{cleaned}"
-    puts "└─#{dest.to_s.force_encoding('UTF-8')}"
+    puts "└─#{dest}"
   end
 end
 

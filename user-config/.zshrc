@@ -57,8 +57,8 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-# NOTE:  zsh-syntax-highlighting must be at the end
-plugins=(git encode64 rake-fast rails zsh-autosuggestions zsh-syntax-highlighting)
+# NOTE:  zsh-syntax-highlighting must be at the end rake-fast rails 
+plugins=(git encode64 zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 # plugin: zsh_autosuggest
@@ -117,11 +117,11 @@ SPACESHIP_PROMPT_ORDER=(
 #source /usr/etc/git-extras-completion.zsh
 #source <(kubectl completion zsh)
 
-export ANDROID_HOME=$HOME/Android/Sdk
-export PATH=$ANDROID_HOME/tools:$PATH
-export PATH=$ANDROID_HOME/platform-tools:$PATH
+# export ANDROID_HOME=$HOME/Android/Sdk
+# export PATH=$ANDROID_HOME/tools:$PATH
+# export PATH=$ANDROID_HOME/platform-tools:$PATH
+# export PATH=~/bin/gradle-1.10/bin:$PATH
 export PATH=~/bin:~/bin/my_scripts:$PATH
-export PATH=~/bin/gradle-1.10/bin:$PATH
 
 #-- rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -183,8 +183,6 @@ alias mux_scriptxdown="tmuxinator stop scriptx; cd ~/Code/scriptx/scriptx-io-rai
 alias mux_qoteitup="tmuxinator start qoteit"
 alias mux_qoteitdown="tmuxinator stop qoteit; cd ~/Code/qoteit/qoteit-web && make compose_down"
 alias ssh='TERM=xterm-256color ssh' # don't send custom $TERM with italics
-
-eval "$(direnv hook zsh)"
 
 alias x="exa -l --time-style long-iso --git"
 
