@@ -248,7 +248,7 @@ for_window [class   = ".*"] title_format "%title  ⋯  %class"
 title_align center
 
 # Set inner/outer gaps
-gaps inner 5
+gaps inner 10
 gaps outer 0
 gaps top 0
 gaps bottom 0
