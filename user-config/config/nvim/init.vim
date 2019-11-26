@@ -342,7 +342,7 @@ let g:ctrlsf_mapping = {
     \ "vsplit"  : "s",
     \ "tab"     : "t",
     \ }
-let g:ctrlsf_ignore_dir = ["node_modules", "coverage", "dist", "vendor", "target", "build", "vendor", "tags"]
+let g:ctrlsf_ignore_dir = ["node_modules", "coverage", "dist", "vendor", "target", "build", "vendor", "tags", "bower_components"]
 " CtrlSF }}}
 
 " vim-go {{{

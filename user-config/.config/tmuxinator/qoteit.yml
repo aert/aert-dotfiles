@@ -51,11 +51,11 @@ windows:
             - make compose_down
             - make compose_up
         - logs:
-            - tail -f log/development.log
+            - tail -f log/development.log | bat --paging=never -l log
         - yarn:
-            - "# yarn start"
+            -
         - docker_bash:
-            - "# docker bash"
+            -
 
   - rails:
       root: ~/Code/qoteit/qoteit-web
