@@ -26,6 +26,8 @@ update:
 	#-- my_scripts
 	rm -rf ./my_scripts
 	cp -R ~/bin/my_scripts/ ./
+	#-- dunst
+	cp ~/.config/dunst/dunstrc user-config/config/dunst
 
 update-danger:
 	cp ~/.gitconfig user-config/

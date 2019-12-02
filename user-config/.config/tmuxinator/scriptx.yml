@@ -52,7 +52,7 @@ windows:
             - make compose_api_run_rails
         - logs:
             - cd ./scriptx-io-rails-service
-            - tail -f log/script_x.log | bat --paging=never -l log
+            - tail -f log/script_x.log
         - yarn:
             - cd ./scriptx-io-web-front-end
             - npm start

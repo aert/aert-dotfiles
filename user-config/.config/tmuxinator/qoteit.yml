@@ -51,7 +51,7 @@ windows:
             - make compose_down
             - make compose_up
         - logs:
-            - tail -f log/development.log | bat --paging=never -l log
+            - tail -f log/development.log
         - yarn:
             -
         - docker_bash:
