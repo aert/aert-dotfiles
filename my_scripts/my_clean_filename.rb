@@ -230,7 +230,7 @@ class FilenameCleaner
     mp3 flac ogg
     blueray bluray avi hdtv hdrip dvdrip webm webrip brrip yify xvid evo ac3
     imax bdrip
-    galaxytv galaxyrg wrcr tbs deflate minx
+    galaxytv galaxyrg wrcr tbs deflate minx 800mb
   ].freeze
 
   def initialize(simulate = true)

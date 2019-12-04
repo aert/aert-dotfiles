@@ -82,7 +82,7 @@
     # Set to 0 to disable.
     # A client can set the 'transient' hint to bypass this. See the rules
     # section for how to disable this if necessary
-    idle_threshold = 0
+    idle_threshold = 120
 
     ### Text ###
 
@@ -126,7 +126,7 @@
     #   %n  progress value if set without any extra characters
     #   %%  Literal %
     # Markup is allowed
-    format = "%a\n<b>%s</b>\n%b"
+    format = "%a\n<b>%s</b>\n%b\n%p"
 
     # Alignment of message text.
     # Possible values are "left", "center" and "right".
@@ -275,9 +275,10 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#222222"
-    foreground = "#888888"
-    timeout = 10
+    background = "#16484B"
+    foreground = "#1baab1"
+    frame_color = "#1baab1"
+    timeout = 0
     # Icon for notifications with low urgency, uncomment to enable
     #icon = /path/to/icon
 
@@ -291,7 +292,7 @@
 [urgency_critical]
     background = "#900000"
     foreground = "#ffffff"
-    frame_color = "#ff0000"
+    frame_color = "#fb83a5"
     timeout = 0
     # Icon for notifications with critical urgency, uncomment to enable
     #icon = /path/to/icon
