@@ -203,7 +203,8 @@ client.urgent 	        $urgent-bg-color   $urgent-bg-color   $text-color        
 bar {
   mode hide
   # status_command i3status
-  status_command '/home/ari/bin/my_scripts/my_i3_status.sh'
+  # status_command '/home/ari/bin/my_scripts/my_i3_status.sh'
+  status_command py3status -c ~/.i3status.conf
   # tray_output primary
 
 	colors {
@@ -287,8 +288,10 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #d
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+# bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+# bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec brightnessctl s +20% # increase screen brightness
+bindsym XF86MonBrightnessDown exec brightnessctl s 20%- # decrease screen brightness
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play-pause
@@ -304,7 +307,7 @@ exec --no-startup-id compton -b
 
 # So that volume buttons and battery warnings work: https://faq.i3wm.org/question/279/how-do-you-use-i3-comfortably/#342
 exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-xsettings
-exec --no-startup-id "sh $HOME/.screenlayout/home.layout.sh"
+exec --no-startup-id "sh $HOME/.screenlayout/dual.layout.sh"
 exec --no-startup-id nm-applet
 # exec gtk-redshift
 exec --no-startup-id pnmixer
