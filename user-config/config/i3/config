@@ -205,7 +205,7 @@ bar {
   # status_command i3status
   # status_command '/home/ari/bin/my_scripts/my_i3_status.sh'
   status_command py3status -c ~/.i3status.conf
-  # tray_output primary
+  tray_output primary
 
 	colors {
 		background $bg-color

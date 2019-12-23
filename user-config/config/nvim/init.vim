@@ -91,7 +91,7 @@ Plug 'hail2u/vim-css3-syntax', { 'for' : ['css', 'less', 'scss'] }
 " javascript
 Plug 'galooshi/vim-import-js', { 'for': ['javascript', 'typescript', 'graphql'] }
 Plug 'mtscout6/syntastic-local-eslint.vim', { 'for': ['javascript', 'typescript', 'graphql'] }
-Plug 'jparise/vim-graphql', { 'for': ['javascript', 'typescript', 'graphql'] }
+" Plug 'jparise/vim-graphql', { 'for': ['javascript', 'typescript', 'graphql'] }
 " rails
 Plug 'tpope/vim-rails', { 'for' : ['ruby'] }
 Plug 'tpope/vim-bundler', { 'for' : ['ruby'] }
