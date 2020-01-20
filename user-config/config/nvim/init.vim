@@ -76,8 +76,8 @@ Plug 'vim-airline/vim-airline-themes'
 " Plug 'edkolev/tmuxline.vim'
 " Plug 'mhinz/vim-janah'
 " Plug 'dracula/vim', { 'as': 'dracula' }
-" Plug 'sainnhe/vim-color-forest-night'
-Plug 'morhetz/gruvbox'
+Plug 'sainnhe/vim-color-forest-night'
+" Plug 'morhetz/gruvbox'
 "Plug 'vim-scripts/TagHighlight'
 
 "### languages ################################################################
@@ -100,6 +100,8 @@ Plug 'tpope/vim-endwise'
 " rust
 Plug 'rust-lang/rust.vim', { 'for' : ['rust', 'toml'] }
 Plug 'racer-rust/vim-racer', { 'for' : ['rust', 'toml'] }
+" others
+Plug 'ledger/vim-ledger', { 'for' : ['ledger'] }
 
 call plug#end()
 
@@ -142,7 +144,7 @@ let g:airline_statusline_ontop=1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_powerline_fonts = 1
-set laststatus=2 
+set laststatus=2
 " status line / airline }}}
 
 " ALE {{{
@@ -272,7 +274,7 @@ autocmd QuickFixCmdPost *grep* cwindow
 " Fugitive }}}
 
 " Python.vim {{{
-let python_highlight_all = 1 
+let python_highlight_all = 1
 " Python.vim }}}
 
 " GutenTags {{{
@@ -328,7 +330,7 @@ command! -bang -nargs=* GitAg
 
 command! -bang -nargs=* GitAgFiles
   \ call fzf#run(fzf#wrap(
-       \ {'source': 'ag -i -U -g '.shellescape(<q-args>), 
+       \ {'source': 'ag -i -U -g '.shellescape(<q-args>),
        \  'dir': systemlist('git rev-parse --show-toplevel')[0]})
        \, <bang>0)
 " Fzf }}}
@@ -438,7 +440,7 @@ syntax enable
 "set gfn=Consolas\ 11
 set gfn=Operator\ Mono\ Medium\ 11
 set nu
-set relativenumber
+" set relativenumber
 
 autocmd BufEnter * silent! lcd %:p:h
 
@@ -451,22 +453,24 @@ au BufNewFile,BufRead *.json.jbuilder set ft=ruby
 if (has("termguicolors"))
   set termguicolors
 endif
-" colorscheme janah
-set background=dark
-" let g:airline_theme = 'minimalist'
-" let g:airline_theme = 'forest_night'
-" colorscheme forest-night
-let g:gruvbox_italic=1
-let g:gruvbox_contrast_light='soft'
-let g:gruvbox_contrast_dark='soft'
-set background=dark
-let g:airline_theme = 'gruvbox'
-colorscheme gruvbox
-"let g:dracula_colorterm = 0
-"let g:airline_theme='dracula'
-"colorscheme dracula
-" set background=light
+" set background=dark
+set background=light
 " colorscheme solarized
+" colorscheme janah
+" let g:airline_theme = 'minimalist'
+" -- forest-night
+let g:airline_theme = 'forest_night'
+colorscheme forest-night
+" -- gruvbox
+" let g:gruvbox_italic=1
+" let g:gruvbox_contrast_light='soft'
+" let g:gruvbox_contrast_dark='soft'
+" let g:airline_theme = 'gruvbox'
+" colorscheme gruvbox
+" -- dracula
+" let g:dracula_colorterm = 0
+" let g:airline_theme='dracula'
+" colorscheme dracula
 
 if has('gui_running')
     set lines=999 columns=999
@@ -480,7 +484,8 @@ else
     "let g:solarized_termtrans=1
 endif
 
-set colorcolumn=80 
+set nocursorline
+set colorcolumn=80
 "highlight ColorColumn ctermbg=235 guibg=#2c2d27
 "let &colorcolumn=join(range(81,999),",")
 
@@ -583,7 +588,7 @@ nnoremap T <c-w>T
 nnoremap ,c :let @+ = expand("%:p").":".line('.')<cr>
 nnoremap ,d :NERDTreeToggle<CR>
 nnoremap ,n :NERDTreeFind<CR>
-nnoremap ,f :CtrlSF 
+nnoremap ,f :CtrlSF
 nnoremap ,,f :CtrlSFToggle<CR>
 vmap     ,f <Plug>CtrlSFVwordExec
 nnoremap ,a :GitAg!<CR>
