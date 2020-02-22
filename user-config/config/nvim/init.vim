@@ -8,7 +8,7 @@
 let npm_bin=system('npm bin')
 let $PATH=$PATH . ":" . npm_bin
 set shell=zsh
-let g:python3_host_prog = '/usr/bin/python3'
+" let g:python3_host_prog = '/usr/bin/python3'
 
 "-- Vim-Plug ---------------------------------------------------------------{{{
 
@@ -74,10 +74,11 @@ Plug 'janko-m/vim-test'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'edkolev/tmuxline.vim'
-" Plug 'mhinz/vim-janah'
-" Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'mhinz/vim-janah'
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'sainnhe/vim-color-forest-night'
-" Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
+Plug 'altercation/vim-colors-solarized'
 "Plug 'vim-scripts/TagHighlight'
 
 "### languages ################################################################
@@ -126,7 +127,7 @@ let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const
 " LanguageClient {{{
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'javascript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
     \ 'python': ['/usr/local/bin/pyls'],
     \ 'ruby': ['solargraph', 'stdio'],
@@ -143,14 +144,14 @@ let g:airline#extensions#ale#enabled = 1
 let g:airline_statusline_ontop=1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 set laststatus=2
 " status line / airline }}}
 
 " ALE {{{
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_open_list = 1
-let g:ale_list_window_size = 5
+let g:ale_list_window_size = 3
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'ruby': ['rubocop', 'solargraph'],
@@ -337,8 +338,15 @@ command! -bang -nargs=* GitAgFiles
 
 " CtrlSF {{{
 let g:ctrlsf_default_root='project'
-let g:ctrlsf_auto_close = 1
+let g:ctrlsf_auto_close = {
+    \ "normal" : 1,
+    \ "compact": 1
+    \}
 let g:ctrlsf_default_view_mode = 'compact'
+let g:ctrlsf_search_mode = 'async'
+let g:ctrlsf_auto_focus = {
+    \ "at": "start"
+    \ }
 let g:ctrlsf_mapping = {
     \ "split"   : "i",
     \ "vsplit"  : "s",
@@ -450,23 +458,26 @@ au BufReadPost * if getfsize(bufname("%")) > 102400 | set syntax= | endif
 " add jbuilder syntax highlighting
 au BufNewFile,BufRead *.json.jbuilder set ft=ruby
 
-if (has("termguicolors"))
-  set termguicolors
-endif
-" set background=dark
-set background=light
+" if (has("termguicolors"))
+"   set termguicolors
+" endif
+set background=dark
+" -- solarized
 " colorscheme solarized
+" set background=dark
+" let g:solarized_termtrans=1
+" -- janah
 " colorscheme janah
 " let g:airline_theme = 'minimalist'
 " -- forest-night
-let g:airline_theme = 'forest_night'
-colorscheme forest-night
+" let g:airline_theme = 'forest_night'
+" colorscheme forest-night
 " -- gruvbox
-" let g:gruvbox_italic=1
-" let g:gruvbox_contrast_light='soft'
-" let g:gruvbox_contrast_dark='soft'
-" let g:airline_theme = 'gruvbox'
-" colorscheme gruvbox
+let g:gruvbox_italic=1
+let g:gruvbox_contrast_light='soft'
+let g:gruvbox_contrast_dark='soft'
+let g:airline_theme = 'gruvbox'
+colorscheme gruvbox
 " -- dracula
 " let g:dracula_colorterm = 0
 " let g:airline_theme='dracula'
@@ -481,7 +492,7 @@ if has('gui_running')
     set guioptions-=L
     set ghr=0
 else
-    "let g:solarized_termtrans=1
+    " let g:solarized_termtrans=1
 endif
 
 set nocursorline
@@ -588,7 +599,7 @@ nnoremap T <c-w>T
 nnoremap ,c :let @+ = expand("%:p").":".line('.')<cr>
 nnoremap ,d :NERDTreeToggle<CR>
 nnoremap ,n :NERDTreeFind<CR>
-nnoremap ,f :CtrlSF
+nnoremap ,f :CtrlSF 
 nnoremap ,,f :CtrlSFToggle<CR>
 vmap     ,f <Plug>CtrlSFVwordExec
 nnoremap ,a :GitAg!<CR>
@@ -596,12 +607,13 @@ vmap ,a <Esc>:GitAg! <C-R>=<SID>getVisualSelection()<CR><CR>
 " nnoremap ,b :Buffers<CR>
 nnoremap à :Buffers<CR>
 nmap ; :BTags<CR>
+nmap ; :call LanguageClient#textDocument_documentSymbol()<CR>
 vmap ; <Esc>:BTags <C-R>=<SID>getVisualSelection()<CR><CR>
 " nmap ,t :GFiles<CR>
 nmap ù :GFiles<CR>
 vmap ,t <Esc>:GitAgFiles! <C-R>=<SID>getVisualSelection()<CR><CR>
-nmap ,r :Tags<CR>
-vmap ,r <Esc>:Tags <C-R>=<SID>getVisualSelection()<CR><CR>
+" nmap ,r :Tags<CR>
+" vmap ,r <Esc>:Tags <C-R>=<SID>getVisualSelection()<CR><CR>
 " nmap ,l :BLines<CR>
 " vmap ,l <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ! :BLines<CR>
@@ -631,10 +643,13 @@ nnoremap <silent> K :call LanguageClient_contextMenu()<CR>
 " nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap ,,r :call LanguageClient#textDocument_rename()<CR>
 nnoremap <silent> gd :ALEGoToDefinitionInVSplit<CR>
+nnoremap ,h :call LanguageClient#textDocument_hover()<CR> 
+nmap ,r :call LanguageClient#textDocument_references()<CR>
 
 
 " FileType specific
-au FileType ruby nmap ,p :RuboCop -a<CR>
+" au FileType ruby nmap ,p :RuboCop -a<CR>
+au FileType ruby nmap ,p :ALEFix<CR>
 
 au FileType rust nmap gd <Plug>(rust-def)
 au FileType rust nmap gs <Plug>(rust-def-split)
