@@ -1,4 +1,9 @@
 #!/bin/sh
 
+# sudo dnf install libpq-devel
 
-sudo apt-get install ranger caca-utils highlight atool w3m poppler-utils mediainfo tty-clock
+# neovim plugins
+pip install neovim
+gem install neovim
+npm install -g prettier prettier-eslint prettier-eslint-cli typescript javascript-typescript-langserver
+gem install solargraph rubocop rubocop-rails rubocop-performance
