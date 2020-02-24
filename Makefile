@@ -7,7 +7,7 @@ update:
 	# i3
 	cp -R ~/.config/i3 user-config/config
 	cp ~/.i3status.conf user-config/
-	cp -R ~/.config/ranger/rifle.conf user-config/config/ranger/
+	# cp -R ~/.config/ranger/rifle.conf user-config/config/ranger/
 	cp ~/.config/compton.conf user-config/config/
 	# Other
 	# =====
@@ -16,10 +16,10 @@ update:
 	cp ~/.ackrc user-config/
 	cp /etc/fstab system-config/etc/
 	#-- tmux
-	rm -rf user-config/.byobu user-config/.config/tmuxinator
+	# rm -rf user-config/.byobu user-config/.config/tmuxinator
 	cp -R ~/.byobu user-config/
 	rm -f user-config/.byobu/.ssh-agent
-	cp -R ~/.config/tmuxinator user-config/.config/
+	# cp -R ~/.config/tmuxinator user-config/.config/
 	#-- git/ctags
 	rm -rf user-config/.git_template
 	cp ~/.ctags user-config/
@@ -28,6 +28,7 @@ update:
 	cp -R ~/bin/my_scripts/ ./
 	#-- dunst
 	cp ~/.config/dunst/dunstrc user-config/config/dunst
+	cp -R ~/.config/zathura/ user-config/config/
 
 update-danger:
 	cp ~/.gitconfig user-config/

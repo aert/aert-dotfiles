@@ -1,0 +1,6 @@
+set smooth-scroll true
+set window-title-basename true
+set statusbar-basename true
+
+set recolor true
+set recolor-keephue true

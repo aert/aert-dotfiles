@@ -1,16 +1,19 @@
-# /etc/fstab: static file system information.
+
 #
-# Use 'blkid' to print the universally unique identifier for a
-# device; this may be used with UUID= as a more robust way to name devices
-# that works even if disks are added and removed. See fstab(5).
+# /etc/fstab
+# Created by anaconda on Fri Feb  7 13:36:14 2020
 #
-# <file system> <mount point>   <type>  <options>       <dump>  <pass>
-# / was on /dev/sda1 during installation
-UUID=4eb7f6cd-190e-44c0-a59e-d8f61b61f592 /               ext4    noatime,discard,errors=remount-ro 0       1
-/swapfile                                 none            swap    sw              0       0
+# Accessible filesystems, by reference, are maintained under '/dev/disk/'.
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info.
+#
+# After editing this file, run 'systemctl daemon-reload' to update systemd
+# units generated from this file.
+#
+UUID=e2b979cb-2137-4847-9539-6097317cdfac /                       ext4    defaults,noatime,discard        0 1
+/dev/mapper/luks-fd8032d6-bcb9-4f28-a492-cd8f0c6627b7 /home                   ext4    defaults,x-systemd.device-timeout=0,noatime,discard 1 2
 
 # AERT: optimisations SSD
-tmpfs   /tmp                            tmpfs   defaults,size=3g    0    0
-tmpfs   /var/cache/apt/archives         tmpfs   defaults,size=4g    0    0
-tmpfs   /var/log                        tmpfs   defaults,nosuid,nodev,noatime,mode=0755,size=5% 0 0
+tmpfs   /tmp                            tmpfs   defaults,noatime,size=7g    0    0
+tmpfs   /var/log                        tmpfs   defaults,nosuid,nodev,noatime,mode=0755,size=10% 0 0
 
+/dev/disk/by-uuid/4eb7f6cd-190e-44c0-a59e-d8f61b61f592 /mnt/ubuntu auto nosuid,nodev,nofail,noatime,discard,x-gvfs-show,x-gvfs-name=UbuntuDisk 0 0

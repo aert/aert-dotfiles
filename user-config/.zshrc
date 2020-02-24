@@ -58,7 +58,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # NOTE:  zsh-syntax-highlighting must be at the end rake-fast rails 
-plugins=(git encode64 zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 # plugin: zsh_autosuggest
@@ -124,15 +124,11 @@ SPACESHIP_PROMPT_ORDER=(
 export PATH=~/bin:~/bin/my_scripts:$PATH
 
 #-- rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+export PATH="$PATH:`yarn global bin`"
 
 export PATH="$HOME/.local/bin:$PATH"
-
-#-- pyenv
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 
 #-- pipenv
 export SHELL=/bin/zsh
@@ -143,13 +139,6 @@ alias cdgit='cd $(git rev-parse --show-cdup)'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias tcopy='tmux show-buffer | cb && alert "$(tmux show-buffer)"'
 alias sm='smerge .'
-
-#-- node
-# export NVM_DIR="/home/ari/.nvm"
-## [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use
-
-#-- yarn
-export PATH="$HOME/.yarn/bin:$PATH"
 
 export PATH=$PATH:/usr/local/go/bin
 export GOPATH=$HOME/Code/gowork
@@ -170,22 +159,7 @@ export FZF_DEFAULT_OPTS='
 --border
 '
 
-# tmuxinator
-export EDITOR='vim'
-alias mux_tdup="tmuxinator start td"
-alias mux_tddown="tmuxinator stop td; cd ~/Code/tolaroid/tolaroid-api && make compose_down"
-alias mux_otup="tmuxinator start ot"
-alias mux_otdown="tmuxinator stop ot; cd ~/Code/orchtech/ot-hr-saas && make compose_down"
-alias mux_accup="tmuxinator start acc"
-alias mux_accdown="tmuxinator stop acc; cd ~/Code/accelerator/acceleratorapp && make compose_down"
-alias mux_scriptxup="tmuxinator start scriptx"
-alias mux_scriptxdown="tmuxinator stop scriptx; cd ~/Code/scriptx/scriptx-io-rails-service && make compose_down"
-alias mux_qoteitup="tmuxinator start qoteit"
-alias mux_qoteitdown="tmuxinator stop qoteit; cd ~/Code/qoteit/qoteit-web && make compose_down"
-# alias ssh='TERM=xterm-256color ssh' # don't send custom $TERM with italics
-
 alias x="exa -l --time-style long-iso --git"
-
 
 chpwd() {
   x
@@ -193,3 +167,4 @@ chpwd() {
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
