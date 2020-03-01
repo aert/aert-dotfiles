@@ -16,4 +16,4 @@ UUID=e2b979cb-2137-4847-9539-6097317cdfac /                       ext4    defaul
 tmpfs   /tmp                            tmpfs   defaults,noatime,size=7g    0    0
 tmpfs   /var/log                        tmpfs   defaults,nosuid,nodev,noatime,mode=0755,size=10% 0 0
 
-/dev/disk/by-uuid/4eb7f6cd-190e-44c0-a59e-d8f61b61f592 /mnt/ubuntu auto nosuid,nodev,nofail,noatime,discard,x-gvfs-show,x-gvfs-name=UbuntuDisk 0 0
+# /dev/disk/by-uuid/4eb7f6cd-190e-44c0-a59e-d8f61b61f592 /mnt/ubuntu auto nosuid,nodev,nofail,noatime,discard,x-gvfs-show,x-gvfs-name=UbuntuDisk 0 0
