@@ -96,7 +96,7 @@ SPACESHIP_PROMPT_ORDER=(
 #  aws           # Amazon Web Services section
   venv          # virtualenv section
 # conda         # conda virtualenv section
-# pyenv         # Pyenv section
+  pyenv         # Pyenv section
 # dotnet        # .NET section
 # ember         # Ember.js section
 # kubecontext   # Kubectl context section
@@ -110,17 +110,29 @@ SPACESHIP_PROMPT_ORDER=(
 )
 # source ~/.zsh_plugins.sh
 
+#export WORKON_HOME=~/Code/.envs
+#export PROJECT_HOME=~/Code/venv
+#source /usr/local/bin/virtualenvwrapper.sh
+
+#source /usr/etc/git-extras-completion.zsh
+#source <(kubectl completion zsh)
+
 # export ANDROID_HOME=$HOME/Android/Sdk
 # export PATH=$ANDROID_HOME/tools:$PATH
 # export PATH=$ANDROID_HOME/platform-tools:$PATH
 # export PATH=~/bin/gradle-1.10/bin:$PATH
 export PATH=~/bin:~/bin/my_scripts:$PATH
 
+#-- rbenv
 . $HOME/.asdf/asdf.sh
-# . $HOME/.asdf/completions/asdf.bash
-export PATH="$PATH:`yarn global bin --offline`"
+. $HOME/.asdf/completions/asdf.bash
 
 export PATH="$HOME/.local/bin:$PATH"
+
+# #-- pyenv
+# export PATH="$HOME/.pyenv/bin:$PATH"
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
 
 #-- pipenv
 export SHELL=/bin/zsh
@@ -132,12 +144,17 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias tcopy='tmux show-buffer | cb && alert "$(tmux show-buffer)"'
 alias sm='smerge .'
 
+#-- node
+# export NVM_DIR="/home/ari/.nvm"
+## [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use
+
+#-- yarn
+export PATH="$HOME/.yarn/bin:$PATH"
+
 export PATH=$PATH:/usr/local/go/bin
 export GOPATH=$HOME/Code/gowork
 export PATH=$PATH:$GOPATH/bin
 export PATH="$HOME/.cargo/bin:$PATH"
-
-export LANG="en_US.UTF-8"
 
 export BAT_THEME="zenburn" 
 
@@ -154,6 +171,7 @@ export FZF_DEFAULT_OPTS='
 '
 
 alias x="exa -l --time-style long-iso --git"
+
 
 chpwd() {
   x

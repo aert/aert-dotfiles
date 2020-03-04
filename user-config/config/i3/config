@@ -182,8 +182,9 @@ for_window [urgent=latest] focus
 #
 
 # Colors
-set $bg-color 	         #2C1211
-set $inactive-bg-color   #2C1211
+# set $bg-color 	         #2C1211
+set $bg-color 	         #000000
+set $inactive-bg-color   #000000
 set $text-color          #D85959
 set $inactive-text-color #8C2C2E
 set $urgent-bg-color 	   #190B0A
@@ -306,7 +307,7 @@ exec --no-startup-id compton -b
 exec --no-startup-id /usr/libexec/gsd-xsettings
 exec --no-startup-id "sh $HOME/.screenlayout/home.layout.sh"
 exec --no-startup-id nm-applet
-# exec gtk-redshift
+exec --no-startup-id redshift-gtk
 # exec --no-startup-id pnmixer
 exec --no-startup-id volumeicon
 exec --no-startup-id blueman-applet
