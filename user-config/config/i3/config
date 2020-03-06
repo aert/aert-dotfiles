@@ -297,6 +297,10 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+# bindsym $mod+Control+Left exec ~/bin/my_scripts/grox.rb left
+bindsym $mod+Control+Up exec ~/bin/my_scripts/grox.rb normal
+bindsym $mod+Control+Down exec ~/bin/my_scripts/grox.rb inverted
+
 # key bindings }}}
 
 # black background
@@ -313,7 +317,7 @@ exec --no-startup-id volumeicon
 exec --no-startup-id blueman-applet
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id dunst
-# exec --no-startup-id ulauncher --hide-window
+# exec --no-startup-id onboard
 
 exec --no-startup-id "setxkbmap -model pc105 -layout fr,fr -option grp:alt_shift_toggle"
 
