@@ -40,7 +40,7 @@ def orientateCmd(orientation, transform)
                       " #{transform}"
   controlKeys = ''
   if $controlKeys
-    setCmd = ['normal', 'inverted'].include?(orientation) ? 'xinput --enable '
+    setCmd = ['normal'].include?(orientation) ? 'xinput --enable '
                                      : 'xinput --disable '
     controlKeys = "#{setCmd} '#{$touchpad}'; #{setCmd} '#{$keyboard}';"
   end

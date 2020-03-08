@@ -273,23 +273,26 @@ bindsym $mod+Shift+f exec nautilus
 bindsym $mod+Insert exec "i3-msg 'floating toggle; sticky toggle; resize shrink width 10000px; resize grow width 400px; resize shrink height 10000px; resize grow height 250px;move position 10px 10px;'"
 
 #-- Multimedia
-bindsym XF86Explorer exec thunar
 # bindsym XF86HomePage exec brave-browser --force-device-scale-factor=0.86
-bindsym XF86HomePage exec firefox
-bindsym XF86Mail exec thunderbird
+bindsym XF86Tools exec gnome-system-monitor
+bindsym XF86Search exec thunar
+bindsym XF86WLAN exec ~/bin/my_scripts/my_toggle_wifi.sh
+bindsym XF86Display exec ~/bin/my_scripts/grox.rb normal
+bindsym XF86LaunchA exec ~/bin/my_scripts/grox.rb left
+bindsym XF86Explorer exec ~/bin/my_scripts/grox.rb inverted
 bindsym XF86Calculator exec gnome-calculator
-bindsym XF86Favorites exec KeeWeb
 
 ## Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle
 
 # Sreen brightness controls
-# bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-# bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
-bindsym XF86MonBrightnessUp exec brightnessctl s +20% # increase screen brightness
-bindsym XF86MonBrightnessDown exec brightnessctl s 20%- # decrease screen brightness
+# bindsym XF86MonBrightnessUp exec xbacklight -inc 20 increase screen brightness
+# bindsym XF86MonBrightnessDown exec xbacklight -dec 20 decrease screen brightness
+bindsym XF86MonBrightnessUp exec brightnessctl s +20% increase screen brightness
+bindsym XF86MonBrightnessDown exec brightnessctl s 20%- decrease screen brightness
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play-pause
@@ -317,7 +320,7 @@ exec --no-startup-id volumeicon
 exec --no-startup-id blueman-applet
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id dunst
-# exec --no-startup-id onboard
+exec --no-startup-id onboard
 
 exec --no-startup-id "setxkbmap -model pc105 -layout fr,fr -option grp:alt_shift_toggle"
 
