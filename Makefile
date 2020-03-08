@@ -14,7 +14,7 @@ update:
 	#cp ~/.config/sublime-text-3/Packages/User/Preferences.sublime-settings user-config/
 	cp ~/.zshrc user-config/
 	cp ~/.ackrc user-config/
-	cp /etc/fstab system-config/etc/
+	# cp /etc/fstab system-config/etc/
 	#-- tmux
 	# rm -rf user-config/.byobu user-config/.config/tmuxinator
 	# cp -R ~/.byobu user-config/
