@@ -17,8 +17,8 @@ update:
 	cp /etc/fstab system-config/etc/
 	#-- tmux
 	# rm -rf user-config/.byobu user-config/.config/tmuxinator
-	cp -R ~/.byobu user-config/
-	rm -f user-config/.byobu/.ssh-agent
+	# cp -R ~/.byobu user-config/
+	# rm -f user-config/.byobu/.ssh-agent
 	# cp -R ~/.config/tmuxinator user-config/.config/
 	#-- git/ctags
 	rm -rf user-config/.git_template
