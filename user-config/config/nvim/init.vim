@@ -5,8 +5,8 @@
 " * apt-get install ack-grep
 "
 
-let npm_bin=system('npm bin')
-let $PATH=$PATH . ":" . npm_bin
+" let npm_bin=system('npm bin')
+" let $PATH=$PATH . ":" . npm_bin
 set shell=zsh
 " let g:python3_host_prog = '/usr/bin/python3'
 
@@ -35,13 +35,13 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-Plug 'w0rp/ale'
-Plug 'davidhalter/jedi-vim'
+Plug 'dense-analysis/ale'
+Plug 'davidhalter/jedi-vim', { 'for' : ['python'] }
 " completion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 "Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
 
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdcommenter'
 Plug 'mattn/emmet-vim'
 " format
@@ -55,7 +55,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'tommcdo/vim-fubitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'junegunn/gv.vim'
 Plug 'airblade/vim-gitgutter'
 " motion
 Plug 'easymotion/vim-easymotion'
@@ -66,19 +65,19 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'scrooloose/nerdtree'
 " Plug 'ludovicchabant/vim-gutentags'
 Plug 'arithran/vim-delete-hidden-buffers'
-Plug 'vim-scripts/taglist.vim'
-Plug 'majutsushi/tagbar'
+" Plug 'vim-scripts/taglist.vim'
+" Plug 'majutsushi/tagbar'
 " tests
 Plug 'janko-m/vim-test'
 " themes
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'edkolev/tmuxline.vim'
-Plug 'mhinz/vim-janah'
+" Plug 'mhinz/vim-janah'
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'sainnhe/vim-color-forest-night'
-Plug 'morhetz/gruvbox'
-Plug 'altercation/vim-colors-solarized'
+" Plug 'sainnhe/vim-color-forest-night'
+" Plug 'morhetz/gruvbox'
+" Plug 'altercation/vim-colors-solarized'
 "Plug 'vim-scripts/TagHighlight'
 
 "### languages ################################################################
@@ -95,12 +94,12 @@ Plug 'mtscout6/syntastic-local-eslint.vim', { 'for': ['javascript', 'typescript'
 " Plug 'jparise/vim-graphql', { 'for': ['javascript', 'typescript', 'graphql'] }
 " rails
 Plug 'tpope/vim-rails', { 'for' : ['ruby'] }
-Plug 'tpope/vim-bundler', { 'for' : ['ruby'] }
-Plug 'ngmy/vim-rubocop', { 'for' : ['ruby'] }
+" Plug 'tpope/vim-bundler', { 'for' : ['ruby'] }
+" Plug 'ngmy/vim-rubocop', { 'for' : ['ruby'] }
 Plug 'tpope/vim-endwise'
 " rust
-Plug 'rust-lang/rust.vim', { 'for' : ['rust', 'toml'] }
-Plug 'racer-rust/vim-racer', { 'for' : ['rust', 'toml'] }
+" Plug 'rust-lang/rust.vim', { 'for' : ['rust', 'toml'] }
+" Plug 'racer-rust/vim-racer', { 'for' : ['rust', 'toml'] }
 " others
 Plug 'ledger/vim-ledger', { 'for' : ['ledger'] }
 
@@ -150,11 +149,12 @@ set laststatus=2
 
 " ALE {{{
 let g:ale_lint_on_text_changed = 'never'
-let g:ale_open_list = 1
+let g:ale_lint_on_insert_leave = 0
+let g:ale_open_list = 0
 let g:ale_list_window_size = 3
 let g:ale_linters = {
 \   'javascript': ['eslint'],
-\   'ruby': ['rubocop', 'solargraph'],
+\   'ruby': ['rubocop'],
 \   'python': ['prospector'],
 \   'go': ['gopls'],
 \}
@@ -386,10 +386,10 @@ let g:neoformat_enabled_css = ['prettier']
 let g:neoformat_enabled_sass = ['prettier']
 let g:neoformat_enabled_scss = ['prettier']
 let g:neoformat_enabled_less = ['prettier']
-augroup fmt
-  autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
-augroup END
+" augroup fmt
+  " autocmd!
+  " autocmd BufWritePost * undojoin | Neoformat
+" augroup END
 " NeoFormat }}}
 
 " JEDI  {{{
@@ -458,9 +458,9 @@ au BufReadPost * if getfsize(bufname("%")) > 102400 | set syntax= | endif
 " add jbuilder syntax highlighting
 au BufNewFile,BufRead *.json.jbuilder set ft=ruby
 
-" if (has("termguicolors"))
-"   set termguicolors
-" endif
+if (has("termguicolors"))
+  set termguicolors
+endif
 set background=dark
 " -- solarized
 " colorscheme solarized
@@ -473,15 +473,15 @@ set background=dark
 " let g:airline_theme = 'forest_night'
 " colorscheme forest-night
 " -- gruvbox
-let g:gruvbox_italic=1
-let g:gruvbox_contrast_light='soft'
-let g:gruvbox_contrast_dark='soft'
-let g:airline_theme = 'gruvbox'
-colorscheme gruvbox
+" let g:gruvbox_italic=1
+" let g:gruvbox_contrast_light='soft'
+" let g:gruvbox_contrast_dark='soft'
+" let g:airline_theme = 'gruvbox'
+" colorscheme gruvbox
 " -- dracula
-" let g:dracula_colorterm = 0
-" let g:airline_theme='dracula'
-" colorscheme dracula
+let g:dracula_colorterm = 0
+let g:airline_theme='dracula'
+colorscheme dracula
 
 if has('gui_running')
     set lines=999 columns=999
@@ -589,8 +589,8 @@ function! FZFHistory()
   endif
 endfunction
 
-map <C-n> :cnext<CR>
-map <C-p> :cprevious<CR>
+map <C-n> :ALENextWrap<CR>
+map <C-p> :ALEPreviousWrap<CR>
 map <C-0> 10zl
 map <C-9> 10zh
 nnoremap t :<c-u>rightbelow vertical stjump <c-r><c-w><cr>
@@ -599,34 +599,35 @@ nnoremap T <c-w>T
 nnoremap ,c :let @+ = expand("%:p").":".line('.')<cr>
 nnoremap ,d :NERDTreeToggle<CR>
 nnoremap ,n :NERDTreeFind<CR>
-nnoremap ,f :CtrlSF 
+nnoremap ,f :CtrlSF
 nnoremap ,,f :CtrlSFToggle<CR>
 vmap     ,f <Plug>CtrlSFVwordExec
 nnoremap ,a :GitAg!<CR>
 vmap ,a <Esc>:GitAg! <C-R>=<SID>getVisualSelection()<CR><CR>
 " nnoremap ,b :Buffers<CR>
-nnoremap à :Buffers<CR>
-nmap ; :BTags<CR>
-nmap ; :call LanguageClient#textDocument_documentSymbol()<CR>
-vmap ; <Esc>:BTags <C-R>=<SID>getVisualSelection()<CR><CR>
+nnoremap @ :Buffers<CR>
+nmap ! :BTags<CR>
+" nmap ; :call LanguageClient#textDocument_documentSymbol()<CR>
+vmap ! <Esc>:BTags <C-R>=<SID>getVisualSelection()<CR><CR>
 " nmap ,t :GFiles<CR>
-nmap ù :GFiles<CR>
+nmap ` :GFiles<CR>
 vmap ,t <Esc>:GitAgFiles! <C-R>=<SID>getVisualSelection()<CR><CR>
 " nmap ,r :Tags<CR>
 " vmap ,r <Esc>:Tags <C-R>=<SID>getVisualSelection()<CR><CR>
 " nmap ,l :BLines<CR>
 " vmap ,l <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
-nmap ! :BLines<CR>
-vmap ! <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
+nmap ; :BLines<CR>
+vmap ; <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ,k :call FZFHistory()<CR>
 nmap <SPACE> :noh<CR>
 nnoremap ,e :tabnew<CR>
-nmap ,<TAB> :TlistToggle<CR>
-nmap <TAB> :TagbarToggle<CR>
+" nmap ,<TAB> :TlistToggle<CR>
+" nmap <TAB> :TagbarToggle<CR>
+map <TAB> ]m
+map ,<TAB> [m
 
 nmap s <Plug>(easymotion-overwin-f)
 
-nnoremap ,gv :GV!<CR>
 nnoremap ,ga :Gwrite<CR>
 " nnoremap ,gs :Gstatus<CR>
 nnoremap ,gs :GFiles?<CR>
@@ -643,8 +644,10 @@ nnoremap <silent> K :call LanguageClient_contextMenu()<CR>
 " nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap ,,r :call LanguageClient#textDocument_rename()<CR>
 nnoremap <silent> gd :ALEGoToDefinitionInVSplit<CR>
-nnoremap ,h :call LanguageClient#textDocument_hover()<CR> 
+nnoremap ,h :call LanguageClient#textDocument_hover()<CR>
 nmap ,r :call LanguageClient#textDocument_references()<CR>
+
+nmap ,p :Neoformat<CR>
 
 
 " FileType specific
