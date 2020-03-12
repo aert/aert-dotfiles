@@ -202,7 +202,7 @@ bar {
   # mode hide
   # status_command i3status
   # status_command '/home/ari/bin/my_scripts/my_i3_status.sh'
-  status_command py3status -c ~/.i3status.conf
+  status_command py3status -c ~/.i3status.conf | ~/bin/my_scripts/i3-keyboard-layout i3status
   tray_output primary
 
 	colors {
@@ -304,6 +304,8 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym $mod+Control+Up exec ~/bin/my_scripts/grox.rb normal
 bindsym $mod+Control+Down exec ~/bin/my_scripts/grox.rb inverted
 
+bindsym $mod+z exec ~/bin/my_scripts/i3-keyboard-layout cycle fr us
+
 # key bindings }}}
 
 # black background
@@ -322,5 +324,5 @@ exec --no-startup-id xfce4-power-manager
 exec --no-startup-id dunst
 exec --no-startup-id onboard
 
-exec --no-startup-id "setxkbmap -model pc105 -layout fr,fr -option grp:alt_shift_toggle"
-
+# exec --no-startup-id "setxkbmap -model pc105 -layout fr,fr -option grp:alt_shift_toggle"
+exec --no-startup-id ~/bin/my_scripts/i3-keyboard-layout set us
