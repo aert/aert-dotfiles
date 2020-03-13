@@ -220,12 +220,13 @@ bar {
 # ARI #################################################################
 
 # Set shut down, restart and locking features
-set $mode_system exit: [s]uspend, [l]ogout, [r]eboot, [h]halt
-mode "exit: [s]uspend, [l]ogout, [r]eboot, [h]halt" {
-  bindsym s exec systemctl suspend, mode "default"
-  bindsym l exec i3-msg exit, mode "default"
-  bindsym r exec systemctl reboot, mode "default"
-  bindsym h exec systemctl poweroff, mode "default"
+set $mode_system exit: [s]uspend, [l]ock, lo[g]out, [r]eboot, [h]halt
+mode "exit: [s]uspend, [l]ock, lo[g]out, [r]eboot, [h]halt" {
+  bindsym s exec ~/bin/my_scripts/i3-exit suspend, mode "default"
+  bindsym l exec ~/bin/my_scripts/i3-exit lock, mode "default"
+  bindsym g exec ~/bin/my_scripts/i3-exit logout, mode "default"
+  bindsym r exec ~/bin/my_scripts/i3-exit reboot, mode "default"
+  bindsym h exec ~/bin/my_scripts/i3-exit shutdown, mode "default"
   bindsym Escape mode "default"
   bindsym Return mode "default"
 }
