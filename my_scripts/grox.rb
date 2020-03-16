@@ -1,6 +1,8 @@
 #!/home/ari/.asdf/shims/ruby
 # frozen_string_literal: true
 
+# rubocop:disable all
+#
 # ./grox.rb <dir>
 #   +left, +right, flip: relative movement
 #   left, right, normal, inverted: absolute movement
@@ -28,7 +30,12 @@ def main
 
   direction = ARGV[0] unless ARGV.empty?
 
-  doOrientate(getNewOrientation(direction))
+  direction.downcase == 'toggle' ? toggle_inputs : doOrientate(getNewOrientation(direction))
+end
+
+def toggle_inputs
+  `~/bin/my_scripts/xinput-toggle -n -r '#{$touchpad}'`
+  `~/bin/my_scripts/xinput-toggle -n -r '#{$keyboard}'`
 end
 
 def orientateCmd(orientation, transform)

@@ -18,13 +18,13 @@ call plug#begin('~/.vim/bundle')
 Plug 'tpope/vim-dispatch'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
-Plug 'luochen1990/rainbow'
+" Plug 'luochen1990/rainbow'
 " Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-abolish'
 Plug 'editorconfig/editorconfig-vim'
 
-Plug 'pearofducks/ansible-vim'
+" Plug 'pearofducks/ansible-vim'
 
 " snippets
 Plug 'SirVer/ultisnips'
@@ -41,7 +41,7 @@ Plug 'davidhalter/jedi-vim', { 'for' : ['python'] }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 "Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
 
-" Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdcommenter'
 Plug 'mattn/emmet-vim'
 " format
@@ -49,7 +49,7 @@ Plug 'sbdchd/neoformat'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'html'] }
-Plug 'junegunn/vim-easy-align'
+" Plug 'junegunn/vim-easy-align'
 " git
 Plug 'tpope/vim-fugitive'
 Plug 'shumphrey/fugitive-gitlab.vim'
@@ -68,14 +68,14 @@ Plug 'arithran/vim-delete-hidden-buffers'
 " Plug 'vim-scripts/taglist.vim'
 " Plug 'majutsushi/tagbar'
 " tests
-Plug 'janko-m/vim-test'
+" Plug 'janko-m/vim-test'
 " themes
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'edkolev/tmuxline.vim'
 " Plug 'mhinz/vim-janah'
-Plug 'dracula/vim', { 'as': 'dracula' }
-" Plug 'sainnhe/vim-color-forest-night'
+" Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'sainnhe/vim-color-forest-night'
 " Plug 'morhetz/gruvbox'
 " Plug 'altercation/vim-colors-solarized'
 "Plug 'vim-scripts/TagHighlight'
@@ -86,10 +86,10 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 " all
 Plug 'sheerun/vim-polyglot'
 " css
-Plug 'ap/vim-css-color'
+Plug 'ap/vim-css-color', { 'for' : ['css', 'less', 'scss'] }
 Plug 'hail2u/vim-css3-syntax', { 'for' : ['css', 'less', 'scss'] }
 " javascript
-Plug 'galooshi/vim-import-js', { 'for': ['javascript', 'typescript', 'graphql'] }
+" Plug 'galooshi/vim-import-js', { 'for': ['javascript', 'typescript', 'graphql'] }
 Plug 'mtscout6/syntastic-local-eslint.vim', { 'for': ['javascript', 'typescript', 'graphql'] }
 " Plug 'jparise/vim-graphql', { 'for': ['javascript', 'typescript', 'graphql'] }
 " rails
@@ -122,6 +122,10 @@ let g:deoplete#sources#go#builtin_objects = 1
 let g:deoplete#sources#go#unimported_packages = 1
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 " Deoplete }}}
+
+" AutoPairs {{{
+let g:AutoPairsShortcutToggle = ''
+" AutoPairs }}}
 
 " LanguageClient {{{
 let g:LanguageClient_serverCommands = {
@@ -470,8 +474,10 @@ set background=dark
 " colorscheme janah
 " let g:airline_theme = 'minimalist'
 " -- forest-night
-" let g:airline_theme = 'forest_night'
-" colorscheme forest-night
+let g:airline_theme = 'forest_night'
+let g:forest_night_transparent_background = 1
+let g:forest_night_enable_italic = 1
+colorscheme forest-night
 " -- gruvbox
 " let g:gruvbox_italic=1
 " let g:gruvbox_contrast_light='soft'
@@ -479,9 +485,9 @@ set background=dark
 " let g:airline_theme = 'gruvbox'
 " colorscheme gruvbox
 " -- dracula
-let g:dracula_colorterm = 0
-let g:airline_theme='dracula'
-colorscheme dracula
+" let g:dracula_colorterm = 0
+" let g:airline_theme='dracula'
+" colorscheme dracula
 
 if has('gui_running')
     set lines=999 columns=999
