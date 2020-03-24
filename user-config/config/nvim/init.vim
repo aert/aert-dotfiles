@@ -612,18 +612,18 @@ nnoremap ,a :GitAg!<CR>
 vmap ,a <Esc>:GitAg! <C-R>=<SID>getVisualSelection()<CR><CR>
 " nnoremap ,b :Buffers<CR>
 nnoremap @ :Buffers<CR>
-nmap ! :BTags<CR>
+nmap ,g :BTags<CR>
 " nmap ; :call LanguageClient#textDocument_documentSymbol()<CR>
-vmap ! <Esc>:BTags <C-R>=<SID>getVisualSelection()<CR><CR>
+vmap ,g <Esc>:BTags <C-R>=<SID>getVisualSelection()<CR><CR>
 " nmap ,t :GFiles<CR>
-nmap ` :GFiles<CR>
+nmap ; :GFiles<CR>
 vmap ,t <Esc>:GitAgFiles! <C-R>=<SID>getVisualSelection()<CR><CR>
 " nmap ,r :Tags<CR>
 " vmap ,r <Esc>:Tags <C-R>=<SID>getVisualSelection()<CR><CR>
 " nmap ,l :BLines<CR>
 " vmap ,l <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
-nmap ; :BLines<CR>
-vmap ; <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
+nmap ,l :BLines<CR>
+vmap ,l <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ,k :call FZFHistory()<CR>
 nmap <SPACE> :noh<CR>
 nnoremap ,e :tabnew<CR>
