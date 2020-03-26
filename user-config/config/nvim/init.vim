@@ -611,8 +611,9 @@ vmap     ,f <Plug>CtrlSFVwordExec
 nnoremap ,a :GitAg!<CR>
 vmap ,a <Esc>:GitAg! <C-R>=<SID>getVisualSelection()<CR><CR>
 " nnoremap ,b :Buffers<CR>
-nnoremap @ :Buffers<CR>
+nnoremap ,b :Buffers<CR>
 nmap ,g :BTags<CR>
+nmap ` :BTags<CR>
 " nmap ; :call LanguageClient#textDocument_documentSymbol()<CR>
 vmap ,g <Esc>:BTags <C-R>=<SID>getVisualSelection()<CR><CR>
 " nmap ,t :GFiles<CR>
