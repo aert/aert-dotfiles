@@ -268,7 +268,7 @@ for_window [title   = "^.*"] border pixel 0
 # bindsym $mod+space exec "rofi -combi-modi window,drun,run -show combi -modi combi -font 'Monaco Regular 12' -fg '#505050' -bg '#000000' -hlfg '#ffb964' -hlbg '#000000' -width 30 -lines 15 -padding 20 -separator-style none -hide-scrollbar -bw 4 -bc '#111111'"
 bindsym $mod+space exec "rofi -combi-modi window,drun,run -show combi -modi combi -font 'Monaco Regular 12' -theme ~/.rofi/sidetab.rasi"
 bindsym $mod+g exec gnome-screensaver-command --lock
-bindsym $mod+Shift+f exec nautilus
+bindsym $mod+Shift+f exec thunar
 # bindsym $mod+comma exec thunar
 # Picture In Picture
 bindsym $mod+Insert exec "i3-msg 'floating toggle; sticky toggle; resize shrink width 10000px; resize grow width 400px; resize shrink height 10000px; resize grow height 250px;move position 10px 10px;'"
@@ -276,7 +276,7 @@ bindsym $mod+Insert exec "i3-msg 'floating toggle; sticky toggle; resize shrink 
 #-- Multimedia
 # bindsym XF86HomePage exec brave-browser --force-device-scale-factor=0.86
 bindsym XF86Tools exec --no-startup-id ~/bin/my_scripts/grox.rb toggle
-bindsym XF86Search exec --no-startup-id nautilus
+bindsym XF86Search exec --no-startup-id thunar
 bindsym XF86WLAN exec --no-startup-id ~/bin/my_scripts/my_toggle_wifi.sh
 bindsym XF86Display exec --no-startup-id ~/bin/my_scripts/grox.rb normal
 bindsym XF86LaunchA exec --no-startup-id ~/bin/my_scripts/grox.rb left
