@@ -380,11 +380,9 @@ let g:go_def_mapping_enabled = 0
 " vim-go }}}
 
 " NeoFormat {{{
-"let g:neoformat_enabled_javascript = ['prettier']
-"let g:neoformat_enabled_ruby = ['rubocop']
-let g:neoformat_enabled_html = []
-let g:neoformat_enabled_javascript = []
-let g:neoformat_enabled_ruby = []
+let g:neoformat_enabled_javascript = ['prettier']
+let g:neoformat_enabled_ruby = ['rubocop']
+let g:neoformat_enabled_html = ['prettier']
 let g:neoformat_enabled_python = ['black']
 let g:neoformat_enabled_css = ['prettier']
 let g:neoformat_enabled_sass = ['prettier']
