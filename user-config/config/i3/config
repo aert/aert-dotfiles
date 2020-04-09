@@ -45,7 +45,8 @@ set $right l
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec gnome-terminal
+# bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec cool-retro-term
 # bindsym $mod+Return exec terminology
 
 # kill focused window
