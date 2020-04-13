@@ -3,13 +3,7 @@ set window-title-basename true
 set statusbar-basename true
 
 
-# set recolor true
-# set recolor-keephue true
-# set default-bg "#e8e7d3"
-
 set recolor true
 set recolor-keephue true
-# set recolor-darkcolor "#b0afac"
-# set recolor-lightcolor "#3b3537"
-set recolor-darkcolor "#647b83"
-set recolor-lightcolor "#e8e7d3"
+# set recolor-darkcolor "#647b83"
+# set recolor-lightcolor "#e8e7d3"
