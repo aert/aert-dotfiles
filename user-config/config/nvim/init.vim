@@ -75,7 +75,9 @@ Plug 'vim-airline/vim-airline-themes'
 " Plug 'edkolev/tmuxline.vim'
 " Plug 'mhinz/vim-janah'
 " Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'sainnhe/vim-color-forest-night'
+" Plug 'sainnhe/vim-color-forest-night'
+Plug 'joshdick/onedark.vim'
+" Plug 'drewtempelmeyer/palenight.vim'
 " Plug 'morhetz/gruvbox'
 " Plug 'altercation/vim-colors-solarized'
 "Plug 'vim-scripts/TagHighlight'
@@ -152,6 +154,8 @@ set laststatus=2
 " status line / airline }}}
 
 " ALE {{{
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
 let g:ale_open_list = 0
@@ -472,10 +476,18 @@ set background=dark
 " colorscheme janah
 " let g:airline_theme = 'minimalist'
 " -- forest-night
-let g:airline_theme = 'forest_night'
-let g:forest_night_transparent_background = 1
-let g:forest_night_enable_italic = 1
-colorscheme forest-night
+" let g:airline_theme = 'forest_night'
+" let g:forest_night_transparent_background = 1
+" let g:forest_night_enable_italic = 1
+" -- onedark
+let g:airline_theme = 'onedark'
+let g:onedark_hide_endofbuffer = 1
+let g:onedark_terminal_italics = 1
+colorscheme onedark
+" -- palenight
+" let g:airline_theme = 'palenight'
+" let g:palenight_terminal_italics = 1
+" colorscheme palenight
 " -- gruvbox
 " let g:gruvbox_italic=1
 " let g:gruvbox_contrast_light='soft'
