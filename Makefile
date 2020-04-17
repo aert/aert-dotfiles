@@ -29,6 +29,9 @@ update:
 	#-- dunst
 	cp ~/.config/dunst/dunstrc user-config/config/dunst
 	cp -R ~/.config/zathura/ user-config/config/
+	#-- emacs
+	rm -rf ./user-config/doom.d/
+	cp -R ~/.doom.d/ ./user-config/doom.d/
 
 update-danger:
 	cp ~/.gitconfig user-config/
