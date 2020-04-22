@@ -67,5 +67,6 @@
 (define-key my-leader-map "g" 'counsel-google)
 (define-key my-leader-map "p" 'format-all-buffer)
 (define-key my-leader-map "a" 'org-agenda)
+(define-key my-leader-map "s" 'evilem-motion-find-char)
 
 ;;--- Binding or leader key as in vim }}}
