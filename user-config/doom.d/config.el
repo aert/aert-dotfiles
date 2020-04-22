@@ -53,3 +53,19 @@
 ;; they are implemeted.
 
 (setq doom-modeline-project-detection 'truncate-with-project)
+
+;;--- Binding or leader key as in vim {{{
+
+(defvar my-leader-map (make-sparse-keymap)
+  "Keymap for \"leader key\" shortcuts.")
+
+;; binding "," to the keymap
+(define-key evil-normal-state-map "," my-leader-map)
+
+;; bindings
+(define-key my-leader-map "f" 'counsel-fzf)
+(define-key my-leader-map "g" 'counsel-google)
+(define-key my-leader-map "p" 'format-all-buffer)
+(define-key my-leader-map "a" 'org-agenda)
+
+;;--- Binding or leader key as in vim }}}
