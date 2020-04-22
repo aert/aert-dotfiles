@@ -62,6 +62,10 @@
 ;; binding "," to the keymap
 (define-key evil-normal-state-map "," my-leader-map)
 
+
+;; :lang org
+(setq org-ellipsis " ▼ ")
+
 ;; bindings
 (define-key my-leader-map "f" 'counsel-fzf)
 (define-key my-leader-map "g" 'counsel-google)
