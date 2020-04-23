@@ -54,6 +54,37 @@
 
 (setq doom-modeline-project-detection 'truncate-with-project)
 
+
+;; My Functions ................................................................
+
+(defun aert/insert-comment-separator (&optional title fill-char)
+  "Insert a line comment appended with `fill-char` until col 80."
+  (interactive)
+
+  ;;-- args
+  (unless title (setq title (read-string "Label: ")))
+  (unless fill-char (setq fill-char ?.))
+
+  (let (x-max text-prepend x-current fill-count text-fill)
+    (setq x-max 80)
+    (setq text-prepend "")
+
+    (comment-dwim ())
+
+    ;;-- compute fill-char repeat count
+    (setq x-current ( - (point) (line-beginning-position)))
+    (setq fill-count (- x-max (+ 1 x-current (length (concat text-prepend title)))))
+
+    ;;-- generate comment
+    (setq text-fill (make-string fill-count fill-char))
+
+    (insert text-prepend title " " text-fill)
+    )
+)
+
+;; :lang org
+(setq org-ellipsis " ▼ ")
+
 ;;--- Binding or leader key as in vim {{{
 
 (defvar my-leader-map (make-sparse-keymap)
@@ -62,15 +93,12 @@
 ;; binding "," to the keymap
 (define-key evil-normal-state-map "," my-leader-map)
 
-
-;; :lang org
-(setq org-ellipsis " ▼ ")
-
 ;; bindings
 (define-key my-leader-map "f" 'counsel-fzf)
 (define-key my-leader-map "g" 'counsel-google)
 (define-key my-leader-map "p" 'format-all-buffer)
 (define-key my-leader-map "a" 'org-agenda)
-(define-key my-leader-map "s" 'evilem-motion-find-char)
+(define-key my-leader-map "s" 'evil-avy-goto-char-timer)
+(define-key my-leader-map "c" 'aert/insert-comment-separator)
 
 ;;--- Binding or leader key as in vim }}}
