@@ -76,10 +76,11 @@ Plug 'vim-airline/vim-airline-themes'
 " Plug 'mhinz/vim-janah'
 " Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'sainnhe/vim-color-forest-night'
+" Plug 'sainnhe/edge'
 " Plug 'joshdick/onedark.vim'
 " Plug 'drewtempelmeyer/palenight.vim'
 " Plug 'morhetz/gruvbox'
-" Plug 'altercation/vim-colors-solarized'
+Plug 'altercation/vim-colors-solarized'
 "Plug 'vim-scripts/TagHighlight'
 
 "### languages ################################################################
@@ -212,9 +213,9 @@ let g:user_emmet_settings = {
 
 " Vim Gutter {{{
 set updatetime=100
-let g:gitgutter_sign_added = '❖'
-let g:gitgutter_sign_modified = '•'
-let g:gitgutter_sign_removed = '✘'
+let g:gitgutter_sign_added = '║'
+let g:gitgutter_sign_modified = '│'
+let g:gitgutter_sign_removed = '─'
 " let g:gitgutter_sign_removed_first_line = '^^'
 " let g:gitgutter_sign_modified_removed = 'ww'
 " Vim Gutter }}}
@@ -310,6 +311,7 @@ let g:ycm_auto_trigger = 1
 " YCM }}}
 
 " Fzf {{{
+let g:fzf_preview_window = ''
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -480,6 +482,10 @@ let g:airline_theme = 'forest_night'
 " let g:forest_night_transparent_background = 1
 let g:forest_night_enable_italic = 1
 colorscheme forest-night
+" -- edge
+" let g:airline_theme = 'edge'
+" let g:edge_enable_italic = 1
+" colorscheme edge
 " -- onedark
 " let g:airline_theme = 'onedark'
 " let g:onedark_hide_endofbuffer = 1
@@ -616,15 +622,13 @@ nnoremap T <c-w>T
 nnoremap ,c :let @+ = expand("%:p").":".line('.')<cr>
 nnoremap ,d :NERDTreeToggle<CR>
 nnoremap ,n :NERDTreeFind<CR>
-nnoremap ,f :CtrlSF
+nnoremap ,f :CtrlSF 
 nnoremap ,,f :CtrlSFToggle<CR>
 vmap     ,f <Plug>CtrlSFVwordExec
 nnoremap ,a :GitAg!<CR>
 vmap ,a <Esc>:GitAg! <C-R>=<SID>getVisualSelection()<CR><CR>
-" nnoremap ,b :Buffers<CR>
-nnoremap ,b :Buffers<CR>
+nnoremap ` :Buffers<CR>
 nmap ,g :BTags<CR>
-nmap ` :BTags<CR>
 " nmap ; :call LanguageClient#textDocument_documentSymbol()<CR>
 vmap ,g <Esc>:BTags <C-R>=<SID>getVisualSelection()<CR><CR>
 " nmap ,t :GFiles<CR>
