@@ -75,8 +75,8 @@ Plug 'vim-airline/vim-airline-themes'
 " Plug 'edkolev/tmuxline.vim'
 " Plug 'mhinz/vim-janah'
 " Plug 'dracula/vim', { 'as': 'dracula' }
-" Plug 'sainnhe/vim-color-forest-night'
-Plug 'joshdick/onedark.vim'
+Plug 'sainnhe/vim-color-forest-night'
+" Plug 'joshdick/onedark.vim'
 " Plug 'drewtempelmeyer/palenight.vim'
 " Plug 'morhetz/gruvbox'
 " Plug 'altercation/vim-colors-solarized'
@@ -476,14 +476,15 @@ set background=dark
 " colorscheme janah
 " let g:airline_theme = 'minimalist'
 " -- forest-night
-" let g:airline_theme = 'forest_night'
+let g:airline_theme = 'forest_night'
 " let g:forest_night_transparent_background = 1
-" let g:forest_night_enable_italic = 1
+let g:forest_night_enable_italic = 1
+colorscheme forest-night
 " -- onedark
-let g:airline_theme = 'onedark'
-let g:onedark_hide_endofbuffer = 1
-let g:onedark_terminal_italics = 1
-colorscheme onedark
+" let g:airline_theme = 'onedark'
+" let g:onedark_hide_endofbuffer = 1
+" let g:onedark_terminal_italics = 1
+" colorscheme onedark
 " -- palenight
 " let g:airline_theme = 'palenight'
 " let g:palenight_terminal_italics = 1
