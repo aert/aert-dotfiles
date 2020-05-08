@@ -54,6 +54,9 @@
 
 (setq doom-modeline-project-detection 'truncate-with-project)
 
+;; org mode ....................................................................
+
+(setq org-ellipsis " ▼ ")
 (setq deft-directory "~/org")
 
 ;; My Functions ................................................................
@@ -83,8 +86,13 @@
     )
 )
 
-;; :lang org
-(setq org-ellipsis " ▼ ")
+(defun aert/copy-current-line-position-to-clipboard ()
+  "Copy current line in file to clipboard as '</path/to/file>:<line-number>'."
+  (interactive)
+  (let ((path-with-line-number
+         (concat (dired-replace-in-string (getenv "HOME") "~" (buffer-file-name)) ":" (number-to-string (line-number-at-pos)))))
+    (kill-new path-with-line-number)
+    (message (concat path-with-line-number " copied to clipboard"))))
 
 ;;--- Binding or leader key as in vim {{{
 
@@ -101,5 +109,6 @@
 (define-key my-leader-map "a" 'org-agenda)
 (define-key my-leader-map "s" 'evil-avy-goto-char-timer)
 (define-key my-leader-map "c" 'aert/insert-comment-separator)
+(define-key my-leader-map "C" 'aert/copy-current-line-position-to-clipboard)
 
 ;;--- Binding or leader key as in vim }}}
