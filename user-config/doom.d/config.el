@@ -60,7 +60,8 @@
 (use-package treemacs
   :defer t
   :init
-  (setq treemacs-indentation 1))
+  (setq treemacs-indentation 1
+        treemacs-position 'right))
 
 ;; org mode ....................................................................
 
