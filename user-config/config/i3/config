@@ -273,6 +273,7 @@ bindsym $mod+Shift+f exec thunar
 # bindsym $mod+comma exec thunar
 # Picture In Picture
 bindsym $mod+Insert exec "i3-msg 'floating toggle; sticky toggle; resize shrink width 10000px; resize grow width 400px; resize shrink height 10000px; resize grow height 250px;move position 10px 10px;'"
+bindsym $mod+Shift+Insert exec "i3-msg 'floating enable; sticky enable; resize shrink width 10000px; resize grow width 400px; resize shrink height 10000px; resize grow height 250px;move position 10px 10px;'"
 
 #-- Multimedia
 # bindsym XF86HomePage exec brave-browser --force-device-scale-factor=0.86

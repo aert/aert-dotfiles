@@ -23,15 +23,9 @@ update:
 	#-- git/ctags
 	rm -rf user-config/.git_template
 	cp ~/.ctags user-config/
-	#-- my_scripts
-	rm -rf ./my_scripts
-	cp -R ~/bin/my_scripts/ ./
 	#-- dunst
 	cp ~/.config/dunst/dunstrc user-config/config/dunst
 	cp -R ~/.config/zathura/ user-config/config/
-	#-- emacs
-	rm -rf ./user-config/doom.d/
-	cp -R ~/.doom.d/ ./user-config/doom.d/
 
 update-danger:
 	cp ~/.gitconfig user-config/
