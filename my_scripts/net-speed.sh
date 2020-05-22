@@ -74,4 +74,4 @@ update_rate() {
 update_rate
 sleep 1
 update_rate
-echo ",[{\"full_text\":\"${rate}\" }" || exit 1
+echo "${rate}"

@@ -202,8 +202,8 @@ client.urgent 	        $urgent-bg-color   $urgent-bg-color   $text-color        
 bar {
   # mode hide
   # status_command i3status
-  # status_command '/home/ari/bin/my_scripts/my_i3_status.sh'
-  status_command i3status -c ~/.i3status.conf | ~/bin/my_scripts/i3-keyboard-layout i3status
+  status_command '/home/ari/bin/my_scripts/my_i3_status.sh'
+  # status_command i3status -c ~/.i3status.conf | ~/bin/my_scripts/i3-keyboard-layout i3status
   tray_output primary
 
 	colors {
