@@ -1,7 +1,8 @@
 #!/bin/sh
 
 lock() {
-    dm-tool lock
+    # dm-tool lock
+    i3lock
 }
 
 case "$1" in
