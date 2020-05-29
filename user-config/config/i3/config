@@ -202,7 +202,8 @@ client.urgent 	        $urgent-bg-color   $urgent-bg-color   $text-color        
 bar {
   # mode hide
   # status_command i3status
-  status_command '/home/ari/bin/my_scripts/my_i3_status.sh'
+  # status_command '/home/ari/bin/my_scripts/my_i3_status.sh'
+  status_command i3status-rs ~/.config/i3/status.toml
   # status_command i3status -c ~/.i3status.conf | ~/bin/my_scripts/i3-keyboard-layout i3status
   tray_output primary
 
@@ -317,7 +318,7 @@ exec --no-startup-id compton -b
 
 # So that volume buttons and battery warnings work: https://faq.i3wm.org/question/279/how-do-you-use-i3-comfortably/#342
 exec --no-startup-id /usr/libexec/gsd-xsettings
-exec --no-startup-id "sh $HOME/.screenlayout/home.layout.sh"
+# exec --no-startup-id "sh $HOME/.screenlayout/home.layout.sh"
 exec --no-startup-id nm-applet
 exec --no-startup-id redshift-gtk
 # exec --no-startup-id pnmixer
@@ -325,7 +326,7 @@ exec --no-startup-id volumeicon
 exec --no-startup-id blueman-applet
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id dunst
-exec --no-startup-id onboard
+# exec --no-startup-id onboard
 
 # exec --no-startup-id "setxkbmap -model pc105 -layout fr,fr -option grp:alt_shift_toggle"
 exec --no-startup-id ~/bin/my_scripts/i3-keyboard-layout set us
