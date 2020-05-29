@@ -2,7 +2,7 @@
 
 lock() {
     # dm-tool lock
-    i3lock
+    i3lock -i ~/Pictures/wallpapers/Tokyo\ City.png
 }
 
 case "$1" in
