@@ -13,6 +13,14 @@ device = "wlp3s0"
 interval = 1
 
 [[block]]
+block = "focused_window"
+
+[[block]]
+block = "docker"
+interval = 5
+format = "{running}/{total}/{images}"
+
+[[block]]
 block = "memory"
 display_type = "memory"
 format_mem = "{Mug}G"
@@ -30,6 +38,9 @@ format = "{1m}"
 
 [[block]]
 block = "pomodoro"
+message = "Take a break!"
+break_message = "Back to work!"
+use_nag = true
 
 [[block]]
 block = "disk_space"
