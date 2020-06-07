@@ -75,12 +75,12 @@ Plug 'vim-airline/vim-airline-themes'
 " Plug 'edkolev/tmuxline.vim'
 " Plug 'mhinz/vim-janah'
 " Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'sainnhe/vim-color-forest-night'
+" Plug 'sainnhe/vim-color-forest-night'
 " Plug 'sainnhe/edge'
 " Plug 'joshdick/onedark.vim'
-" Plug 'drewtempelmeyer/palenight.vim'
+Plug 'drewtempelmeyer/palenight.vim'
 " Plug 'morhetz/gruvbox'
-Plug 'altercation/vim-colors-solarized'
+" Plug 'altercation/vim-colors-solarized'
 "Plug 'vim-scripts/TagHighlight'
 
 "### languages ################################################################
@@ -478,10 +478,10 @@ set background=dark
 " colorscheme janah
 " let g:airline_theme = 'minimalist'
 " -- forest-night
-let g:airline_theme = 'forest_night'
+"let g:airline_theme = 'forest_night'
 " let g:forest_night_transparent_background = 1
-let g:forest_night_enable_italic = 1
-colorscheme forest-night
+"let g:forest_night_enable_italic = 1
+"colorscheme forest-night
 " -- edge
 " let g:airline_theme = 'edge'
 " let g:edge_enable_italic = 1
@@ -492,9 +492,9 @@ colorscheme forest-night
 " let g:onedark_terminal_italics = 1
 " colorscheme onedark
 " -- palenight
-" let g:airline_theme = 'palenight'
-" let g:palenight_terminal_italics = 1
-" colorscheme palenight
+let g:airline_theme = 'palenight'
+let g:palenight_terminal_italics = 1
+colorscheme palenight
 " -- gruvbox
 " let g:gruvbox_italic=1
 " let g:gruvbox_contrast_light='soft'
@@ -627,7 +627,7 @@ nnoremap ,,f :CtrlSFToggle<CR>
 vmap     ,f <Plug>CtrlSFVwordExec
 nnoremap ,a :GitAg!<CR>
 vmap ,a <Esc>:GitAg! <C-R>=<SID>getVisualSelection()<CR><CR>
-nnoremap ` :Buffers<CR>
+nnoremap ,<SPACE> :Buffers<CR>
 nmap ,g :BTags<CR>
 " nmap ; :call LanguageClient#textDocument_documentSymbol()<CR>
 vmap ,g <Esc>:BTags <C-R>=<SID>getVisualSelection()<CR><CR>
