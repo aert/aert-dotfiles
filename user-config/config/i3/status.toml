@@ -37,12 +37,6 @@ interval = 1
 format = "{1m}"
 
 [[block]]
-block = "pomodoro"
-message = "Take a break!"
-break_message = "Back to work!"
-use_nag = true
-
-[[block]]
 block = "disk_space"
 path = "/"
 alias = "/"

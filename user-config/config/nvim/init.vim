@@ -76,11 +76,12 @@ Plug 'vim-airline/vim-airline-themes'
 " Plug 'mhinz/vim-janah'
 " Plug 'dracula/vim', { 'as': 'dracula' }
 " Plug 'sainnhe/vim-color-forest-night'
-" Plug 'sainnhe/edge'
+Plug 'sainnhe/edge'
 " Plug 'joshdick/onedark.vim'
-Plug 'drewtempelmeyer/palenight.vim'
+" Plug 'drewtempelmeyer/palenight.vim'
+" Plug 'sonph/onehalf', {'rtp': 'vim/'}
 " Plug 'morhetz/gruvbox'
-" Plug 'altercation/vim-colors-solarized'
+" Plug 'lifepillar/vim-solarized8'
 "Plug 'vim-scripts/TagHighlight'
 
 "### languages ################################################################
@@ -469,11 +470,11 @@ au BufNewFile,BufRead *.json.jbuilder set ft=ruby
 if (has("termguicolors"))
   set termguicolors
 endif
-set background=dark
 " -- solarized
-" colorscheme solarized
+" let g:solarized_statusline = 'low'
+" let g:solarized_extra_hi_groups = 1
 " set background=dark
-" let g:solarized_termtrans=1
+" colorscheme solarized8_low
 " -- janah
 " colorscheme janah
 " let g:airline_theme = 'minimalist'
@@ -483,18 +484,21 @@ set background=dark
 "let g:forest_night_enable_italic = 1
 "colorscheme forest-night
 " -- edge
-" let g:airline_theme = 'edge'
-" let g:edge_enable_italic = 1
-" colorscheme edge
+" set background=light
+let g:airline_theme = 'edge'
+let g:edge_enable_italic = 1
+colorscheme edge
 " -- onedark
 " let g:airline_theme = 'onedark'
 " let g:onedark_hide_endofbuffer = 1
 " let g:onedark_terminal_italics = 1
 " colorscheme onedark
 " -- palenight
-let g:airline_theme = 'palenight'
-let g:palenight_terminal_italics = 1
-colorscheme palenight
+" let g:airline_theme = 'palenight'
+" let g:palenight_terminal_italics = 1
+" colorscheme palenight
+" -- onehalf
+" colorscheme onehalfdark
 " -- gruvbox
 " let g:gruvbox_italic=1
 " let g:gruvbox_contrast_light='soft'
