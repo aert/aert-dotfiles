@@ -18,7 +18,8 @@ call plug#begin('~/.vim/bundle')
 Plug 'tpope/vim-dispatch'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
-" Plug 'luochen1990/rainbow'
+Plug 'yuttie/comfortable-motion.vim'
+Plug 'luochen1990/rainbow'
 " Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-abolish'
@@ -77,6 +78,7 @@ Plug 'vim-airline/vim-airline-themes'
 " Plug 'dracula/vim', { 'as': 'dracula' }
 " Plug 'sainnhe/vim-color-forest-night'
 Plug 'sainnhe/edge'
+Plug 'NLKNguyen/papercolor-theme'
 " Plug 'joshdick/onedark.vim'
 " Plug 'drewtempelmeyer/palenight.vim'
 " Plug 'sonph/onehalf', {'rtp': 'vim/'}
@@ -189,7 +191,7 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME.'/.vim/UltiSnips']
 " UtilSnips }}}
 
 " Rainbow {{{
-let g:rainbow_active = 0      " use :RainbowToggle
+let g:rainbow_active = 1      " use :RainbowToggle
 " Rainbow }}}
 
 " Goyo / LimeLight {{{
@@ -485,9 +487,12 @@ endif
 "colorscheme forest-night
 " -- edge
 " set background=light
-let g:airline_theme = 'edge'
-let g:edge_enable_italic = 1
-colorscheme edge
+" let g:airline_theme = 'edge'
+" let g:edge_enable_italic = 1
+" colorscheme edge
+" -- PaperColor
+set background=light
+colorscheme PaperColor
 " -- onedark
 " let g:airline_theme = 'onedark'
 " let g:onedark_hide_endofbuffer = 1
