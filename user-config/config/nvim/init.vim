@@ -586,7 +586,8 @@ map j gj
 map k gk
 
 " shortcuts to common commands
-let mapleader = ","
+nnoremap <SPACE> <Nop>
+let mapleader = "\<Space>"
 
 " italics
 "hi Comment gui=italic cterm=italic
@@ -628,69 +629,65 @@ map <C-9> 10zh
 nnoremap t :<c-u>rightbelow vertical stjump <c-r><c-w><cr>
 nnoremap T <c-w>T
 
-nnoremap ,c :let @+ = expand("%:p").":".line('.')<cr>
-nnoremap ,d :NERDTreeToggle<CR>
-nnoremap ,n :NERDTreeFind<CR>
-nnoremap ,f :CtrlSF 
-nnoremap ,,f :CtrlSFToggle<CR>
-vmap     ,f <Plug>CtrlSFVwordExec
-nnoremap ,a :GitAg!<CR>
-vmap ,a <Esc>:GitAg! <C-R>=<SID>getVisualSelection()<CR><CR>
-nnoremap ,<SPACE> :Buffers<CR>
-nmap ,g :BTags<CR>
+nnoremap <leader>c :let @+ = expand("%:p").":".line('.')<cr>
+nnoremap <leader>d :NERDTreeToggle<CR>
+nnoremap <leader>n :NERDTreeFind<CR>
+nnoremap <leader>f :CtrlSF 
+nnoremap <leader>F :CtrlSFToggle<CR>
+vmap <leader>f <Plug>CtrlSFVwordExec
+nnoremap <leader>a :GitAg!<CR>
+vmap <leader>a <Esc>:GitAg! <C-R>=<SID>getVisualSelection()<CR><CR>
+nnoremap <leader>, :Buffers<CR>
+nmap <leader><Esc> :noh<CR>
+nmap <leader>g :BTags<CR>
 " nmap ; :call LanguageClient#textDocument_documentSymbol()<CR>
-vmap ,g <Esc>:BTags <C-R>=<SID>getVisualSelection()<CR><CR>
-" nmap ,t :GFiles<CR>
+vmap <leader>g <Esc>:BTags <C-R>=<SID>getVisualSelection()<CR><CR>
+" nmap <leader>t :GFiles<CR>
 nmap ; :GFiles<CR>
-vmap ,t <Esc>:GitAgFiles! <C-R>=<SID>getVisualSelection()<CR><CR>
-" nmap ,r :Tags<CR>
-" vmap ,r <Esc>:Tags <C-R>=<SID>getVisualSelection()<CR><CR>
-" nmap ,l :BLines<CR>
-" vmap ,l <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
-nmap ,l :BLines<CR>
-vmap ,l <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
-nmap ,k :call FZFHistory()<CR>
-nmap <SPACE> :noh<CR>
-nnoremap ,e :tabnew<CR>
-" nmap ,<TAB> :TlistToggle<CR>
+vmap <leader>t <Esc>:GitAgFiles! <C-R>=<SID>getVisualSelection()<CR><CR>
+nmap <leader>l :BLines<CR>
+vmap <leader>l <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
+nmap <leader>k :call FZFHistory()<CR>
+nnoremap <leader>e :tabnew<CR>
+" nmap <leader><TAB> :TlistToggle<CR>
 " nmap <TAB> :TagbarToggle<CR>
 map <TAB> ]m
-map ,<TAB> [m
+map <leader><TAB> [m
 
 nmap s <Plug>(easymotion-overwin-f)
 
-nnoremap ,ga :Gwrite<CR>
-" nnoremap ,gs :Gstatus<CR>
-nnoremap ,gs :GFiles?<CR>
-" nnoremap ,gc :Gcommit<CR>
-nnoremap ,gc :BCommits<CR>
-nnoremap ,gp :Gpush<CR>
-nnoremap ,gd :Gdiff<CR>
-nnoremap ,gb :Gbrowse<CR>
-" nnoremap ,gl :Glog<CR><CR>
-nnoremap ,gl :Commits<CR>
+nnoremap <leader>ga :Gwrite<CR>
+" nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gs :GFiles?<CR>
+" nnoremap <leader>gc :Gcommit<CR>
+nnoremap <leader>gc :BCommits<CR>
+nnoremap <leader>gp :Gpush<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gb :Gbrowse<CR>
+" nnoremap <leader>gl :Glog<CR><CR>
+nnoremap <leader>gl :Commits<CR>
 
 nnoremap <silent> K :call LanguageClient_contextMenu()<CR>
 " nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 " nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap ,,r :call LanguageClient#textDocument_rename()<CR>
+nnoremap <leader>re :call LanguageClient#textDocument_rename()<CR>
 nnoremap <silent> gd :ALEGoToDefinitionInVSplit<CR>
-nnoremap ,h :call LanguageClient#textDocument_hover()<CR>
-nmap ,r :call LanguageClient#textDocument_references()<CR>
+nnoremap <leader>h :call LanguageClient#textDocument_hover()<CR>
+nmap <leader>r :call LanguageClient#textDocument_references()<CR>
 
-nmap ,p :Neoformat<CR>
+nmap <leader>p :Neoformat<CR>
 
 
 " FileType specific
-" au FileType ruby nmap ,p :RuboCop -a<CR>
-au FileType ruby nmap ,p :ALEFix<CR>
+" au FileType ruby nmap <leader>p :RuboCop -a<CR>
+au FileType ruby nmap <leader>p :ALEFix<CR>
 
 au FileType rust nmap gd <Plug>(rust-def)
 au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>rd <Plug>(rust-doc)
 
-nnoremap ,w :ImportJSWord<CR>
+nnoremap <leader>w :ImportJSWord<CR>
 
 " ,cd to change to current file dir & print pwd
-nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
