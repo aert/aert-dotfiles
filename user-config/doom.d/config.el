@@ -68,6 +68,15 @@
 
 (setq org-ellipsis " ▼ ")
 (setq deft-directory "~/org")
+(use-package org-duration
+  :config
+  (setq org-duration-units   `(("min" . 1)
+   ("h" . 60)
+   ("d" . ,(* 60 7))
+   ("w" . ,(* 60 7 5))
+   ("m" . ,(* 60 7 5 4))
+   ("y" . ,(* 60 7 5 4 11))))
+  (org-duration-set-regexps))
 
 ;; My Functions ................................................................
 
