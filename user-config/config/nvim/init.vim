@@ -656,7 +656,7 @@ map <leader><TAB> [m
 
 nmap s <Plug>(easymotion-overwin-f)
 
-nnoremap <leader>ga :Gwrite<CR>
+nnoremap <leader>gS :Gwrite<CR>
 " nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gs :GFiles?<CR>
 " nnoremap <leader>gc :Gcommit<CR>
