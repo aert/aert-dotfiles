@@ -75,15 +75,13 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'edkolev/tmuxline.vim'
 " Plug 'mhinz/vim-janah'
-" Plug 'dracula/vim', { 'as': 'dracula' }
-" Plug 'sainnhe/vim-color-forest-night'
-Plug 'sainnhe/edge'
-" Plug 'NLKNguyen/papercolor-theme'
-" Plug 'joshdick/onedark.vim'
+Plug 'rakr/vim-two-firewatch'
+Plug 'sainnhe/vim-color-forest-night'
+" Plug 'sainnhe/edge'
+Plug 'liuchengxu/space-vim-theme'
 " Plug 'drewtempelmeyer/palenight.vim'
-" Plug 'sonph/onehalf', {'rtp': 'vim/'}
 " Plug 'morhetz/gruvbox'
-" Plug 'lifepillar/vim-solarized8'
+Plug 'lifepillar/vim-solarized8'
 "Plug 'vim-scripts/TagHighlight'
 
 "### languages ################################################################
@@ -95,7 +93,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'ap/vim-css-color', { 'for' : ['css', 'less', 'scss'] }
 Plug 'hail2u/vim-css3-syntax', { 'for' : ['css', 'less', 'scss'] }
 " javascript
-" Plug 'galooshi/vim-import-js', { 'for': ['javascript', 'typescript', 'graphql'] }
+Plug 'galooshi/vim-import-js', { 'for': ['javascript', 'typescript', 'graphql'] }
 Plug 'mtscout6/syntastic-local-eslint.vim', { 'for': ['javascript', 'typescript', 'graphql'] }
 " Plug 'jparise/vim-graphql', { 'for': ['javascript', 'typescript', 'graphql'] }
 " rails
@@ -472,48 +470,43 @@ au BufNewFile,BufRead *.json.jbuilder set ft=ruby
 if (has("termguicolors"))
   set termguicolors
 endif
-" -- solarized
-" let g:solarized_statusline = 'low'
-" let g:solarized_extra_hi_groups = 1
-" set background=dark
-" colorscheme solarized8_low
+
 " -- janah
 " colorscheme janah
 " let g:airline_theme = 'minimalist'
 " -- forest-night
-"let g:airline_theme = 'forest_night'
+let g:airline_theme = 'forest_night'
 " let g:forest_night_transparent_background = 1
-"let g:forest_night_enable_italic = 1
-"colorscheme forest-night
-" -- edge
-" set background=light
-let g:airline_theme = 'edge'
-let g:edge_enable_italic = 1
-colorscheme edge
-" -- PaperColor
-" set background=light
-" colorscheme PaperColor
-" -- onedark
-" let g:airline_theme = 'onedark'
-" let g:onedark_hide_endofbuffer = 1
-" let g:onedark_terminal_italics = 1
-" colorscheme onedark
+let g:forest_night_enable_italic = 1
+colorscheme forest-night
 " -- palenight
 " let g:airline_theme = 'palenight'
 " let g:palenight_terminal_italics = 1
 " colorscheme palenight
-" -- onehalf
-" colorscheme onehalfdark
 " -- gruvbox
 " let g:gruvbox_italic=1
 " let g:gruvbox_contrast_light='soft'
 " let g:gruvbox_contrast_dark='soft'
 " let g:airline_theme = 'gruvbox'
 " colorscheme gruvbox
-" -- dracula
-" let g:dracula_colorterm = 0
-" let g:airline_theme='dracula'
-" colorscheme dracula
+" -- edge
+" set background=light
+" let g:airline_theme = 'edge'
+" let g:edge_enable_italic = 1
+" colorscheme edge
+" -- space_vim_theme
+" set background=light
+" colorscheme space_vim_theme
+" -- two-firewatch
+" set background=light
+" let g:two_firewatch_italics=1
+" let g:airline_theme='twofirewatch'
+" colo two-firewatch
+" -- solarized
+" let g:solarized_statusline = 'low'
+" let g:solarized_extra_hi_groups = 1
+" set background=dark
+" colorscheme solarized8_low
 
 if has('gui_running')
     set lines=999 columns=999
@@ -676,6 +669,7 @@ nnoremap <leader>h :call LanguageClient#textDocument_hover()<CR>
 nmap <leader>r :call LanguageClient#textDocument_references()<CR>
 
 nmap <leader>p :Neoformat<CR>
+nmap <leader>q :q<CR>
 
 
 " FileType specific
