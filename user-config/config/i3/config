@@ -318,7 +318,7 @@ exec --no-startup-id compton -b
 
 # So that volume buttons and battery warnings work: https://faq.i3wm.org/question/279/how-do-you-use-i3-comfortably/#342
 exec --no-startup-id /usr/libexec/gsd-xsettings
-# exec --no-startup-id "sh $HOME/.screenlayout/home.layout.sh"
+exec --no-startup-id "sh $HOME/.screenlayout/home.layout.sh"
 exec --no-startup-id nm-applet
 exec --no-startup-id redshift-gtk
 # exec --no-startup-id pnmixer
