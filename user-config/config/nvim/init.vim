@@ -671,6 +671,10 @@ nmap <leader>r :call LanguageClient#textDocument_references()<CR>
 nmap <leader>p :Neoformat<CR>
 nmap <leader>q :q<CR>
 
+nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+nnoremap <silent> <Leader>> :exe "vertical resize +25"<CR>
+nnoremap <silent> <Leader>< :exe "vertical resize -25"<CR>
 
 " FileType specific
 " au FileType ruby nmap <leader>p :RuboCop -a<CR>
