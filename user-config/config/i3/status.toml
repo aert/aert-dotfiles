@@ -32,6 +32,11 @@ interval = 1
 format = "{barchart}"
 
 [[block]]
+block = "cpu"
+interval = 2
+format = "{frequency}"
+
+[[block]]
 block = "load"
 interval = 1
 format = "{1m}"
