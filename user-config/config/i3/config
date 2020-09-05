@@ -312,9 +312,9 @@ bindsym $mod+z exec ~/bin/my_scripts/i3-keyboard-layout cycle fr us
 
 # key bindings }}}
 
-# exec --no-startup-id nitrogen --restore
 exec --no-startup-id compton -b
-exec --no-startup-id "sh $HOME/.xplanet/loop.sh"
+# exec --no-startup-id "sh $HOME/.xplanet/loop.sh"
+exec --no-startup-id nitrogen --restore
 
 # So that volume buttons and battery warnings work: https://faq.i3wm.org/question/279/how-do-you-use-i3-comfortably/#342
 exec --no-startup-id /usr/libexec/gsd-xsettings

@@ -476,7 +476,7 @@ endif
 " let g:airline_theme = 'minimalist'
 " -- forest-night
 let g:airline_theme = 'forest_night'
-" let g:forest_night_transparent_background = 1
+let g:forest_night_transparent_background = 1
 let g:forest_night_enable_italic = 1
 colorscheme forest-night
 " -- palenight
@@ -632,12 +632,11 @@ nnoremap <leader>a :GitAg!<CR>
 vmap <leader>a <Esc>:GitAg! <C-R>=<SID>getVisualSelection()<CR><CR>
 nnoremap <leader>, :Buffers<CR>
 nmap <leader><Esc> :noh<CR>
-nmap <leader>g :BTags<CR>
+nnoremap <leader>t :BTags<CR>
 " nmap ; :call LanguageClient#textDocument_documentSymbol()<CR>
-vmap <leader>g <Esc>:BTags <C-R>=<SID>getVisualSelection()<CR><CR>
+vmap <leader>t <Esc>:BTags <C-R>=<SID>getVisualSelection()<CR><CR>
 " nmap <leader>t :GFiles<CR>
 nmap ; :GFiles<CR>
-vmap <leader>t <Esc>:GitAgFiles! <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap <leader>l :BLines<CR>
 vmap <leader>l <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap <leader>k :call FZFHistory()<CR>
