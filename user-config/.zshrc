@@ -171,7 +171,7 @@ export FZF_DEFAULT_OPTS='
 '
 
 alias x="exa -l --time-style long-iso --git"
-
+alias dnf='dnf --cacheonly' 
 
 chpwd() {
   x
