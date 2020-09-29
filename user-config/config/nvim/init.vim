@@ -24,6 +24,7 @@ Plug 'luochen1990/rainbow'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-abolish'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'dhruvasagar/vim-zoom'
 
 " Plug 'pearofducks/ansible-vim'
 
@@ -60,7 +61,7 @@ Plug 'airblade/vim-gitgutter'
 " motion
 Plug 'easymotion/vim-easymotion'
 " navigation
-Plug 'junegunn/fzf', { 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'scrooloose/nerdtree'
@@ -313,29 +314,7 @@ let g:ycm_auto_trigger = 1
 
 " Fzf {{{
 let g:fzf_preview_window = ''
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-
-function! s:fzf_statusline()
-  " Override statusline as you like
-  highlight fzf1 ctermfg=161 ctermbg=251
-  highlight fzf2 ctermfg=23 ctermbg=251
-  highlight fzf3 ctermfg=237 ctermbg=251
-  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-endfunction
-autocmd! User FzfStatusLine call <SID>fzf_statusline()
+let g:fzf_tags_command = 'ctags -R'
 
 command! -bang -nargs=* GitAg
   \ call fzf#vim#ag(<q-args>, {'dir': systemlist('git rev-parse --show-toplevel')[0]}, <bang>0)
@@ -363,7 +342,7 @@ let g:ctrlsf_mapping = {
     \ "vsplit"  : "s",
     \ "tab"     : "t",
     \ }
-let g:ctrlsf_ignore_dir = ["node_modules", "coverage", "dist", "vendor", "target", "build", "vendor", "tags", "bower_components"]
+let g:ctrlsf_ignore_dir = ["node_modules", "coverage", "dist", "vendor", "target", "build", "tags", "bower_components"]
 " CtrlSF }}}
 
 " vim-go {{{
@@ -412,6 +391,11 @@ let g:jedi#usages_command = "<leader>ru"
 let g:ansible_name_highlight = 'd'
 let g:ansible_extra_keywords_highlight = 1
 " ansible-vim  }}}
+
+" vim-zoom  {{{
+" vim-zoom  }}}
+
+set statusline+=%{zoom#statusline()}
 
 " ### My Personal Config
 " ######################
@@ -669,6 +653,7 @@ nmap <leader>r :call LanguageClient#textDocument_references()<CR>
 
 nmap <leader>p :Neoformat<CR>
 nmap <leader>q :q<CR>
+nmap <leader>m :call zoom#toggle()<CR>
 
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
