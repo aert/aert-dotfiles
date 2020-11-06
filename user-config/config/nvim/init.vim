@@ -630,7 +630,7 @@ nnoremap <leader>e :tabnew<CR>
 map <TAB> ]m
 map <leader><TAB> [m
 
-nmap s <Plug>(easymotion-overwin-f)
+nmap s <Plug>(easymotion-overwin-f2)
 
 nnoremap <leader>gS :Gwrite<CR>
 " nnoremap <leader>gs :Gstatus<CR>
