@@ -440,7 +440,8 @@ syntax enable
 "set gfn=Ubuntu\ Mono\ 13
 "set gfn=Consolas\ 11
 set gfn=Operator\ Mono\ Medium\ 11
-set nu
+" set nu
+set nonumber
 " set relativenumber
 
 autocmd BufEnter * silent! lcd %:p:h
