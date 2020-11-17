@@ -618,6 +618,7 @@ vmap <leader>a <Esc>:GitAg! <C-R>=<SID>getVisualSelection()<CR><CR>
 nnoremap <leader>, :Buffers<CR>
 nmap <leader><Esc> :noh<CR>
 nnoremap <leader>t :BTags<CR>
+nnoremap <leader>T :Tags<CR>
 " nmap ; :call LanguageClient#textDocument_documentSymbol()<CR>
 vmap <leader>t <Esc>:BTags <C-R>=<SID>getVisualSelection()<CR><CR>
 " nmap <leader>t :GFiles<CR>
