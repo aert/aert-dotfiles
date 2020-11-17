@@ -1,5 +1,10 @@
 --exclude=*app/assets/javascripts*.js
---exclude=*app/lib/*.js
+--exclude=*public/packs/*
+--exclude=*public/packs-test/*
+--exclude=*public/assets/*
+--exclude=*coverage/assets/*
+--exclude=*app/assets/javascripts/twitter-bootstrap-static/*
+--exclude=*scriptx/web*/app/lib/*/*
 --exclude=*.hg*
 --exclude=*.cvs*
 --exclude=*.svn*
