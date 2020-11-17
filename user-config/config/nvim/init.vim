@@ -65,7 +65,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'scrooloose/nerdtree'
-" Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'arithran/vim-delete-hidden-buffers'
 " Plug 'vim-scripts/taglist.vim'
 " Plug 'majutsushi/tagbar'
@@ -146,7 +146,7 @@ let g:LanguageClient_serverCommands = {
 " status line / airline {{{
 set statusline+=%#warningmsg#
 set statusline+=%*
-" set statusline+=%{gutentags#statusline()}
+set statusline+=%{gutentags#statusline()}
 
 let g:airline#extensions#ale#enabled = 1
 let g:airline_statusline_ontop=1
