@@ -63,7 +63,7 @@ source $ZSH/oh-my-zsh.sh
 
 # plugin: zsh_autosuggest
 # Color Codes: https://en.wikipedia.org/wiki/ANSI_escape_code
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=125'
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=243'
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
 bindkey '^ ' autosuggest-accept
@@ -99,7 +99,7 @@ SPACESHIP_PROMPT_ORDER=(
   pyenv         # Pyenv section
 # dotnet        # .NET section
 # ember         # Ember.js section
-# kubecontext   # Kubectl context section
+  kubecontext   # Kubectl context section
   exec_time     # Execution time
   line_sep      # Line break
 # battery       # Battery level and status
@@ -115,13 +115,15 @@ SPACESHIP_PROMPT_ORDER=(
 #source /usr/local/bin/virtualenvwrapper.sh
 
 #source /usr/etc/git-extras-completion.zsh
-#source <(kubectl completion zsh)
+source <(kubectl completion zsh)
+source <(helm completion zsh)
 
-# export ANDROID_HOME=$HOME/Android/Sdk
-# export PATH=$ANDROID_HOME/tools:$PATH
-# export PATH=$ANDROID_HOME/platform-tools:$PATH
+export ANDROID_HOME=$HOME/bin/local/android-sdk/
+export PATH=$ANDROID_HOME/tools:$PATH
+export PATH=$ANDROID_HOME/platform-tools:$PATH
 # export PATH=~/bin/gradle-1.10/bin:$PATH
 export PATH=~/bin:~/bin/my_scripts:$PATH
+export PATH=~/bin/local/flutter/bin:$PATH
 
 #-- rbenv
 . $HOME/.asdf/asdf.sh
@@ -143,6 +145,8 @@ alias cdgit='cd $(git rev-parse --show-cdup)'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias tcopy='tmux show-buffer | cb && alert "$(tmux show-buffer)"'
 alias sm='smerge .'
+alias be='bundle exec'
+alias k='kubectl'
 
 #-- node
 # export NVM_DIR="/home/ari/.nvm"
@@ -171,7 +175,7 @@ export FZF_DEFAULT_OPTS='
 '
 
 alias x="exa -l --time-style long-iso --git"
-alias dnf='dnf --cacheonly' 
+
 
 chpwd() {
   x
