@@ -15,10 +15,10 @@ configuration {
  
 #window {
     border: 0;
-    border-radius: 4px;
+    border-radius: 30px;
     padding: 40;
-    width: 30%;
-    height: 30%;
+    width: 50%;
+    height: 40%;
 }
  
 #mainbox {
