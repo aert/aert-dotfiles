@@ -461,7 +461,7 @@ endif
 " let g:airline_theme = 'minimalist'
 " -- forest-night
 let g:airline_theme = 'forest_night'
-let g:forest_night_transparent_background = 1
+" let g:forest_night_transparent_background = 1
 let g:forest_night_enable_italic = 1
 colorscheme forest-night
 " -- palenight
