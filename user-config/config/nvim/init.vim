@@ -393,10 +393,17 @@ let g:ansible_name_highlight = 'd'
 let g:ansible_extra_keywords_highlight = 1
 " ansible-vim  }}}
 
-" vim-zoom  {{{
-" vim-zoom  }}}
-
+" vim-zoom {{{
 set statusline+=%{zoom#statusline()}
+" vim-zoom }}}
+
+" vim-floaterm {{{
+" let g:floaterm_wintype = 'normal'
+let g:floaterm_winblend = 20
+let g:floaterm_position = 'bottomright'
+" let g:floaterm_width = 0.9
+let g:floaterm_height = 0.95
+" vim-floaterm }}}
 
 " ### My Personal Config
 " ######################
@@ -603,8 +610,6 @@ endfunction
 
 map <C-n> :ALENextWrap<CR>
 map <C-p> :ALEPreviousWrap<CR>
-map <C-0> 10zl
-map <C-9> 10zh
 nnoremap t :<c-u>rightbelow vertical stjump <c-r><c-w><cr>
 nnoremap T <c-w>T
 
@@ -673,13 +678,16 @@ au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>rd <Plug>(rust-doc)
 
 " nnoremap <leader>w :ImportJSWord<CR>
-nnoremap <silent> <C-w>t :FloatermToggle<CR>
-tnoremap <silent> <C-w>t <C-\><C-n>:FloatermToggle<CR>
-nnoremap <silent> <C-w>n :FloatermNext<CR>
-tnoremap <silent> <C-w>n <C-\><C-n>:FloatermNext<CR>
-nnoremap <silent> <C-w>p :FloatermPrev<CR>
-tnoremap <silent> <C-w>p <C-\><C-n>:FloatermPrev<CR>
-tnoremap <silent> <C-w>k <C-\><C-n>:FloatermKill<CR>
+tnoremap <silent> <C-i><SPACE> <C-\><C-n>
+vnoremap <silent> <C-i>s :FloatermSend<CR>
+nnoremap <silent> <C-i>t :FloatermToggle<CR>
+nnoremap <silent> <C-i>c :FloatermNew<CR>
+tnoremap <silent> <C-i>t <C-\><C-n>:FloatermToggle<CR>
+nnoremap <silent> <C-i>n :FloatermNext<CR>
+tnoremap <silent> <C-i>n <C-\><C-n>:FloatermNext<CR>
+nnoremap <silent> <C-i>p :FloatermPrev<CR>
+tnoremap <silent> <C-i>p <C-\><C-n>:FloatermPrev<CR>
+tnoremap <silent> <C-i>k <C-\><C-n>:FloatermKill<CR>
 
 " ,cd to change to current file dir & print pwd
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
