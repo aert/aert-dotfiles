@@ -67,6 +67,7 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'arithran/vim-delete-hidden-buffers'
+Plug 'voldikss/vim-floaterm'
 " Plug 'vim-scripts/taglist.vim'
 " Plug 'majutsushi/tagbar'
 " tests
@@ -671,7 +672,13 @@ au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>rd <Plug>(rust-doc)
 
-nnoremap <leader>w :ImportJSWord<CR>
+" nnoremap <leader>w :ImportJSWord<CR>
+nnoremap <silent> <C-w>t :FloatermToggle<CR>
+tnoremap <silent> <C-w>t <C-\><C-n>:FloatermToggle<CR>
+nnoremap <silent> <C-w>n :FloatermNext<CR>
+tnoremap <silent> <C-w>n <C-\><C-n>:FloatermNext<CR>
+nnoremap <silent> <C-w>p :FloatermPrev<CR>
+tnoremap <silent> <C-w>p <C-\><C-n>:FloatermPrev<CR>
 
 " ,cd to change to current file dir & print pwd
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
