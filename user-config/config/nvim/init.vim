@@ -679,6 +679,7 @@ nnoremap <silent> <C-w>n :FloatermNext<CR>
 tnoremap <silent> <C-w>n <C-\><C-n>:FloatermNext<CR>
 nnoremap <silent> <C-w>p :FloatermPrev<CR>
 tnoremap <silent> <C-w>p <C-\><C-n>:FloatermPrev<CR>
+tnoremap <silent> <C-w>k <C-\><C-n>:FloatermKill<CR>
 
 " ,cd to change to current file dir & print pwd
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
