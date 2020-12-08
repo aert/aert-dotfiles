@@ -58,7 +58,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # NOTE:  zsh-syntax-highlighting must be at the end rake-fast rails 
-plugins=(docker docker-compose git fzf-tab zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(docker docker-compose git fzf-tab zsh-autosuggestions fast-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 # plugin: zsh_autosuggest
