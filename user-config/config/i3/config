@@ -1,16 +1,3 @@
-# Hybrid colors
-#set $black	#002B36
-#set $white	#666666
-#set $gray	#CCCCCC
-#set $darkgray	#666666
-#set $green 	#799F26
-#set $blue	#4D73AA
-#set $purple	#8473A7
-#set $red	#B58900
-#set $orange	#E59847
-#set $cyan	#2AA198
-#set $dark #00252E
-
 set $mod Mod4
 
 # i3 config file (v4)
@@ -184,11 +171,11 @@ for_window [urgent=latest] focus
 
 # Colors
 # set $bg-color 	         #2C1211
-set $bg-color 	         #000000
-set $inactive-bg-color   #000000
-set $text-color          #D85959
-set $inactive-text-color #8C2C2E
-set $urgent-bg-color 	   #190B0A
+set $bg-color 	         #3c3836
+set $inactive-bg-color   #504945
+set $text-color          #ebdbb2
+set $inactive-text-color #ebdbb2
+set $urgent-bg-color 	   #cc241d
 
 # window colors
 #                       border              background         text                 indicator
@@ -211,7 +198,7 @@ bar {
 		background $bg-color
     statusline $text-color
 
-	  separator #2C1211
+	  separator #666666
 		#                  border             background         text
 		focused_workspace  $bg-color          $bg-color          $text-color
 		inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
