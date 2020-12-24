@@ -131,6 +131,8 @@ export PATH=~/bin/local/flutter/bin:$PATH
 
 export PATH="$HOME/.local/bin:$PATH"
 
+eval "$(direnv hook zsh)"
+
 # #-- pyenv
 # export PATH="$HOME/.pyenv/bin:$PATH"
 # eval "$(pyenv init -)"
