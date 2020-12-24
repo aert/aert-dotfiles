@@ -635,8 +635,6 @@ nmap <leader>k :call FZFHistory()<CR>
 nnoremap <leader>e :tabnew<CR>
 " nmap <leader><TAB> :TlistToggle<CR>
 " nmap <TAB> :TagbarToggle<CR>
-map <TAB> ]m
-map <leader><TAB> [m
 
 nmap s <Plug>(easymotion-overwin-f2)
 
@@ -678,16 +676,16 @@ au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>rd <Plug>(rust-doc)
 
 " nnoremap <leader>w :ImportJSWord<CR>
-tnoremap <silent> <C-i><SPACE> <C-\><C-n>
-vnoremap <silent> <C-i>s :FloatermSend<CR>
-nnoremap <silent> <C-i>t :FloatermToggle<CR>
-nnoremap <silent> <C-i>c :FloatermNew<CR>
-tnoremap <silent> <C-i>t <C-\><C-n>:FloatermToggle<CR>
-nnoremap <silent> <C-i>n :FloatermNext<CR>
-tnoremap <silent> <C-i>n <C-\><C-n>:FloatermNext<CR>
-nnoremap <silent> <C-i>p :FloatermPrev<CR>
-tnoremap <silent> <C-i>p <C-\><C-n>:FloatermPrev<CR>
-tnoremap <silent> <C-i>k <C-\><C-n>:FloatermKill<CR>
+tnoremap <silent> <C-j><SPACE> <C-\><C-n>
+vnoremap <silent> <C-j>s :FloatermSend<CR>
+nnoremap <silent> <C-j>t :FloatermToggle<CR>
+nnoremap <silent> <C-j>c :FloatermNew<CR>
+tnoremap <silent> <C-j>t <C-\><C-n>:FloatermToggle<CR>
+nnoremap <silent> <C-j>n :FloatermNext<CR>
+tnoremap <silent> <C-j>n <C-\><C-n>:FloatermNext<CR>
+nnoremap <silent> <C-j>p :FloatermPrev<CR>
+tnoremap <silent> <C-j>p <C-\><C-n>:FloatermPrev<CR>
+tnoremap <silent> <C-j>k <C-\><C-n>:FloatermKill<CR>
 
 " ,cd to change to current file dir & print pwd
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
