@@ -82,7 +82,7 @@ Plug 'sainnhe/vim-color-forest-night'
 " Plug 'sainnhe/edge'
 Plug 'liuchengxu/space-vim-theme'
 " Plug 'drewtempelmeyer/palenight.vim'
-" Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
 Plug 'lifepillar/vim-solarized8'
 "Plug 'vim-scripts/TagHighlight'
 
@@ -468,7 +468,7 @@ endif
 " colorscheme janah
 " let g:airline_theme = 'minimalist'
 " -- forest-night
-let g:airline_theme = 'forest_night'
+" let g:airline_theme = 'forest_night'
 " let g:forest_night_transparent_background = 1
 let g:forest_night_enable_italic = 1
 colorscheme forest-night
@@ -477,6 +477,7 @@ colorscheme forest-night
 " let g:palenight_terminal_italics = 1
 " colorscheme palenight
 " -- gruvbox
+" set background=light
 " let g:gruvbox_italic=1
 " let g:gruvbox_contrast_light='soft'
 " let g:gruvbox_contrast_dark='soft'
