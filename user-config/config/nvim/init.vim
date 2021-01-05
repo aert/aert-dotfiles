@@ -398,11 +398,12 @@ set statusline+=%{zoom#statusline()}
 " vim-zoom }}}
 
 " vim-floaterm {{{
-" let g:floaterm_wintype = 'normal'
-let g:floaterm_winblend = 20
-let g:floaterm_position = 'bottomright'
+let g:floaterm_wintype = 'normal'
+let g:floaterm_position = 'right'
 " let g:floaterm_width = 0.9
-let g:floaterm_height = 0.95
+let g:floaterm_winblend = 20
+" let g:floaterm_position = 'bottomright'
+" let g:floaterm_height = 0.95
 " vim-floaterm }}}
 
 " ### My Personal Config
@@ -573,8 +574,9 @@ map j gj
 map k gk
 
 " shortcuts to common commands
-nnoremap <SPACE> <Nop>
-let mapleader = "\<Space>"
+" nnoremap <SPACE> <Nop>
+" let mapleader = "\<Space>"
+let mapleader = "\,"
 
 " italics
 "hi Comment gui=italic cterm=italic
@@ -603,7 +605,7 @@ endfunction
 function! FZFHistory()
   let directory = substitute(system("git rev-parse --show-toplevel"), '\n$', '', '')
   if !v:shell_error
-    :call fzf#run(fzf#wrap({'source': 'git --no-pager log --name-only -100 --decorate=short --pretty=format:', 'dir': directory}))
+    :call fzf#run(fzf#wrap({'source': 'git --no-pager log --name-only -10 --decorate=short --pretty=format: | awk "!x[\$0]++" | awk "NF"', 'dir': directory}))
   else
     :History
   endif
@@ -628,7 +630,7 @@ nnoremap <leader>t :BTags<CR>
 nnoremap <leader>T :Tags<CR>
 " nmap ; :call LanguageClient#textDocument_documentSymbol()<CR>
 vmap <leader>t <Esc>:BTags <C-R>=<SID>getVisualSelection()<CR><CR>
-" nmap <leader>t :GFiles<CR>
+vmap <leader>T <Esc>:Tags <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ; :GFiles<CR>
 nmap <leader>l :BLines<CR>
 vmap <leader>l <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>

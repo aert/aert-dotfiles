@@ -5,6 +5,7 @@
 --exclude=*coverage/assets/*
 --exclude=*app/assets/javascripts/twitter-bootstrap-static/*
 --exclude=*scriptx/web*/app/lib/*/*
+--exclude=*scriptx/web*/app/css/*
 --exclude=*.hg*
 --exclude=*.cvs*
 --exclude=*.svn*
