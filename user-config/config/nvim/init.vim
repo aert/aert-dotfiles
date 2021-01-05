@@ -624,7 +624,7 @@ nnoremap <leader>F :CtrlSFToggle<CR>
 vmap <leader>f <Plug>CtrlSFVwordExec
 nnoremap <leader>a :GitAg!<CR>
 vmap <leader>a <Esc>:GitAg! <C-R>=<SID>getVisualSelection()<CR><CR>
-nnoremap <leader>, :Buffers<CR>
+nnoremap <leader><SPACE> :Buffers<CR>
 nmap <leader><Esc> :noh<CR>
 nnoremap <leader>t :BTags<CR>
 nnoremap <leader>T :Tags<CR>
