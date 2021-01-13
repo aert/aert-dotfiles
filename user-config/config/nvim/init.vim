@@ -470,7 +470,8 @@ endif
 " let g:airline_theme = 'minimalist'
 " -- forest-night
 " let g:airline_theme = 'forest_night'
-" let g:forest_night_transparent_background = 1
+let g:forest_night_transparent_background = 1
+let g:airline_theme = 'zenburn'
 let g:forest_night_enable_italic = 1
 colorscheme forest-night
 " -- palenight
@@ -517,7 +518,8 @@ endif
 
 set nocursorline
 set colorcolumn=80
-"highlight ColorColumn ctermbg=235 guibg=#2c2d27
+highlight ColorColumn ctermbg=235 guibg=#2c2d27
+highlight StatusLine ctermbg=235 guibg=#2c2d27
 "let &colorcolumn=join(range(81,999),",")
 
 """"""""""""""""""""""
