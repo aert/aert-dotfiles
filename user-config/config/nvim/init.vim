@@ -19,7 +19,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
 " Plug 'yuttie/comfortable-motion.vim'
-Plug 'luochen1990/rainbow'
+" Plug 'luochen1990/rainbow'
 " Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-abolish'
@@ -44,7 +44,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 "Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
 
 Plug 'jiangmiao/auto-pairs'
-Plug 'scrooloose/nerdcommenter'
+Plug 'preservim/nerdcommenter'
 Plug 'mattn/emmet-vim'
 " format
 Plug 'sbdchd/neoformat'
@@ -55,7 +55,7 @@ Plug 'prettier/vim-prettier', {
 " git
 Plug 'tpope/vim-fugitive'
 Plug 'shumphrey/fugitive-gitlab.vim'
-Plug 'tommcdo/vim-fubitive'
+" Plug 'tommcdo/vim-fubitive' # bitbucket
 Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
 " motion
@@ -64,7 +64,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'dyng/ctrlsf.vim'
-Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'arithran/vim-delete-hidden-buffers'
 Plug 'voldikss/vim-floaterm'
@@ -77,13 +77,13 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'edkolev/tmuxline.vim'
 " Plug 'mhinz/vim-janah'
-Plug 'rakr/vim-two-firewatch'
+" Plug 'rakr/vim-two-firewatch'
 Plug 'sainnhe/vim-color-forest-night'
 " Plug 'sainnhe/edge'
-Plug 'liuchengxu/space-vim-theme'
+" Plug 'liuchengxu/space-vim-theme'
 " Plug 'drewtempelmeyer/palenight.vim'
 Plug 'morhetz/gruvbox'
-Plug 'lifepillar/vim-solarized8'
+" Plug 'lifepillar/vim-solarized8'
 "Plug 'vim-scripts/TagHighlight'
 
 "### languages ################################################################
@@ -95,12 +95,12 @@ Plug 'sheerun/vim-polyglot'
 Plug 'ap/vim-css-color', { 'for' : ['css', 'less', 'scss'] }
 Plug 'hail2u/vim-css3-syntax', { 'for' : ['css', 'less', 'scss'] }
 " javascript
-Plug 'galooshi/vim-import-js', { 'for': ['javascript', 'typescript', 'graphql'] }
+" Plug 'galooshi/vim-import-js', { 'for': ['javascript', 'typescript', 'graphql'] }
 Plug 'mtscout6/syntastic-local-eslint.vim', { 'for': ['javascript', 'typescript', 'graphql'] }
 " Plug 'jparise/vim-graphql', { 'for': ['javascript', 'typescript', 'graphql'] }
 " rails
 Plug 'tpope/vim-rails', { 'for' : ['ruby'] }
-" Plug 'tpope/vim-bundler', { 'for' : ['ruby'] }
+Plug 'tpope/vim-bundler', { 'for' : ['ruby'] }
 " Plug 'ngmy/vim-rubocop', { 'for' : ['ruby'] }
 Plug 'tpope/vim-endwise'
 " rust
@@ -201,7 +201,7 @@ autocmd! User GoyoLeave Limelight!
 " Goyo / LimeLight }}}
 
 " vim test {{{
-let test#strategy = "dispatch"
+let test#strategy = "floaterm"
 " vim test }}}
 
 " Emmet {{{
@@ -237,6 +237,8 @@ let NERDTreeShowBookmarks=1
 let NERDTreeIgnore = ['\.pyc$', '\.bak$', 'node_modules']
 let g:NERDTreeWinPos = "right"
 let NERDTreeQuitOnOpen=1
+let NERDTreeMinimalUI=1
+let NERDTreeWinSize=50
 " NerdTree }}}
 
 " Taglist {{{
@@ -619,8 +621,8 @@ nnoremap t :<c-u>rightbelow vertical stjump <c-r><c-w><cr>
 nnoremap T <c-w>T
 
 nnoremap <leader>c :let @+ = expand("%:p").":".line('.')<cr>
-nnoremap <leader>d :NERDTreeToggle<CR>
-nnoremap <leader>n :NERDTreeFind<CR>
+nnoremap <leader>d :NERDTreeMirror<CR>:NERDTreeToggle<CR>
+nnoremap <leader>n :NERDTreeMirror<CR>:NERDTreeFind<CR>
 nnoremap <leader>f :CtrlSF 
 nnoremap <leader>F :CtrlSFToggle<CR>
 vmap <leader>f <Plug>CtrlSFVwordExec
