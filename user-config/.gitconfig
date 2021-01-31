@@ -18,6 +18,7 @@
 	dis = diff --color-words --staged
 	pe = diff --stat
 	st = status
+	rbi = rebase -i
 	unstage = reset HEAD --
 	# resets all uncomitted changes and files
 	abort = reset --hard HEAD
