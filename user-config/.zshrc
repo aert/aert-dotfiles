@@ -119,6 +119,7 @@ source <(kubectl completion zsh)
 source <(helm completion zsh)
 
 export ANDROID_HOME=$HOME/bin/local/android-sdk/
+export ANDROID_SDK_ROOT=$ANDROID_HOME
 export PATH=$ANDROID_HOME/tools:$PATH
 export PATH=$ANDROID_HOME/platform-tools:$PATH
 # export PATH=~/bin/gradle-1.10/bin:$PATH
@@ -177,7 +178,7 @@ export FZF_DEFAULT_OPTS='
 '
 
 alias x="exa -l --time-style long-iso --git"
-
+alias vpn_from_ssh="sshuttle 0/0 --dns -r"
 
 chpwd() {
   x
