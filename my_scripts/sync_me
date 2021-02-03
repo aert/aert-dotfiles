@@ -1,0 +1,10 @@
+#!/bin/bash
+set -ex
+
+hostname=`hostname`
+rsync --delete --progress -arvh \
+  --exclude=".thumbnails" \
+  --exclude="node_modules" \
+  --exclude="bower_components" \
+  --exclude="log/*.log" \
+  --files-from=$HOME/sync_me.list $HOME ./$hostname
