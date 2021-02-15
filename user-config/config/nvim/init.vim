@@ -103,9 +103,8 @@ Plug 'tpope/vim-rails', { 'for' : ['ruby'] }
 Plug 'tpope/vim-bundler', { 'for' : ['ruby'] }
 " Plug 'ngmy/vim-rubocop', { 'for' : ['ruby'] }
 Plug 'tpope/vim-endwise'
-" rust
-" Plug 'rust-lang/rust.vim', { 'for' : ['rust', 'toml'] }
-" Plug 'racer-rust/vim-racer', { 'for' : ['rust', 'toml'] }
+" dart
+Plug 'dart-lang/dart-vim-plugin', { 'for' : ['dart'] }
 " others
 Plug 'ledger/vim-ledger', { 'for' : ['ledger'] }
 
@@ -408,6 +407,10 @@ let g:floaterm_winblend = 20
 " let g:floaterm_height = 0.95
 " vim-floaterm }}}
 
+" Dart {{{
+let g:dart_format_on_save = 1
+" }}}
+
 " ### My Personal Config
 " ######################
 
@@ -676,6 +679,7 @@ nnoremap <silent> <Leader>< :exe "vertical resize -25"<CR>
 " FileType specific
 " au FileType ruby nmap <leader>p :RuboCop -a<CR>
 au FileType ruby nmap <leader>p :ALEFix<CR>
+au FileType dart nmap <leader>p :DartFmt<CR>
 
 au FileType rust nmap gd <Plug>(rust-def)
 au FileType rust nmap gs <Plug>(rust-def-split)

@@ -162,6 +162,7 @@ export PATH=$PATH:/usr/local/go/bin
 export GOPATH=$HOME/Code/gowork
 export PATH=$PATH:$GOPATH/bin
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 export BAT_THEME="zenburn" 
 
