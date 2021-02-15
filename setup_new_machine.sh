@@ -2,6 +2,17 @@
 
 # sudo dnf install libpq-devel
 
+# disable gnome packagekit ....................................................
+
+sudo systemctl stop packagekit.service
+sudo systemctl disable packagekit.service
+sudo systemctl mask packagekit.service
+sudo systemctl stop packagekit-offline-update.service
+sudo systemctl disable packagekit-offline-update.service
+sudo systemctl mask packgekit-offline-update.service
+
+# dev tools ...................................................................
+
 # neovim plugins
 pip install neovim python-language-server
 gem install neovim
