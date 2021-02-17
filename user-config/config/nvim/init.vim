@@ -1,7 +1,7 @@
 " Requirements
 " ============
 "
-" * pip install rst2ctags
+" * https://github.com/iamcco/coc-flutter
 " * apt-get install ack-grep
 "
 
@@ -24,7 +24,6 @@ Plug 'junegunn/goyo.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-abolish'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'dhruvasagar/vim-zoom'
 
 " Plug 'pearofducks/ansible-vim'
 
@@ -33,15 +32,20 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 " code analysis
+Plug 'natebosch/vim-lsc'
+Plug 'natebosch/vim-lsc-dart'
+
+
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
 Plug 'dense-analysis/ale'
-Plug 'davidhalter/jedi-vim', { 'for' : ['python'] }
+" Plug 'davidhalter/jedi-vim', { 'for' : ['python'] }
 " completion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'antoinemadec/coc-fzf'
 
 Plug 'jiangmiao/auto-pairs'
 Plug 'preservim/nerdcommenter'
@@ -51,11 +55,9 @@ Plug 'sbdchd/neoformat'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'html'] }
-" Plug 'junegunn/vim-easy-align'
 " git
 Plug 'tpope/vim-fugitive'
 Plug 'shumphrey/fugitive-gitlab.vim'
-" Plug 'tommcdo/vim-fubitive' # bitbucket
 Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
 " motion
@@ -68,32 +70,27 @@ Plug 'preservim/nerdtree'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'arithran/vim-delete-hidden-buffers'
 Plug 'voldikss/vim-floaterm'
-" Plug 'vim-scripts/taglist.vim'
-" Plug 'majutsushi/tagbar'
 " tests
 " Plug 'janko-m/vim-test'
 " themes
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'edkolev/tmuxline.vim'
 " Plug 'mhinz/vim-janah'
-" Plug 'rakr/vim-two-firewatch'
 Plug 'sainnhe/vim-color-forest-night'
 " Plug 'sainnhe/edge'
-" Plug 'liuchengxu/space-vim-theme'
 " Plug 'drewtempelmeyer/palenight.vim'
 Plug 'morhetz/gruvbox'
-" Plug 'lifepillar/vim-solarized8'
-"Plug 'vim-scripts/TagHighlight'
 
 "### languages ################################################################
 " go - must be before vim-poliglot
 " Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'], 'do': ':GoUpdateBinaries' }
-" all
-Plug 'sheerun/vim-polyglot'
+" dart
+Plug 'dart-lang/dart-vim-plugin', { 'for' : ['dart'] }
 " css
 Plug 'ap/vim-css-color', { 'for' : ['css', 'less', 'scss'] }
 Plug 'hail2u/vim-css3-syntax', { 'for' : ['css', 'less', 'scss'] }
+" all
+Plug 'sheerun/vim-polyglot'
 " javascript
 " Plug 'galooshi/vim-import-js', { 'for': ['javascript', 'typescript', 'graphql'] }
 Plug 'mtscout6/syntastic-local-eslint.vim', { 'for': ['javascript', 'typescript', 'graphql'] }
@@ -103,8 +100,6 @@ Plug 'tpope/vim-rails', { 'for' : ['ruby'] }
 Plug 'tpope/vim-bundler', { 'for' : ['ruby'] }
 " Plug 'ngmy/vim-rubocop', { 'for' : ['ruby'] }
 Plug 'tpope/vim-endwise'
-" dart
-Plug 'dart-lang/dart-vim-plugin', { 'for' : ['dart'] }
 " others
 Plug 'ledger/vim-ledger', { 'for' : ['ledger'] }
 
@@ -119,6 +114,10 @@ call plug#end()
 " Editor config {{{
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 " Editor config }}}
+
+" LSC {{{
+let g:lsc_auto_map = v:true
+" LSC }}}
 
 " Deoplete {{{
 let g:deoplete#enable_at_startup = 1
@@ -394,10 +393,6 @@ let g:ansible_name_highlight = 'd'
 let g:ansible_extra_keywords_highlight = 1
 " ansible-vim  }}}
 
-" vim-zoom {{{
-set statusline+=%{zoom#statusline()}
-" vim-zoom }}}
-
 " vim-floaterm {{{
 let g:floaterm_wintype = 'normal'
 let g:floaterm_position = 'right'
@@ -618,6 +613,16 @@ function! FZFHistory()
   endif
 endfunction
 
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
 map <C-n> :ALENextWrap<CR>
 map <C-p> :ALEPreviousWrap<CR>
 nnoremap t :<c-u>rightbelow vertical stjump <c-r><c-w><cr>
@@ -633,11 +638,11 @@ nnoremap <leader>a :GitAg!<CR>
 vmap <leader>a <Esc>:GitAg! <C-R>=<SID>getVisualSelection()<CR><CR>
 nnoremap <leader><SPACE> :Buffers<CR>
 nmap <leader><Esc> :noh<CR>
-nnoremap <leader>t :BTags<CR>
-nnoremap <leader>T :Tags<CR>
+nnoremap <leader>t :CocFzfList outline<CR>
+nnoremap <leader>T :CocFzfList symbols<CR>
 " nmap ; :call LanguageClient#textDocument_documentSymbol()<CR>
-vmap <leader>t <Esc>:BTags <C-R>=<SID>getVisualSelection()<CR><CR>
-vmap <leader>T <Esc>:Tags <C-R>=<SID>getVisualSelection()<CR><CR>
+vmap <leader>t <Esc>:CocFzfList outline <C-R>=<SID>getVisualSelection()<CR><CR>
+vmap <leader>T <Esc>:CocFzfList symbols <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ; :GFiles<CR>
 nmap <leader>l :BLines<CR>
 vmap <leader>l <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
@@ -659,17 +664,37 @@ nnoremap <leader>gb :Gbrowse<CR>
 " nnoremap <leader>gl :Glog<CR><CR>
 nnoremap <leader>gl :Commits<CR>
 
-nnoremap <silent> K :call LanguageClient_contextMenu()<CR>
+" nnoremap <silent> K :call LanguageClient_contextMenu()<CR>
 " nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 " nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <leader>re :call LanguageClient#textDocument_rename()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <leader>re :call LanguageClient#textDocument_rename()<CR>
 nnoremap <leader>h :call LanguageClient#textDocument_hover()<CR>
 nmap <leader>r :call LanguageClient#textDocument_references()<CR>
 
-nmap <leader>p :Neoformat<CR>
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh() 
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gi <Plug>(coc-implementation)
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+nmap <leader>rn <Plug>(coc-rename)
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>as  <Plug>(coc-codeaction-selected)
+nmap <leader>as  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>p :call CocAction('format')<CR>
+
+nmap <leader>m :CocFzfList<CR>
+
+" nmap <leader>p :Neoformat<CR>
 nmap <leader>q :q<CR>
-nmap <leader>m :call zoom#toggle()<CR>
 
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
