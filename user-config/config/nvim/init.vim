@@ -2,6 +2,13 @@
 " ============
 "
 " * https://github.com/iamcco/coc-flutter
+" :CocInstall coc-tsserver
+" :CocInstall coc-solargraph
+" :CocInstall coc-json
+" :CocInstall coc-sh
+" :CocInstall coc-css
+" :CocInstall coc-html
+" :CocInstall coc-snippets
 " * apt-get install ack-grep
 "
 
@@ -35,11 +42,10 @@ Plug 'honza/vim-snippets'
 Plug 'natebosch/vim-lsc'
 Plug 'natebosch/vim-lsc-dart'
 
-
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
 Plug 'dense-analysis/ale'
 " Plug 'davidhalter/jedi-vim', { 'for' : ['python'] }
 " completion
@@ -67,7 +73,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'preservim/nerdtree'
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
 Plug 'arithran/vim-delete-hidden-buffers'
 Plug 'voldikss/vim-floaterm'
 " tests
@@ -145,7 +151,7 @@ let g:LanguageClient_serverCommands = {
 " status line / airline {{{
 set statusline+=%#warningmsg#
 set statusline+=%*
-set statusline+=%{gutentags#statusline()}
+" set statusline+=%{gutentags#statusline()}
 
 let g:airline#extensions#ale#enabled = 1
 let g:airline_statusline_ontop=1
@@ -397,8 +403,9 @@ let g:ansible_extra_keywords_highlight = 1
 let g:floaterm_wintype = 'normal'
 let g:floaterm_position = 'right'
 " let g:floaterm_width = 0.9
-let g:floaterm_winblend = 20
+" let g:floaterm_winblend = 20
 " let g:floaterm_position = 'bottomright'
+let g:floaterm_height = 1
 " let g:floaterm_height = 0.95
 " vim-floaterm }}}
 
@@ -639,7 +646,7 @@ vmap <leader>a <Esc>:GitAg! <C-R>=<SID>getVisualSelection()<CR><CR>
 nnoremap <leader><SPACE> :Buffers<CR>
 nmap <leader><Esc> :noh<CR>
 nnoremap <leader>t :CocFzfList outline<CR>
-nnoremap <leader>T :CocFzfList symbols<CR>
+nnoremap <leader>T :CocList symbols<CR>
 " nmap ; :call LanguageClient#textDocument_documentSymbol()<CR>
 vmap <leader>t <Esc>:CocFzfList outline <C-R>=<SID>getVisualSelection()<CR><CR>
 vmap <leader>T <Esc>:CocFzfList symbols <C-R>=<SID>getVisualSelection()<CR><CR>
@@ -664,13 +671,6 @@ nnoremap <leader>gb :Gbrowse<CR>
 " nnoremap <leader>gl :Glog<CR><CR>
 nnoremap <leader>gl :Commits<CR>
 
-" nnoremap <silent> K :call LanguageClient_contextMenu()<CR>
-" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-" nnoremap <leader>re :call LanguageClient#textDocument_rename()<CR>
-nnoremap <leader>h :call LanguageClient#textDocument_hover()<CR>
-nmap <leader>r :call LanguageClient#textDocument_references()<CR>
-
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh() 
 nmap <silent> gd <Plug>(coc-definition)
@@ -684,11 +684,15 @@ nmap <leader>rn <Plug>(coc-rename)
 " Example: `<leader>aap` for current paragraph
 xmap <leader>as  <Plug>(coc-codeaction-selected)
 nmap <leader>as  <Plug>(coc-codeaction-selected)
+nmap <leader>ac  <Plug>(coc-codeaction)
+nnoremap <leader>ga :CocFzfList actions<CR>
+vnoremap <leader>ga :CocFzfList actions<CR>
+nnoremap <leader><TAB> :CocFzfList actions<CR>
+vnoremap <leader><TAB> :CocFzfList actions<CR>
 
 " Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>rf  <Plug>(coc-fix-current)
 nmap <leader>p :call CocAction('format')<CR>
 
 nmap <leader>m :CocFzfList<CR>
@@ -712,16 +716,16 @@ au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>rd <Plug>(rust-doc)
 
 " nnoremap <leader>w :ImportJSWord<CR>
-tnoremap <silent> <C-j><SPACE> <C-\><C-n>
-vnoremap <silent> <C-j>s :FloatermSend<CR>
-nnoremap <silent> <C-j>t :FloatermToggle<CR>
-nnoremap <silent> <C-j>c :FloatermNew<CR>
-tnoremap <silent> <C-j>t <C-\><C-n>:FloatermToggle<CR>
-nnoremap <silent> <C-j>n :FloatermNext<CR>
-tnoremap <silent> <C-j>n <C-\><C-n>:FloatermNext<CR>
-nnoremap <silent> <C-j>p :FloatermPrev<CR>
-tnoremap <silent> <C-j>p <C-\><C-n>:FloatermPrev<CR>
-tnoremap <silent> <C-j>k <C-\><C-n>:FloatermKill<CR>
+tnoremap <silent> <C-i><SPACE> <C-\><C-n>
+vnoremap <silent> <C-i>s :FloatermSend<CR>
+nnoremap <silent> <C-i>t :FloatermToggle<CR>
+nnoremap <silent> <C-i>c :FloatermNew<CR>
+tnoremap <silent> <C-i>t <C-\><C-n>:FloatermToggle<CR>
+nnoremap <silent> <C-i>n :FloatermNext<CR>
+tnoremap <silent> <C-i>n <C-\><C-n>:FloatermNext<CR>
+nnoremap <silent> <C-i>p :FloatermPrev<CR>
+tnoremap <silent> <C-i>p <C-\><C-n>:FloatermPrev<CR>
+tnoremap <silent> <C-i>k <C-\><C-n>:FloatermKill<CR>
 
 " ,cd to change to current file dir & print pwd
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
