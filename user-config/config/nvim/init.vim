@@ -9,6 +9,7 @@
 " :CocInstall coc-css
 " :CocInstall coc-html
 " :CocInstall coc-snippets
+" :CocInstall coc-yaml
 " * apt-get install ack-grep
 "
 
@@ -400,12 +401,11 @@ let g:ansible_extra_keywords_highlight = 1
 " ansible-vim  }}}
 
 " vim-floaterm {{{
-let g:floaterm_wintype = 'normal'
-let g:floaterm_position = 'right'
+let g:floaterm_wintype = 'vsplit'
 " let g:floaterm_width = 0.9
 " let g:floaterm_winblend = 20
 " let g:floaterm_position = 'bottomright'
-let g:floaterm_height = 1
+" let g:floaterm_height = 1
 " let g:floaterm_height = 0.95
 " vim-floaterm }}}
 
