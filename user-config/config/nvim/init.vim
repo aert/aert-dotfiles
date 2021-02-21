@@ -666,7 +666,6 @@ nnoremap <leader>gs :GFiles?<CR>
 " nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gc :BCommits<CR>
 nnoremap <leader>gp :Gpush<CR>
-nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gb :Gbrowse<CR>
 " nnoremap <leader>gl :Glog<CR><CR>
 nnoremap <leader>gl :Commits<CR>
@@ -680,22 +679,24 @@ nmap <silent> gi <Plug>(coc-implementation)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 nmap <leader>rn <Plug>(coc-rename)
 
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>as  <Plug>(coc-codeaction-selected)
-nmap <leader>as  <Plug>(coc-codeaction-selected)
-nmap <leader>ac  <Plug>(coc-codeaction)
-nnoremap <leader>ga :CocFzfList actions<CR>
-vnoremap <leader>ga :CocFzfList actions<CR>
-nnoremap <leader><TAB> :CocFzfList actions<CR>
-vnoremap <leader><TAB> :CocFzfList actions<CR>
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+nnoremap <leader><TAB> :CocFzfList diagnostics<CR>
+" nnoremap <leader>A :CocFzfList actions<CR>
+" vnoremap <leader>A :CocFzfList actions<CR>
+" vmap <leader>A <Plug>(coc-codeaction-selected)
+" nmap <leader>A <Plug>(coc-codeaction)
+vmap <silent>Z <Plug>(coc-codeaction-selected)
+nmap <silent>Z <Plug>(coc-codeaction)
+nmap <leader>m :CocFzfList<CR>
 
 " Remap keys for applying codeAction to the current buffer.
 " Apply AutoFix to problem on the current line.
 nmap <leader>rf  <Plug>(coc-fix-current)
 nmap <leader>p :call CocAction('format')<CR>
-
-nmap <leader>m :CocFzfList<CR>
 
 " nmap <leader>p :Neoformat<CR>
 nmap <leader>q :q<CR>
