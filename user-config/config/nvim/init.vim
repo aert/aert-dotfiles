@@ -10,6 +10,7 @@
 " :CocInstall coc-html
 " :CocInstall coc-snippets
 " :CocInstall coc-yaml
+" :CocInstall coc-highlight
 " * apt-get install ack-grep
 "
 
@@ -411,6 +412,7 @@ let g:floaterm_wintype = 'vsplit'
 
 " Dart {{{
 let g:dart_format_on_save = 1
+let g:lsc_enable_diagnostics = v:false
 " }}}
 
 " ### My Personal Config
