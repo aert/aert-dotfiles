@@ -26,8 +26,8 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-;; (setq doom-theme 'doom-gruvbox)
-(setq doom-theme 'doom-nova)
+(setq doom-theme 'doom-gruvbox)
+;; (setq doom-theme 'doom-nova)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -124,6 +124,7 @@
 (define-key evil-normal-state-map "," my-leader-map)
 
 ;; bindings
+(define-key my-leader-map "q" 'kill-this-buffer)
 (define-key my-leader-map "f" 'counsel-fzf)
 (define-key my-leader-map "g" 'counsel-google)
 (define-key my-leader-map "p" 'format-all-buffer)
@@ -131,7 +132,7 @@
 (define-key my-leader-map "s" 'evil-avy-goto-char-timer)
 (define-key my-leader-map "c" 'aert/insert-comment-separator)
 (define-key my-leader-map "C" 'aert/copy-current-line-position-to-clipboard)
-(define-key my-leader-map "n" '+treemacs/find-file)
+(define-key my-leader-map "n" 'treemacs-find-file)
 (define-key my-leader-map "l" 'swiper-isearch)
 (define-key my-leader-map "z" 'hs-hide-level)
 
