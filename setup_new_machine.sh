@@ -19,6 +19,7 @@ gem install neovim
 yarn global add neovim
 
 # language servers
+yarn global add typescript-language-server typescript
 yarn global add eslint prettier prettier-eslint prettier-eslint-cli typescript javascript-typescript-langserver
 yarn global add import-js
 gem install solargraph rubocop rubocop-rails rubocop-performance
