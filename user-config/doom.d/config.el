@@ -64,7 +64,8 @@
   :defer t
   :init
   (setq treemacs-indentation 1
-        treemacs-position 'right))
+        treemacs-position 'right
+        treemacs-follow-mode 1))
 
 ;; org mode ....................................................................
 
@@ -132,7 +133,7 @@
 (define-key my-leader-map "s" 'evil-avy-goto-char-timer)
 (define-key my-leader-map "c" 'aert/insert-comment-separator)
 (define-key my-leader-map "C" 'aert/copy-current-line-position-to-clipboard)
-(define-key my-leader-map "n" 'treemacs-find-file)
+(define-key my-leader-map "n" 'treemacs)
 (define-key my-leader-map "l" 'swiper-isearch)
 (define-key my-leader-map "z" 'hs-hide-level)
 
