@@ -137,4 +137,6 @@
 (define-key my-leader-map "l" 'swiper-isearch)
 (define-key my-leader-map "z" 'hs-hide-level)
 
+(define-key my-leader-map "it" 'org-time-stamp)
+
 ;;--- Binding or leader key as in vim }}}
