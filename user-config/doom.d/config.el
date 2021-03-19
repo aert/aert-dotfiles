@@ -74,11 +74,11 @@
 (use-package org-duration
   :config
   (setq org-duration-units   `(("min" . 1)
-   ("h" . 60)
-   ("d" . ,(* 60 7))
-   ("w" . ,(* 60 7 5))
-   ("m" . ,(* 60 7 5 4))
-   ("y" . ,(* 60 7 5 4 11))))
+                               ("h" . 60)
+                               ("d" . ,(* 60 7))
+                               ("w" . ,(* 60 7 5))
+                               ("m" . ,(* 60 7 5 4))
+                               ("y" . ,(* 60 7 5 4 11))))
   (org-duration-set-regexps))
 
 ;; My Functions ................................................................
@@ -106,7 +106,7 @@
 
     (insert text-prepend title " " text-fill)
     )
-)
+  )
 
 (defun aert/copy-current-line-position-to-clipboard ()
   "Copy current line in file to clipboard as '</path/to/file>:<line-number>'."
