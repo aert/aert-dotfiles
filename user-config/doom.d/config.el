@@ -9,6 +9,9 @@
 (setq user-full-name "John Doe"
       user-mail-address "john@doe.com")
 
+(setq doom-leader-key ","
+      doom-localleader-key ", m")
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
@@ -125,13 +128,11 @@
 
 ;;--- Binding or leader key as in vim {{{
 
-(setq doom-leader-key "\\")
-
 (defvar my-leader-map (make-sparse-keymap)
   "Keymap for \"leader key\" shortcuts.")
 
 ;; binding "," to the keymap
-(define-key evil-normal-state-map "," my-leader-map)
+(define-key evil-normal-state-map "\\" my-leader-map)
 
 ;; bindings
 (define-key my-leader-map "q" 'kill-this-buffer)
