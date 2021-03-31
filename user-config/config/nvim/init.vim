@@ -84,10 +84,11 @@ Plug 'voldikss/vim-floaterm'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'mhinz/vim-janah'
-Plug 'sainnhe/vim-color-forest-night'
+Plug 'sainnhe/everforest'
 " Plug 'sainnhe/edge'
 " Plug 'drewtempelmeyer/palenight.vim'
 Plug 'morhetz/gruvbox'
+Plug 'jnurmine/Zenburn'
 
 "### languages ################################################################
 " go - must be before vim-poliglot
@@ -458,8 +459,8 @@ syntax enable
 "set gfn=Ubuntu\ Mono\ 13
 "set gfn=Consolas\ 11
 set gfn=Operator\ Mono\ Medium\ 11
-" set nu
-set nonumber
+set nu
+" set nonumber
 " set relativenumber
 
 autocmd BufEnter * silent! lcd %:p:h
@@ -477,12 +478,11 @@ endif
 " -- janah
 " colorscheme janah
 " let g:airline_theme = 'minimalist'
-" -- forest-night
-" let g:airline_theme = 'forest_night'
-" let g:forest_night_transparent_background = 1
-let g:airline_theme = 'zenburn'
-let g:forest_night_enable_italic = 1
-colorscheme forest-night
+" -- everforest
+let g:everforest_enable_italic = 1
+let g:airline_theme = 'everforest'
+colorscheme everforest
+" colorscheme zenburn
 " -- palenight
 " let g:airline_theme = 'palenight'
 " let g:palenight_terminal_italics = 1
@@ -527,8 +527,8 @@ endif
 
 set nocursorline
 set colorcolumn=80
-highlight ColorColumn ctermbg=235 guibg=#2c2d27
-highlight StatusLine ctermbg=235 guibg=#2c2d27
+" highlight ColorColumn ctermbg=235 guibg=#2c2d27
+" highlight StatusLine ctermbg=235 guibg=#2c2d27
 "let &colorcolumn=join(range(81,999),",")
 
 """"""""""""""""""""""
