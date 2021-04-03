@@ -479,8 +479,10 @@ endif
 " colorscheme janah
 " let g:airline_theme = 'minimalist'
 " -- everforest
+let g:everforest_transparent_background = 1
 let g:everforest_enable_italic = 1
-let g:airline_theme = 'everforest'
+let g:airline_theme = 'serene'
+" let g:airline_theme = 'everforest'
 colorscheme everforest
 " colorscheme zenburn
 " -- palenight
@@ -720,6 +722,7 @@ au FileType rust nmap <leader>rd <Plug>(rust-doc)
 
 " nnoremap <leader>w :ImportJSWord<CR>
 tnoremap <silent> <C-i><SPACE> <C-\><C-n>
+tnoremap <silent> <C-h> <C-\><C-n><C-w>h
 vnoremap <silent> <C-i>s :FloatermSend<CR>
 nnoremap <silent> <C-i>t :FloatermToggle<CR>
 nnoremap <silent> <C-i>c :FloatermNew<CR>
