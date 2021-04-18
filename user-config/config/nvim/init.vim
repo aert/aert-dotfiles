@@ -107,7 +107,9 @@ Plug 'mtscout6/syntastic-local-eslint.vim', { 'for': ['javascript', 'typescript'
 " rails
 Plug 'tpope/vim-rails', { 'for' : ['ruby'] }
 Plug 'tpope/vim-bundler', { 'for' : ['ruby'] }
-" Plug 'ngmy/vim-rubocop', { 'for' : ['ruby'] }
+Plug 'tpope/vim-dadbod'
+Plug 'kristijanhusak/vim-dadbod-ui'
+Plug 'kristijanhusak/vim-dadbod-completion'
 Plug 'tpope/vim-endwise'
 " others
 Plug 'ledger/vim-ledger', { 'for' : ['ledger'] }
@@ -415,6 +417,15 @@ let g:floaterm_wintype = 'vsplit'
 let g:dart_format_on_save = 1
 let g:lsc_enable_diagnostics = v:false
 " }}}
+
+" DBUI {{{
+let g:db_ui_table_helpers = {
+\   'postgresql': {
+\     'List': 'select * from "{table}" order by id desc LIMIT 200'
+\   }
+\ }
+" }}}
+
 
 " ### My Personal Config
 " ######################
