@@ -2,7 +2,7 @@
 
 # packages ....................................................................
 
-sudo dnf install -y libpq-devel dconf-editor git-delta
+sudo dnf install -y libpq-devel dconf-editor git-delta tig fd-find exa gcc g++
 
 # gnome settings ..............................................................
 
