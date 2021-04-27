@@ -1,0 +1,6 @@
+# name: "while (condition) { ... }"
+# key: wh
+# --
+while (${1:/* condition */}) {
+  ${0:`yas-selected-text`}
+}

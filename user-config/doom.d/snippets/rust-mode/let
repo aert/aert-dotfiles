@@ -1,0 +1,4 @@
+# name: "let variable declaration with type inference"
+# key: let
+# --
+let $1 = $2;

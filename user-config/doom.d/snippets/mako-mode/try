@@ -1,0 +1,8 @@
+# name: try
+# key: try
+# --
+% try:
+  ${1:`yas-selected-text`}
+% except${2:}:
+  ${0:pass}
+% endtry

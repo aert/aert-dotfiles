@@ -1,0 +1,4 @@
+# name: "console.debug"
+# key: cd
+# --
+console.debug($0);

@@ -1,0 +1,12 @@
+# name: package
+# key: package
+# --
+package ${1:};
+use strict;
+use warnings;
+
+$0
+
+1;
+
+__END__

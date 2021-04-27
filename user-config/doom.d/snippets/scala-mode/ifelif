@@ -1,0 +1,7 @@
+# name: ifelif
+# key: ifelif
+# --
+if ($1)
+  ${2:`yas-selected-text`}
+else if ($3)
+  ${0:`yas-selected-text`}

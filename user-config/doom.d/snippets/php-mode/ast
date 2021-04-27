@@ -1,0 +1,4 @@
+# name: "$this->assertInternalType('string', $actual)"
+# key: ast
+# --
+$this->assertInternalType(${1:'string'}, ${2:actual});

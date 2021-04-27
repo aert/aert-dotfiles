@@ -1,0 +1,4 @@
+# name: include
+# key: include
+# --
+include_directories(${${0:include_dir}})

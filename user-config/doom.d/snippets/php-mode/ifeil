@@ -1,0 +1,8 @@
+# name: "<?php if (condition): ?> ... <?php else: ?> ... <?php endif; ?>"
+# key: ifeil
+# --
+<?php if ($1): ?>
+  ${0:`yas-selected-text`}
+<?php else: ?>
+  $2
+<?php endif; ?>

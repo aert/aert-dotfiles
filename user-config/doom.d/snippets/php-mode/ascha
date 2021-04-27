@@ -1,0 +1,4 @@
+# name: "$this->assertClassHasAttribute($name, Example::class)"
+# key: ascha
+# --
+$this->assertClassHasAttribute(${1:$attributeName}, ${2:Example}::class);

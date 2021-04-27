@@ -1,0 +1,6 @@
+# name: split environment
+# key: spl
+# --
+\\begin{split}
+  ${0:`yas-selected-text`}
+\\end{split}

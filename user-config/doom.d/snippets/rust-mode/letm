@@ -1,0 +1,4 @@
+# name: "let mut variable declaration with type inference"
+# key: letm
+# --
+let mut $1  = $2;

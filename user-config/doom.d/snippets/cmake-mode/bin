@@ -1,0 +1,4 @@
+# name: bin
+# key: bin
+# --
+add_executable(${1:bin})

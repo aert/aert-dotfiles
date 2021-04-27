@@ -1,0 +1,8 @@
+# name: "if (condition) { ... } else { ... }"
+# key: ife
+# --
+if (${1:true}) {
+  ${0:`yas-selected-text`}
+} else {
+  $2
+}

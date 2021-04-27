@@ -1,0 +1,8 @@
+# name: class .. < ActiveRecord::Migration .. def change .. end
+# key: migration
+# --
+class  < ActiveRecord::Migration
+  def change
+  	$0
+  end
+end

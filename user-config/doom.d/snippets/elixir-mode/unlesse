@@ -1,0 +1,8 @@
+# name: unless .. do .. else .. end
+# key: unlesse
+# --
+unless ${1:condition} do
+  ${2:`yas-selected-text`}
+else
+  $0
+end

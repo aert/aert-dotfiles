@@ -1,0 +1,6 @@
+# name: "<?php foreach ($var as $value): ?>  ... <?php endforeach; ?>"
+# key: foreachil
+# --
+<?php foreach ($${1:variable} as $${2:value}): ?>
+  ${0:`yas-selected-text`}
+<?php endforeach; ?>

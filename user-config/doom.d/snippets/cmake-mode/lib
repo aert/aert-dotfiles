@@ -1,0 +1,4 @@
+# name: lib
+# key: lib
+# --
+add_library(${1:lib} ${${0:srcs}})

@@ -1,0 +1,4 @@
+# name: re
+# key: re
+# --
+${1:const} $2 = require('${3:module_name}');
