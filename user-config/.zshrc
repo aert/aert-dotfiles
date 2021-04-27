@@ -115,8 +115,8 @@ SPACESHIP_PROMPT_ORDER=(
 #source /usr/local/bin/virtualenvwrapper.sh
 
 #source /usr/etc/git-extras-completion.zsh
-source <(kubectl completion zsh)
-source <(helm completion zsh)
+# source <(kubectl completion zsh)
+# source <(helm completion zsh)
 
 export ANDROID_HOME=$HOME/bin/local/android-sdk/
 export ANDROID_SDK_ROOT=$ANDROID_HOME

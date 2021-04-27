@@ -2,6 +2,7 @@
 " ============
 "
 " * https://github.com/iamcco/coc-flutter
+" :CocInstall coc-flutter
 " :CocInstall coc-tsserver
 " :CocInstall coc-solargraph
 " :CocInstall coc-json
