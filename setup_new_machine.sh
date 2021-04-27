@@ -3,7 +3,7 @@
 # packages ....................................................................
 
 sudo dnf install -y libpq-devel dconf-editor git-delta tig fd-find exa gcc g++
-sudo dnf install -y ripgrep
+sudo dnf install -y ripgrep cmake editorconfig
 
 # gnome settings ..............................................................
 
