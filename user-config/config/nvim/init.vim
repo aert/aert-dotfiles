@@ -14,6 +14,9 @@
 " :CocInstall coc-highlight
 " * apt-get install ack-grep
 "
+" :TSInstall ruby html javascript yaml typescript
+" :TSInstall
+"
 
 " let npm_bin=system('npm bin')
 " let $PATH=$PATH . ":" . npm_bin
@@ -34,6 +37,16 @@ Plug 'junegunn/goyo.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-abolish'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'folke/which-key.nvim'
+
+" Telescope {{{
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
+Plug 'fannheyward/telescope-coc.nvim'
+" }}}
 
 " Plug 'pearofducks/ansible-vim'
 
@@ -427,6 +440,38 @@ let g:db_ui_table_helpers = {
 \ }
 " }}}
 
+" TreeSitter {{{
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+  },
+}
+EOF
+
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+set foldlevel=99
+
+" }}}
+
+" which-key {{{
+
+lua << EOF
+  require("which-key").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
+
+" }}}
+
+" EasyMotion {{{
+let g:EasyMotion_do_mapping = 0
+" }}}
 
 " ### My Personal Config
 " ######################
@@ -450,11 +495,6 @@ set nowrap
 
 " this turns off physical line wrapping (ie: automatic insertion of newlines)
 set textwidth=0 wrapmargin=0
-
-" Foldmethod
-set foldmethod=marker
-set foldlevel=99
-set foldlevel=0
 
 set incsearch
 set hlsearch
@@ -651,7 +691,7 @@ map <C-p> :ALEPreviousWrap<CR>
 nnoremap t :<c-u>rightbelow vertical stjump <c-r><c-w><cr>
 nnoremap T <c-w>T
 
-nnoremap <leader>c :let @+ = expand("%:p").":".line('.')<cr>
+nnoremap <leader>yl :let @+ = expand("%:p").":".line('.')<cr>
 nnoremap <leader>d :NERDTreeMirror<CR>:NERDTreeToggle<CR>
 nnoremap <leader>n :NERDTreeMirror<CR>:NERDTreeFind<CR>
 nnoremap <leader>f :CtrlSF 
@@ -659,32 +699,36 @@ nnoremap <leader>F :CtrlSFToggle<CR>
 vmap <leader>f <Plug>CtrlSFVwordExec
 nnoremap <leader>a :GitAg!<CR>
 vmap <leader>a <Esc>:GitAg! <C-R>=<SID>getVisualSelection()<CR><CR>
-nnoremap <leader><SPACE> :Buffers<CR>
+" nnoremap <leader><SPACE> :Buffers<CR>
+nnoremap <leader><SPACE> <cmd>Telescope buffers<CR>
 nmap <leader><Esc> :noh<CR>
-nnoremap <leader>t :CocFzfList outline<CR>
-nnoremap <leader>T :CocList symbols<CR>
+" nnoremap <leader>t :CocFzfList outline<CR>
+" nnoremap <leader>T :CocList symbols<CR>
+nnoremap <leader>t <cmd>Telescope coc document_symbols<CR>
+nnoremap <leader>T <cmd>Telescope coc workspace_symbols<CR>
 " nmap ; :call LanguageClient#textDocument_documentSymbol()<CR>
 vmap <leader>t <Esc>:CocFzfList outline <C-R>=<SID>getVisualSelection()<CR><CR>
 vmap <leader>T <Esc>:CocFzfList symbols <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ; :GFiles<CR>
-nmap <leader>l :BLines<CR>
-vmap <leader>l <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
+nmap <leader>sl :BLines<CR>
+vmap <leader>sl <Esc>:BLines <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap <leader>k :call FZFHistory()<CR>
 nnoremap <leader>e :tabnew<CR>
 " nmap <leader><TAB> :TlistToggle<CR>
 " nmap <TAB> :TagbarToggle<CR>
 
-nmap s <Plug>(easymotion-overwin-f2)
+nmap s <Plug>(easymotion-overwin-f)
 
 nnoremap <leader>gS :Gwrite<CR>
-" nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gs :GFiles?<CR>
-" nnoremap <leader>gc :Gcommit<CR>
-nnoremap <leader>gc :BCommits<CR>
+" nnoremap <leader>gs :GFiles?<CR>
+nnoremap <leader>gs <cmd>Telescope git_status<CR>
+" nnoremap <leader>gc :BCommits<CR>
+nnoremap <leader>gc <cmd>Telescope git_bcommits<CR>
 nnoremap <leader>gp :Gpush<CR>
 nnoremap <leader>gb :Gbrowse<CR>
-" nnoremap <leader>gl :Glog<CR><CR>
-nnoremap <leader>gl :Commits<CR>
+nnoremap <leader>gB <cmd>Telescope git_branches<CR>
+" nnoremap <leader>gl :Commits<CR>
+nnoremap <leader>gl <cmd>Telescope git_commits<CR>
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh() 
@@ -707,11 +751,20 @@ nnoremap <leader><TAB> :CocFzfList diagnostics<CR>
 " nmap <leader>A <Plug>(coc-codeaction)
 vmap <silent>Z <Plug>(coc-codeaction-selected)
 nmap <silent>Z <Plug>(coc-codeaction)
-nmap <leader>m :CocFzfList<CR>
 
-" Remap keys for applying codeAction to the current buffer.
-" Apply AutoFix to problem on the current line.
-nmap <leader>rf  <Plug>(coc-fix-current)
+nmap <leader>mt <cmd>Telescope treesitter<CR>
+nmap <leader>ss <cmd>Telescope grep_string<CR>
+
+nmap <leader>ll :CocFzfList<CR>
+nmap <leader>ld <cmd>Telescope coc diagnostics<CR>
+nmap <leader>lt <cmd>Telescope coc type_definitions<CR>
+nmap <leader>lr <cmd>Telescope coc references<CR>
+nmap <leader>li <cmd>Telescope coc implementations<CR>
+nmap <leader>la <cmd>Telescope coc line_code_actions<CR>
+nnoremap <leader>lk :call <SID>show_documentation()<CR>
+nmap <leader>lr <Plug>(coc-rename)
+nmap <leader>lf <Plug>(coc-fix-current)
+
 nmap <leader>p :call CocAction('format')<CR>
 
 " nmap <leader>p :Neoformat<CR>
