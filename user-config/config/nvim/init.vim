@@ -699,8 +699,8 @@ nnoremap <leader>F :CtrlSFToggle<CR>
 vmap <leader>f <Plug>CtrlSFVwordExec
 nnoremap <leader>a :GitAg!<CR>
 vmap <leader>a <Esc>:GitAg! <C-R>=<SID>getVisualSelection()<CR><CR>
-" nnoremap <leader><SPACE> :Buffers<CR>
-nnoremap <leader><SPACE> <cmd>Telescope buffers<CR>
+nnoremap <leader><SPACE> :Buffers<CR>
+" nnoremap <leader><SPACE> <cmd>Telescope buffers<CR>
 nmap <leader><Esc> :noh<CR>
 " nnoremap <leader>t :CocFzfList outline<CR>
 " nnoremap <leader>T :CocList symbols<CR>
@@ -720,8 +720,8 @@ nnoremap <leader>e :tabnew<CR>
 nmap s <Plug>(easymotion-overwin-f)
 
 nnoremap <leader>gS :Gwrite<CR>
-" nnoremap <leader>gs :GFiles?<CR>
-nnoremap <leader>gs <cmd>Telescope git_status<CR>
+nnoremap <leader>gs :GFiles?<CR>
+" nnoremap <leader>gs <cmd>Telescope git_status<CR>
 " nnoremap <leader>gc :BCommits<CR>
 nnoremap <leader>gc <cmd>Telescope git_bcommits<CR>
 nnoremap <leader>gp :Gpush<CR>
