@@ -176,7 +176,7 @@ let g:airline#extensions#ale#enabled = 1
 let g:airline_statusline_ontop=1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
 set laststatus=2
 " status line / airline }}}
 
@@ -531,9 +531,9 @@ endif
 " colorscheme janah
 " let g:airline_theme = 'minimalist'
 " -- everforest
-let g:everforest_transparent_background = 1
+" let g:everforest_transparent_background = 1
 let g:everforest_enable_italic = 1
-let g:airline_theme = 'serene'
+" let g:airline_theme = 'serene'
 " let g:airline_theme = 'everforest'
 colorscheme everforest
 " colorscheme zenburn
