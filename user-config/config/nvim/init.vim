@@ -14,7 +14,6 @@
 " :CocInstall coc-highlight
 " * apt-get install ack-grep
 "
-" :TSInstall ruby html javascript yaml typescript
 " :TSInstall
 "
 
@@ -527,27 +526,28 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
+set background=light
+
 " -- janah
 " colorscheme janah
 " let g:airline_theme = 'minimalist'
 " -- everforest
 " let g:everforest_transparent_background = 1
-let g:everforest_enable_italic = 1
-" let g:airline_theme = 'serene'
-" let g:airline_theme = 'everforest'
-colorscheme everforest
+" let g:everforest_enable_italic = 1
+" colorscheme everforest
 " colorscheme zenburn
 " -- palenight
 " let g:airline_theme = 'palenight'
 " let g:palenight_terminal_italics = 1
 " colorscheme palenight
 " -- gruvbox
-" set background=light
-" let g:gruvbox_italic=1
-" let g:gruvbox_contrast_light='soft'
-" let g:gruvbox_contrast_dark='soft'
-" let g:airline_theme = 'gruvbox'
-" colorscheme gruvbox
+let g:gruvbox_italic=1
+let g:gruvbox_transparent_bg=1
+let g:gruvbox_contrast_light='soft'
+let g:gruvbox_contrast_dark='soft'
+let g:airline_theme = 'solarized_flood'
+colorscheme gruvbox
+autocmd VimEnter * hi Normal ctermbg=NONE guibg=NONE
 " -- edge
 " set background=light
 " let g:airline_theme = 'edge'
