@@ -99,7 +99,7 @@ Plug 'vim-airline/vim-airline-themes'
 " Plug 'mhinz/vim-janah'
 Plug 'sainnhe/everforest'
 " Plug 'sainnhe/edge'
-" Plug 'drewtempelmeyer/palenight.vim'
+Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
 Plug 'jnurmine/Zenburn'
 
@@ -526,8 +526,20 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-set background=light
+" set background=light
+" let g:airline_theme = 'solarized_flood'
 
+" -- onedark
+let g:onedark_hide_endofbuffer = 1
+let g:onedark_terminal_italics = 1
+if (has("autocmd") && !has("gui_running"))
+  augroup colorset
+    autocmd!
+    let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
+    autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": s:white }) " `bg` will not be styled since there is no `bg` setting
+  augroup END
+endif
+colorscheme onedark
 " -- janah
 " colorscheme janah
 " let g:airline_theme = 'minimalist'
@@ -535,37 +547,22 @@ set background=light
 " let g:everforest_transparent_background = 1
 " let g:everforest_enable_italic = 1
 " colorscheme everforest
-" colorscheme zenburn
 " -- palenight
 " let g:airline_theme = 'palenight'
 " let g:palenight_terminal_italics = 1
 " colorscheme palenight
 " -- gruvbox
-let g:gruvbox_italic=1
-let g:gruvbox_transparent_bg=1
-let g:gruvbox_contrast_light='soft'
-let g:gruvbox_contrast_dark='soft'
-let g:airline_theme = 'solarized_flood'
-colorscheme gruvbox
-autocmd VimEnter * hi Normal ctermbg=NONE guibg=NONE
+" let g:gruvbox_italic=1
+" let g:gruvbox_transparent_bg=1
+" let g:gruvbox_contrast_light='soft'
+" let g:gruvbox_contrast_dark='soft'
+" colorscheme gruvbox
+" autocmd VimEnter * hi Normal ctermbg=NONE guibg=NONE
 " -- edge
 " set background=light
 " let g:airline_theme = 'edge'
 " let g:edge_enable_italic = 1
 " colorscheme edge
-" -- space_vim_theme
-" set background=light
-" colorscheme space_vim_theme
-" -- two-firewatch
-" set background=light
-" let g:two_firewatch_italics=1
-" let g:airline_theme='twofirewatch'
-" colo two-firewatch
-" -- solarized
-" let g:solarized_statusline = 'low'
-" let g:solarized_extra_hi_groups = 1
-" set background=dark
-" colorscheme solarized8_low
 
 if has('gui_running')
     set lines=999 columns=999
