@@ -62,4 +62,4 @@ yarn global add neovim
 yarn global add typescript-language-server typescript
 yarn global add eslint prettier prettier-eslint prettier-eslint-cli typescript javascript-typescript-langserver
 gem install solargraph rubocop rubocop-rails rubocop-performance
-pip install python-language-server prospector
+pip install python-language-server prospector black
