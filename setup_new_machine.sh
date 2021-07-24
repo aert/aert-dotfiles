@@ -2,8 +2,10 @@
 
 # packages ....................................................................
 
+sudo dnf install -y --allowerasing vim-default-editor
 sudo dnf install -y libpq-devel dconf-editor git-delta tig fd-find exa gcc g++
 sudo dnf install -y ripgrep cmake editorconfig powerline-fonts
+sudo dnf install -y aspell-ar aspell-fr aspell-en
 
 # gnome settings ..............................................................
 
