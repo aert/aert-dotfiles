@@ -12,6 +12,7 @@
 " :CocInstall coc-snippets
 " :CocInstall coc-yaml
 " :CocInstall coc-highlight
+" :CocInstall coc-jedi
 " * apt-get install ack-grep
 "
 " :TSInstall
