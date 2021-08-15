@@ -56,7 +56,7 @@ sudo systemctl mask packgekit-offline-update.service
 # dev tools ...................................................................
 
 # neovim plugins
-pip install neovim python-language-server
+pip install neovim
 gem install neovim
 yarn global add neovim
 
