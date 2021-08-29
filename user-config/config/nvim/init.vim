@@ -90,7 +90,10 @@ Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'dyng/ctrlsf.vim'
-Plug 'preservim/nerdtree'
+
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
+
 " Plug 'ludovicchabant/vim-gutentags'
 Plug 'arithran/vim-delete-hidden-buffers'
 Plug 'voldikss/vim-floaterm'
@@ -254,15 +257,19 @@ let g:used_javascript_libs = 'jquery,underscore,react,requirejs'
 let g:jsx_ext_required = 1
 " vim-jsx }}}
 
-" NerdTree {{{
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-let NERDTreeShowBookmarks=1
-let NERDTreeIgnore = ['\.pyc$', '\.bak$', 'node_modules']
-let g:NERDTreeWinPos = "right"
-let NERDTreeQuitOnOpen=1
-let NERDTreeMinimalUI=1
-let NERDTreeWinSize=50
-" NerdTree }}}
+" NvimTree {{{
+let g:nvim_tree_side = 'right'
+let g:nvim_tree_ignore = [ '.git', 'node_modules', '.cache', '.idea' ]
+let g:nvim_tree_hide_dotfiles = 1
+let g:nvim_tree_gitignore = 1
+let g:nvim_tree_auto_close = 1
+let g:nvim_tree_quit_on_open = 1
+let g:nvim_tree_width = 50
+let g:nvim_tree_follow = 1
+let g:nvim_tree_git_hl = 1
+let g:nvim_tree_group_empty = 1
+let g:nvim_tree_special_files = { 'README.md': 1, 'Makefile': 1, 'MAKEFILE': 1, 'Dockerfile': 1, 'Gemfile': 1, 'package.json': 1 }
+" NvimTree }}}
 
 " Taglist {{{
 let Tlist_Show_One_File = 1
@@ -680,8 +687,11 @@ nnoremap t :<c-u>rightbelow vertical stjump <c-r><c-w><cr>
 nnoremap T <c-w>T
 
 nnoremap <leader>yl :let @+ = expand("%:p").":".line('.')<cr>
-nnoremap <leader>d :NERDTreeMirror<CR>:NERDTreeToggle<CR>
-nnoremap <leader>n :NERDTreeMirror<CR>:NERDTreeFind<CR>
+
+nnoremap <leader>d :NvimTreeToggle<CR>
+" nnoremap <leader>r :NvimTreeRefresh<CR>
+nnoremap <leader>n :NvimTreeFindFile<CR>
+
 nnoremap <leader>f :CtrlSF 
 nnoremap <leader>F :CtrlSFToggle<CR>
 vmap <leader>f <Plug>CtrlSFVwordExec
