@@ -40,6 +40,8 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'folke/which-key.nvim'
 
+Plug 'jdhao/better-escape.vim'
+
 " Telescope {{{
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -97,12 +99,10 @@ Plug 'voldikss/vim-floaterm'
 " themes
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
+Plug 'Pocco81/Catppuccino.nvim'
 " Plug 'mhinz/vim-janah'
-Plug 'sainnhe/everforest'
-" Plug 'sainnhe/edge'
-Plug 'joshdick/onedark.vim'
-Plug 'morhetz/gruvbox'
-Plug 'jnurmine/Zenburn'
+" Plug 'sainnhe/everforest'
 
 "### languages ################################################################
 " go - must be before vim-poliglot
@@ -530,17 +530,7 @@ endif
 " set background=light
 " let g:airline_theme = 'solarized_flood'
 
-" -- onedark
-let g:onedark_hide_endofbuffer = 1
-let g:onedark_terminal_italics = 1
-if (has("autocmd") && !has("gui_running"))
-  augroup colorset
-    autocmd!
-    let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
-    autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": s:white }) " `bg` will not be styled since there is no `bg` setting
-  augroup END
-endif
-colorscheme onedark
+colorscheme catppuccino
 " -- janah
 " colorscheme janah
 " let g:airline_theme = 'minimalist'
