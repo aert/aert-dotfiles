@@ -209,6 +209,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 set statusline+=%#warningmsg#
 set statusline+=%*
+set statusline+=%{nvim_treesitter#statusline(80)}
 set laststatus=2
 let g:airline#extensions#ale#enabled = 1
 let g:airline_statusline_ontop=1
