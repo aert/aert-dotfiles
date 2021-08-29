@@ -46,4 +46,6 @@ set nobackup
 set nowritebackup
 set noswapfile
 
+set updatetime=300               " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience.
+set signcolumn=number            " Always show the signcolumn, otherwise it would shift the text each time
 
