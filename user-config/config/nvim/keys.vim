@@ -136,9 +136,9 @@ nnoremap <leader>lk :call <SID>show_documentation()<CR>
 nmap <leader>lr <Plug>(coc-rename)
 nmap <leader>lf <Plug>(coc-fix-current)
 
-nmap <leader>p :call CocAction('format')<CR>
+" nmap <leader>p :call CocAction('format')<CR>
+nmap <leader>p :Neoformat<CR>
 
-" nmap <leader>p :Neoformat<CR>
 nmap <leader>q :q<CR>
 
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>

@@ -43,4 +43,5 @@ if (has("termguicolors"))
 endif
 
 let g:airline_theme = 'jellybeans'
-colorscheme catppuccino
+" colorscheme catppuccino
+colorscheme calvera

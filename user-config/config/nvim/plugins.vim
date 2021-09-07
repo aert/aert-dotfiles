@@ -188,7 +188,7 @@ let g:nvim_tree_quit_on_open = 1
 let g:nvim_tree_width = 50
 let g:nvim_tree_follow = 1
 let g:nvim_tree_git_hl = 1
-let g:nvim_tree_group_empty = 1
+" let g:nvim_tree_group_empty = 1
 let g:nvim_tree_special_files = { 'README.md': 1, 'Makefile': 1, 'MAKEFILE': 1, 'Dockerfile': 1, 'Gemfile': 1, 'package.json': 1 }
 
 " Plug 'ludovicchabant/vim-gutentags'
@@ -222,10 +222,10 @@ Plug 'Pocco81/Catppuccino.nvim'
 " Plug 'mhinz/vim-janah'
 " colorscheme janah
 "
-" Plug 'sainnhe/everforest'
-" let g:everforest_transparent_background = 1
-" let g:everforest_enable_italic = 1
-" colorscheme everforest
+Plug 'yashguptaz/calvera-dark.nvim'
+let g:calvera_italic_comments = 1
+let g:calvera_italic_keywords = 1
+let g:calvera_italic_functions = 1
 
 "### languages ################################################################
 
