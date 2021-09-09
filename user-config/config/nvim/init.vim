@@ -44,4 +44,5 @@ endif
 
 let g:airline_theme = 'jellybeans'
 " colorscheme catppuccino
-colorscheme calvera
+" colorscheme calvera
+colorscheme tokyonight

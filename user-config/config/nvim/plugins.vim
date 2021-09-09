@@ -227,6 +227,8 @@ let g:calvera_italic_comments = 1
 let g:calvera_italic_keywords = 1
 let g:calvera_italic_functions = 1
 
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+
 "### languages ################################################################
 
 " go - must be before vim-poliglot ............................................
