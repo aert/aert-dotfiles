@@ -179,17 +179,6 @@ Plug 'kyazdani42/nvim-web-devicons' " for file icons
 
 " nvim-tree ...................................................................
 Plug 'kyazdani42/nvim-tree.lua'
-let g:nvim_tree_side = 'right'
-let g:nvim_tree_ignore = [ '.git', 'node_modules', '.cache', '.idea' ]
-let g:nvim_tree_hide_dotfiles = 1
-let g:nvim_tree_gitignore = 1
-let g:nvim_tree_auto_close = 1
-let g:nvim_tree_quit_on_open = 1
-let g:nvim_tree_width = 50
-let g:nvim_tree_follow = 1
-let g:nvim_tree_git_hl = 1
-" let g:nvim_tree_group_empty = 1
-let g:nvim_tree_special_files = { 'README.md': 1, 'Makefile': 1, 'MAKEFILE': 1, 'Dockerfile': 1, 'Gemfile': 1, 'package.json': 1 }
 
 " Plug 'ludovicchabant/vim-gutentags'
 " let g:gutentags_cache_dir = '~/.cache/gutentags'
