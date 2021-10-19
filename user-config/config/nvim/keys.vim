@@ -95,8 +95,9 @@ nnoremap <leader>gs :GFiles?<CR>
 " nnoremap <leader>gs <cmd>Telescope git_status<CR>
 " nnoremap <leader>gc :BCommits<CR>
 nnoremap <leader>gc <cmd>Telescope git_bcommits<CR>
-nnoremap <leader>gp :Gpush<CR>
-nnoremap <leader>gb :Gbrowse<CR>
+nnoremap <leader>gp :Git push<CR>
+nnoremap <leader>gb :GBrowse<CR>
+nnoremap <leader>gm :Git blame<CR>
 nnoremap <leader>gB <cmd>Telescope git_branches<CR>
 " nnoremap <leader>gl :Commits<CR>
 nnoremap <leader>gl <cmd>Telescope git_commits<CR>
