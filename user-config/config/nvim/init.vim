@@ -42,7 +42,11 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-let g:airline_theme = 'jellybeans'
+set background=light
+colorscheme zenburn
+" colorscheme PaperColor
+
+" let g:airline_theme = 'jellybeans'
 " colorscheme catppuccino
 " colorscheme calvera
-colorscheme tokyonight
+" colorscheme tokyonight

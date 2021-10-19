@@ -179,6 +179,12 @@ Plug 'kyazdani42/nvim-web-devicons' " for file icons
 
 " nvim-tree ...................................................................
 Plug 'kyazdani42/nvim-tree.lua'
+let g:nvim_tree_quit_on_open = 1
+let g:nvim_tree_ignore = [ '.git', 'node_modules', '.cache', '.idea' ]
+let g:nvim_tree_hide_dotfiles = 1
+let g:nvim_tree_gitignore = 1
+let g:nvim_tree_git_hl = 1
+let g:nvim_tree_special_files = { 'README.md': 1, 'Makefile': 1, 'MAKEFILE': 1, 'Dockerfile': 1, 'Gemfile': 1, 'package.json': 1 }
 
 " Plug 'ludovicchabant/vim-gutentags'
 " let g:gutentags_cache_dir = '~/.cache/gutentags'
@@ -207,16 +213,20 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_powerline_fonts = 1
 
 " colorscheme .................................................................
-Plug 'Pocco81/Catppuccino.nvim'
+" Plug 'Pocco81/Catppuccino.nvim'
 " Plug 'mhinz/vim-janah'
 " colorscheme janah
 "
-Plug 'yashguptaz/calvera-dark.nvim'
-let g:calvera_italic_comments = 1
-let g:calvera_italic_keywords = 1
-let g:calvera_italic_functions = 1
+" Plug 'yashguptaz/calvera-dark.nvim'
+" let g:calvera_italic_comments = 1
+" let g:calvera_italic_keywords = 1
+" let g:calvera_italic_functions = 1
 
-Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+" Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+
+" Plug 'NLKNguyen/papercolor-theme'
+
+Plug 'jnurmine/Zenburn'
 
 "### languages ################################################################
 

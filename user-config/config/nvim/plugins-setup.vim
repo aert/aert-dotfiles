@@ -14,14 +14,12 @@ require("which-key").setup {
 }
 
 require('nvim-tree').setup {
-    -- ignore = [ '.git', 'node_modules', '.cache', '.idea' ],
-    -- hide_dotfiles = 1,
-    -- gitignore = 1,
-    auto_close = 1,
-    quit_on_open = 1,
-    -- follow = 1,
-    -- git_hl = 1,
-    -- special_files = { 'README.md': 1, 'Makefile': 1, 'MAKEFILE': 1, 'Dockerfile': 1, 'Gemfile': 1, 'package.json': 1 },
+    auto_close = true,
+    hijack_cursor = true,
+    update_focused_file = {
+        enable = true,
+        update_cwd = true,
+    },
     view = {
         -- width of the window, can be either a number (columns) or a string in `%`
         width = 50,
