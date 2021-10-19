@@ -269,7 +269,6 @@ Plug 'mtscout6/syntastic-local-eslint.vim', { 'for': ['javascript', 'typescript'
 " rails
 Plug 'tpope/vim-rails', { 'for' : ['ruby'] }
 Plug 'tpope/vim-bundler', { 'for' : ['ruby'] }
-Plug 'tpope/vim-endwise'
 
 " dadbod ......................................................................
 Plug 'tpope/vim-dadbod'
