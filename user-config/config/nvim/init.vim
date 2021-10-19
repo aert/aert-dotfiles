@@ -42,9 +42,11 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-set background=light
-colorscheme zenburn
+set background=dark
+" colorscheme zenburn
 " colorscheme PaperColor
+colorscheme palefox
+let g:airline_theme = 'solarized'
 
 " let g:airline_theme = 'jellybeans'
 " colorscheme catppuccino

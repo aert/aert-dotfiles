@@ -232,6 +232,8 @@ let g:airline_powerline_fonts = 1
 
 Plug 'jnurmine/Zenburn'
 
+Plug 'EdenEast/nightfox.nvim'
+
 "### languages ################################################################
 
 " go - must be before vim-poliglot ............................................
