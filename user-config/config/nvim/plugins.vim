@@ -132,6 +132,8 @@ Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'tpope/vim-rhubarb'
 autocmd QuickFixCmdPost *grep* cwindow
 
+Plug 'TimUntersberger/neogit'
+
 " vim-gitgutter ...............................................................
 Plug 'airblade/vim-gitgutter'
 set updatetime=100

@@ -92,6 +92,7 @@ nmap s <Plug>(easymotion-overwin-f)
 
 nnoremap <leader>gS :Gwrite<CR>
 nnoremap <leader>gs :GFiles?<CR>
+nnoremap <leader>gg :Neogit<CR>
 " nnoremap <leader>gs <cmd>Telescope git_status<CR>
 " nnoremap <leader>gc :BCommits<CR>
 nnoremap <leader>gc <cmd>Telescope git_bcommits<CR>
