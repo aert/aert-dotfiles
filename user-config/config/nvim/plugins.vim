@@ -186,8 +186,7 @@ Plug 'kyazdani42/nvim-web-devicons' " for file icons
 " nvim-tree ...................................................................
 Plug 'kyazdani42/nvim-tree.lua'
 let g:nvim_tree_quit_on_open = 1
-let g:nvim_tree_ignore = [ '.git', 'node_modules', '.cache', '.idea' ]
-let g:nvim_tree_hide_dotfiles = 1
+" let g:nvim_tree_ignore = [ '.git', 'node_modules', '.cache', '.idea' ]
 let g:nvim_tree_gitignore = 1
 let g:nvim_tree_git_hl = 1
 let g:nvim_tree_special_files = { 'README.md': 1, 'Makefile': 1, 'MAKEFILE': 1, 'Dockerfile': 1, 'Gemfile': 1, 'package.json': 1 }
@@ -200,6 +199,8 @@ Plug 'arithran/vim-delete-hidden-buffers'
 " floaterm ....................................................................
 Plug 'voldikss/vim-floaterm'
 let g:floaterm_wintype = 'vsplit'
+
+Plug 'AndrewRadev/sideways.vim'
 
 " tests
 " Plug 'janko-m/vim-test'

@@ -1,0 +1,36 @@
+require'nvim-treesitter.configs'.setup {
+    ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    highlight = {
+        enable = true,              -- false will disable the whole extension
+        disable = { "html" }
+    },
+}
+
+require("which-key").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+}
+
+require('nvim-tree').setup(
+    {
+        auto_close = true,
+        hijack_cursor = true,
+        update_focused_file = {
+            enable = true,
+            update_cwd = true,
+        },
+        view = {
+            -- width of the window, can be either a number (columns) or a string in `%`
+            width = 50,
+            -- side of the tree, can be one of 'left' | 'right' | 'top' | 'bottom'
+            side = 'right',
+            -- if true the tree will resize itself after opening a file
+                auto_resize = true,
+            },
+            filters = {
+                dotfiles = true,
+                custom = {'.git', 'node_modules', '.cache', '.idea'}
+            },
+        }
+        )

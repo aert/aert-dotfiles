@@ -22,7 +22,7 @@ set shell=zsh
 " let g:python3_host_prog = '/usr/bin/python3'
 
 source ~/.config/nvim/plugins.vim
-source ~/.config/nvim/plugins-setup.vim
+lua require('plugins-setup') 
 source ~/.config/nvim/basic.vim
 source ~/.config/nvim/keys.vim
 

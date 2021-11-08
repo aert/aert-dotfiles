@@ -148,6 +148,9 @@ nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 nnoremap <silent> <Leader>> :exe "vertical resize +25"<CR>
 nnoremap <silent> <Leader>< :exe "vertical resize -25"<CR>
 
+nnoremap <leader>mh :SidewaysLeft<cr>
+nnoremap <leader>ml :SidewaysRight<cr>
+
 " FileType specific
 " au FileType ruby nmap <leader>p :RuboCop -a<CR>
 au FileType ruby nmap <leader>p :ALEFix<CR>
