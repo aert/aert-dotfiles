@@ -18,6 +18,7 @@
 	dis = diff --color-words --staged
 	pe = diff --stat
 	st = status
+	br = branch --sort=-committerdate
 	rbi = rebase -i
 	unstage = reset HEAD --
 	# resets all uncomitted changes and files
@@ -36,7 +37,7 @@
 	quotepath = off
 	autocrlf = input
 	editor = vim
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = delta --theme=zenburn
 
 [giggle]
 	main-window-maximized = false
