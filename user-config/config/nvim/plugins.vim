@@ -134,12 +134,8 @@ autocmd QuickFixCmdPost *grep* cwindow
 
 Plug 'TimUntersberger/neogit'
 
-" vim-gitgutter ...............................................................
-Plug 'airblade/vim-gitgutter'
-set updatetime=100
-let g:gitgutter_sign_added = '║'
-let g:gitgutter_sign_modified = '│'
-let g:gitgutter_sign_removed = '─'
+" gitsigns ....................................................................
+Plug 'lewis6991/gitsigns.nvim'
 
 " easymotion ..................................................................
 Plug 'easymotion/vim-easymotion'
