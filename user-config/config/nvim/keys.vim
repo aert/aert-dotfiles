@@ -117,7 +117,8 @@ nmap <leader>rn <Plug>(coc-rename)
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-nnoremap <leader><TAB> :CocFzfList diagnostics<CR>
+nnoremap <leader><TAB> :SymbolsOutline<CR>
+" nnoremap <leader><TAB> :CocFzfList diagnostics<CR>
 " nnoremap <leader>A :CocFzfList actions<CR>
 " vnoremap <leader>A :CocFzfList actions<CR>
 " vmap <leader>A <Plug>(coc-codeaction-selected)

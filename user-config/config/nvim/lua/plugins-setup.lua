@@ -37,6 +37,15 @@ require('nvim-tree').setup {
         dotfiles = true,
         custom = {'.git', 'node_modules', '.cache', '.idea'}
     },
+    git = {
+        ignore = true
+    },
 }
 
 require('gitsigns').setup()
+
+-- symbols_outline
+vim.g.symbols_outline = {
+    position = 'left',
+    width = 50,
+}
