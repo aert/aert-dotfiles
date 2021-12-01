@@ -142,7 +142,7 @@ nmap <leader>lf <Plug>(coc-fix-current)
 " nmap <leader>p :call CocAction('format')<CR>
 nmap <leader>p :Neoformat<CR>
 
-nmap <leader>q :q<CR>
+nmap <leader>q :bdelete<CR>
 
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
@@ -174,6 +174,8 @@ tnoremap <silent> <C-i>n <C-\><C-n>:FloatermNext<CR>
 nnoremap <silent> <C-i>p :FloatermPrev<CR>
 tnoremap <silent> <C-i>p <C-\><C-n>:FloatermPrev<CR>
 tnoremap <silent> <C-i>k <C-\><C-n>:FloatermKill<CR>
+
+inoremap <silent> <C-j> <C-O>:Telescope ultisnips<CR>
 
 " ,cd to change to current file dir & print pwd
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>

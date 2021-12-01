@@ -49,3 +49,6 @@ vim.g.symbols_outline = {
     position = 'left',
     width = 50,
 }
+
+require('telescope').setup()
+require('telescope').load_extension('ultisnips')

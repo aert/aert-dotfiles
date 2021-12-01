@@ -42,12 +42,14 @@ Plug 'simrat39/symbols-outline.nvim'
 
 " ultisnips ...................................................................
 Plug 'SirVer/ultisnips'
-let g:UltiSnipsExpandTrigger       = "<c-j>"
-let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
-let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<c-b>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-z>"
+let g:UltiSnipsListSnippets = "" "List possible snippets based on current file
 
 let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME.'/.vim/UltiSnips']
+
+Plug 'fhill2/telescope-ultisnips.nvim'
 
 " vim-snippets ................................................................
 Plug 'honza/vim-snippets'
