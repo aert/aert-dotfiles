@@ -45,7 +45,7 @@ endif
 set background=dark
 " colorscheme zenburn
 " colorscheme PaperColor
-colorscheme palefox
+colorscheme nordfox
 let g:airline_theme = 'solarized'
 
 " let g:airline_theme = 'jellybeans'
