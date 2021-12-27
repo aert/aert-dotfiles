@@ -10,6 +10,8 @@ let g:limelight_conceal_ctermfg = 'black'
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
+Plug 'dhruvasagar/vim-zoom'
+
 " Plug 'luochen1990/rainbow'
 " let g:rainbow_active = 1      " use :RainbowToggle
 
@@ -208,6 +210,7 @@ Plug 'AndrewRadev/sideways.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 set statusline+=%#warningmsg#
+set statusline+=%{zoom#statusline()}
 set statusline+=%*
 set statusline+=%{nvim_treesitter#statusline(80)}
 set laststatus=2
