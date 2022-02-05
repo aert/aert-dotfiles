@@ -5,7 +5,7 @@
 sudo dnf install -y --allowerasing vim-default-editor
 sudo dnf install -y libpq-devel dconf-editor git-delta tig fd-find exa gcc g++ \
                     ripgrep cmake editorconfig powerline-fonts \
-                    lsd ShellCheck \
+                    lsd ShellCheck shfmt \
                     aspell-ar aspell-fr aspell-en \
                     mysql-devel ImageMagick ImageMagick-devel
 
