@@ -18,8 +18,8 @@ Plug 'dhruvasagar/vim-zoom'
 " Plug 'vim-scripts/AnsiEsc.vim'
 "
 Plug 'tpope/vim-surround'
-
 Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-endwise'
 
 " Editor config ...............................................................
 Plug 'editorconfig/editorconfig-vim'
@@ -93,6 +93,9 @@ Plug 'antoinemadec/coc-fzf'
 " auto-pairs ..................................................................
 Plug 'jiangmiao/auto-pairs'
 let g:AutoPairsShortcutToggle = ''
+
+" match html tags .............................................................
+Plug 'andymass/vim-matchup'
 
 " nerdcommenter ...............................................................
 Plug 'preservim/nerdcommenter'

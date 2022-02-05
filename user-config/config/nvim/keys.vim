@@ -142,7 +142,7 @@ nmap <leader>lf <Plug>(coc-fix-current)
 " nmap <leader>p :call CocAction('format')<CR>
 nmap <leader>p :Neoformat<CR>
 
-nmap <leader>q :bdelete<CR>
+nmap <leader>q :bunload<CR>
 
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
