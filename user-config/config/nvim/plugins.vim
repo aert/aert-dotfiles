@@ -76,12 +76,14 @@ let g:ale_linters = {
 \   'ruby': ['rubocop'],
 \   'python': ['prospector'],
 \   'go': ['gopls'],
+\   'sh': [ 'shellcheck' ],
 \}
  let g:ale_fixers = {
  \   'ruby': [ 'rubocop' ],
  \   'javascript': [ 'prettier', 'eslint' ],
  \   'scss': [ 'prettier' ],
  \   'go': [ 'gofmt' ],
+ \   'sh': [ 'shfmt' ],
  \}
 let g:ale_linters_explicit = 1
 
