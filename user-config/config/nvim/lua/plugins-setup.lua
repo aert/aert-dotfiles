@@ -26,7 +26,7 @@ require('nvim-tree').setup {
     hijack_cursor = true,
     update_focused_file = {
         enable = true,
-        update_cwd = true,
+        update_cwd = false,
     },
     view = {
         width = 50,
@@ -39,6 +39,11 @@ require('nvim-tree').setup {
     },
     git = {
         ignore = true
+    },
+    actions = {
+        open_file  = {
+            quit_on_open = true,
+        },
     },
 }
 
