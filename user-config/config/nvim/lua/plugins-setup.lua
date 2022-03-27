@@ -22,7 +22,6 @@ require("which-key").setup {
 }
 
 require('nvim-tree').setup {
-    auto_close = true,
     hijack_cursor = true,
     update_focused_file = {
         enable = true,
@@ -57,3 +56,10 @@ vim.g.symbols_outline = {
 
 require('telescope').setup()
 require('telescope').load_extension('ultisnips')
+
+require('nightfox').setup({
+  options = {
+    transparent = true,    -- Disable setting background
+    dim_inactive = true,   -- Non focused panes set to alternative background
+  }
+})
