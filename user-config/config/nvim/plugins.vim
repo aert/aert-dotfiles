@@ -31,12 +31,14 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 Plug 'jdhao/better-escape.vim'
 
+" LSP .........................................................................
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
+
 " Telescope ...................................................................
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-
-Plug 'fannheyward/telescope-coc.nvim'
 
 Plug 'simrat39/symbols-outline.nvim'
 
@@ -89,8 +91,9 @@ let g:ale_linters_explicit = 1
 
 
 " completion
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'antoinemadec/coc-fzf'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 
 " auto-pairs ..................................................................
 Plug 'jiangmiao/auto-pairs'
@@ -238,31 +241,11 @@ let g:airline_powerline_fonts = 1
 
 " Plug 'NLKNguyen/papercolor-theme'
 
-Plug 'jnurmine/Zenburn'
+" Plug 'jnurmine/Zenburn'
 
 Plug 'EdenEast/nightfox.nvim'
 
 "### languages ################################################################
-
-" go - must be before vim-poliglot ............................................
-" Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'], 'do': ':GoUpdateBinaries' }
-" let g:go_list_type = "quickfix"
-" let g:go_highlight_functions = 1
-" let g:go_highlight_methods = 1
-" let g:go_highlight_fields = 1
-" let g:go_highlight_types = 1
-" let g:go_highlight_operators = 1
-" let g:go_highlight_build_constraints = 1
-" let g:go_highlight_format_strings = 1
-" let g:go_highlight_extra_types = 1
-" "let g:go_auto_type_info = 1
-" let g:go_addtags_transform = "camelCase"
-" let g:go_term_enabled = 1
-" " let g:go_auto_sameids = 1
-" let g:go_fmt_command = "goimports"
-" let g:go_def_mode='gopls'
-" let g:go_info_mode='gopls'
-" let g:go_def_mapping_enabled = 0
 
 " dart ........................................................................
 Plug 'dart-lang/dart-vim-plugin', { 'for' : ['dart'] }

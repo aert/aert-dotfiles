@@ -44,16 +44,6 @@ function! FZFHistory()
   endif
 endfunction
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
 map <C-n> :ALENextWrap<CR>
 map <C-p> :ALEPreviousWrap<CR>
 nnoremap t :<c-u>rightbelow vertical stjump <c-r><c-w><cr>
@@ -73,11 +63,8 @@ vmap <leader>a <Esc>:GitAg! <C-R>=<SID>getVisualSelection()<CR><CR>
 nnoremap <leader><SPACE> :Buffers<CR>
 " nnoremap <leader><SPACE> <cmd>Telescope buffers<CR>
 nmap <leader><Esc> :noh<CR>
-" nnoremap <leader>t :CocFzfList outline<CR>
-" nnoremap <leader>T :CocList symbols<CR>
-nnoremap <leader>t <cmd>Telescope coc document_symbols<CR>
-nnoremap <leader>T <cmd>Telescope coc workspace_symbols<CR>
-" nmap ; :call LanguageClient#textDocument_documentSymbol()<CR>
+nnoremap <leader>t <cmd>Telescope lsp_document_symbols<CR>
+nnoremap <leader>T <cmd>Telescope lsp_workspace_symbols<CR>
 vmap <leader>t <Esc>:CocFzfList outline <C-R>=<SID>getVisualSelection()<CR><CR>
 vmap <leader>T <Esc>:CocFzfList symbols <C-R>=<SID>getVisualSelection()<CR><CR>
 nmap ; :GFiles<CR>
@@ -104,39 +91,32 @@ nnoremap <leader>gB <cmd>Telescope git_branches<CR>
 nnoremap <leader>gl <cmd>Telescope git_commits<CR>
 
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh() 
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gi <Plug>(coc-implementation)
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-nmap <leader>rn <Plug>(coc-rename)
+nmap <silent> gd <cmd>Telescope lsp_definitions<CR>
+nmap <silent> gy <cmd>Telescope lsp_type_definitions<CR>
+nmap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+nmap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
+nmap <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> [g <cmd>lua vim.diagnostic.goto_prev()<CR>
+nmap <silent> ]g <cmd>lua vim.diagnostic.goto_next()<CR>
 
 nnoremap <leader><TAB> :SymbolsOutline<CR>
-" nnoremap <leader><TAB> :CocFzfList diagnostics<CR>
-" nnoremap <leader>A :CocFzfList actions<CR>
-" vnoremap <leader>A :CocFzfList actions<CR>
-" vmap <leader>A <Plug>(coc-codeaction-selected)
-" nmap <leader>A <Plug>(coc-codeaction)
-vmap <silent>Z <Plug>(coc-codeaction-selected)
-nmap <silent>Z <Plug>(coc-codeaction)
+vmap <silent>Z <cmd>Telescope lsp_range_code_actions<CR>
+nmap <silent>Z <cmd>lua vim.lsp.buf.code_action()<CR>
 
 nmap <leader>mt <cmd>Telescope treesitter<CR>
 nmap <leader>ss <cmd>Telescope grep_string<CR>
 
 nmap <leader>ll :CocFzfList<CR>
-nmap <leader>ld <cmd>Telescope coc diagnostics<CR>
-nmap <leader>lt <cmd>Telescope coc type_definitions<CR>
-nmap <leader>lr <cmd>Telescope coc references<CR>
-nmap <leader>li <cmd>Telescope coc implementations<CR>
-nmap <leader>la <cmd>Telescope coc line_code_actions<CR>
-nnoremap <leader>lk :call <SID>show_documentation()<CR>
-nmap <leader>lr <Plug>(coc-rename)
+nmap <leader>ld <cmd>Telescope diagnostics<CR>
+nmap <leader>lt <cmd>Telescope lsp_type_definitions<CR>
+nmap <leader>lr <cmd>Telescope lsp_references<CR>
+nmap <leader>li <cmd>Telescope lsp_implementations<CR>
+nmap <leader>la <cmd>lua vim.lsp.buf.code_action()<CR>
+nmap <leader>lr <cmd>lua vim.lsp.buf.rename()<CR>
 nmap <leader>lf <Plug>(coc-fix-current)
 
 " nmap <leader>p :call CocAction('format')<CR>
