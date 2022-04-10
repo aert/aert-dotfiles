@@ -9,6 +9,11 @@ sudo dnf install -y libpq-devel dconf-editor git-delta tig fd-find exa gcc g++ \
                     aspell-ar aspell-fr aspell-en \
                     mysql-devel ImageMagick ImageMagick-devel
 
+# kde settings ..............................................................
+
+kwriteconfig5 --file ~/.config/kwinrc --group Windows --key BorderlessMaximizedWindows true
+qdbus org.kde.KWin /KWin reconfigure
+
 # gnome settings ..............................................................
 
 gsettings set org.gnome.Terminal.Legacy.Settings headerbar false
