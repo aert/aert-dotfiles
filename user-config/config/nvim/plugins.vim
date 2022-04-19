@@ -2,6 +2,7 @@ call plug#begin('~/.vim/bundle')
 
 "### system ###################################################################
 Plug 'tpope/vim-dispatch'
+Plug 'junegunn/vim-easy-align'
 
 " distraction free ............................................................
 Plug 'junegunn/limelight.vim'
@@ -222,7 +223,7 @@ Plug 'vim-airline/vim-airline-themes'
 set statusline+=%#warningmsg#
 set statusline+=%{zoom#statusline()}
 set statusline+=%*
-set statusline+=%{nvim_treesitter#statusline(80)}
+set statusline+=%{nvim_treesitter#statusline()}
 set laststatus=2
 let g:airline#extensions#ale#enabled = 1
 let g:airline_statusline_ontop=1

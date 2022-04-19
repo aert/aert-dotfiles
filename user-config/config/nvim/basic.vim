@@ -1,5 +1,18 @@
 syntax enable
 
+let g:clipboard = {
+      \   'name': 'myClipboard',
+      \   'copy': {
+      \      '+': ['tmux', 'load-buffer', '-'],
+      \      '*': ['tmux', 'load-buffer', '-'],
+      \    },
+      \   'paste': {
+      \      '+': ['tmux', 'save-buffer', '-'],
+      \      '*': ['tmux', 'save-buffer', '-'],
+      \   },
+      \   'cache_enabled': 1,
+      \ }
+
 set wildignore+=*.swp,*.bak,*.pyc,*.class
 
 " this turns off physical line wrapping (ie: automatic insertion of newlines)
