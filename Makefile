@@ -34,3 +34,4 @@ config_codium:
 	ln -s ~/Code/aert/dotfiles/user-config/config/VSCodium/snippets ~/.config/VSCodium/User/
 	ln -s ~/Code/aert/dotfiles/user-config/config/VSCodium/settings.json ~/.config/VSCodium/User/
 	ln -s ~/Code/aert/dotfiles/user-config/config/VSCodium/keybindings.json ~/.config/VSCodium/User/
+	xargs -n1 codium --install-extension < ~/Code/aert/dotfiles/user-config/config/VSCodium/__extensions.txt
