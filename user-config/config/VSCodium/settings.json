@@ -1,0 +1,62 @@
+{
+    "workbench.colorTheme": "One Dark Pro",
+    "workbench.preferredDarkColorTheme": "Calvera Dark",
+    "editor.fontFamily": "'CaskaydiaCove Nerd Font', monospace, 'Droid Sans Fallback'",
+    "window.menuBarVisibility": "toggle",
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "vim.useSystemClipboard": true,
+    "workbench.activityBar.visible": false,
+    "update.mode": "manual",
+    "workbench.startupEditor": "none",
+    "vim.easymotion": true,
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<space>"
+            ],
+            "commands": [
+                "vspacecode.space"
+            ]
+        },
+        {
+            "before": [
+                ","
+            ],
+            "commands": [
+                "vspacecode.space",
+                {
+                    "command": "whichkey.triggerKey",
+                    "args": "m"
+                }
+            ]
+        }
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<space>"
+            ],
+            "commands": [
+                "vspacecode.space"
+            ]
+        },
+        {
+            "before": [
+                ","
+            ],
+            "commands": [
+                "vspacecode.space",
+                {
+                    "command": "whichkey.triggerKey",
+                    "args": "m"
+                }
+            ]
+        }
+    ],
+    "workbench.iconTheme": "material-icon-theme"
+}
