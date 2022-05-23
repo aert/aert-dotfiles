@@ -18,3 +18,5 @@ alias k='kubectl'
 
 alias x="exa -l --time-style long-iso --git"
 alias vpn_from_ssh="sshuttle 0/0 --dns -r"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
