@@ -96,6 +96,10 @@ require('nvim-tree').setup {
             quit_on_open = true,
         },
     },
+    renderer = {
+        highlight_git = true,
+        special_files = { 'README.md', 'Makefile', 'MAKEFILE', 'Dockerfile', 'Gemfile', 'package.json' }
+    },
 }
 
 require('gitsigns').setup{
