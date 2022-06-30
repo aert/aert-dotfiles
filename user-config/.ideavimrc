@@ -1,0 +1,27 @@
+
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+
+
+let mapleader=","
+set easymotion
+set surround
+set commentary
+
+" which-key
+set which-key
+set notimeout
+
+
+""" Mappings --------------------------------
+map <leader>s <Plug>(easymotion-s)
+
+map <leader>mr <Action>(RenameElement)
+map <leader>z <Action>(ToggleDistractionFreeMode)
+
+map <leader>n <Action>(SelectInProjectView)
+map <leader>h <Action>(Vcs.ShowTabbedFileHistory)
+map <leader>e <Action>(GotoNextError)
+
+map <leader>db <Action>(ToggleLineBreakpoint)
+map <leader>t <Action>(FileStructurePopup)
