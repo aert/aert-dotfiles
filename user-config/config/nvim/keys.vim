@@ -145,15 +145,15 @@ au FileType rust nmap <leader>rd <Plug>(rust-doc)
 " nnoremap <leader>w :ImportJSWord<CR>
 tnoremap <silent> <C-i><SPACE> <C-\><C-n>
 tnoremap <silent> <C-h> <C-\><C-n><C-w>h
-vnoremap <silent> <C-i>s :FloatermSend<CR>
-nnoremap <silent> <C-i>t :FloatermToggle<CR>
-nnoremap <silent> <C-i>c :FloatermNew<CR>
-tnoremap <silent> <C-i>t <C-\><C-n>:FloatermToggle<CR>
-nnoremap <silent> <C-i>n :FloatermNext<CR>
-tnoremap <silent> <C-i>n <C-\><C-n>:FloatermNext<CR>
-nnoremap <silent> <C-i>p :FloatermPrev<CR>
-tnoremap <silent> <C-i>p <C-\><C-n>:FloatermPrev<CR>
-tnoremap <silent> <C-i>k <C-\><C-n>:FloatermKill<CR>
+vnoremap <silent> <F7>s :FloatermSend<CR>
+nnoremap <silent> <F7>t :FloatermToggle<CR>
+nnoremap <silent> <F7>c :FloatermNew<CR>
+tnoremap <silent> <F7>t <C-\><C-n>:FloatermToggle<CR>
+nnoremap <silent> <F7>n :FloatermNext<CR>
+tnoremap <silent> <F7>n <C-\><C-n>:FloatermNext<CR>
+nnoremap <silent> <F7>p :FloatermPrev<CR>
+tnoremap <silent> <F7>p <C-\><C-n>:FloatermPrev<CR>
+tnoremap <silent> <F7>k <C-\><C-n>:FloatermKill<CR>
 
 inoremap <silent> <C-j> <C-O>:Telescope ultisnips<CR>
 
