@@ -4,6 +4,10 @@
 (package! rufo
  :recipe (:host github :repo "danielma/rufo.el"))
 
+(package! evil-matchit)
+
+(package! string-inflection)
+
 ;; To install a package with Doom you must declare them here, run 'doom sync' on
 ;; the command line, then restart Emacs for the changes to take effect.
 ;; Alternatively, use M-x doom/reload.
@@ -20,7 +24,6 @@
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
-(package! evil-matchit)
 
 ;; To install a package directly from a particular repo, you'll need to specify
 ;; a `:recipe'. You'll find documentation on what `:recipe' accepts here:
