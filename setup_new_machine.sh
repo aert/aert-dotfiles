@@ -8,6 +8,8 @@ sudo dnf install -y libpq-devel dconf-editor git-delta tig fd-find exa gcc g++ \
                     lsd ShellCheck shfmt \
                     aspell-ar aspell-fr aspell-en \
                     mysql-devel ImageMagick ImageMagick-devel
+# for python ctypes
+sudo dnf install libffi-devel
 
 # kde settings ..............................................................
 
