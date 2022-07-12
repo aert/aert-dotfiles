@@ -8,8 +8,8 @@ sudo dnf install -y libpq-devel dconf-editor git-delta tig fd-find exa gcc g++ \
                     lsd ShellCheck shfmt \
                     aspell-ar aspell-fr aspell-en \
                     mysql-devel ImageMagick ImageMagick-devel
-# for python ctypes
-sudo dnf install libffi-devel
+# for asdf python
+sudo dnf install make gcc zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel tk-devel libffi-devel xz-devel
 
 # kde settings ..............................................................
 
@@ -74,4 +74,4 @@ npm install -g neovim
 yarn global add typescript-language-server typescript
 yarn global add eslint prettier prettier-eslint prettier-eslint-cli typescript javascript-typescript-langserver
 gem install solargraph rubocop rubocop-rails rubocop-performance
-pip install python-language-server prospector black
+pip install wheel python-language-server prospector black
