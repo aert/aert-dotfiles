@@ -62,6 +62,8 @@
 (setq doom-modeline-project-detection 'truncate-with-project)
 (setq doom-variable-pitch-font (font-spec :family "Cantarell" :size 11))
 
+(global-subword-mode t)
+
 ;; treemacs ....................................................................
 
 (use-package treemacs
