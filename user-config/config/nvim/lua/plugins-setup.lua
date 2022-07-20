@@ -82,7 +82,6 @@ require('nvim-tree').setup {
     view = {
         width = 50,
         side = 'right',
-        auto_resize = true,
     },
     filters = {
         dotfiles = true,
@@ -94,6 +93,7 @@ require('nvim-tree').setup {
     actions = {
         open_file  = {
             quit_on_open = true,
+            resize_window = true,
         },
     },
     renderer = {

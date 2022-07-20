@@ -94,6 +94,20 @@
                                ("y" . ,(* 60 7 5 4 11))))
   (org-duration-set-regexps))
 
+;; LSP .........................................................................
+
+(setq-hook! 'web-mode-hook +format-with-lsp nil)
+(setq-hook! 'js2-jsx-mode-hook +format-with-lsp nil)
+(setq-hook! 'js-jsx-mode-hook +format-with-lsp nil)
+(setq-hook! 'rjsx-mode-hook +format-with-lsp nil)
+(setq-hook! 'js-mode-hook +format-with-lsp nil)
+
+(setq-hook! 'web-mode-hook +format-with 'prettier)
+(setq-hook! 'js2-jsx-mode-hook +format-with 'prettier)
+(setq-hook! 'js-jsx-mode-hook +format-with 'prettier)
+(setq-hook! 'rjsx-mode-hook +format-with 'prettier)
+(setq-hook! 'js-mode-hook +format-with 'prettier)
+
 ;; My Functions ................................................................
 
 (defun aert/insert-comment-separator (&optional title fill-char)
