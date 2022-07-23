@@ -49,7 +49,7 @@ set background=dark
 " let g:airline_theme = 'solarized'
 colorscheme enfocado
 let g:airline_theme = 'enfocado'
-let g:enfocado_style = 'nature'
+" let g:enfocado_style = 'nature'
 
 " let g:airline_theme = 'jellybeans'
 " colorscheme catppuccino
