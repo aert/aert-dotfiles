@@ -11,6 +11,9 @@ sudo dnf install -y libpq-devel dconf-editor git-delta tig fd-find exa gcc g++ \
 # for asdf python
 sudo dnf install make gcc zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel tk-devel libffi-devel xz-devel
 
+# latex
+sudo dnf install python3-sphinx-latex
+
 # kde settings ..............................................................
 
 kwriteconfig5 --file ~/.config/kwinrc --group Windows --key BorderlessMaximizedWindows true
