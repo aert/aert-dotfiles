@@ -244,13 +244,12 @@ It should only modify the values of Spacemacs settings."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(rebecca
                          chocolate
-                         gruvbox-dark-soft
-                         solarized-gruvbox-dark
-                         solarized-gruvbox-light
                          zenburn
                          doom-moonlight
-                         soft-morning
                          spacemacs-dark
+                         gruvbox-dark-soft
+                         solarized-gruvbox-light
+                         soft-morning
                          spacemacs-light)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
