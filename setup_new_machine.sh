@@ -74,7 +74,7 @@ yarn global add neovim
 npm install -g neovim
 
 # language servers
-yarn global add typescript-language-server typescript
-yarn global add eslint prettier prettier-eslint prettier-eslint-cli typescript javascript-typescript-langserver
+npm install -g typescript-language-server typescript
+npm install -g eslint prettier prettier-eslint prettier-eslint-cli typescript javascript-typescript-langserver
 gem install solargraph rubocop rubocop-rails rubocop-performance
 pip install wheel python-language-server prospector black
