@@ -597,6 +597,7 @@ before packages are loaded."
   (org-duration-set-regexps)
   )
 
+(load "~/.spacemacs.d/aert_functions.el")
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
