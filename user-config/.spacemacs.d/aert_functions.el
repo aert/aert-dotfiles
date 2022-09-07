@@ -36,3 +36,5 @@
 ;; keybindings .................................................................
 
 (spacemacs/set-leader-keys "o;" 'aert/insert-comment-separator)
+(spacemacs/set-leader-keys "op" 'prettier-js)
+(spacemacs/set-leader-keys "ot" 'org-time-stamp)

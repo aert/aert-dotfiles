@@ -61,6 +61,7 @@ This function should only modify configuration layer settings."
      treemacs
      ;; mines
      ruby
+     (sql :variables sql-capitalize-keywords t)
      )
 
 
