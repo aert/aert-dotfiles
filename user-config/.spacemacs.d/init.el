@@ -45,7 +45,7 @@ This function should only modify configuration layer settings."
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip t)
      emacs-lisp
-     git
+     (git :variables git-enable-magit-delta-plugin t)
      helm
      lsp
      imenu-list
@@ -246,7 +246,8 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(gruvbox-dark-soft
+   dotspacemacs-themes '(doom-zenburn
+                         gruvbox-dark-soft
                          rebecca
                          chocolate
                          zenburn
@@ -567,6 +568,7 @@ configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq warning-minimum-level :emergency)
+  (setq-default git-magit-status-fullscreen t)
 )
 
 
