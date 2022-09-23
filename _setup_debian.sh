@@ -10,3 +10,7 @@ apt install -y meld tig
 echo '=== symlink configuration'
 
 ln -s ~/Code/aert/dotfiles/user-config/.spacemacs.d ~/
+
+echo '=== qt styling'
+sudo apt install qt5-style-kvantum qt5-style-kvantum-themes
+echo "export QT_STYLE_OVERRIDE=kvantum" >> ~/.profile
