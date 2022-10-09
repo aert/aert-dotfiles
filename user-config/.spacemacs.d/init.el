@@ -74,9 +74,7 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(
-                                      solaire-mode
-                                      )
+   dotspacemacs-additional-packages '()
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -588,7 +586,6 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  (solaire-global-mode +1)
   ;; LSP .......................................................................
   (setq lsp-headerline-breadcrumb-enable-diagnostics nil)
   (add-hook 'hack-local-variables-hook #'spacemacs/toggle-truncate-lines-on)
