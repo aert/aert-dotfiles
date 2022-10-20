@@ -296,10 +296,27 @@ class FilenameCleaner
     IGNORE_WORDS.each do |w|
       cleaned.gsub!(/^#{w}\b|\b#{w}$|\b#{w}\b/i, '')
     end
+
+    french_words = %w[ truefrench french ]
+    french_words.each do |w|
+      cleaned.gsub!(/^#{w}\b|\b#{w}$|\b#{w}\b/i, '')
+    end
+
     cleaned = cleaned.squeeze(' ').squeeze('-')
                      .strip
                      .gsub(/(^\-+|^\_|\-+$|\_+$)/, '')
                      .strip
+
+    special_words = %w[ -extreme ]
+    special_words.each do |w|
+      cleaned.gsub!(/#{w}\b|#{w}$/i, '')
+    end
+
+    cleaned = cleaned.squeeze(' ').squeeze('-')
+                     .strip
+                     .gsub(/(^\-+|^\_|\-+$|\_+$)/, '')
+                     .strip
+
     cleaned += ext
 
     [
