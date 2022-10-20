@@ -299,7 +299,7 @@ class FilenameCleaner
 
     french_words = %w[ truefrench french ]
     french_words.each do |w|
-      cleaned.gsub!(/^#{w}\b|\b#{w}$|\b#{w}\b/i, '')
+      cleaned.gsub!(/^#{w}\b|\b#{w}$|\b#{w}\b/i, ' FR')
     end
 
     cleaned = cleaned.squeeze(' ').squeeze('-')
