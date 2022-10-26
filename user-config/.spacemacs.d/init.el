@@ -248,6 +248,7 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
+                         gruvbox-light-soft
                          zenburn
                          solarized-zenburn
                          doom-solarized-light
@@ -278,7 +279,7 @@ It should only modify the values of Spacemacs settings."
    ;;                             :weight normal
    ;;                             :width normal)
    dotspacemacs-default-font '("Iosevka Term Slab"
-                               :size 14.0
+                               :size 16.0
                                :weight normal
                                :width normal)
 
@@ -568,7 +569,7 @@ configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq warning-minimum-level :emergency)
-  (setq-default git-magit-status-fullscreen t)
+  ;; (setq-default git-magit-status-fullscreen t)
 )
 
 
