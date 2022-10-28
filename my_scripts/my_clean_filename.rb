@@ -63,8 +63,10 @@ class UselessFilesRemover
     /.*torrents com.*/i,
     /.*\.url$/i,
     /^wwrg.*/i,
+    /^source\.txt$/i,
     /^www yts.*\.jpg$/i,
     /^www yify.*\.jpg$/i,
+    /^more books audio.*\.txt$/i,
     /^ahashare.*\.txt$/i
   ].freeze
 
@@ -230,7 +232,7 @@ class FilenameCleaner
     mp3 flac ogg
     blueray bluray avi hdtv hdrip dvdrip webm webrip brrip yify xvid evo ac3
     imax bdrip
-    galaxytv galaxyrg wrcr tbs deflate minx 800mb phoenix
+    galaxytv galaxyrg wrcr tbs deflate minx 800mb phoenix torrentgalaxy
   ].freeze
 
   def initialize(simulate = true)
