@@ -38,3 +38,4 @@
 (spacemacs/set-leader-keys "o;" 'aert/insert-comment-separator)
 (spacemacs/set-leader-keys "op" 'prettier-js)
 (spacemacs/set-leader-keys "ot" 'org-time-stamp)
+(spacemacs/set-leader-keys "oD" 'devdocs-lookup)
