@@ -134,7 +134,7 @@ export GPG_TTY=$TTY
 
 export PATH="$HOME/.local/bin:$PATH"
 
-#eval "$(direnv hook zsh)"
+eval "$(direnv hook zsh)"
 
 # #-- pyenv
 # export PATH="$HOME/.pyenv/bin:$PATH"
