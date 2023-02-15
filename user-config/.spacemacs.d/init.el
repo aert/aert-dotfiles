@@ -63,6 +63,7 @@ This function should only modify configuration layer settings."
      ;; mines
      ruby
      (sql :variables sql-capitalize-keywords t)
+     docker
      )
 
 
