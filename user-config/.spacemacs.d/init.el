@@ -52,6 +52,7 @@ This function should only modify configuration layer settings."
      lsp
      imenu-list
      markdown
+     ;; themes-megapack
      ;; multiple-cursors
      org
      (shell :variables
@@ -251,6 +252,29 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
+                         eziam-light
+                         eziam-dark
+                         apropospriate-light
+                         apropospriate-dark
+                         kaolin-light
+                         kaolin-eclipse
+                         moe-light
+                         moe-dark
+                         material-light
+                         material
+                         doom-solarized-light
+                         doom-solarized-dark
+                         doom-ephemeral
+                         doom-earl-grey
+                         inkpot
+                         rebecca
+                         wilson
+                         subatomic
+                         smyx
+                         railscasts
+                         monokai
+                         organic-green
+                         occidental
                          gruvbox-light-hard
                          gruvbox-dark-medium
                          spacemacs-light
@@ -271,7 +295,7 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(spacemacs :separator curve :separator-scale 1.5)
+   dotspacemacs-mode-line-theme '(spacemacs :separator arrow-fade :separator-scale 1)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
