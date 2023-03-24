@@ -618,6 +618,7 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   ;; LSP .......................................................................
+  (setq lsp-headerline-breadcrumb-enable nil)
   (setq lsp-headerline-breadcrumb-enable-diagnostics nil)
   (add-hook 'hack-local-variables-hook #'spacemacs/toggle-truncate-lines-on)
 )
