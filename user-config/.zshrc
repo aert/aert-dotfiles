@@ -178,7 +178,7 @@ export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
 
 export FZF_DEFAULT_OPTS='
 --layout=reverse
---height 50%
+--height 90%
 --border
 '
 
