@@ -54,7 +54,11 @@ This function should only modify configuration layer settings."
      markdown
      ;; themes-megapack
      ;; multiple-cursors
-     org
+     (org :variables
+          org-enable-roam-support t
+          org-enable-roam-ui t
+          org-enable-verb-support t
+          )
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -624,7 +628,6 @@ before packages are loaded."
 )
 
 ;; org mode ....................................................................
-(setq org-directory "~/Sync/Org/")
 (with-eval-after-load 'org
   (setq org-startup-indented t)
   (setq org-duration-units   `(("min" . 1)
@@ -634,6 +637,7 @@ before packages are loaded."
                                ("m" . ,(* 60 7 5 4))
                                ("y" . ,(* 60 7 5 4 11))))
   (org-duration-set-regexps)
+  (setq org-directory "~/Sync/Org/")
   )
 
 (load "~/.spacemacs.d/aert_functions.el")
