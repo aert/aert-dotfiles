@@ -82,7 +82,7 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(devdocs)
+   dotspacemacs-additional-packages '(devdocs sqlite3)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -256,14 +256,14 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         eziam-light
-                         eziam-dark
                          apropospriate-light
                          apropospriate-dark
-                         kaolin-light
-                         kaolin-eclipse
                          moe-light
                          moe-dark
+                         eziam-light
+                         eziam-dark
+                         kaolin-light
+                         kaolin-eclipse
                          material-light
                          material
                          doom-solarized-light
@@ -308,14 +308,14 @@ It should only modify the values of Spacemacs settings."
    ;; Default font or prioritized list of fonts. The `:size' can be specified as
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
-   ;; dotspacemacs-default-font '("Fantasque Sans Mono"
-   ;;                             :size 14.0
-   ;;                             :weight normal
-   ;;                             :width normal)
-   dotspacemacs-default-font '("Iosevka Term Slab"
-                               :size 16.0
+   dotspacemacs-default-font '("Fantasque Sans Mono"
+                               :size 14.0
                                :weight normal
                                :width normal)
+   ;; dotspacemacs-default-font '("Iosevka Term Slab"
+   ;;                             :size 16.0
+   ;;                             :weight normal
+   ;;                             :width normal)
 
    ;; The leader key (default "SPC")
    dotspacemacs-leader-key "SPC"
