@@ -1,19 +1,20 @@
 font:
   normal:
     # family: Iosevka Term Slab
-    family: Ubuntu Mono
+    # family: Rec Mono Duotone
+    family: Rec Mono Duotone
     style: Regular
 
   bold:
-    family: Ubuntu Mono
+    family: Rec Mono Duotone
     style: Bold
 
   italic:
-    family: Ubuntu Mono
+    family: Rec Mono Duotone
     style: Italic
 
   bold_italic:
-    family: Ubuntu Mono
+    family: Rec Mono Duotone
     style: Bold Italic
 
-  size: 14
+  size: 12
