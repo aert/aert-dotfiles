@@ -256,6 +256,8 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
+                         ir-black
+                         doom-solarized-dark
                          solarized-zenburn
                          apropospriate-light
                          apropospriate-dark
@@ -284,7 +286,6 @@ It should only modify the values of Spacemacs settings."
                          gruvbox-dark-medium
                          spacemacs-light
                          zenburn
-                         ir-black
                          solarized-wombat-dark
                          gruvbox-dark-soft
                          gruvbox-light-soft
