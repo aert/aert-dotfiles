@@ -257,8 +257,6 @@ It should only modify the values of Spacemacs settings."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
                          ir-black
-                         doom-solarized-dark
-                         solarized-zenburn
                          apropospriate-light
                          apropospriate-dark
                          moe-light
@@ -266,32 +264,7 @@ It should only modify the values of Spacemacs settings."
                          eziam-light
                          eziam-dark
                          kaolin-light
-                         kaolin-eclipse
-                         material-light
-                         material
-                         doom-solarized-light
-                         doom-solarized-dark
-                         doom-ephemeral
-                         doom-earl-grey
-                         inkpot
-                         rebecca
-                         wilson
-                         subatomic
-                         smyx
-                         railscasts
-                         monokai
-                         organic-green
-                         occidental
-                         gruvbox-light-hard
-                         gruvbox-dark-medium
-                         spacemacs-light
-                         zenburn
-                         solarized-wombat-dark
-                         gruvbox-dark-soft
-                         gruvbox-light-soft
-                         spacemacs-dark
-                         solarized-gruvbox-light
-                         soft-morning)
+                         kaolin-eclipse)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
