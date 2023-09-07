@@ -18,3 +18,9 @@ vmap , <leader>m
 " (Optional) Add/edit actions
 nnoremap <leader>gl    :action Vcs.Show.Log<CR>
 vnoremap <leader>gl    :action Vcs.Show.Log<CR>
+
+"--- AERT
+
+Plug 'tpope/vim-surround'
+noremap <Space>fyn   :action CopyFileName<CR>
+noremap <Space>fyY   :action CopyContentRootPath<CR>
