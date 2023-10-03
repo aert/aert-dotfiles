@@ -261,7 +261,7 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         brin
+                         chocolate
                          eziam-dark
                          eziam-light
                          majapahit-dark
@@ -594,6 +594,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq warning-minimum-level :emergency)
 
   (setq magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
+  (add-to-list 'magit-no-confirm 'stage-all-changes)
 )
 
 
