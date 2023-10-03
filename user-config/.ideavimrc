@@ -8,9 +8,6 @@ source ~/.intellimacs/hybrid.vim
 " (Optional) Enable which-key plugin
 source ~/.intellimacs/which-key.vim
 
-" (Optional) My own vim commands
-nnoremap Y y$
-
 " (Optional) Comma for major mode
 nmap , <leader>m
 vmap , <leader>m
@@ -20,6 +17,8 @@ nnoremap <leader>gl    :action Vcs.Show.Log<CR>
 vnoremap <leader>gl    :action Vcs.Show.Log<CR>
 
 "--- AERT
+
+set clipboard=unnamed,ideaput " integrate with system clipboard
 
 Plug 'tpope/vim-surround'
 noremap <Space>fyn   :action CopyFileName<CR>

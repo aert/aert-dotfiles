@@ -65,12 +65,17 @@ This function should only modify configuration layer settings."
      ;; spell-checking
      syntax-checking
      version-control
-     treemacs
+     (treemacs :variables
+               treemacs-use-scope-type 'Perspectives)
      ;; mines
      ruby
      (sql :variables sql-capitalize-keywords t)
      docker
      groovy
+     ;; optional
+     copy-as-format
+     dtrt-indent
+     nav-flash
      )
 
 
@@ -256,15 +261,16 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         zenburn
+                         brin
+                         eziam-dark
+                         eziam-light
                          majapahit-dark
+                         zenburn
                          ir-black
                          apropospriate-light
                          apropospriate-dark
                          moe-light
                          moe-dark
-                         eziam-light
-                         eziam-dark
                          kaolin-light
                          kaolin-eclipse)
 
@@ -284,10 +290,13 @@ It should only modify the values of Spacemacs settings."
    ;; Default font or prioritized list of fonts. The `:size' can be specified as
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
-   dotspacemacs-default-font '("Rec Mono Duotone"
+   dotspacemacs-default-font '("Monaco"
                                :size 16.0
-                               :weight normal
-                               :width normal)
+                               :weight normal)
+   ;; dotspacemacs-default-font '("Rec Mono Duotone"
+   ;;                             :size 16.0
+   ;;                             :weight normal
+   ;;                             :width normal)
    ;; dotspacemacs-default-font '("Fantasque Sans Mono"
    ;;                             :size 14.0
    ;;                             :weight normal
@@ -583,7 +592,8 @@ configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq warning-minimum-level :emergency)
-  ;; (setq-default git-magit-status-fullscreen t)
+
+  (setq magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
 )
 
 
