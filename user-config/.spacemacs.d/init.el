@@ -615,6 +615,18 @@ before packages are loaded."
   (setq lsp-headerline-breadcrumb-enable nil)
   (setq lsp-headerline-breadcrumb-enable-diagnostics nil)
   (add-hook 'hack-local-variables-hook #'spacemacs/toggle-truncate-lines-on)
+
+  ;; nav-flash .................................................................
+  ;; blink after triggering evil-window-left/right/up/down
+  (advice-add #'evil-window-left  :after #'nav-flash/blink-cursor-maybe)
+  (advice-add #'evil-window-right :after #'nav-flash/blink-cursor-maybe)
+  (advice-add #'evil-window-up    :after #'nav-flash/blink-cursor-maybe)
+  (advice-add #'evil-window-down  :after #'nav-flash/blink-cursor-maybe)
+
+  ;; blink after a delay in after projectile-switch-project
+  (spacemacs/add-to-hooks #'nav-flash/delayed-blink-cursor-h
+                          '(projectile-after-switch-project-hook)
+                          t)
 )
 
 ;; org mode ....................................................................
