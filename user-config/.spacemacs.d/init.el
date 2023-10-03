@@ -594,7 +594,6 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq warning-minimum-level :emergency)
 
   (setq magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
-  (add-to-list 'magit-no-confirm 'stage-all-changes)
 )
 
 
