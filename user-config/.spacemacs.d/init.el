@@ -262,18 +262,8 @@ It should only modify the values of Spacemacs settings."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
                          alect-black-alt
-                         chocolate
-                         eziam-dark
-                         eziam-light
-                         majapahit-dark
-                         zenburn
-                         ir-black
-                         apropospriate-light
-                         apropospriate-dark
-                         moe-light
-                         moe-dark
-                         kaolin-light
-                         kaolin-eclipse)
+                         alect-light
+                         chocolate)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
