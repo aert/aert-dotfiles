@@ -54,11 +54,9 @@ This function should only modify configuration layer settings."
      markdown
      themes-megapack
      ;; multiple-cursors
-     (org :variables
-          org-enable-roam-support t
-          org-enable-roam-ui t
-          org-enable-verb-support t
-          )
+     (org :variables org-enable-verb-support t)
+     deft
+
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -628,6 +626,9 @@ before packages are loaded."
   (spacemacs/add-to-hooks #'nav-flash/delayed-blink-cursor-h
                           '(projectile-after-switch-project-hook)
                           t)
+
+  ;; org .......................................................................
+  (setq deft-directory "~/Sync/Org/deft")
 )
 
 ;; org mode ....................................................................
