@@ -2,6 +2,10 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
+;; Requirements:
+;; $ npm i -g yaml-language-server
+;; $ sudo apt install yamllint
+
 (defun dotspacemacs/layers ()
   "Layer configuration:
 This function should only modify configuration layer settings."
@@ -35,7 +39,7 @@ This function should only modify configuration layer settings."
    '(typescript
      nginx
      systemd
-     yaml
+     (yaml :variables yaml-enable-lsp t)
      html
      javascript
      ;; ----------------------------------------------------------------
@@ -74,6 +78,7 @@ This function should only modify configuration layer settings."
      copy-as-format
      dtrt-indent
      nav-flash
+     eww
      )
 
 
