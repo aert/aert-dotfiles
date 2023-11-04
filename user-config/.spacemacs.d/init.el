@@ -66,7 +66,7 @@ This function should only modify configuration layer settings."
             shell-default-position 'bottom)
      ;; spell-checking
      syntax-checking
-     version-control
+     (version-control :variables version-control-diff-tool 'git-gutter)
      (treemacs :variables
                treemacs-use-scope-type 'Perspectives)
      ;; mines
