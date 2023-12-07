@@ -271,6 +271,7 @@ It should only modify the values of Spacemacs settings."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
                          doom-nord
+                         doom-earl-grey
                          alect-black-alt
                          moe-light
                          alect-light
