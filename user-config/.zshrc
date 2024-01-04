@@ -189,6 +189,7 @@ alias xt="lsd -l --date relative --total-size"
 alias vpn_from_ssh="sshuttle 0/0 --dns -r"
 alias my-iozone="iozone -a -I -b iozone-results.xls"
 alias mosh="export LC_ALL=\"en_US.UTF8\" && mosh"
+alias mux=tmuxinator
 
 chpwd() {
   x
