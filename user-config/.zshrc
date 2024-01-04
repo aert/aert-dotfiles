@@ -165,6 +165,7 @@ export GOPATH=$HOME/Code/gowork
 export PATH=$PATH:$GOPATH/bin
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$PATH":"$HOME/.pub-cache/bin"
+export EDITOR="nvim"
 
 # export RUBY_CONFIGURE_OPTS="--with-openssl-dir=/opt/openssl-1.1.1o/"
 
