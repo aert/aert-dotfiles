@@ -47,8 +47,8 @@ set background=dark
 " colorscheme PaperColor
 " colorscheme duskfox
 " let g:airline_theme = 'solarized'
-colorscheme enfocado
-let g:airline_theme = 'enfocado'
+"" colorscheme enfocado
+"" let g:airline_theme = 'enfocado'
 " let g:enfocado_style = 'nature'
 
 " let g:airline_theme = 'jellybeans'

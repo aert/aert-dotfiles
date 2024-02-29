@@ -1,4 +1,4 @@
-call plug#begin('~/.vim/bundle')
+call plug#begin()
 
 "### system ###################################################################
 Plug 'tpope/vim-dispatch'
@@ -92,12 +92,12 @@ let g:ale_linters_explicit = 1
 
 
 " completion
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-Plug 'hrsh7th/cmp-path'
-Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+" Plug 'hrsh7th/nvim-cmp'
+" Plug 'hrsh7th/cmp-nvim-lsp'
+" Plug 'hrsh7th/cmp-buffer'
+" Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+" Plug 'hrsh7th/cmp-path'
+" Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 
 " auto-pairs ..................................................................
 Plug 'jiangmiao/auto-pairs'
@@ -198,7 +198,7 @@ let g:ctrlsf_ignore_dir = ["node_modules", "coverage", "dist", "vendor", "target
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 
 " nvim-tree ...................................................................
-Plug 'kyazdani42/nvim-tree.lua'
+Plug 'nvim-tree/nvim-tree.lua'
 
 " Plug 'ludovicchabant/vim-gutentags'
 " let g:gutentags_cache_dir = '~/.cache/gutentags'
@@ -245,8 +245,8 @@ let g:airline_powerline_fonts = 1
 
 " Plug 'jnurmine/Zenburn'
 
-Plug 'EdenEast/nightfox.nvim'
-Plug 'wuelnerdotexe/vim-enfocado'
+" Plug 'EdenEast/nightfox.nvim'
+" Plug 'wuelnerdotexe/vim-enfocado'
 
 "### languages ################################################################
 

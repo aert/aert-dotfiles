@@ -270,8 +270,9 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         doom-earl-grey
+                         doom-palenight
                          doom-nord
+                         doom-earl-grey
                          alect-black-alt
                          moe-light
                          alect-light
@@ -293,9 +294,9 @@ It should only modify the values of Spacemacs settings."
    ;; Default font or prioritized list of fonts. The `:size' can be specified as
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
-   dotspacemacs-default-font '("JetBrains Mono Nerd Font"
-                               :size 15.0
-                               :weight normal)
+   ;; dotspacemacs-default-font '("JetBrains Mono Nerd Font"
+   ;;                             :size 15.0
+   ;;                             :weight normal)
    ;; dotspacemacs-default-font '("OperatorMono Nerd Font"
    ;;                             :size 15.0
    ;;                             :weight normal)
@@ -309,10 +310,10 @@ It should only modify the values of Spacemacs settings."
    ;;                             :size 16.0
    ;;                             :weight normal
    ;;                             :width normal)
-   ;; dotspacemacs-default-font '("Fantasque Sans Mono"
-   ;;                             :size 14.0
-   ;;                             :weight normal
-   ;;                             :width normal)
+   dotspacemacs-default-font '("Fantasque Sans Mono"
+                               :size 18.0
+                               :weight normal
+                               :width normal)
    ;; dotspacemacs-default-font '("Iosevka Term Slab"
    ;;                             :size 16.0
    ;;                             :weight normal
@@ -417,7 +418,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup t
+   ;; dotspacemacs-maximized-at-startup t
 
    ;; If non-nil the frame is undecorated when Emacs starts up. Combine this
    ;; variable with `dotspacemacs-maximized-at-startup' in OSX to obtain
@@ -427,7 +428,7 @@ It should only modify the values of Spacemacs settings."
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
-   dotspacemacs-active-transparency 90
+   dotspacemacs-active-transparency 80
 
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's inactive or deselected.
@@ -624,7 +625,7 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   ;; LSP .......................................................................
-  (setq lsp-headerline-breadcrumb-enable nil)
+  ;; (setq lsp-headerline-breadcrumb-enable nil)
   (setq lsp-headerline-breadcrumb-enable-diagnostics nil)
   (add-hook 'hack-local-variables-hook #'spacemacs/toggle-truncate-lines-on)
 

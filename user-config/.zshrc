@@ -185,6 +185,7 @@ export FZF_DEFAULT_OPTS='
 
 # alias x="exa -l --time-style long-iso --git"
 alias x="lsd -l --date relative"
+alias vim="nvim"
 alias xt="lsd -l --date relative --total-size"
 alias vpn_from_ssh="sshuttle 0/0 --dns -r"
 alias my-iozone="iozone -a -I -b iozone-results.xls"
