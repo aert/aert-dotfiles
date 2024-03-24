@@ -58,7 +58,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # NOTE:  zsh-syntax-highlighting must be at the end rake-fast rails 
-plugins=(asdf docker docker-compose git fzf-tab zsh-autosuggestions fast-syntax-highlighting)
+plugins=(asdf docker docker-compose git fzf-tab zsh-autosuggestions F-Sy-H)
 source $ZSH/oh-my-zsh.sh
 
 # plugin: zsh_autosuggest
@@ -134,8 +134,6 @@ export GPG_TTY=$TTY
 
 export PATH="$HOME/.local/bin:$PATH"
 
-eval "$(direnv hook zsh)"
-
 # #-- pyenv
 # export PATH="$HOME/.pyenv/bin:$PATH"
 # eval "$(pyenv init -)"
@@ -153,9 +151,14 @@ alias sm='smerge .'
 alias be='bundle exec'
 alias k='kubectl'
 
+# ssh-agent
+/usr/bin/keychain --nogui --quiet ~/.ssh/id_ed25519
+. $HOME/.keychain/$HOST-sh
+
 #-- node
 # export NVM_DIR="/home/ari/.nvm"
 ## [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use
+
 
 #-- yarn
 export PATH="$HOME/.yarn/bin:$PATH"
@@ -172,16 +175,6 @@ export EDITOR="nvim"
 export BAT_THEME="zenburn" 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# fzf + ag configuration
-export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
-
-export FZF_DEFAULT_OPTS='
---layout=reverse
---height 90%
---border
-'
 
 # alias x="exa -l --time-style long-iso --git"
 alias x="lsd -l --date relative"
@@ -213,11 +206,3 @@ function vterm_printf(){
     fi
 }
 #--- emacs vterm setup }}}
-
-# pnpm
-export PNPM_HOME="/home/ari/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
