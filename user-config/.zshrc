@@ -152,8 +152,8 @@ alias be='bundle exec'
 alias k='kubectl'
 
 # ssh-agent
-/usr/bin/keychain --nogui --quiet ~/.ssh/id_ed25519
-. $HOME/.keychain/$HOST-sh
+# /usr/bin/keychain --nogui --quiet ~/.ssh/id_ed25519
+# . $HOME/.keychain/$HOST-sh
 
 #-- node
 # export NVM_DIR="/home/ari/.nvm"
@@ -175,6 +175,7 @@ export EDITOR="nvim"
 export BAT_THEME="zenburn" 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
 
 # alias x="exa -l --time-style long-iso --git"
 alias x="lsd -l --date relative"
