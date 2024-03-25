@@ -1,8 +1,8 @@
 #!/bin/sh
 
 gsettings set org.gnome.Terminal.Legacy.Settings headerbar false
-# gsettings set org.gnome.desktop.wm.preferences num-workspaces 10
-gsettings set org.gnome.desktop.wm.preferences num-workspaces 5
+gsettings set org.gnome.desktop.wm.preferences num-workspaces 10
+# gsettings set org.gnome.desktop.wm.preferences num-workspaces 5
 
 gsettings set org.gnome.shell.keybindings switch-to-application-1  "[]"
 gsettings set org.gnome.shell.keybindings switch-to-application-2  "[]"
