@@ -5,7 +5,7 @@ set -ex
 # https://medium.com/opsops/how-to-disable-packagekit-f935207044c1
 sudo dpkg-divert --divert /etc/PackageKit/20packagekit.distrib --rename /etc/apt/apt.conf.d/20packagekit
 
-sudo apt install -y meld tig vim htop zsh xclip tmux ranger sirikali
+sudo apt install -y meld tig vim htop zsh xclip tmux ranger sirikali fonts-ibm-plex
 
 # asdf ........................................................................
 
