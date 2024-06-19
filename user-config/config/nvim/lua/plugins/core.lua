@@ -1,8 +1,11 @@
 -- https://www.lazyvim.org/configuration/recipes#make-tokyonight-transparent
-return {
+return {  -- add gruvbox
+  { "ellisonleao/gruvbox.nvim" },
   {
-    "folke/tokyonight.nvim",
+    -- "folke/tokyonight.nvim",
+    "LazyVim/LazyVim",
     opts = {
+      colorscheme = "gruvbox",
       transparent = true,
       styles = {
         sidebars = "transparent",
