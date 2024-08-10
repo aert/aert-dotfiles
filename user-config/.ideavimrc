@@ -18,7 +18,7 @@ vnoremap <leader>gl    :action Vcs.Show.Log<CR>
 
 "--- AERT
 
-set clipboard=unnamed,ideaput " integrate with system clipboard
+" set clipboard=unnamed,ideaput " integrate with system clipboard
 
 Plug 'tpope/vim-surround'
 noremap <Space>fyn   :action CopyFileName<CR>

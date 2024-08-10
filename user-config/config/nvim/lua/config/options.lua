@@ -9,4 +9,4 @@ opt.relativenumber = false
 -- Use :LazyFormat to format
 vim.g.autoformat = false
 
-vim.go.background = "light"
+-- vim.go.background = "light"
