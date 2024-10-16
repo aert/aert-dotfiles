@@ -10,3 +10,5 @@ opt.relativenumber = false
 vim.g.autoformat = false
 
 -- vim.go.background = "light"
+
+vim.g.mapleader = ","

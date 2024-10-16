@@ -5,7 +5,12 @@ return {  -- add gruvbox
     -- "folke/tokyonight.nvim",
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "gruvbox",
+      -- colorscheme = "gruvbox",
+      -- colorscheme = "catppuccin-mocha",
+      -- colorscheme = "murphy",
+      -- colorscheme = "desert",
+      colorscheme = "tokyonight-day",
+      -- colorscheme = "vim",
       transparent = true,
       styles = {
         sidebars = "transparent",

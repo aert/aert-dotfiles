@@ -29,11 +29,11 @@ end, {})
 
 -- mappings ...................................................................
 
-map({ "n", "v" }, "<leader>yf", function()
+map({ "n", "v" }, "<leader>yF", function()
   vim.cmd("MyCopyRelativePath")
 end, { desc = mapfile .. "Copy relative path" })
 
-map({ "n", "v" }, "<leader>yF", function()
+map({ "n", "v" }, "<leader>yf", function()
   vim.cmd("MyCopyNamePath")
 end, { desc = mapfile .. "Copy filename" })
 
