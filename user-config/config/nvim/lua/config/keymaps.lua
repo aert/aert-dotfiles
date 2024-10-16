@@ -6,6 +6,7 @@
 local map = vim.keymap.set
 local mapfile = " "
 local user_cmd = vim.api.nvim_create_user_command
+local wk = require("which-key")
 
 -- utils ......................................................................
 
@@ -40,3 +41,19 @@ end, { desc = mapfile .. "Copy filename" })
 map({ "n", "v" }, "<leader>yl", function()
   vim.cmd("MyCopyPathLine")
 end, { desc = mapfile .. "Copy path & line" })
+
+wk.add({
+  mode = { "n", "v" },
+  { "<leader>cr", group = "coercion" },
+  { "<leader>cr-", desc = "Kebab Case (not reversible)" },
+  { "<leader>cr.", desc = "Dot Case (not reversible)" },
+  { "<leader>cr<space>", desc = "Space Case (not reversible)" },
+  { "<leader>crU", desc = "Snake Upper Case" },
+  { "<leader>cr_", desc = "Snake Case" },
+  { "<leader>crc", desc = "Camel Case" },
+  { "<leader>crk", desc = "Kebab Case" },
+  { "<leader>crm", desc = "Mixed Case" },
+  { "<leader>crs", desc = "Snake Case" },
+  { "<leader>crt", desc = "Title Case (not reversible)" },
+  { "<leader>cru", desc = "Snake Upper Case" },
+})
