@@ -9,7 +9,7 @@ return {  -- add gruvbox
       -- colorscheme = "catppuccin-mocha",
       -- colorscheme = "murphy",
       -- colorscheme = "desert",
-      colorscheme = "tokyonight-day",
+      colorscheme = "tokyonight-moon",
       -- colorscheme = "vim",
       transparent = true,
       styles = {
