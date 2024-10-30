@@ -1,6 +1,7 @@
 -- https://www.lazyvim.org/configuration/recipes#make-tokyonight-transparent
 return {  -- add gruvbox
   { "ellisonleao/gruvbox.nvim" },
+  { "rebelot/kanagawa.nvim" },
   {
     -- "folke/tokyonight.nvim",
     "LazyVim/LazyVim",
@@ -9,7 +10,8 @@ return {  -- add gruvbox
       -- colorscheme = "catppuccin-mocha",
       -- colorscheme = "murphy",
       -- colorscheme = "desert",
-      colorscheme = "tokyonight-moon",
+      -- colorscheme = "tokyonight-moon",
+      colorscheme = "kanagawa-lotus",
       -- colorscheme = "vim",
       transparent = true,
       styles = {
