@@ -1,7 +1,15 @@
 -- https://www.lazyvim.org/configuration/recipes#make-tokyonight-transparent
-return {  -- add gruvbox
+return {
+  -- themes
   { "ellisonleao/gruvbox.nvim" },
   { "rebelot/kanagawa.nvim" },
+  { "sainnhe/everforest" },
+  { "EdenEast/nightfox.nvim" },
+  {
+    "scottmckendry/cyberdream.nvim",
+    lazy = false,
+    priority = 1000,
+  },
   {
     -- "folke/tokyonight.nvim",
     "LazyVim/LazyVim",
