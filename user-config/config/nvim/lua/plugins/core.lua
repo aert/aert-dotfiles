@@ -19,7 +19,7 @@ return {
       -- colorscheme = "murphy",
       -- colorscheme = "desert",
       -- colorscheme = "tokyonight-moon",
-      colorscheme = "kanagawa-lotus",
+      colorscheme = "kanagawa",
       -- colorscheme = "vim",
       transparent = true,
       styles = {

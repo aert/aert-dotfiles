@@ -145,7 +145,7 @@ export SHELL=/bin/zsh
 alias ouvrir='xdg-open'
 alias cb='xclip -sel clip'
 alias cdgit='cd $(git rev-parse --show-cdup)'
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+alias alert='notify-send -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias tcopy='tmux show-buffer | cb && alert "$(tmux show-buffer)"'
 alias sm='smerge .'
 alias be='bundle exec'
@@ -181,6 +181,8 @@ export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
 alias x="lsd -l --date relative"
 alias n="nvim"
 alias xt="lsd -l --date relative --total-size"
+alias lg="lazygit"
+alias ldoc="lazydocker"
 alias vpn_from_ssh="sshuttle 0/0 --dns -r"
 alias my-iozone="iozone -a -I -b iozone-results.xls"
 alias mosh="export LC_ALL=\"en_US.UTF8\" && mosh"
