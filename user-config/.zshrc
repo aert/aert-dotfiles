@@ -129,8 +129,9 @@ export PATH=~/bin/local/flutter/bin:$PATH
 # If gnupg2 and gpg-agent 2.x are used, be sure to set the environment variable GPG_TTY
 export GPG_TTY=$TTY
 
-#-- rbenv
-. $HOME/.asdf/asdf.sh
+#-- dev tools installer
+# . $HOME/.asdf/asdf.sh
+eval "$(/home/ari/.local/bin/mise activate zsh)"
 
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -164,7 +165,7 @@ alias k='kubectl'
 export PATH="$HOME/.yarn/bin:$PATH"
 
 export PATH=$PATH:/usr/local/go/bin
-export GOPATH=$HOME/Code/gowork
+export XZ_OPT='-T0 -9'
 export PATH=$PATH:$GOPATH/bin
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$PATH":"$HOME/.pub-cache/bin"

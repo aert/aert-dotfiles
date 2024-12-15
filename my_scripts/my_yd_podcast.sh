@@ -1,3 +1,3 @@
 #!/bin/sh
 
-youtube-dl --extract-audio --audio-format mp3 -f 'worstaudio' -o '%(title)s.%(ext)s' --restrict-filenames $1
+yt-dlp --extract-audio --audio-format mp3 -f 'worstaudio' -o '%(title)s.%(ext)s' --restrict-filenames $1

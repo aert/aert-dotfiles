@@ -1,3 +1,3 @@
 #!/bin/sh
 
-youtube-dl -o '%(title)s.%(ext)s' --restrict-filenames -f 18 $1
+yt-dlp -o '%(title)s.%(ext)s' --restrict-filenames -f 18 $1
