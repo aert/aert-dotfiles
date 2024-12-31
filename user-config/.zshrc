@@ -131,7 +131,7 @@ export GPG_TTY=$TTY
 
 #-- dev tools installer
 # . $HOME/.asdf/asdf.sh
-eval "$(/home/ari/.local/bin/mise activate zsh)"
+eval "$($HOME/.local/bin/mise activate zsh)"
 
 export PATH="$HOME/.local/bin:$PATH"
 

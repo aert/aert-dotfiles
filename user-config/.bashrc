@@ -1,7 +1,6 @@
 
 #-- asdf
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
+eval "$($HOME/.local/bin/mise activate bash)"
 
 #-- yarn
 export PATH="$HOME/.yarn/bin:$PATH"

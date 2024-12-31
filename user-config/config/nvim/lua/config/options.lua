@@ -6,6 +6,8 @@
 local opt = vim.opt
 opt.relativenumber = false
 
+vim.g.snacks_animate = false
+
 -- Use :LazyFormat to format
 vim.g.autoformat = false
 
