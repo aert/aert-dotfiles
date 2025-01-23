@@ -1,5 +1,0 @@
-# name: tcs
-# key: tcs
-# --
-t.string :${1:title}
-$0

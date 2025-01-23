@@ -1,6 +1,0 @@
-# name: fe
-# key: fe
-# --
-foreach ($1) begin
-  $0
-end

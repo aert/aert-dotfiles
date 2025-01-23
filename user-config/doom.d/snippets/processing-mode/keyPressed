@@ -1,6 +1,0 @@
-# name: keyPressed
-# key: keyPressed
-# --
-void keyPressed(){
-  $0
-}

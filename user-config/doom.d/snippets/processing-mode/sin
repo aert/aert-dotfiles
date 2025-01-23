@@ -1,4 +1,0 @@
-# name: sin
-# key: sin
-# --
-sin(${0:rad});

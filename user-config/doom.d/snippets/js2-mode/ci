@@ -1,4 +1,0 @@
-# name: "console.info"
-# key: ci
-# --
-console.info($0);

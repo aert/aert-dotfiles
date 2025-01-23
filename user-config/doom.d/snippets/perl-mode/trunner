@@ -1,5 +1,0 @@
-# name: trunner
-# key: trunner
-# --
-use ${0:test_class};
-$1->runtests();

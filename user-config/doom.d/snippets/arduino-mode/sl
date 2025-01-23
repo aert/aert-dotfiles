@@ -1,5 +1,0 @@
-# name: sl
-# key: sl
-# --
-Serial.println($1);
-

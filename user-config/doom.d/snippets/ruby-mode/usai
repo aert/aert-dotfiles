@@ -1,6 +1,0 @@
-# name: usai
-# key: usai
-# --
-if ARGV.$1
-  abort "Usage: #{$PROGRAM_NAME} ${2:ARGS_GO_HERE}"$0
-end

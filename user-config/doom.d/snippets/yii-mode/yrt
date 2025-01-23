@@ -1,4 +1,0 @@
-# name: yrt
-# key: yrt
-# --
-$this->renderText('$0');

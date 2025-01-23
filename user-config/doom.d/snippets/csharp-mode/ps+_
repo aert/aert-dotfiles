@@ -1,4 +1,0 @@
-# name: ps+|
-# key: ps+|
-# --
-public string $1 { get; protected set; }

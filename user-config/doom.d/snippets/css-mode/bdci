@@ -1,4 +1,0 @@
-# name: bdci
-# key: bdci
-# --
-border-corner-image: url($0);

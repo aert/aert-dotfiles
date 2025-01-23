@@ -1,8 +1,0 @@
-# name: ppb
-# key: ppb
-# --
-procedure ${1:name}(${2:args})
-as
-begin
-  ${0:-- body}
-end $2;

@@ -1,4 +1,0 @@
-# name: ffff
-# key: ffff
-# --
-<%= ${1:f}.file_field :${0:attribute} %>

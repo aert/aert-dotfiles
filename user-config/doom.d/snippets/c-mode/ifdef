@@ -1,6 +1,0 @@
-# name: ifdef
-# key: ifdef
-# --
-#ifdef ${1:FOO}
-  ${2:#define }
-#endif

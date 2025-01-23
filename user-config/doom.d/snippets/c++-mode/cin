@@ -1,4 +1,0 @@
-# name: cin
-# key: cin
-# --
-std::cin >> $1;

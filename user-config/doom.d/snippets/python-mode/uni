@@ -1,5 +1,0 @@
-# name: uni
-# key: uni
-# --
-def __unicode__(self):
-  ${0:representation}

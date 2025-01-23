@@ -1,4 +1,0 @@
-# name: "feature attribute" b
-# key: feat
-# --
-#![feature(${1:plugin})]

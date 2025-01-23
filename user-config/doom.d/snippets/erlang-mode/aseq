@@ -1,4 +1,0 @@
-# name: aseq
-# key: aseq
-# --
-?assertEqual($1, $0)

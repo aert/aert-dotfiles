@@ -1,4 +1,0 @@
-# name: isee
-# key: isee
-# --
-it { should ensure_exclusion_of :$0 }

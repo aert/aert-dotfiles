@@ -1,4 +1,0 @@
-# name: "Type constraint"
-# key: =>
-# --
-(${1:Class} ${2:a}) => $2

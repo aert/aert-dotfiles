@@ -1,4 +1,0 @@
-# name: isv
-# key: isv
-# --
-$1 : in std_logic_vector ($2 downto 0);

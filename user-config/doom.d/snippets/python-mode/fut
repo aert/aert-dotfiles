@@ -1,4 +1,0 @@
-# name: fut
-# key: fut
-# --
-from __future__ import $0

@@ -1,4 +1,0 @@
-# name: exit when
-# key: ex
-# --
-exit when $1;$0

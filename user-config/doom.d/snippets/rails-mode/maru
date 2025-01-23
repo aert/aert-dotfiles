@@ -1,4 +1,0 @@
-# name: maru
-# key: maru
-# --
-around_update :${0:method}

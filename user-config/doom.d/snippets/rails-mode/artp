@@ -1,4 +1,0 @@
-# name: artp
-# key: artp
-# --
-assert_redirected_to ${1:model}_path(${0:@$1})

@@ -1,4 +1,0 @@
-# name: namespace
-# key: namespace
-# --
-<%namespace file="${0:name}" />

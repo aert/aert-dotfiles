@@ -1,4 +1,0 @@
-# name: emerg
-# key: emerg
-# --
-emerg("${1:message}")

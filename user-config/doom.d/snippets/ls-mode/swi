@@ -1,7 +1,0 @@
-# name: swi
-# key: swi
-# --
-switch ${1:object}
-case ${2:value}
-  $3
-default void

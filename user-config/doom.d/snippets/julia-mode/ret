@@ -1,4 +1,0 @@
-# name: return
-# key: ret
-# --
-return($0)

@@ -1,4 +1,0 @@
-# name: yrd
-# key: yrd
-# --
-$this->renderDynamic('${0:callback}');

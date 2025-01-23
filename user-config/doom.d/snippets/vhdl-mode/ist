@@ -1,4 +1,0 @@
-# name: ist
-# key: ist
-# --
-$1 : in std_logic;

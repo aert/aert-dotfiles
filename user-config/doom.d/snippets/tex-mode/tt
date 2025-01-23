@@ -1,4 +1,0 @@
-# name: typewriter (monospace) text
-# key: tt
-# --
-\\texttt{${0:${VISUAL:text}}}

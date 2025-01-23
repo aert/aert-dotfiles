@@ -1,4 +1,0 @@
-# name: yr
-# key: yr
-# --
-$this->render('${1:view}',array('${2:key}'=>${0:value}));

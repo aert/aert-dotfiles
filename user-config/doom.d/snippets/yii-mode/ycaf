@@ -1,4 +1,0 @@
-# name: ycaf
-# key: ycaf
-# --
-Yii::app()->cache->flush();

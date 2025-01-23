@@ -1,5 +1,0 @@
-# name: mod
-# key: mod
-# --
-module  exposing ($1)
-$0

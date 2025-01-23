@@ -1,4 +1,0 @@
-# name: Drejw
-# key: Drejw
-# --
-${1:deferred}.rejectWith(${2:this}, ${3:args})

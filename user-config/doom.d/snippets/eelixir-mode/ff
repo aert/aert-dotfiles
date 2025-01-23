@@ -1,8 +1,0 @@
-# name: ff
-# key: ff
-# --
-<%= form_for @changeset, ${1:"/users"}, fn f -> %>
-  	$0
-
-  <%= submit "Submit" %>
-<% end %>

@@ -1,6 +1,0 @@
-# name: defmo
-# key: defmo
-# --
-defmodule ${1:`(s-replace " " "" (s-titleized-words (file-name-base (or (buffer-file-name) ""))))`} do
-  $0
-end

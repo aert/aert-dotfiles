@@ -1,4 +1,0 @@
-# name: isfunc
-# key: isfunc
-# --
-$.isFunction(${1:obj})

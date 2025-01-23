@@ -1,4 +1,0 @@
-# name: mard
-# key: mard
-# --
-around_destroy :${0:method}

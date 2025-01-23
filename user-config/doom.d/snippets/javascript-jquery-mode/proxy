@@ -1,4 +1,0 @@
-# name: proxy
-# key: proxy
-# --
-$.proxy(${1:function}, ${2:this})

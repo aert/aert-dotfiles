@@ -1,4 +1,0 @@
-# name: pi&|
-# key: pi&|
-# --
-internal int $1 { get; protected set; }

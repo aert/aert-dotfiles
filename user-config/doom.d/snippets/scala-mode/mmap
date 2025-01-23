@@ -1,4 +1,0 @@
-# name: mmap
-# key: mmap
-# --
-mutable.Map[${1:T},${2:T}]${0:(keyval)}

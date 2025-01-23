@@ -1,4 +1,0 @@
-# name: jsit
-# key: jsit
-# --
-<%= javascript_include_tag "$0" %>

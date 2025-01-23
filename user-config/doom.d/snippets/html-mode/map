@@ -1,6 +1,0 @@
-# name: map
-# key: map
-# --
-<map name="$1">
-  $0
-</map>

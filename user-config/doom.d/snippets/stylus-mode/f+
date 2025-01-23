@@ -1,4 +1,0 @@
-# name: f+
-# key: f+
-# --
-font ${1:1em} ${2:Arial},${0:sans-serif}

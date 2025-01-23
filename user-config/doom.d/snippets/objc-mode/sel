@@ -1,4 +1,0 @@
-# name: sel
-# key: sel
-# --
-@selector(${1:method}:)

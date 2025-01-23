@@ -1,4 +1,0 @@
-# name: contains
-# key: contains
-# --
-${fn:contains(${1:string}, ${0:substr})}

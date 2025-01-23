@@ -1,4 +1,0 @@
-# name: fore
-# key: fore
-# --
-${1:expression} foreach @${2:array};

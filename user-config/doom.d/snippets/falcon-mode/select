@@ -1,8 +1,0 @@
-# name: select
-# key: select
-# --
-select ${1:variable}
-  case ${2:TypeSpec}
-  case ${0:TypeSpec}
-  default
-end

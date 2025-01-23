@@ -1,4 +1,0 @@
-# name: mbv
-# key: mbv
-# --
-before_validation :${0:method}

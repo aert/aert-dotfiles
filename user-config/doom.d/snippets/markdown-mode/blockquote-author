@@ -1,6 +1,0 @@
-# name: blockquote-author
-# key: blockquote-author
-# --
-{% blockquote ${1:author}, ${2:title} %}
-${0:quote}
-{% endblockquote %}

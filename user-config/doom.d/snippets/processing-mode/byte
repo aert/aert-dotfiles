@@ -1,4 +1,0 @@
-# name: byte
-# key: byte
-# --
-byte ${1:b}${2: = }${0:127};

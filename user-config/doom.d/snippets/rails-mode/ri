@@ -1,4 +1,0 @@
-# name: ri
-# key: ri
-# --
-render inline: "${0:<%= 'hello' %>}"

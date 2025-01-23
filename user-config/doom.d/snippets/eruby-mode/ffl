@@ -1,4 +1,0 @@
-# name: ffl
-# key: ffl
-# --
-<%= ${1:f}.label :${2:attribute}, '${0:$2}' %>

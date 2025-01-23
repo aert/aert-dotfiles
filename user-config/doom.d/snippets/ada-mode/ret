@@ -1,6 +1,0 @@
-# name: extended return
-# key: ret
-# --
-return $1 do
-  $0
-end return;

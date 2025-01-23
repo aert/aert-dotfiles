@@ -1,4 +1,0 @@
-# name: yuserip
-# key: yuserip
-# --
-YYii::app()->request->userHostAddress

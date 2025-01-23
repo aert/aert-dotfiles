@@ -1,4 +1,0 @@
-# name: ibad
-# key: ibad
-# --
-- (IBAction)${1:method}:(${2:id})sender;

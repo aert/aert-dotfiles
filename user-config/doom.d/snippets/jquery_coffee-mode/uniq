@@ -1,4 +1,0 @@
-# name: uniq
-# key: uniq
-# --
-$.unique(${1:array})

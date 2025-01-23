@@ -1,6 +1,0 @@
-# name: asntd
-# key: asntd
-# --
-assert_nothing_thrown do
-  $0
-end

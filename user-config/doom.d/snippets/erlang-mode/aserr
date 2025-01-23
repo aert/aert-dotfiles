@@ -1,4 +1,0 @@
-# name: aserr
-# key: aserr
-# --
-?assertError(${1:Pattern}, ${0:Expression})

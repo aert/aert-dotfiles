@@ -1,4 +1,0 @@
-# name: embed
-# key: embed
-# --
-<embed src="$1" type="$0" />

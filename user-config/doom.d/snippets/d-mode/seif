@@ -1,6 +1,0 @@
-# name: seif
-# key: seif
-# --
-else static if($1) {
-  $2
-} 

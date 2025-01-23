@@ -1,4 +1,0 @@
-# name: vn
-# key: vn
-# --
-validates :${0:attribute}, numericality: true

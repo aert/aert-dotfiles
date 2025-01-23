@@ -1,4 +1,0 @@
-# name: parent
-# key: parent
-# --
-use parent qw(${0:Parent Class});

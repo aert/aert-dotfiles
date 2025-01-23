@@ -1,4 +1,0 @@
-# name: yhc
-# key: yhc
-# --
-echo CHtml::cdata(${0:text});

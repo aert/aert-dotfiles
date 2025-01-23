@@ -1,6 +1,0 @@
-# name: class .. end
-# key: mod
-# --
-module ${1:}
-  $0
-end

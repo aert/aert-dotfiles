@@ -1,6 +1,0 @@
-# name: gather(ed) environment
-# key: gat
-# --
-\\begin{gather${1:ed}}
-  ${0:`yas-selected-text`}
-\\end{gather$1}

@@ -1,4 +1,0 @@
-# name: tapply
-# key: tapply
-# --
-tapply(${1:vector}, ${2:index}, ${0:function})

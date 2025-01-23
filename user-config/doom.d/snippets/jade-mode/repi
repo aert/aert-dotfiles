@@ -1,4 +1,0 @@
-# name: repi
-# key: repi
-# --
-div(ng-repeat='$1 in $2' track by $index)

@@ -1,4 +1,0 @@
-# name: uc
-# key: uc
-# --
-${fn:toUpperCase(${0:string})}

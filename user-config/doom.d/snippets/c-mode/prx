@@ -1,4 +1,0 @@
-# name: prx
-# key: prx
-# --
-printf("${1:} = %$2\n", $1);

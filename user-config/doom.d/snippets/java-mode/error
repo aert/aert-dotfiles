@@ -1,4 +1,0 @@
-# name: error
-# key: error
-# --
-Logger.error(${1:param});

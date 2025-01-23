@@ -1,4 +1,0 @@
-# name: ci_input-server
-# key: ci_input-server
-# --
-$this->input->server("${1:index}");$2

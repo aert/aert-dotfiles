@@ -1,5 +1,0 @@
-# name: map
-# key: map
-# --
-${1:obj}.map (${2:index}, ${3:element}) ->
-  ${0:// callback}

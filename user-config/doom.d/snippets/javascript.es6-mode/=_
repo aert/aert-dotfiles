@@ -1,6 +1,0 @@
-# name: =>
-# key: =>
-# --
-($1) => {
-  ${0:`yas-selected-text`}
-}

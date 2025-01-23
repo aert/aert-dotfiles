@@ -1,6 +1,0 @@
-# name: "Constructor function"
-# key: new
-# --
-pub fn new($2) -> ${1:Name} {
-  $1 { $3 }
-}

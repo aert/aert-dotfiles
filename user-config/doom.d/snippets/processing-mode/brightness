@@ -1,4 +1,0 @@
-# name: brightness
-# key: brightness
-# --
-brightness(${0:color});

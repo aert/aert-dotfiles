@@ -1,4 +1,0 @@
-# name: ci_input-get
-# key: ci_input-get
-# --
-$this->input->get("${1:index}");$2

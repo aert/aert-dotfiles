@@ -1,6 +1,0 @@
-# name: :f
-# key: :f
-# --
-${1:method_name}: function (${2:attribute}) {
-  ${0:`yas-selected-text`}
-},

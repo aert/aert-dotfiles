@@ -1,7 +1,0 @@
-# name: case
-# key: case
-# --
-case ${1:expression} of
-    ${2:pattern} ->
-        ${0:body};
-end

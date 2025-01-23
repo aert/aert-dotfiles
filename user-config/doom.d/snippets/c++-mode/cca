@@ -1,4 +1,0 @@
-# name: cca
-# key: cca
-# --
-const_cast<${1:unsigned}>(${2:expr})$3

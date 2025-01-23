@@ -1,4 +1,0 @@
-# name: logw
-# key: logw
-# --
-logger.warn { '${1:message}' }

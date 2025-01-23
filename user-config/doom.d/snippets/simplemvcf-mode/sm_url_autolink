@@ -1,4 +1,0 @@
-# name: sm_url_autolink
-# key: sm_url_autolink
-# --
-Url:autolink('${1:string}');

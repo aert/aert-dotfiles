@@ -1,6 +1,0 @@
-# name: select
-# key: select
-# --
-${1:obj}.select(function (${2:e}) {
-  ${0:// event handler}
-});

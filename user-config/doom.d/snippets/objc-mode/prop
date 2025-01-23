@@ -1,4 +1,0 @@
-# name: prop
-# key: prop
-# --
-@property (${1:retain}) ${2:NSSomeClass} ${3:*$2};

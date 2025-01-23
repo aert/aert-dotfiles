@@ -1,4 +1,0 @@
-# name: cset
-# key: cset
-# --
-<c:set var="$1" value="$0" />

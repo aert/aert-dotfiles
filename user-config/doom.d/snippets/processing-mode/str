@@ -1,4 +1,0 @@
-# name: str
-# key: str
-# --
-str("${0:str}");

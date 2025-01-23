@@ -1,6 +1,0 @@
-# name: dowh
-# key: dowh
-# --
-do {
-  $0
-} while (${0:/* condition */});

@@ -1,5 +1,0 @@
-# name: th+
-# key: th+
-# --
-<th>$1</th>
-th+$0

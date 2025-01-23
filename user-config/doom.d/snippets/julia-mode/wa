@@ -1,5 +1,0 @@
-# name: wa
-# key: wa
-# --
-warn("$1")
-$0

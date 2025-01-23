@@ -1,4 +1,0 @@
-# name: all
-# key: all
-# --
-all? { |${1:e}| $0 }

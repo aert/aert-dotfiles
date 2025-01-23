@@ -1,4 +1,0 @@
-# name: unbinary
-# key: unbinary
-# --
-unbinary("${0:str}"});

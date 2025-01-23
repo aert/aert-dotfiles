@@ -1,4 +1,0 @@
-# name: ci_validation_errors
-# key: ci_validation_errors
-# --
-validation_errors();$1

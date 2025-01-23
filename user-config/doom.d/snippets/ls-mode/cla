@@ -1,8 +1,0 @@
-# name: class .. extends .. constructor: ..
-# key: cla
-# --
-class ${1:} extends ${2:ParentClass}
-  (${3:args}) ->
-  	$4
-
-  $5

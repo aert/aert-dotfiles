@@ -1,4 +1,0 @@
-# name: dwHigh
-# key: dwHigh
-# --
-digitalWrite($1, HIGH);

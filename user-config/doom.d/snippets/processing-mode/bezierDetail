@@ -1,4 +1,0 @@
-# name: bezierDetail
-# key: bezierDetail
-# --
-bezierDetail(${0:detail});

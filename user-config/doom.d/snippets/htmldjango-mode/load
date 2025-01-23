@@ -1,4 +1,0 @@
-# name: load
-# key: load
-# --
-{% load $0 %}

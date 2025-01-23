@@ -1,4 +1,0 @@
-# name: char
-# key: char
-# --
-char ${1:m}${2: = "}${0:char"};

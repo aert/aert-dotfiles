@@ -1,5 +1,0 @@
-# name: not:
-# key: not:
-# --
-.. note::
-  ${0:my notes}

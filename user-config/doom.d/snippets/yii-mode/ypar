@@ -1,4 +1,0 @@
-# name: ypar
-# key: ypar
-# --
-Yii::app()->params['$0']

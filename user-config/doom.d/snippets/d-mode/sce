@@ -1,4 +1,0 @@
-# name: sce
-# key: sce
-# --
-scope(exit) ${1:f.close();}

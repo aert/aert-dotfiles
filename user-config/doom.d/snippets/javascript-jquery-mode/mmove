@@ -1,6 +1,0 @@
-# name: mmove
-# key: mmove
-# --
-${1:obj}.mousemove(function (${2:e}) {
-  ${0:// event handler}
-});

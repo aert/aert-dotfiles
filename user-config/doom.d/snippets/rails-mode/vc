@@ -1,4 +1,0 @@
-# name: vc
-# key: vc
-# --
-validates :${0:attribute}, confirmation: true

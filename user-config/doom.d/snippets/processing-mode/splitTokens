@@ -1,4 +1,0 @@
-# name: splitTokens
-# key: splitTokens
-# --
-splitTokens(${1:str}${2:, }${0:tokens});

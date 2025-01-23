@@ -1,6 +1,0 @@
-# name: dep
-# key: dep
-# --
-add_dependencies(${1:target}
-  ${0:dep}
-)

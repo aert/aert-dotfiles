@@ -1,4 +1,0 @@
-# name: pb|
-# key: pb|
-# --
-protected bool $1 { get; set; }

@@ -1,4 +1,0 @@
-# name: emit
-# key: emit
-# --
-emit('${1:event_name}', ${2:args});

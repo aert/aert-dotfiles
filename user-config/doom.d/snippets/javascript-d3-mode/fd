@@ -1,4 +1,0 @@
-# name: fd
-# key: fd
-# --
-function(d) { $1 }

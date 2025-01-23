@@ -1,4 +1,0 @@
-# name: yherr
-# key: yherr
-# --
-echo CHtml::error(${1:model}, '${0:attribute}');

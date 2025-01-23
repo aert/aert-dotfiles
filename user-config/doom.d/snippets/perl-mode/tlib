@@ -1,4 +1,0 @@
-# name: tlib
-# key: tlib
-# --
-use lib qw{ ./t/lib };

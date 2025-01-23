@@ -1,6 +1,0 @@
-# name: "spawn a thread"
-# key: spawn
-# --
-thread::spawn(${1:move }|| {
-  $0
-});

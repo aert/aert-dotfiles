@@ -1,4 +1,0 @@
-# name: mnc
-# key: mnc
-# --
-t.${1:string} :${2:title}${3:, null: false}

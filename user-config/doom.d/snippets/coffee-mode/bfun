@@ -1,5 +1,0 @@
-# name: bfun
-# key: bfun
-# --
-(${1:args}) =>
-  ${0:# body...}

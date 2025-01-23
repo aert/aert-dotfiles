@@ -1,4 +1,0 @@
-# name: rns
-# key: rns
-# --
-render nothing: ${1:true}, status: ${0:401}

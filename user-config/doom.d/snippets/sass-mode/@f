@@ -1,6 +1,0 @@
-# name: @f
-# key: @f
-# --
-@font-face
-  font-family: $1
-  src: url('$0')

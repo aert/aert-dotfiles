@@ -1,4 +1,0 @@
-# name: mat
-# key: mat
-# --
-after_touch :${0:method}

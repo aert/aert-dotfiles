@@ -1,6 +1,0 @@
-# name: apply
-# key: apply
-# --
-{% apply ${1:function} %}
-  $0
-{% end %}

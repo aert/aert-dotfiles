@@ -1,4 +1,0 @@
-# name: renb
-# key: renb
-# --
-renderBinary(${1:param});

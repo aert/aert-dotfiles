@@ -1,4 +1,0 @@
-# name: textFont
-# key: textFont
-# --
-textFont(${1:font}${2:, }${0:size});

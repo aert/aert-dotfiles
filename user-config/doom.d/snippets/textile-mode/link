@@ -1,4 +1,0 @@
-# name: link
-# key: link
-# --
-"${1:link text}":${0:url}

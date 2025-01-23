@@ -1,4 +1,0 @@
-# name: break
-# key: break
-# --
-break ${1:label};

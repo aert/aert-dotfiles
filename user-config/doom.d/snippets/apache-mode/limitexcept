@@ -1,6 +1,0 @@
-# name: limitexcept
-# key: limitexcept
-# --
-<LimitExcept ${1:POST GET}>
-  ${0:`yas-selected-text`}
-</LimitExcept>

@@ -1,4 +1,0 @@
-# name: unwrap
-# key: unwrap
-# --
-${1:obj}.unwrap()

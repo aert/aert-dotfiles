@@ -1,5 +1,0 @@
-# name: "{% elseif %}"
-# key: eif
-# --
-{% elseif $1 %}
-$0

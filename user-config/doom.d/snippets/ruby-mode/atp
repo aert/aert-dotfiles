@@ -1,4 +1,0 @@
-# name: atp
-# key: atp
-# --
-attr_protected :${0:attr_names}

@@ -1,4 +1,0 @@
-# name: akw
-# key: akw
-# --
-*args, **kwargs${1:,}$0

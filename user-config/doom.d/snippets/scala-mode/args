@@ -1,4 +1,0 @@
-# name: args
-# key: args
-# --
-${1:args}: ${0:T}*

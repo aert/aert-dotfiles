@@ -1,7 +1,0 @@
-# name: colgroup+
-# key: colgroup+
-# --
-<colgroup>
-  <col />
-  col+$0
-</colgroup>

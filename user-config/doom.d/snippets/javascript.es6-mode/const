@@ -1,4 +1,0 @@
-# name: const
-# key: const
-# --
-const $1 = $0;

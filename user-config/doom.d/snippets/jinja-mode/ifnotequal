@@ -1,6 +1,0 @@
-# name: ifnotequal
-# key: ifnotequal
-# --
-{% ifnotequal $1 $2 %}
-  $0
-{% endifnotequal %}

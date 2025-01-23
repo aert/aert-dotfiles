@@ -1,4 +1,0 @@
-# name: "$this->fail()"
-# key: fail
-# --
-$this->fail($1);

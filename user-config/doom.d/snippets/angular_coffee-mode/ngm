@@ -1,5 +1,0 @@
-# name: ngm
-# key: ngm
-# --
-angular.module '${1:moduleName}', [${2:moduleDependencies}]
-$3

@@ -1,4 +1,0 @@
-# name: bg:ie
-# key: bg:ie
-# --
-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='$1',sizingMethod='${0:crop}');

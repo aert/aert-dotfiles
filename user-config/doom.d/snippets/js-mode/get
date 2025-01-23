@@ -1,4 +1,0 @@
-# name: get
-# key: get
-# --
-getElementsBy${1:TagName}('$0')

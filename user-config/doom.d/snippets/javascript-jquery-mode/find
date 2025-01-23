@@ -1,4 +1,0 @@
-# name: find
-# key: find
-# --
-${1:obj}.find('${2:selector expression}')

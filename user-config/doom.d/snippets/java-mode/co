@@ -1,4 +1,0 @@
-# name: co
-# key: co
-# --
-static public final ${1:String} ${2:var} = $3;

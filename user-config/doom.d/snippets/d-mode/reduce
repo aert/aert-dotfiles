@@ -1,5 +1,0 @@
-# name: reduce
-# key: reduce
-# --
-reduce!(${1:f})(${2:xs});
-$0

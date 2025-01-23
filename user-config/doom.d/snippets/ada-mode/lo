@@ -1,6 +1,0 @@
-# name: loop
-# key: lo
-# --
-loop
-  $0
-end loop;

@@ -1,6 +1,0 @@
-# name: BEGIN { ... }
-# key: beg
-# --
-BEGIN {
-  $0
-}

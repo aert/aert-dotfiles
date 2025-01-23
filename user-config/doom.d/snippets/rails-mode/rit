@@ -1,4 +1,0 @@
-# name: rit
-# key: rit
-# --
-render inline: "${1:<%= 'hello' %>}", type: ${0::rxml}

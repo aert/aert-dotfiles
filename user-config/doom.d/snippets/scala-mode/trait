@@ -1,6 +1,0 @@
-# name: trait
-# key: trait
-# --
-trait ${1:name}${2: extends }${3: with} {
-  ${0:}
-}

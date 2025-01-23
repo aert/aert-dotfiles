@@ -1,4 +1,0 @@
-# name: object
-# key: object
-# --
-object ${1:name}${2:(arg)}${3: extends }${4: with} ${0:}

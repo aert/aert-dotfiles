@@ -1,4 +1,0 @@
-# name: when others
-# key: wheo
-# --
-when others => $1;$0

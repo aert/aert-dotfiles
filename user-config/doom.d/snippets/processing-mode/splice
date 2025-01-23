@@ -1,4 +1,0 @@
-# name: splice
-# key: splice
-# --
-splice(${1:array}, ${2:value/array2}, ${0:index});

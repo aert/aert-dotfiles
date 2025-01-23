@@ -1,4 +1,0 @@
-# name: cimport
-# key: cimport
-# --
-<c:import url="$1" />

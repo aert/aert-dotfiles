@@ -1,7 +1,0 @@
-# name: "try { ... } catch (Exception $e) { ... }"
-# key: try
-# --
-try {
-  ${0:`yas-selected-text`}
-} catch (${1:Exception} $e) {
-}

@@ -1,6 +1,0 @@
-# name: ver
-# key: ver
-# --
-version(${1:Posix}) {
-  $0
-}

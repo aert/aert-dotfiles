@@ -1,4 +1,0 @@
-# name: input
-# key: input
-# --
-DEFINE INPUT PARAMETER ${1:ParamName} AS $0.

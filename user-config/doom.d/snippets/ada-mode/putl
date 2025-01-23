@@ -1,4 +1,0 @@
-# name: Ada.Text_IO.Put_Line
-# key: putl
-# --
-Ada.Text_IO.Put_Line($1);$0

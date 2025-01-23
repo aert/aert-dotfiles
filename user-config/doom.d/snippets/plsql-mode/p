@@ -1,4 +1,0 @@
-# name: p
-# key: p
-# --
-${1:name} ${2:in} ${3:type} ${0: := null}

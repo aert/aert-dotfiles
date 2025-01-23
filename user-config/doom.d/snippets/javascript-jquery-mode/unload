@@ -1,6 +1,0 @@
-# name: unload
-# key: unload
-# --
-${1:obj}.unload(function (${2:e}) {
-  ${0:// event handler}
-});

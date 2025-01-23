@@ -1,4 +1,0 @@
-# name: isxml
-# key: isxml
-# --
-$.isXMLDoc(${1:node})

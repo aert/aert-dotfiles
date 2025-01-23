@@ -1,4 +1,0 @@
-# name: "var_export($var)"
-# key: var
-# --
-var_export($1);

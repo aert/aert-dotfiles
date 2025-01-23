@@ -1,4 +1,0 @@
-# name: mhset
-# key: mhset
-# --
-mutable.HashSet${1:[T]}${0:()}

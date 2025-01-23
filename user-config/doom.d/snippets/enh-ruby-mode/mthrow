@@ -1,4 +1,0 @@
-# name: mthrow
-# key: mthrow
-# --
--> { throw :${1:error} }.must_throw :${2:error}

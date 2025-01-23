@@ -1,4 +1,0 @@
-# name: inline
-# key: inline
-# --
-{-# INLINE ${0:name} #-}

@@ -1,4 +1,0 @@
-# name: Dstate
-# key: Dstate
-# --
-${1:deferred}.state()

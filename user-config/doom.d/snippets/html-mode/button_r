@@ -1,4 +1,0 @@
-# name: button:r
-# key: button:r
-# --
-<button type="reset">$0</button>

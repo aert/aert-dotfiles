@@ -1,6 +1,0 @@
-# name: pdef
-# key: pdef
-# --
-private def ${1:method_name}
-  $0
-end

@@ -1,4 +1,0 @@
-# name: text
-# key: text
-# --
-${1:obj}.text(${2:'some text'})

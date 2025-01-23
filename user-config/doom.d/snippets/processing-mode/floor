@@ -1,4 +1,0 @@
-# name: floor
-# key: floor
-# --
-floor(${0:value});

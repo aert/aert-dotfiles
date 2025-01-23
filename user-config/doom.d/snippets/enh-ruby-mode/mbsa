@@ -1,4 +1,0 @@
-# name: mbsa
-# key: mbsa
-# --
-must_be_same_as ${0:other}

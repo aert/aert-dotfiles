@@ -1,7 +1,0 @@
-# name: "protected function setUp() { ... }"
-# key: setup
-# --
-protected function setUp()
-{
-  ${0:`yas-selected-text`}
-}

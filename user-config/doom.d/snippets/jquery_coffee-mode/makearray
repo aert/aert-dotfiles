@@ -1,4 +1,0 @@
-# name: makearray
-# key: makearray
-# --
-$.makeArray(${0:obj})

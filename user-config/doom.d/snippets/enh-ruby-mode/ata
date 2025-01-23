@@ -1,4 +1,0 @@
-# name: ata
-# key: ata
-# --
-attr_accessible :${0:attr_names}

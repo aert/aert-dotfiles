@@ -1,4 +1,0 @@
-# name: sup
-# key: sup
-# --
-${1:obj}.slideUp('${2:slow/400/fast}')

@@ -1,4 +1,0 @@
-# name: def?
-# key: def?
-# --
-$1defined('$2')

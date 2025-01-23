@@ -1,6 +1,0 @@
-# name: main
-# key: main
-# --
-<main role="main">
-  $0
-</main>

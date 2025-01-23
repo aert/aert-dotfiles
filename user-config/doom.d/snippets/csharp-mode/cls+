@@ -1,7 +1,0 @@
-# name: cls+
-# key: cls+
-# --
-public class ${1:}
-{
-  $0
-}

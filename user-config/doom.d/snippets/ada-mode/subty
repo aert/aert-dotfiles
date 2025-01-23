@@ -1,4 +1,0 @@
-# name: subtype
-# key: subty
-# --
-subtype $1 is $2;$0

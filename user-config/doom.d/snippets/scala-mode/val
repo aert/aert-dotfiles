@@ -1,4 +1,0 @@
-# name: val
-# key: val
-# --
-val ${1:name}${2:: T} = ${0:value}

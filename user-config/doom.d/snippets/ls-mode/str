@@ -1,4 +1,0 @@
-# name: str
-# key: str
-# --
-JSON.stringify $1, void, 2

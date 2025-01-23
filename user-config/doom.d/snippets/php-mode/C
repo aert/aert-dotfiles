@@ -1,7 +1,0 @@
-# name: c
-# key: c
-# --
-class ${1:}
-{
-  ${0:`yas-selected-text`}
-}

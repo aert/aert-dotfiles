@@ -1,6 +1,0 @@
-# name: defim
-# key: defim
-# --
-defimpl ${1:protocol_name}, for: ${2:data_type} do
-  $0
-end

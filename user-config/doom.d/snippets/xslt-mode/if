@@ -1,5 +1,0 @@
-# name: if
-# key: if
-# --
-<xsl:if test="${1:test}">$2
-</xsl:if>

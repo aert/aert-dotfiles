@@ -1,6 +1,0 @@
-# name: fadeoutc
-# key: fadeoutc
-# --
-${1:obj}.fadeOut('slow/400/fast', function () {
-  ${0:// callback};
-});

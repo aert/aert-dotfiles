@@ -1,4 +1,0 @@
-# name: Ada.Text_IO.Get_Line
-# key: getl
-# --
-Ada.Text_IO.Get_Line($1);$0

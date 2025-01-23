@@ -1,4 +1,0 @@
-# name: findbyid
-# key: findbyid
-# --
-${1:var} ${2:item} = $1.findById($3);

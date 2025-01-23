@@ -1,6 +1,0 @@
-# name: qrx
-# key: qrx
-# --
-qr/
-     ${0:regex}
-/xms

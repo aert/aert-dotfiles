@@ -1,4 +1,0 @@
-# name: "Case clause of pattern match"
-# key: case
-# --
-${1:_} => ${2:expression}

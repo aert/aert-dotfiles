@@ -1,6 +1,0 @@
-# name: fieldset#
-# key: fieldset#
-# --
-<fieldset id="$1">
-  $0
-</fieldset>

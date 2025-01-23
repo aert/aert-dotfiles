@@ -1,4 +1,0 @@
-# name: strokeWeight
-# key: strokeWeight
-# --
-strokeWeight(${0:1});

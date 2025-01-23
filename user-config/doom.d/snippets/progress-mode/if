@@ -1,6 +1,0 @@
-# name: if
-# key: if
-# --
-IF ${1:Condition}
-THEN ${2:Action}
-${3:ELSE ${4:OtherWise}}

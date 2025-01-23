@@ -1,4 +1,0 @@
-# name: pa
-# key: pa
-# --
-params[:${1:id}]

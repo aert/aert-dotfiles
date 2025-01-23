@@ -1,4 +1,0 @@
-# name: "println! with format param"
-# key: pln,
-# --
-println!("$1", $2);

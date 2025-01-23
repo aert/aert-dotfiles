@@ -1,4 +1,0 @@
-# name: yuser
-# key: yuser
-# --
-Yii::app()->user->

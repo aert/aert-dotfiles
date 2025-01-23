@@ -1,4 +1,0 @@
-# name: ret
-# key: ret
-# --
-[${1:foo} retain];

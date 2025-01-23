@@ -1,4 +1,0 @@
-# name: td
-# key: td
-# --
-typedef ${1:int} ${2:MyCustomType};

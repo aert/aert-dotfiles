@@ -1,6 +1,0 @@
-# name: if
-# key: if
-# --
-If ${1:condition} Then
-  ${0:; True code}
-EndIf

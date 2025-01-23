@@ -1,4 +1,0 @@
-# name: mad
-# key: mad
-# --
-after_destroy :${0:method}

@@ -1,6 +1,0 @@
-# name: unif
-# key: unif
-# --
-ARGF.each_line$1 do |${2:line}|
-  $0
-end

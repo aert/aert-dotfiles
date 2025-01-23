@@ -1,4 +1,0 @@
-# name: qsa
-# key: qsa
-# --
-${1:document}.querySelectorAll('${0:CSS selector}')

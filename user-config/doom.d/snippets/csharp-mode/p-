@@ -1,4 +1,0 @@
-# name: p-
-# key: p-
-# --
-private ${1:int} $2 { get; set; }

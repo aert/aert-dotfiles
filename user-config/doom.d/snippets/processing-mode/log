@@ -1,4 +1,0 @@
-# name: log
-# key: log
-# --
-log(${0:value});

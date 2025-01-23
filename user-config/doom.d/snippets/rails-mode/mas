@@ -1,4 +1,0 @@
-# name: mas
-# key: mas
-# --
-after_save :${0:method}

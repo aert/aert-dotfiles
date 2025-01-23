@@ -1,5 +1,0 @@
-# name: ngfor
-# key: ngfor
-# --
-angular.forEach ${1:iterateOver}, (value, key) ->
-  $2

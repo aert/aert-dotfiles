@@ -1,6 +1,0 @@
-# name: asnrd
-# key: asnrd
-# --
-assert_nothing_raised ${1:Exception} do
-  $0
-end

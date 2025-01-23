@@ -1,4 +1,0 @@
-# name: sapply
-# key: sapply
-# --
-lapply(${1:list}, ${0:function})

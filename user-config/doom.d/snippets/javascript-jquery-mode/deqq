@@ -1,4 +1,0 @@
-# name: deqq
-# key: deqq
-# --
-$.dequeue('${1:selector expression}'${2:, 'queue name'})

@@ -1,6 +1,0 @@
-# name: \paragraph
-# key: par
-# --
-\\paragraph{${1:paragraph name}}
-\\label{par:${2:$1}}
-$0

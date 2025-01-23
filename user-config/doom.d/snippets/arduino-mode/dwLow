@@ -1,4 +1,0 @@
-# name: dwLow
-# key: dwLow
-# --
-digitalWrite($1, LOW);

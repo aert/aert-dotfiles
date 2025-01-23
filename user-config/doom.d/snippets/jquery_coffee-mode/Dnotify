@@ -1,4 +1,0 @@
-# name: Dnotify
-# key: Dnotify
-# --
-${1:deferred}.notify(${2:args})

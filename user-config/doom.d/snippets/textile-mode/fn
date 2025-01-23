@@ -1,6 +1,0 @@
-# name: fn
-# key: fn
-# --
-[${1:ref number}] $0
-
-fn$1. ${2:footnote}

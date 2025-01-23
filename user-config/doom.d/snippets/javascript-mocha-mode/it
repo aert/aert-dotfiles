@@ -1,6 +1,0 @@
-# name: "it('should do', () => { ... })" b
-# key: it
-# --
-it('${1:}', () => {
-  ${0:`yas-selected-text`}
-});

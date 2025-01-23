@@ -1,6 +1,0 @@
-# name: maina
-# key: maina
-# --
-void main(string[] args) {
-  $0
-}

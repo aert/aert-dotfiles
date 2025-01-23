@@ -1,6 +1,0 @@
-# name: "for (const prop of object}) { ... }"
-# key: foro
-# --
-for (const ${1:prop} of ${2:object}) {
-  ${0:$1}
-}

@@ -1,4 +1,0 @@
-# name: bg+
-# key: bg+
-# --
-background: #${1:fff} url('$2') ${3:0} ${4:0} ${0:no-repeat}

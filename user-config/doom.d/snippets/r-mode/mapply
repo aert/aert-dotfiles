@@ -1,4 +1,0 @@
-# name: mapply
-# key: mapply
-# --
-mapply(${1:function}, ${0:...})

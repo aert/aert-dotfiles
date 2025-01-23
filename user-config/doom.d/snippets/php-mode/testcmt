@@ -1,6 +1,0 @@
-# name: "phpunit comment with group"
-# key: testcmt
-# --
-/**
-* @group $1
-*/

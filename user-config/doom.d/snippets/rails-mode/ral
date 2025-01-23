@@ -1,4 +1,0 @@
-# name: ral
-# key: ral
-# --
-render action: '${1:action}', layout: '${0:layoutname}'

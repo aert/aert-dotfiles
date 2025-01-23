@@ -1,4 +1,0 @@
-# name: button.
-# key: button.
-# --
-<button class="${1:button}" type="${2:submit}">$0</button>

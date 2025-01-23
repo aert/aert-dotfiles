@@ -1,4 +1,0 @@
-# name: st
-# key: st
-# --
-signal $1 : std_logic;

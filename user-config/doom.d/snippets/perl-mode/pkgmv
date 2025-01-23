@@ -1,4 +1,0 @@
-# name: pkgmv
-# key: pkgmv
-# --
-__PACKAGE__->${1:package_method}(${0:var})

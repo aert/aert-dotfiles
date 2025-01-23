@@ -1,4 +1,0 @@
-# name: defr
-# key: defr
-# --
-defrecord ${1:record_name}, ${0:fields}

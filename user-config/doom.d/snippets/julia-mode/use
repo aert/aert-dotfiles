@@ -1,4 +1,0 @@
-# name: load a package
-# key: use
-# --
-using $0

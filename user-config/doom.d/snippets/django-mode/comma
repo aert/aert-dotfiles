@@ -1,4 +1,0 @@
-# name: comma
-# key: comma
-# --
-${1:FIELDNAME} = models.CommaSeparatedIntegerField(max_length=$2${0:, blank=True})

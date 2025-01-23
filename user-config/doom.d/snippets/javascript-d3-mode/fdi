@@ -1,4 +1,0 @@
-# name: fdi
-# key: fdi
-# --
-function(d, i) { $1 }

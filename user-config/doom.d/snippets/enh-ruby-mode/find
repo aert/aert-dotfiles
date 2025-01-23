@@ -1,6 +1,0 @@
-# name: find
-# key: find
-# --
-find do |${1:e}|
-  $0
-end

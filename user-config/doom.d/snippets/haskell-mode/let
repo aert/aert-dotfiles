@@ -1,5 +1,0 @@
-# name: let
-# key: let
-# --
-let $1 = $2
-in $3

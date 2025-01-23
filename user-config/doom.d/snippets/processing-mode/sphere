@@ -1,4 +1,0 @@
-# name: sphere
-# key: sphere
-# --
-sphere(${0:radius});

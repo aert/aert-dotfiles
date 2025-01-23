@@ -1,6 +1,0 @@
-# name: case
-# key: case
-# --
-case $1 is
-  when $2 => $3;$0
-end case;

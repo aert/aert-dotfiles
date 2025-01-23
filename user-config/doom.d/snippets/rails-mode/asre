@@ -1,4 +1,0 @@
-# name: asre
-# key: asre
-# --
-assert_response :${1:success}, @response.body

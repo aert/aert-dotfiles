@@ -1,4 +1,0 @@
-# name: promise
-# key: promise
-# --
-${1:obj}.promise(${2:'fx'}, ${3:target})

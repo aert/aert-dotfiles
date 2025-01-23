@@ -1,4 +1,0 @@
-# name: ps
-# key: ps
-# --
-${1:public} string $2 { get; set; }

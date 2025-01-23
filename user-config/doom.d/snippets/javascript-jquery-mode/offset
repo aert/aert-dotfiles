@@ -1,4 +1,0 @@
-# name: offset
-# key: offset
-# --
-${1:obj}.offset()

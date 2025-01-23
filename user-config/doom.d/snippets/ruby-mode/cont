@@ -1,6 +1,0 @@
-# name: cont
-# key: cont
-# --
-context '${1:message}' do
-  $0
-end

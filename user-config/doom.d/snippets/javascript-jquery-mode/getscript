@@ -1,6 +1,0 @@
-# name: getscript
-# key: getscript
-# --
-$.getScript('${1:mydomain.com/url}', function (script, textStatus, jqXHR) {
-  ${0:// callback}
-});

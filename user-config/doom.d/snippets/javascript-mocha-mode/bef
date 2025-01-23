@@ -1,6 +1,0 @@
-# name: "before(() => { ... })" b
-# key: bef
-# --
-before(() => {
-  ${0:`yas-selected-text`}
-});

@@ -1,4 +1,0 @@
-# name: marc
-# key: marc
-# --
-around_create :${0:method}

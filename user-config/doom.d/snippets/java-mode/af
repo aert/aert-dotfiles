@@ -1,4 +1,0 @@
-# name: af
-# key: af
-# --
-assertFalse("${1:Failure message}", ${2:condition});

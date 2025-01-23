@@ -1,4 +1,0 @@
-# name: ra
-# key: ra
-# --
-render action: '${0:action}'

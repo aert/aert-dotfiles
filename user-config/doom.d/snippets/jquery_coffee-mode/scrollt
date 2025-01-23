@@ -1,4 +1,0 @@
-# name: scrollt
-# key: scrollt
-# --
-${1:obj}.scrollTop(${2:value})

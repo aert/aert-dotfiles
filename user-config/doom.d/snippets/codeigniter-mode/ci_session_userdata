@@ -1,4 +1,0 @@
-# name: ci_session_userdata
-# key: ci_session_userdata
-# --
-$this->session->userdata("${1:item}");$2

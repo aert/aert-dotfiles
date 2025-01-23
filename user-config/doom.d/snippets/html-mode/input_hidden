@@ -1,4 +1,0 @@
-# name: input:hidden
-# key: input:hidden
-# --
-<input type="hidden" name="$1" id="${2:$1}" value="$3" />

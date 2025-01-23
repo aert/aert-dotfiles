@@ -1,5 +1,0 @@
-# name: elif
-# key: elif
-# --
-else if ${1:condition}
-  $2

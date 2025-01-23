@@ -1,6 +1,0 @@
-# name: cchoose
-# key: cchoose
-# --
-<c:choose>
-  $0
-</c:choose>

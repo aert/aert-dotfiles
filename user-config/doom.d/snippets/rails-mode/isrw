@@ -1,4 +1,0 @@
-# name: isrw
-# key: isrw
-# --
-it { should respond_with ${0:status} }

@@ -1,6 +1,0 @@
-# name: "selector { }"
-# key: .
-# --
-$1 {
-  ${0:`yas-selected-text`}
-}

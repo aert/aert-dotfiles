@@ -1,6 +1,0 @@
-# name: iface
-# key: iface
-# --
-interface ${1:name}
-  $0
-end interface $1

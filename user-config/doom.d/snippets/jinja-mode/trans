@@ -1,4 +1,0 @@
-# name: trans
-# key: trans
-# --
-{% trans %}$0{% endtrans %}

@@ -1,4 +1,0 @@
-# name: hide
-# key: hide
-# --
-${1:obj}.hide('${2:slow/400/fast}')

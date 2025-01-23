@@ -1,6 +1,0 @@
-# name: else if ...
-# key: eif
-# --
-else if ($1) {
-  $0
-}

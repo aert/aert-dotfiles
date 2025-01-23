@@ -1,4 +1,0 @@
-# name: mbsi
-# key: mbsi
-# --
--> { $0 }.must_be_silent

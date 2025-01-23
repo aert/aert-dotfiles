@@ -1,5 +1,0 @@
-# name: elsif
-# key: eif
-# --
-elseif $1
-  $0

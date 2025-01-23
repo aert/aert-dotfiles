@@ -1,4 +1,0 @@
-# name: sp
-# key: sp
-# --
-Serial.print($1);

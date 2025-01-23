@@ -1,6 +1,0 @@
-# name: "match pattern"
-# key: mat
-# --
-match $1 {
-  $2 => $3
-}

@@ -1,4 +1,0 @@
-# name: subj
-# key: subj
-# --
-subject { $0 }

@@ -1,6 +1,0 @@
-# name: "<?php if (condition): ?> ... <?php endif; ?>"
-# key: ifil
-# --
-<?php if ($1): ?>
-  ${0:`yas-selected-text`}
-<?php endif; ?>

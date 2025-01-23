@@ -1,5 +1,0 @@
-# name: find
-# key: find
-# --
-find!(${1:p})($2:xs);
-$0

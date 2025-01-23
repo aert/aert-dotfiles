@@ -1,4 +1,0 @@
-# name: noiseDetail
-# key: noiseDetail
-# --
-noiseDetail(${1:octaves}${2:, }${0:falloff});

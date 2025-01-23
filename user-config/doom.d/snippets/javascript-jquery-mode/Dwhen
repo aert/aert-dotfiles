@@ -1,4 +1,0 @@
-# name: Dwhen
-# key: Dwhen
-# --
-$.when(${1:deferreds})

@@ -1,4 +1,0 @@
-# name: athis
-# key: athis
-# --
-def this(arg) = this(arg)

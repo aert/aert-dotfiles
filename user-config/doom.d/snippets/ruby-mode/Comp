@@ -1,8 +1,0 @@
-# name: Comp
-# key: Comp
-# --
-include Comparable
-
-def <=>(other)
-  $0
-end

@@ -1,4 +1,0 @@
-# name: mau
-# key: mau
-# --
-after_update :${0:method}

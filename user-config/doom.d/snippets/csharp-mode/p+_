@@ -1,4 +1,0 @@
-# name: p+|
-# key: p+|
-# --
-public ${1:int} $2 { get; protected set; }

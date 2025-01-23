@@ -1,4 +1,0 @@
-# name: impq
-# key: impq
-# --
-import qualified ${1:Data.Text} as ${0:T}

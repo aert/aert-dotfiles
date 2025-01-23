@@ -1,4 +1,0 @@
-# name: italic text
-# key: it
-# --
-\\textit{${0:${VISUAL:text}}}

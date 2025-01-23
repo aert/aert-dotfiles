@@ -1,4 +1,0 @@
-# name: ishi
-# key: ishi
-# --
-it { should have_db_index :$0 }

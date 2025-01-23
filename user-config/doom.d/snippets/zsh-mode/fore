@@ -1,6 +1,0 @@
-# name: fore
-# key: fore
-# --
-for ${1:item} in ${2:list}; do
-  ${0:`yas-selected-text`}
-done

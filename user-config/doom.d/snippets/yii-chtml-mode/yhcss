@@ -1,4 +1,0 @@
-# name: yhcss
-# key: yhcss
-# --
-echo CHtml::css('${1:test}','${0:media}');

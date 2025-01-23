@@ -1,4 +1,0 @@
-# name: ensuring
-# key: ensuring
-# --
-ifel ensuring(${1:a}==${0:b})

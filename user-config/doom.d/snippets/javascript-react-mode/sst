@@ -1,6 +1,0 @@
-# name: sst
-# key: sst
-# --
-this.setState({
-  $1: $2
-});

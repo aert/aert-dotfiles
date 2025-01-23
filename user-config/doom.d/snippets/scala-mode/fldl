@@ -1,4 +1,0 @@
-# name: fldl
-# key: fldl
-# --
-${1:name}.foldLeft(${0:first}) {(

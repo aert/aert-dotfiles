@@ -1,4 +1,0 @@
-# name: arrayCopy
-# key: arrayCopy
-# --
-arrayCopy(${1:src}, ${2:dest}, ${3:, }${0:length});

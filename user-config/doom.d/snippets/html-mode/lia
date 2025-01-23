@@ -1,4 +1,0 @@
-# name: lia
-# key: lia
-# --
-<li><a href="${0:#}">$1</a></li>

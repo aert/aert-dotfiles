@@ -1,9 +1,0 @@
-# name: debug_trace
-# key: debug_trace
-# --
-use Carp; # 'verbose';
-# cloak "die"
-# warn "warning"
-$SIG{'__DIE__'} = sub {
-  require Carp; Carp::confess
-};

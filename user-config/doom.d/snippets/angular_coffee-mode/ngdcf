@@ -1,6 +1,0 @@
-# name: ngdcf
-# key: ngdcf
-# --
-compile = (tElement, tAttrs, transclude) ->
-  (scope, element, attrs) ->
-  	$1

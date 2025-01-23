@@ -1,7 +1,0 @@
-# name: iba
-# key: iba
-# --
-- (IBAction)${1:method}:(${2:id})sender
-{
-  $0
-}

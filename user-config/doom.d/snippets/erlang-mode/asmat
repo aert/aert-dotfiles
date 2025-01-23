@@ -1,4 +1,0 @@
-# name: asmat
-# key: asmat
-# --
-?assertMatch(${1:Pattern}, ${0:Expression})

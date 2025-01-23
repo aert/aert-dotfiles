@@ -1,4 +1,0 @@
-# name: err
-# key: err
-# --
-System.err.print("${0:Message}");

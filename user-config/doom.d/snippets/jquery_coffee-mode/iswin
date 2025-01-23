@@ -1,4 +1,0 @@
-# name: iswin
-# key: iswin
-# --
-$.isWindow(${1:obj})

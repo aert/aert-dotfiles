@@ -1,4 +1,0 @@
-# name: Dprom
-# key: Dprom
-# --
-${1:deferred}.promise(${2:target})

@@ -1,6 +1,0 @@
-# name: im
-# key: im
-# --
-import (
-  "${1:package}"
-)

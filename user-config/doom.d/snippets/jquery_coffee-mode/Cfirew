@@ -1,4 +1,0 @@
-# name: Cfirew
-# key: Cfirew
-# --
-${1:callbacks}.fireWith(${2:this}, ${3:args})

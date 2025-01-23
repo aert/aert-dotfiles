@@ -1,4 +1,0 @@
-# name: spec
-# key: spec
-# --
-specify { subject.$0 }

@@ -1,4 +1,0 @@
-# name: binary
-# key: binary
-# --
-binary(${1:value}${2:, }${0:digits});

@@ -1,6 +1,0 @@
-# name: impl
-# key: impl
-# --
-@implementation ${1:`(file-name-base)`}
-$0
-@end

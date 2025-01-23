@@ -1,6 +1,0 @@
-# name: test function
-# key: test
-# --
-func Test${1:name}(t *testing.T) {
-  ${0:`yas-selected-text`}
-}

@@ -1,4 +1,0 @@
-# name: req
-# key: req
-# --
-require '${1:file}';

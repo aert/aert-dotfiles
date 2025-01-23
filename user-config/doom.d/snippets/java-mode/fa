@@ -1,4 +1,0 @@
-# name: fa
-# key: fa
-# --
-fail("${1:Failure message}");

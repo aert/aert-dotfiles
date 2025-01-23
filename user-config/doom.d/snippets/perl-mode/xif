@@ -1,4 +1,0 @@
-# name: xif
-# key: xif
-# --
-${1:expression} if ${2:condition};

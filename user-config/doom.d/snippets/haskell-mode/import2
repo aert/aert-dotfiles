@@ -1,4 +1,0 @@
-# name: import2
-# key: import2
-# --
-import           ${1:Data.Text} (${0:head})

@@ -1,4 +1,0 @@
-# name: isstr
-# key: isstr
-# --
-isSomeString!${1:S}

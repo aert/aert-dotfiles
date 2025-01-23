@@ -1,4 +1,0 @@
-# name: propg
-# key: propg
-# --
-public ${1:int} ${2:MyProperty} { get; private set; }

@@ -1,7 +1,0 @@
-# name: wake
-# key: wake
-# --
-- (void)awakeFromNib
-{
-  $0
-}

@@ -1,6 +1,0 @@
-# name: cwhen
-# key: cwhen
-# --
-<c:when test="${$1}">
-  $0
-</c:when>

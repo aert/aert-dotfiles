@@ -1,4 +1,0 @@
-# name: color
-# key: color
-# --
-[[NSColor ${0:blackColor}] set];

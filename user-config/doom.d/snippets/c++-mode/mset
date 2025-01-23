@@ -1,4 +1,0 @@
-# name: mset
-# key: mset
-# --
-std::multiset<${1:T}> $2;

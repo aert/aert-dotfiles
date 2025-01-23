@@ -1,5 +1,0 @@
-# name: ngc
-# key: ngc
-# --
-${1:controllerName} = (${2:scope}, ${3:injectables}) ->
-  $4

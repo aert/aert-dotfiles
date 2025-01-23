@@ -1,4 +1,0 @@
-# name: nullbool
-# key: nullbool
-# --
-${1:FIELDNAME} = models.NullBooleanField($0)

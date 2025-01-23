@@ -1,4 +1,0 @@
-# name: textLeading
-# key: textLeading
-# --
-textLeading(${0:size});

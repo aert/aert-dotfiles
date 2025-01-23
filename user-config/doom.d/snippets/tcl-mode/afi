@@ -1,4 +1,0 @@
-# name: afi
-# key: afi
-# --
-after idle ${0:script}

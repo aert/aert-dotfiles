@@ -1,4 +1,0 @@
-# name: default
-# key: default
-# --
-.DEFAULT_GOAL := $1

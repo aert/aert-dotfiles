@@ -1,4 +1,0 @@
-# name: xwh
-# key: xwh
-# --
-${1:expression} while ${2:condition};

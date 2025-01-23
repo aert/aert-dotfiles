@@ -1,4 +1,0 @@
-# name: by#
-# key: by#
-# --
-${1:document}.getElementById('${0:element ID}')

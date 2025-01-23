@@ -1,5 +1,0 @@
-# name: err:
-# key: err:
-# --
-.. error::
-  ${0:Error occur}

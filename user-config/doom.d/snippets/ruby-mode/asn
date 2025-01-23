@@ -1,4 +1,0 @@
-# name: asn
-# key: asn
-# --
-assert_nil ${1:instance}

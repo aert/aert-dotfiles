@@ -1,4 +1,0 @@
-# name: pa
-# key: pa
-# --
-package ${1:main}

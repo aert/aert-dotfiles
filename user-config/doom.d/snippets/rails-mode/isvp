@@ -1,4 +1,0 @@
-# name: isvp
-# key: isvp
-# --
-it { should validate_presence_of :$0 }

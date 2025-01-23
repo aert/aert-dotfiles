@@ -1,5 +1,0 @@
-# name: mm
-# key: mm
-# --
-@ManyToMany
-$0

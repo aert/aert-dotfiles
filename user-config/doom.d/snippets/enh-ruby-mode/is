@@ -1,4 +1,0 @@
-# name: is
-# key: is
-# --
-it { should $0 }

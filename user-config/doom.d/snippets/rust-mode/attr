@@ -1,4 +1,0 @@
-# name: "#[..]" b
-# key: attr
-# --
-#[${1:inline}]

@@ -1,4 +1,0 @@
-# name: yfindabp
-# key: yfindabp
-# --
-${1:ModelName}::model()->findAllByPk(${2:pk}, ${3:condition},array('${4:key}'=>${0:value}));

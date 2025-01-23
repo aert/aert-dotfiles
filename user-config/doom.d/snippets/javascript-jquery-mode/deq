@@ -1,4 +1,0 @@
-# name: deq
-# key: deq
-# --
-${1:obj}.dequeue(${2:'queue name'})

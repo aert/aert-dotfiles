@@ -1,4 +1,0 @@
-# name: ex
-# key: ex
-# --
-module.exports = $1;

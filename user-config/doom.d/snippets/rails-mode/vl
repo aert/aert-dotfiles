@@ -1,4 +1,0 @@
-# name: vl
-# key: vl
-# --
-validates :${1:attribute}, length: { in: ${2:3}..${0:20} }

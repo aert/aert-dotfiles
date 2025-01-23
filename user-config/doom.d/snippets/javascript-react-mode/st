@@ -1,6 +1,0 @@
-# name: st
-# key: st
-# --
-state = {
-  $1: $2,
-}

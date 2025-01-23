@@ -1,7 +1,0 @@
-# name: fore
-# key: fore
-# --
-foreach (${1:var} ${2:entry} in $3)
-{
-  $0
-}

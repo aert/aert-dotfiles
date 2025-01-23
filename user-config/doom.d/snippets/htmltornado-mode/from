@@ -1,4 +1,0 @@
-# name: from
-# key: from
-# --
-{% from ${1:x} import ${0:y} %}

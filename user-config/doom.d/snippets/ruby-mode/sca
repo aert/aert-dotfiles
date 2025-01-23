@@ -1,4 +1,0 @@
-# name: sca
-# key: sca
-# --
-scan(${1:/pattern/}) { |${2:match}| $0 }

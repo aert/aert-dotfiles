@@ -1,5 +1,0 @@
-# name: print line
-# key: prl
-# --
-println("$1")
-$0

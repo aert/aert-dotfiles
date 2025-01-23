@@ -1,4 +1,0 @@
-# name: yfindbs
-# key: yfindbs
-# --
-${1:ModelName}::model()->findBySql(${2:sql}, array('${3:key}'=>${0:value}));

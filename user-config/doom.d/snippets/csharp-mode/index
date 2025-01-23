@@ -1,8 +1,0 @@
-# name: index
-# key: index
-# --
-public ${1:object} this[${2:int} index]
-{
-  get { $0 }
-  set { $0 }
-}

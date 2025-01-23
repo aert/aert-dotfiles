@@ -1,4 +1,0 @@
-# name: jit
-# key: jit
-# --
-<%= javascript_include_tag ${0::all} %>

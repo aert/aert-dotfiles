@@ -1,4 +1,0 @@
-# name: "console.dirxml"
-# key: cdirx
-# --
-console.dirxml(${1:object});

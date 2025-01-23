@@ -1,6 +1,0 @@
-# name: defmo
-# key: defmo
-# --
-(defmodule ${1:}
-  (export ${2:all}))
-$0

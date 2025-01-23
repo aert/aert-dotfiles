@@ -1,7 +1,0 @@
-# name: cond
-# key: cond
-# --
-cond do
-  $1 ->
-  ${0:`yas-selected-text`}
-end

@@ -1,4 +1,0 @@
-# name: date
-# key: date
-# --
-`(format-time-string "%Y-%m-%d")`

@@ -1,4 +1,0 @@
-# name: me
-# key: me
-# --
-must_equal ${0:other}

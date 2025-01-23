@@ -1,4 +1,0 @@
-# name: createWriter
-# key: createWriter
-# --
-createWriter(${0:filename});

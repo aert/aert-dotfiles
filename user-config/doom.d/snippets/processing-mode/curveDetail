@@ -1,4 +1,0 @@
-# name: curveDetail
-# key: curveDetail
-# --
-curveDetail(${0:detail});

@@ -1,4 +1,0 @@
-# name: le
-# key: le
-# --
-logger.error(${0:msg})

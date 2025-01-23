@@ -1,4 +1,0 @@
-# name: "post"
-# key: post
-# --
-$_POST['$1']

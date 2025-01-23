@@ -1,4 +1,0 @@
-# name: "{% extends xyz %}"
-# key: ext
-# --
-{% extends $1 %}

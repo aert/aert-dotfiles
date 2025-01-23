@@ -1,4 +1,0 @@
-# name: ycad
-# key: ycad
-# --
-Yii::app()->cache->add('${1:key}', ${2:value}, ${3:expire}, new C$4CacheDependency($0));

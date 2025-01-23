@@ -1,4 +1,0 @@
-# name: lp
-# key: lp
-# --
-log.Println("$1")

@@ -1,4 +1,0 @@
-# name: pkgm
-# key: pkgm
-# --
-__PACKAGE__->${0:package_method}()

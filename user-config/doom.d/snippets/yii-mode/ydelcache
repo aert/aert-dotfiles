@@ -1,4 +1,0 @@
-# name: ydelcache
-# key: ydelcache
-# --
-Yii::app()->cache->delete('${0:key}');

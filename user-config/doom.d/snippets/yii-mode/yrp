@@ -1,4 +1,0 @@
-# name: yrp
-# key: yrp
-# --
-$this->renderPartial('${1:view}',array('${2:key}'=>${0:value}));

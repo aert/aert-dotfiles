@@ -1,5 +1,0 @@
-# name: focus
-# key: focus
-# --
-${1:obj}.focus (${2:e}) ->
-  ${0:// event handler}

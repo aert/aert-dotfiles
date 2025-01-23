@@ -1,4 +1,0 @@
-# name: show
-# key: show
-# --
-${1:obj}.show('${2:slow/400/fast}')

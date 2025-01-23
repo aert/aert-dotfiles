@@ -1,4 +1,0 @@
-# name: vf
-# key: vf
-# --
-validates :${1:attribute}, format: { with: /${0:regex}/ }

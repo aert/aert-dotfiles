@@ -1,4 +1,0 @@
-# name: expb
-# key: expb
-# --
-expect { ${1:object} }.to $0

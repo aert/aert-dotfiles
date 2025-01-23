@@ -1,7 +1,0 @@
-# name: lock
-# key: lock
-# --
-lock (${1:this})
-{
-  $0
-}

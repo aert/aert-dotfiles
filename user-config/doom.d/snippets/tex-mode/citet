@@ -1,4 +1,0 @@
-# name: \citet
-# key: citet
-# --
-\\citet{$1} $0

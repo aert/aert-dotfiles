@@ -1,7 +1,0 @@
-# name: wh
-# key: wh
-# --
-while (${1:true})
-{
-  ${0:`yas-selected-text`}
-}

@@ -1,4 +1,0 @@
-# name: bdo
-# key: bdo
-# --
-<bdo dir="$1">$0</bdo>

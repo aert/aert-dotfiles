@@ -1,5 +1,0 @@
-# name: \item (recursive)
-# key: ]i
-# --
-\\item $1
-  ${0:]i}

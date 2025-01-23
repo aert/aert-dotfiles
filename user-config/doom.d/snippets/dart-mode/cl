@@ -1,4 +1,0 @@
-# name: cl
-# key: cl
-# --
-class ${1:} $0

@@ -1,4 +1,0 @@
-# name: abbr
-# key: abbr
-# --
-<abbr title="$1">$0</abbr>

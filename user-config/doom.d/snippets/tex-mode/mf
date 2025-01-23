@@ -1,4 +1,0 @@
-# name: mathfrak
-# key: mf
-# --
-\\mathfrak{${0:${VISUAL:text}}}

@@ -1,4 +1,0 @@
-# name: min
-# key: min
-# --
-cmake_minimum_required(version ${0:2.8.2})

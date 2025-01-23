@@ -1,4 +1,0 @@
-# name: tref
-# key: tref
-# --
-t.references :${0:model}

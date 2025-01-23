@@ -1,6 +1,0 @@
-# name: header#
-# key: header#
-# --
-<header id="$1">
-  $0
-</header>

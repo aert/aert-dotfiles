@@ -1,4 +1,0 @@
-# name: exp
-# key: exp
-# --
-expr {${0:#expression here}}

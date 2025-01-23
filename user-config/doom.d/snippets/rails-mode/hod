@@ -1,4 +1,0 @@
-# name: hod
-# key: hod
-# --
-has_one :${1:object}, dependent: :${0:destroy}

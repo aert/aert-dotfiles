@@ -1,4 +1,0 @@
-# name: ishc
-# key: ishc
-# --
-it { should have_db_column :$0 }

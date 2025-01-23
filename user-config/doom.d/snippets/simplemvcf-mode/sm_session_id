@@ -1,4 +1,0 @@
-# name: sm_session_id
-# key: sm_session_id
-# --
-Session::id();

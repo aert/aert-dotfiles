@@ -1,4 +1,0 @@
-# name: ci_form_open
-# key: ci_form_open
-# --
-form_open("${1:action}");$2

@@ -1,4 +1,0 @@
-# name: has
-# key: has
-# --
-hasOwnProperty($0)

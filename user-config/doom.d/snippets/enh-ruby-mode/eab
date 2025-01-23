@@ -1,4 +1,0 @@
-# name: eab
-# key: eab
-# --
-each_byte { |${1:byte}| $0 }

@@ -1,5 +1,0 @@
-# name: ff
-# key: ff
-# --
-FIND FIRST ${1:BufferName}
-${2:WHERE $1.$3} $0

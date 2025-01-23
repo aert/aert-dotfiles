@@ -1,4 +1,0 @@
-# name: vector
-# key: vector
-# --
-std::vector<${1:T}> $2;

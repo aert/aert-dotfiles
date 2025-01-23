@@ -1,4 +1,0 @@
-# name: isbt
-# key: isbt
-# --
-it { should belong_to :$0 }

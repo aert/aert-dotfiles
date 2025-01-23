@@ -1,4 +1,0 @@
-# name: beginRecord
-# key: beginRecord
-# --
-beginRecord(${1:renderer}, ${0:filename});

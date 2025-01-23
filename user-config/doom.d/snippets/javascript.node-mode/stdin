@@ -1,4 +1,0 @@
-# name: stdin
-# key: stdin
-# --
-process.stdin

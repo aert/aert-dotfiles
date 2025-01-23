@@ -1,4 +1,0 @@
-# name: ifchanged
-# key: ifchanged
-# --
-{% ifchanged %}$1{% endifchanged %}

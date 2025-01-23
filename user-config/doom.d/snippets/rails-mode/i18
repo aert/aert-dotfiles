@@ -1,4 +1,0 @@
-# name: i18
-# key: i18
-# --
-I18n.t('${1:type.key}')

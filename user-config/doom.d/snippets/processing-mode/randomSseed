@@ -1,4 +1,0 @@
-# name: randomSseed
-# key: randomSseed
-# --
-randomSeed(${0:value});

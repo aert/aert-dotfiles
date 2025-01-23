@@ -1,4 +1,0 @@
-# name: ho
-# key: ho
-# --
-has_one :${0:object}

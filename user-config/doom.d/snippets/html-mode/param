@@ -1,4 +1,0 @@
-# name: param
-# key: param
-# --
-<param name="$1" value="$2" />

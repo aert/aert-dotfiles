@@ -1,6 +1,0 @@
-# name: map.
-# key: map.
-# --
-<map class="$1" name="$2">
-  $0
-</map>

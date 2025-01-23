@@ -1,4 +1,0 @@
-# name: \lim_{}
-# key: lim
-# --
-\\lim_{${1:n \\to \\infty}} $0

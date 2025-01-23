@@ -1,4 +1,0 @@
-# name: mbd
-# key: mbd
-# --
-before_destroy :${0:method}

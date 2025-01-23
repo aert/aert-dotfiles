@@ -1,6 +1,0 @@
-# name: rcdp
-# key: rcdp
-# --
-static defaultProps = {
-  $1: $0,
-}

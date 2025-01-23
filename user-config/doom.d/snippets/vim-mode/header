@@ -1,7 +1,0 @@
-# name: standard Vim script file header
-# key: header
-# --
-" File: ${1:}
-" Author: ${2:`"Name"`}
-" Description: $3
-${0:" Last Modified: `(format-time-string "%B %d, %Y")`}

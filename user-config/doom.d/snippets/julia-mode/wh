@@ -1,6 +1,0 @@
-# name: while loop
-# key: wh
-# --
-while $1 ${2:<=} $3
-  $0
-end

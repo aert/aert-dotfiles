@@ -1,5 +1,0 @@
-# name: doseq
-# key: doseq
-# --
-(doseq [${1:elem} ${2:coll}]
-  $0)

@@ -1,4 +1,0 @@
-# name: parsejson
-# key: parsejson
-# --
-$.parseJSON(${1:data})

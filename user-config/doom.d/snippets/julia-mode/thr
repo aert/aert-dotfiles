@@ -1,5 +1,0 @@
-# name: throw
-# key: thr
-# --
-throw($1)
-$0

@@ -1,4 +1,0 @@
-# name: ap
-# key: ap
-# --
-append(${1:slice}, ${0:value})

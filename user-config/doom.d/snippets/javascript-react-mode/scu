@@ -1,6 +1,0 @@
-# name: scu
-# key: scu
-# --
-shouldComponentUpdate(nextProps, nextState) {
-  $1
-}

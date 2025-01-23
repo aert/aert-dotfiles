@@ -1,6 +1,0 @@
-# name: "Main function"
-# key: main
-# --
-pub fn main() {
-  $0
-}

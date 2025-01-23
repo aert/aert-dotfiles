@@ -1,5 +1,0 @@
-# name: ngro
-# key: ngro
-# --
-$routeProvider.otherwise redirectTo: '${1:url}'
-$2

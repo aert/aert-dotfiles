@@ -1,8 +1,0 @@
-# name: dir
-# key: dir
-# --
-<Directory ${1:/}>
-  DirectoryIndex ${0:index.html}
-  Order Deny,Allow
-  Deny from All
-</Directory>

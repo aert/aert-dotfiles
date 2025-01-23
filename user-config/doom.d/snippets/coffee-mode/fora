@@ -1,5 +1,0 @@
-# name: fora
-# key: fora
-# --
-for ${1:name} in ${2:array}
-  ${0:# body...}

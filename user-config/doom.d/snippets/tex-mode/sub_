@@ -1,6 +1,0 @@
-# name: \subsection*
-# key: sub*
-# --
-\\subsection*{${1:subsection name}}
-\\label{sub:${2:$1}}
-$0

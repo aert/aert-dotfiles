@@ -1,4 +1,0 @@
-# name: yhan
-# key: yhan
-# --
-echo CHtml::activeName(${1:model}, '${0:attribute}');

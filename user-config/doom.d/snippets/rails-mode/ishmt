@@ -1,4 +1,0 @@
-# name: ishmt
-# key: ishmt
-# --
-it { should have_many(:$1).through :$0 }

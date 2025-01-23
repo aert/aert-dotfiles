@@ -1,5 +1,0 @@
-# name: submit
-# key: submit
-# --
-${1:obj}.submit (${2:e}) ->
-  ${0:// event handler}

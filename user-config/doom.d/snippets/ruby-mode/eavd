@@ -1,6 +1,0 @@
-# name: eavd
-# key: eavd
-# --
-each_value do |${1:val}|
-  $0
-end

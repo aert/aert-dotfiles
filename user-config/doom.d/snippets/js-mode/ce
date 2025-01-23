@@ -1,4 +1,0 @@
-# name: "console.error"
-# key: ce
-# --
-console.error($0);

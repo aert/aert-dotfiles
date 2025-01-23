@@ -1,4 +1,0 @@
-# name: a=
-# key: a=
-# --
-self.assertEqual($0, $1)

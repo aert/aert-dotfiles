@@ -1,5 +1,0 @@
-# name: fv
-# key: fv
-# --
-type  	fixedValue;
-value  	uniform $0;

@@ -1,8 +1,0 @@
-# name: liftimports
-# key: liftimports
-# --
-import _root_.net.liftweb.http._
-import S._
-import _root_.net.liftweb.util._
-import Helpers._
-import _root_.scala.xml._

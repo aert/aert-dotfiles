@@ -1,5 +1,0 @@
-# name: deft
-# key: deft
-# --
-(deftest ${1:name}
-  (is (= ${0:assertion})))

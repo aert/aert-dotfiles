@@ -1,4 +1,0 @@
-# name: :nlc
-# key: :nlc
-# --
-:nth-last-child($0)

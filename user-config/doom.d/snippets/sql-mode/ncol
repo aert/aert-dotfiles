@@ -1,4 +1,0 @@
-# name: ncol
-# key: ncol
-# --
-${1:name}  number	${3:default 0}	${0:not null}

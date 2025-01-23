@@ -1,6 +1,0 @@
-# name: ff
-# key: ff
-# --
-<%= form_for @${1:model} do |f| %>
-  $0
-<% end %>

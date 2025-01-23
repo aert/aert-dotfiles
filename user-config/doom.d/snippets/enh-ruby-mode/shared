@@ -1,4 +1,0 @@
-# name: shared
-# key: shared
-# --
-shared_examples ${0:'shared examples name'}

@@ -1,4 +1,0 @@
-# name: offsetp
-# key: offsetp
-# --
-${1:obj}.offsetParent()

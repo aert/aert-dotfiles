@@ -1,4 +1,0 @@
-# name: lin
-# key: lin
-# --
-<%= link "${1:Submit}", to: ${2:"/users"}, method: ${3::delete} %>

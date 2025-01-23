@@ -1,5 +1,0 @@
-# name: eif
-# key: eif
-# --
-ElseIf ${1:condition} Then
-  ${0:; True code}

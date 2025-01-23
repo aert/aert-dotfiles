@@ -1,6 +1,0 @@
-# name: str
-# key: str
-# --
-struct${1:(T)} ${2:`(file-name-base)`} {
-  $0	
-}

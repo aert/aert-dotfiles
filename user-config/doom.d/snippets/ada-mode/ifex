@@ -1,4 +1,0 @@
-# name: if expression
-# key: ifex
-# --
-if $1 then $2 else $0

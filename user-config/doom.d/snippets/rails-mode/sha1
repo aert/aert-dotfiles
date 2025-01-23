@@ -1,4 +1,0 @@
-# name: sha1
-# key: sha1
-# --
-Digest::SHA1.hexdigest(${0:string})

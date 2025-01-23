@@ -1,4 +1,0 @@
-# name: imp
-# key: imp
-# --
-import ${0:module_name}

@@ -1,4 +1,0 @@
-# name: iiexpn
-# key: iiexpn
-# --
-it { is_expected.not_to $0 }

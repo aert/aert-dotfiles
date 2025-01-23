@@ -1,4 +1,0 @@
-# name: when
-# key: when
-# --
-(when ${1:test} ${0:body})

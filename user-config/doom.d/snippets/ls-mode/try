@@ -1,7 +1,0 @@
-# name: try
-# key: try
-# --
-try
-  ${1:`yas-selected-text`}
-catch ${2:error}
-  $3

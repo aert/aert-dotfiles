@@ -1,4 +1,0 @@
-# name: "Type alias"
-# key: type
-# --
-type ${1:NewName} = $2;

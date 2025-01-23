@@ -1,4 +1,0 @@
-# name: createReader
-# key: createReader
-# --
-createReader(${0:filename});

@@ -1,4 +1,0 @@
-# name: pixels
-# key: pixels
-# --
-pixels[${0:index}]

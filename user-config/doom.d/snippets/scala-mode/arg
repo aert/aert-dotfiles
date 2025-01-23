@@ -1,4 +1,0 @@
-# name: arg
-# key: arg
-# --
-${1:a}: ${2:T}${0:, arg}

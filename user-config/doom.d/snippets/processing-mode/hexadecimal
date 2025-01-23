@@ -1,4 +1,0 @@
-# name: hexadecimal
-# key: hexadecimal
-# --
-hex(${0:c});

@@ -1,6 +1,0 @@
-# name: equation environment
-# key: eq
-# --
-\\begin{equation}
-  ${0:`yas-selected-text`}
-\\end{equation}

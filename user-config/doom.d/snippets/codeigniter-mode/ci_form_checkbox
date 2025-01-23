@@ -1,4 +1,0 @@
-# name: ci_form_checkbox
-# key: ci_form_checkbox
-# --
-form_checkbox("${1:name}", "${2:value}");$3

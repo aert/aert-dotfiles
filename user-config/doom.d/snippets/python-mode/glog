@@ -1,5 +1,0 @@
-# name: glog
-# key: glog
-# --
-import logging
-logger = logging.getLogger(${0:__name__})

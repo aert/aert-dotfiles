@@ -1,7 +1,0 @@
-# name: ctor
-# key: ctor
-# --
-public ${1:}()
-{
-  $0
-}

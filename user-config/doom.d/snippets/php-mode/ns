@@ -1,6 +1,0 @@
-# name: ns
-# key: ns
-# --
-namespace ${1:Foo\Bar\Baz};
-
-${0:`yas-selected-text`}

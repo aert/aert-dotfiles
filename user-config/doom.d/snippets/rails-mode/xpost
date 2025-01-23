@@ -1,4 +1,0 @@
-# name: xpost
-# key: xpost
-# --
-xhr :post, :${1:create}, ${2:object}: ${3:object}

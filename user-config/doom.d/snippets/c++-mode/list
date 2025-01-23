@@ -1,4 +1,0 @@
-# name: list
-# key: list
-# --
-std::list<${1:T}> $2;

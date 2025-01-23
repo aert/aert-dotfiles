@@ -1,4 +1,0 @@
-# name: queue
-# key: queue
-# --
-std::queue<${1:T}> $2;

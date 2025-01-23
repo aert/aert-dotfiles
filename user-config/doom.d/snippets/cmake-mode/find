@@ -1,4 +1,0 @@
-# name: find
-# key: find
-# --
-find_package(${1:library} ${0:REQUIRED})

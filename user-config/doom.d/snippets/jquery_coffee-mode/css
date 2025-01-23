@@ -1,4 +1,0 @@
-# name: css
-# key: css
-# --
-${1:obj}.css('${2:attribute}', '${3:value}')

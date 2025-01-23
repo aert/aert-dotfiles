@@ -1,8 +1,0 @@
-# name: ren
-# key: ren
-# --
-render() {
-  return (
-  	${1:<div />}
-  );
-}

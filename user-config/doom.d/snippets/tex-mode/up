@@ -1,4 +1,0 @@
-# name: \usepackage
-# key: up
-# --
-\\usepackage[${1:options}]{${2:package}} $0

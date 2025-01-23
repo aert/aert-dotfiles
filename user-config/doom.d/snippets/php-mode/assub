@@ -1,4 +1,0 @@
-# name: "$this->assertArraySubset($subset, $array)"
-# key: assub
-# --
-$this->assertArraySubset(${1:$subset}, ${2:$array});

@@ -1,4 +1,0 @@
-# name: pb&-
-# key: pb&-
-# --
-internal bool $1 { get; private set; }

@@ -1,4 +1,0 @@
-# name: jstl:fn
-# key: jstl:fn
-# --
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>

@@ -1,4 +1,0 @@
-# name: acos
-# key: acos
-# --
-acos(${0:rad});

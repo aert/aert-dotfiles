@@ -1,6 +1,0 @@
-# name: func
-# key: func
-# --
-Func ${1:fname}(${2:}):
-  ${0:Return}
-EndFunc

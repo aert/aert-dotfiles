@@ -1,5 +1,0 @@
-# name: param
-# key: param
-# --
-<xsl:param name="${1:name}">$2
-</xsl:param>

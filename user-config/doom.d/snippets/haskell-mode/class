@@ -1,5 +1,0 @@
-# name: class
-# key: class
-# --
-class ${1:Class} a where
-  $0

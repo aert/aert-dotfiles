@@ -1,4 +1,0 @@
-# name: aae
-# key: aae
-# --
-assertArrayEquals("${1:Failure message}", ${2:expecteds}, ${3:actuals});

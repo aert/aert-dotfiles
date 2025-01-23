@@ -1,5 +1,0 @@
-# name: function
-# key: fun
-# --
-function [${3:out}] = ${1:}($2) 
-$0

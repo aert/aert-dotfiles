@@ -1,4 +1,0 @@
-# name: trc
-# key: trc
-# --
-t.remove :${0:column}

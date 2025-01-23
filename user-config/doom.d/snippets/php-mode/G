@@ -1,4 +1,0 @@
-# name: "_GET array"
-# key: G
-# --
-$_GET['${1:variable}']

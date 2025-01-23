@@ -1,6 +1,0 @@
-# name: sw
-# key: sw
-# --
-switch ($1) {
-  $0
-}

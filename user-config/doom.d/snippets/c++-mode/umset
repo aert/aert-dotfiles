@@ -1,4 +1,0 @@
-# name: umset
-# key: umset
-# --
-std::unordered_multiset<${1:T}> $2;

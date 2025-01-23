@@ -1,6 +1,0 @@
-# name: suite
-# key: suite
-# --
-class ${0:name} extends Suite {
-  def test() {
-}

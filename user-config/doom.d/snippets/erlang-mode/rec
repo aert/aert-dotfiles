@@ -1,5 +1,0 @@
-# name: rec
-# key: rec
-# --
--record(${1:record}, {
-    ${2:field}=${3:value}}).

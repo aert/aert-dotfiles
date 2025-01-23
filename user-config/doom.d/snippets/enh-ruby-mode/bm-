@@ -1,7 +1,0 @@
-# name: bm-
-# key: bm-
-# --
-TESTS = ${1:10_000}
-Benchmark.bmbm do |results|
-  $0
-end

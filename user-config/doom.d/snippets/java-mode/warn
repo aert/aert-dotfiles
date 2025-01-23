@@ -1,4 +1,0 @@
-# name: warn
-# key: warn
-# --
-Logger.warn(${1:param});

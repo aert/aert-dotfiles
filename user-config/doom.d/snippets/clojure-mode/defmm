@@ -1,4 +1,0 @@
-# name: defmm
-# key: defmm
-# --
-(defmulti ${1:name} "${2:doc-string}" ${0:dispatch-fn})

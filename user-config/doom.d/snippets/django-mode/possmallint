@@ -1,4 +1,0 @@
-# name: possmallint
-# key: possmallint
-# --
-${1:FIELDNAME} = models.PositiveSmallIntegerField($0)

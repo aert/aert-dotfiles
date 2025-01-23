@@ -1,4 +1,0 @@
-# name: param
-# key: param
-# --
-$.param(${1:obj})

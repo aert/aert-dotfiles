@@ -1,4 +1,0 @@
-# name: outerw
-# key: outerw
-# --
-${1:obj}.outerWidth()

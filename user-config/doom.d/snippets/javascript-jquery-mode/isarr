@@ -1,4 +1,0 @@
-# name: isarr
-# key: isarr
-# --
-$.isArray(${1:obj})

@@ -1,4 +1,0 @@
-# name: zipwi
-# key: zipwi
-# --
-${0:name}.view.zipWithIndex

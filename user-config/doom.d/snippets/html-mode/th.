@@ -1,4 +1,0 @@
-# name: th.
-# key: th.
-# --
-<th class="$1">$0</th>

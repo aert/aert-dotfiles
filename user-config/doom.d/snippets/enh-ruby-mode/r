@@ -1,4 +1,0 @@
-# name: r
-# key: r
-# --
-attr_reader :${0:attr_names}

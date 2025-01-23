@@ -1,8 +1,0 @@
-# name: wi
-# key: wi
-# --
-with(
-  ${1:item} <- ${2:items}
-) do
-  $0
-end

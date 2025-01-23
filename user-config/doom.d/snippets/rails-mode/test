@@ -1,6 +1,0 @@
-# name: test
-# key: test
-# --
-test '${1:should do something}' do
-  $0
-end

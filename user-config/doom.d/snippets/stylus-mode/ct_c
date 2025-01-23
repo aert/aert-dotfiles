@@ -1,4 +1,0 @@
-# name: ct:c
-# key: ct:c
-# --
-content counter($0)

@@ -1,4 +1,0 @@
-# name: trim
-# key: trim
-# --
-${fn:trim(${0:string})}

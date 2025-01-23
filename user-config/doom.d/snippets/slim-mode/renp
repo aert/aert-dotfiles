@@ -1,4 +1,0 @@
-# name: renp
-# key: renp
-# --
-= render partial: '$0'

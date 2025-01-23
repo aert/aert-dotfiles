@@ -1,4 +1,0 @@
-# name: ytrace
-# key: ytrace
-# --
-Yii::trace('${0:msg}');

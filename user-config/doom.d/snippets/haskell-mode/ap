@@ -1,4 +1,0 @@
-# name: ap
-# key: ap
-# --
-${1:map} ${2:fn} ${0:list}

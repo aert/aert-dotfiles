@@ -1,4 +1,0 @@
-# name: source
-# key: source
-# --
-source('${0:file}')

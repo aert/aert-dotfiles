@@ -1,8 +1,0 @@
-# name: if .. do .. else .. end
-# key: ife
-# --
-if ${1:condition} do
-  ${2:`yas-selected-text`}
-else
-  $0
-end

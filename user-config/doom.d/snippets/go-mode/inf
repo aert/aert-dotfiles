@@ -1,6 +1,0 @@
-# name: inf
-# key: inf
-# --
-interface ${1:name} {
-  ${2:/* methods */}
-}

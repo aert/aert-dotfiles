@@ -1,4 +1,0 @@
-# name: bool
-# key: bool
-# --
-${1:FIELDNAME} = models.BooleanField(${0:default=True})

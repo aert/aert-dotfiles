@@ -1,5 +1,0 @@
-# name: alth
-# key: alth
-# --
-alias ${1:value} this;
-$0

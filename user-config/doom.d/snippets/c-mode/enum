@@ -1,8 +1,0 @@
-# name: enum
-# key: enum
-# --
-/*! \enum $1
- *
- *  ${2:Detailed description}
- */
-enum ${1:name} { $0 };

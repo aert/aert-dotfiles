@@ -1,4 +1,0 @@
-# name: object
-# key: object
-# --
-${1:Object} ${2:o}${3: = new $1}($0);

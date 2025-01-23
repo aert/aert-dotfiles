@@ -1,4 +1,0 @@
-# name: int
-# key: int
-# --
-${1:FIELDNAME} = models.IntegerField($0)

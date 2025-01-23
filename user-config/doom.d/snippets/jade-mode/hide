@@ -1,4 +1,0 @@
-# name: hide
-# key: hide
-# --
-div(ng-hide='$1')

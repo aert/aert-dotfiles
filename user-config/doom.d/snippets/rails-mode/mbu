@@ -1,4 +1,0 @@
-# name: mbu
-# key: mbu
-# --
-before_update :${0:method}

@@ -1,7 +1,0 @@
-# name: toc:
-# key: toc:
-# --
-.. toctree::
-  :maxdepth: 2
-
-  $0

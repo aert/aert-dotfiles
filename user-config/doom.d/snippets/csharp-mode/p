@@ -1,4 +1,0 @@
-# name: p
-# key: p
-# --
-${1:public} ${2:int} $3 { get; set; }

@@ -1,4 +1,0 @@
-# name: ffcb
-# key: ffcb
-# --
-<%= ${1:f}.check_box :${0:attribute} %>

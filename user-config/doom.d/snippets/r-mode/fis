@@ -1,4 +1,0 @@
-# name: fis
-# key: fis
-# --
-fisher.test(${1:x}, ${0:y})

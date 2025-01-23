@@ -1,4 +1,0 @@
-# name: stringdata
-# key: text
-# --
-text(${1:stringdata}, ${2:x}, ${3:y}, ${4:width}, ${5:height}${6:, }${0:z});

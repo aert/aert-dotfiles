@@ -1,7 +1,0 @@
-# name: ms|
-# key: ms|
-# --
-protected string ${1:}(${2:})
-{
-  ${0:return "";}
-}

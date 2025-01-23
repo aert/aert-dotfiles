@@ -1,4 +1,0 @@
-# name: @m
-# key: @m
-# --
-@media ${1:screen}

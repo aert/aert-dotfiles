@@ -1,4 +1,0 @@
-# name: mp
-# key: mp
-# --
-map[${1:string}]${0:int}

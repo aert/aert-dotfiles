@@ -1,4 +1,0 @@
-# name: ru
-# key: ru
-# --
-unauthorized(${1:param});

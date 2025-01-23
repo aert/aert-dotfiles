@@ -1,4 +1,0 @@
-# name: getdigit
-# key: getdigit
-# --
-get_digit:"$0"

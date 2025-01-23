@@ -1,4 +1,0 @@
-# name: copy-of
-# key: copy-of
-# --
-<xsl:copy-of select="${1:*}" />

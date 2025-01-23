@@ -1,4 +1,0 @@
-# name: lg
-# key: lg
-# --
-logger.debug(${0:msg})

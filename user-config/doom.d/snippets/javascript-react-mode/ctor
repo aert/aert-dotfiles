@@ -1,7 +1,0 @@
-# name: ctor
-# key: ctor
-# --
-constructor() {
-  super();
-  $1
-}

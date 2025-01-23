@@ -1,4 +1,0 @@
-# name: isvn
-# key: isvn
-# --
-it { should validate_numericality_of :$0 }

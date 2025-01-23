@@ -1,4 +1,0 @@
-# name: for some
-# key: fors
-# --
-for some $1 ${2:in} $3 => $0

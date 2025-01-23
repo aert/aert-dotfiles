@@ -1,4 +1,0 @@
-# name: red
-# key: red
-# --
-reduce(${1:init}) { |${2:mem}, ${3:var}| $0 }

@@ -1,4 +1,0 @@
-# name: isres
-# key: isres
-# --
-it { should respond_to :$0 }

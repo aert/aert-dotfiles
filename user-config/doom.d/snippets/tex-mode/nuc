@@ -1,4 +1,0 @@
-# name: \newunicodechar
-# key: nuc
-# --
-\\newunicodechar{$1}{${2:\\ensuremath}${3:tex-substitute}}} $0

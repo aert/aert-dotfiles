@@ -1,8 +1,0 @@
-# name: inv
-# key: inv
-# --
-EventHandler temp = ${1:MyEvent};
-if (${2:temp} != null)
-{
-  $2();
-}

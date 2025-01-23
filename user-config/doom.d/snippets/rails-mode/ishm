@@ -1,4 +1,0 @@
-# name: ishm
-# key: ishm
-# --
-it { should have_many :$0 }

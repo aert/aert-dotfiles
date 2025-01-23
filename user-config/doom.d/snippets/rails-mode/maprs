@@ -1,4 +1,0 @@
-# name: maprs
-# key: maprs
-# --
-${1:map}.resources :${0:resource}

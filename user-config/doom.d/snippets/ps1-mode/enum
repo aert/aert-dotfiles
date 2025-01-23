@@ -1,7 +1,0 @@
-# name: enum
-# key: enum
-# --
-enum ${0:name} {
-  ${1:item1}
-  ${2:item2}
-}

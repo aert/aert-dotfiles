@@ -1,4 +1,0 @@
-# name: split
-# key: split
-# --
-split("${1:str}"${2: , }${0:delimiter});

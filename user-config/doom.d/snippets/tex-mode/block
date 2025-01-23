@@ -1,6 +1,0 @@
-# name: block environment
-# key: block
-# --
-\\begin{block}{${1:title}}
-  ${0:`yas-selected-text`}
-\\end{block}

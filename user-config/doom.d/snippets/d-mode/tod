@@ -1,5 +1,0 @@
-# name: tod
-# key: tod
-# --
-to!double(${1:str});
-$0

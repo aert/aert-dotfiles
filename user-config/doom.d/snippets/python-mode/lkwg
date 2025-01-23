@@ -1,4 +1,0 @@
-# name: lkwg
-# key: lkwg
-# --
-${1:var_name} = kwargs.get('$1', ${2:None})

@@ -1,6 +1,0 @@
-# name: dl.
-# key: dl.
-# --
-<dl class="$1">
-  $0
-</dl>

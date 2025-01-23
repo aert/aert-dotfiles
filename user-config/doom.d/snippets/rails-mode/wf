@@ -1,4 +1,0 @@
-# name: wf
-# key: wf
-# --
-where(${1:field}: ${0:value})

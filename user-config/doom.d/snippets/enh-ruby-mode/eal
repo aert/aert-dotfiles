@@ -1,4 +1,0 @@
-# name: eal
-# key: eal
-# --
-each_line { |${1:line}| $0 }

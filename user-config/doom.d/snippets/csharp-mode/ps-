@@ -1,4 +1,0 @@
-# name: ps-
-# key: ps-
-# --
-private string $1 { get; set; }

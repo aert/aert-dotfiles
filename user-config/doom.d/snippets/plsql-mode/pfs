@@ -1,5 +1,0 @@
-# name: pfs
-# key: pfs
-# --
-function ${1:name}(${2:args})
-  return ${0:type};

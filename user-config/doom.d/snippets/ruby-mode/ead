@@ -1,6 +1,0 @@
-# name: ead
-# key: ead
-# --
-each do |${1:e}|
-  $0
-end

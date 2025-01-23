@@ -1,5 +1,0 @@
-# name: else if part of if statement
-# key: eif
-# --
-else if $1
-  $0

@@ -1,4 +1,0 @@
-# name: hue
-# key: hue
-# --
-hue(${0:color});

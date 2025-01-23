@@ -1,5 +1,0 @@
-# name: toi
-# key: toi
-# --
-to!int(${1:str});
-$0

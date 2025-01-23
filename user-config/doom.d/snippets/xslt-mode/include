@@ -1,4 +1,0 @@
-# name: include
-# key: include
-# --
-<xsl:include href="${1:stylesheet}" />

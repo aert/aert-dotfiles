@@ -1,5 +1,0 @@
-# name: tya
-# key: tya
-# --
-type alias ${1:Model} =
-  $0

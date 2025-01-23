@@ -1,6 +1,0 @@
-# name: change
-# key: change
-# --
-${1:obj}.change(function (${2:e}) {
-  ${0:// event handler}
-});

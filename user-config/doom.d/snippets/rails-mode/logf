@@ -1,4 +1,0 @@
-# name: logf
-# key: logf
-# --
-logger.fatal { '${1:message}' }

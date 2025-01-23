@@ -1,6 +1,0 @@
-# name: mouseDragged
-# key: mouseDragged
-# --
-void mouseDragged(){
-  $0
-}

@@ -1,7 +1,0 @@
-# name: m&
-# key: m&
-# --
-internal ${1:void} $2($3)
-{
-  $0
-}

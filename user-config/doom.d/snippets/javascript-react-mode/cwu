@@ -1,6 +1,0 @@
-# name: cwu
-# key: cwu
-# --
-componentWillUpdate(nextProps, nextState) {
-  $1
-}

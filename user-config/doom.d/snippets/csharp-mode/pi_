@@ -1,4 +1,0 @@
-# name: pi|
-# key: pi|
-# --
-protected int $1 { get; set; }

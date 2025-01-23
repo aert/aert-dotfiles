@@ -1,4 +1,0 @@
-# name: at
-# key: at
-# --
-assertTrue("${1:Failure message}", ${2:condition});

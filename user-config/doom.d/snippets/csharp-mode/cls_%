@@ -1,7 +1,0 @@
-# name: cls|%
-# key: cls|%
-# --
-protected abstract class ${1:}
-{
-  $0
-}

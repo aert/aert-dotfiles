@@ -1,4 +1,0 @@
-# name: to+
-# key: to+
-# --
-text-outline: ${1:0} ${2:0} #${0:000}

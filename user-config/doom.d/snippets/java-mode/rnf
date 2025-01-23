@@ -1,4 +1,0 @@
-# name: rnf
-# key: rnf
-# --
-notFound(${1:param});

@@ -1,5 +1,0 @@
-# name: when-let
-# key: when-let
-# --
-(when-let [${1:result} ${2:test}]
-  ${0:body})

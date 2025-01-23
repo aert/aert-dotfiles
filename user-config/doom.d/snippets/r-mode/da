@@ -1,4 +1,0 @@
-# name: da
-# key: da
-# --
-daply(${1:frame}, ${2:variables}, ${0:function})

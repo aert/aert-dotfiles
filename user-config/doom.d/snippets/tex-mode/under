@@ -1,4 +1,0 @@
-# name: underline text
-# key: under
-# --
-\\underline{${0:${VISUAL:text}}}

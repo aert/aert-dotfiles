@@ -1,4 +1,0 @@
-# name: "console.log"
-# key: cl
-# --
-console.log($0);

@@ -1,6 +1,0 @@
-# name: cwr
-# key: cwr
-# --
-componentWillReceiveProps(nextProps) {
-  $1
-}

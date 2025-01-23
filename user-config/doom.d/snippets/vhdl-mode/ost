@@ -1,4 +1,0 @@
-# name: ost
-# key: ost
-# --
-$1 : out std_logic;

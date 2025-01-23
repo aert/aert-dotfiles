@@ -1,6 +1,0 @@
-# name: aside.
-# key: aside.
-# --
-<aside class="$1">
-  $0
-</aside>

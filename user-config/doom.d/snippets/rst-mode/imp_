@@ -1,5 +1,0 @@
-# name: imp:
-# key: imp:
-# --
-.. important::
-  ${0:this is importatnt}

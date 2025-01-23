@@ -1,4 +1,0 @@
-# name: "$this->assertFileExists('path/to/file')"
-# key: asfex
-# --
-$this->assertFileExists(${1:'path/to/file'});

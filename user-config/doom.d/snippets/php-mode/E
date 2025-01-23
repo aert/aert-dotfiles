@@ -1,4 +1,0 @@
-# name: E
-# key: E
-# --
-$_ENV['${1:variable}']

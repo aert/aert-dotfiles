@@ -1,4 +1,0 @@
-# name: rxml
-# key: rxml
-# --
-render xml: '${0:text to render}'

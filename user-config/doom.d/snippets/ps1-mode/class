@@ -1,6 +1,0 @@
-# name: class
-# key: class
-# --
-class {
-  [string] ${0:FirstName}
-}

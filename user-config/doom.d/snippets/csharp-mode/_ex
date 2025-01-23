@@ -1,4 +1,0 @@
-# name: <ex
-# key: <ex
-# --
-<exception cref="${1:System.Exception}">$2</exception>

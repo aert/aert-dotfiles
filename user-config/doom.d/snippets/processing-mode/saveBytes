@@ -1,4 +1,0 @@
-# name: saveBytes
-# key: saveBytes
-# --
-saveBytes(${1:filename}, ${0:bytes});

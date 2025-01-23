@@ -1,4 +1,0 @@
-# name: tblcom
-# key: tblcom
-# --
-comment on table ${1:table} is '${0:comment}';
