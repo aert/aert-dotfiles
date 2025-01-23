@@ -1,4 +1,4 @@
-# name: Dir[".."]
-# key: Dir
+# name: dir
+# key: dir
 # --
-Dir[${1:'glob/**/*.rb'}]
+Filename.dirname(__FILE__)

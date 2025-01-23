@@ -1,4 +1,4 @@
-# name: MOD
-# key: MOD
+# name: mod
+# key: mod
 # --
-__MODULE__
+module ${1:main};$0

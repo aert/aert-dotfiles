@@ -1,4 +1,7 @@
-# name: F
-# key: F
+# name: f
+# key: f
 # --
-$_FILES['${1:variable}']
+function $1($3)
+{
+  ${0:`yas-selected-text`}
+}

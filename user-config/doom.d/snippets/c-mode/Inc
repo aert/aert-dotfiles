@@ -1,4 +1,4 @@
-# name: Inc
-# key: Inc
+# name: inc
+# key: inc
 # --
-#include "${1:`(concat (file-name-base) ".h")`}"
+#include <${1:stdio}.h>

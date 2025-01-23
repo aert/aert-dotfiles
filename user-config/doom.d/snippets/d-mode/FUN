@@ -1,4 +1,6 @@
-# name: FUN
-# key: FUN
+# name: fun
+# key: fun
 # --
-__FUNCTION__
+${1:auto} ${2:func}(${3:params}) {
+  $0
+}

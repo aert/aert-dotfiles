@@ -1,7 +1,7 @@
-# name: M
-# key: M
+# name: m
+# key: m
 # --
-+ (${1:id})${2:method}
+- (${1:id})${2:method}
 {
-  ${0:return nil;}
+  $0
 }

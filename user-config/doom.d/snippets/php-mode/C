@@ -1,4 +1,7 @@
-# name: C
-# key: C
+# name: c
+# key: c
 # --
-$_COOKIE['${1:variable}']
+class ${1:}
+{
+  ${0:`yas-selected-text`}
+}

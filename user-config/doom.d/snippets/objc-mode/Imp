@@ -1,4 +1,4 @@
-# name: Imp
-# key: Imp
+# name: imp
+# key: imp
 # --
-#import <${1:Cocoa/Cocoa.h}>
+#import "${1:.h}"
