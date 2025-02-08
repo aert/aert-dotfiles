@@ -227,12 +227,13 @@ class FilenameCleaner
   include WithSay
 
   IGNORE_WORDS = %w[
-    h264 x264 x265 720p 1080p
+    h264 x264 x265 720p 1080p 4k uhd
     epub pdf
     mp3 flac ogg
     blueray bluray avi hdtv hdrip dvdrip webm webrip brrip yify xvid evo ac3
     imax bdrip
     galaxytv galaxyrg wrcr tbs deflate minx 800mb phoenix torrentgalaxy
+    web-dl aac-hhweb
   ].freeze
 
   def initialize(simulate = true)

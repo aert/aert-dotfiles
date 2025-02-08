@@ -58,7 +58,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # NOTE:  zsh-syntax-highlighting must be at the end rake-fast rails 
-plugins=(asdf docker docker-compose git fzf-tab zsh-autosuggestions fast-syntax-highlighting uv)
+plugins=(asdf docker docker-compose git fzf-tab zsh-autosuggestions uv)
 source $ZSH/oh-my-zsh.sh
 
 # plugin: zsh_autosuggest
@@ -118,13 +118,7 @@ SPACESHIP_PROMPT_ORDER=(
 # source <(kubectl completion zsh)
 # source <(helm completion zsh)
 
-export ANDROID_HOME=$HOME/bin/local/android-sdk/
-export ANDROID_SDK_ROOT=$ANDROID_HOME
-export PATH=$ANDROID_HOME/tools:$PATH
-export PATH=$ANDROID_HOME/platform-tools:$PATH
-# export PATH=~/bin/gradle-1.10/bin:$PATH
 export PATH=~/bin:~/bin/my_scripts:$PATH
-export PATH=~/bin/local/flutter/bin:$PATH
 
 # If gnupg2 and gpg-agent 2.x are used, be sure to set the environment variable GPG_TTY
 export GPG_TTY=$TTY
@@ -134,6 +128,7 @@ export GPG_TTY=$TTY
 eval "$($HOME/.local/bin/mise activate zsh)"
 
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:/opt/nvim-linux64/bin"
 
 # #-- pyenv
 # export PATH="$HOME/.pyenv/bin:$PATH"
@@ -164,11 +159,7 @@ alias k='kubectl'
 #-- yarn
 export PATH="$HOME/.yarn/bin:$PATH"
 
-export PATH=$PATH:/usr/local/go/bin
 export XZ_OPT='-T0 -9'
-export PATH=$PATH:$GOPATH/bin
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$PATH":"$HOME/.pub-cache/bin"
 export EDITOR="nvim"
 
 # export RUBY_CONFIGURE_OPTS="--with-openssl-dir=/opt/openssl-1.1.1o/"
@@ -195,18 +186,3 @@ chpwd() {
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-#--- emacs vterm setup {{{
-function vterm_printf(){
-    if [ -n "$TMUX" ]; then
-        # Tell tmux to pass the escape sequences through
-        # (Source: http://permalink.gmane.org/gmane.comp.terminal-emulators.tmux.user/1324)
-        printf "\ePtmux;\e\e]%s\007\e\\" "$1"
-    elif [ "${TERM%%-*}" = "screen" ]; then
-        # GNU screen (screen, screen-256color, screen-256color-bce)
-        printf "\eP\e]%s\007\e\\" "$1"
-    else
-        printf "\e]%s\e\\" "$1"
-    fi
-}
-#--- emacs vterm setup }}}
