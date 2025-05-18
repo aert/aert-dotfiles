@@ -36,18 +36,6 @@ return {
     },
     { "EdenEast/nightfox.nvim" },
     {
-      "scottmckendry/cyberdream.nvim",
-      lazy = false,
-      priority = 1000,
-      opts = {
-        transparent = true,
-        styles = {
-          sidebars = "transparent",
-          floats = "transparent",
-        },
-      },
-    },
-    {
       -- "folke/tokyonight.nvim",
       "LazyVim/LazyVim",
       opts = {
