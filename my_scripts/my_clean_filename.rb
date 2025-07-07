@@ -234,6 +234,7 @@ class FilenameCleaner
     imax bdrip
     galaxytv galaxyrg wrcr tbs deflate minx 800mb phoenix torrentgalaxy
     web-dl aac-hhweb
+    neonoir elite ddp5
   ].freeze
 
   def initialize(simulate = true)
