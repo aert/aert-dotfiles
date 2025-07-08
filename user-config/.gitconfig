@@ -20,6 +20,7 @@
 	st = status
 	br = branch --sort=-committerdate
 	rbi = rebase -i
+	pr = pull -r
 	unstage = reset HEAD --
 	# resets all uncomitted changes and files
 	abort = reset --hard HEAD
