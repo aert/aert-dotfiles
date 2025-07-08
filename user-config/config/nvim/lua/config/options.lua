@@ -18,6 +18,7 @@ vim.g.mapleader = ","
 -- support jbuilder files
 vim.filetype.add({
   extension = {
-    jbuilder = 'ruby',
+    jbuilder = "ruby",
+    axlsx = "ruby",
   },
 })
