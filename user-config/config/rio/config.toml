@@ -135,10 +135,10 @@ confirm-before-quit = false
 [window]
 # width = 600
 # height = 400
-# mode = "windowed"
-opacity = 0.9
+mode = "maximized"
+opacity = 0.8
 blur = true
-# decorations = "enabled"
+decorations = "Transparent"
 # colorspace = "display-p3"
 
 # Renderer
@@ -324,10 +324,10 @@ family = "MonaspiceRn NF"
 # (considering if theme folder does exists and is being used)
 #
 # Example:
-# [colors]
+[colors]
 # background = '#0F0D0E'
 # foreground = '#F9F4DA'
-# cursor = '#F38BA3'
+cursor = '#D30102'
 # tabs = '#443d40'
 # tabs-active = '#F38BA3'
 # green = '#0BA95B'
