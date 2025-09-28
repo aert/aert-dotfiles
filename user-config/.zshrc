@@ -1,14 +1,7 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block, everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # zsh profiling
 # https://esham.io/2018/02/zsh-profiling
 # zmodload zsh/zprof
-zmodload zsh/zpty
+# zmodload zsh/zpty
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
@@ -18,9 +11,9 @@ export ZSH=~/.oh-my-zsh
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #ZSH_THEME="cloud"
 #ZSH_THEME="amuse"
-#ZSH_THEME="miloshadzic"
+ZSH_THEME="miloshadzic"
 # ZSH_THEME="spaceship"
-ZSH_THEME=powerlevel10k/powerlevel10k
+# ZSH_THEME=powerlevel10k/powerlevel10k
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -58,7 +51,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # NOTE:  zsh-syntax-highlighting must be at the end rake-fast rails 
-plugins=(asdf docker docker-compose git fzf-tab zsh-autosuggestions uv)
+plugins=(asdf docker docker-compose git fzf-tab zsh-autosuggestions uv mise)
 source $ZSH/oh-my-zsh.sh
 
 # plugin: zsh_autosuggest
