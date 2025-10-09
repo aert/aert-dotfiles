@@ -172,7 +172,7 @@ alias vpn_from_ssh="sshuttle 0/0 --dns -r"
 alias my-iozone="iozone -a -I -b iozone-results.xls"
 alias mosh="export LC_ALL=\"en_US.UTF8\" && mosh"
 alias mux=tmuxinator
-alias dtop="docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock -it amir20/dtop"
+alias dockly="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock lirantal/dockly"
 
 chpwd() {
   x
