@@ -1,0 +1,11 @@
+{
+  "statusLine": {
+    "type": "command",
+    "command": "/Users/ari/.claude/statusline-command.sh"
+  },
+  "includeCoAuthoredBy": false,
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  }
+}
