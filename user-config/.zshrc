@@ -173,6 +173,7 @@ alias my-iozone="iozone -a -I -b iozone-results.xls"
 alias mosh="export LC_ALL=\"en_US.UTF8\" && mosh"
 alias mux=tmuxinator
 alias dockly="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock lirantal/dockly"
+alias ncli="n-cli"
 
 chpwd() {
   x
