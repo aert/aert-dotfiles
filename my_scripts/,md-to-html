@@ -1,0 +1,419 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'bundler/inline'
+
+gemfile do
+  source 'https://rubygems.org'
+  gem 'commonmarker', '~> 1.0'
+end
+
+require 'pathname'
+require 'optparse'
+
+#-- WithSay ----------------------------------------------------------------
+
+module WithSay
+  def say(message, subitem: false, count: 0, index: 0, error: false, subitem_level: 1)
+    prefix = if subitem
+               indent = '   ' * subitem_level
+               arrow = subitem_level > 1 ? '  -' : '->'
+               "#{indent}#{arrow}"
+             else
+               '--'
+             end
+
+    msg = if subitem && (count.positive? || index.positive?)
+            count_str = count.zero? ? '?' : count.to_s
+            index_str = format("%#{count_str.length}d", index + 1)
+            "#{prefix} [#{index_str}/#{count_str}] #{'[ERROR] ' if error}#{message}"
+          else
+            "#{prefix} #{message}"
+          end
+
+    puts msg
+  end
+end
+
+#-- MarkdownToHtmlConverter ------------------------------------------------
+
+class MarkdownToHtmlConverter
+  include WithSay
+
+  MERMAID_CDN_URL = 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs'
+
+  def initialize(input_paths:, output_dir: nil, standalone: true, simulate: false)
+    @input_paths = validate_inputs(input_paths)
+    @output_dir = output_dir ? Pathname.new(output_dir) : nil
+    @standalone = standalone
+    @simulate = simulate
+
+    say "MarkdownToHtmlConverter: #{simulate ? 'simulate only' : 'force run'}"
+    say "Mode: #{standalone ? 'standalone HTML' : 'HTML fragment'}, Output dir: #{output_dir || 'same as input'}", subitem: true
+  end
+
+  def convert_all
+    @input_paths.each_with_index do |path, idx|
+      convert_file(path, index: idx, count: @input_paths.size)
+    end
+  end
+
+  private
+
+  def validate_inputs(paths)
+    raise 'No input paths provided' if paths.empty?
+
+    validated = paths.map do |path_str|
+      begin
+        path = Pathname.new(path_str).realpath
+      rescue Errno::ENOENT
+        raise "File not found: #{path_str}"
+      end
+
+      raise "Not a file: #{path}" unless path.file?
+      raise "Not a markdown file: #{path}" unless ['.md', '.MD', '.markdown'].include?(path.extname.downcase)
+      raise "File not readable: #{path}" unless path.readable?
+
+      path
+    end
+
+    validated
+  end
+
+  def convert_file(input_path, index:, count:)
+    say(input_path.to_s, subitem: true, index:, count:)
+
+    begin
+      markdown = input_path.read(encoding: 'UTF-8')
+      html_body = render_markdown_to_html(markdown)
+      html_output = @standalone ? wrap_in_html_document(html_body, input_path) : html_body
+      output_path = determine_output_path(input_path)
+
+      if output_path.exist?
+        say("Overwriting #{output_path}", subitem: true, subitem_level: 2)
+      end
+
+      unless @simulate
+        @output_dir&.mkpath unless @output_dir&.exist?
+        output_path.write(html_output, encoding: 'UTF-8')
+      end
+
+      say("→ #{output_path}", subitem: true, subitem_level: 2)
+    rescue StandardError => e
+      say("Failed: #{e.message}", error: true, subitem: true, subitem_level: 2)
+      say("  #{e.backtrace.first}", subitem: true, subitem_level: 3) if e.backtrace
+    end
+  end
+
+  def render_markdown_to_html(markdown)
+    # Remove YAML frontmatter if present (between --- markers at start of file)
+    markdown = markdown.sub(/\A---\s*\n.*?\n---\s*\n/m, '')
+
+    # Use Commonmarker for GitHub-flavored markdown with task lists and tables
+    html = Commonmarker.to_html(markdown)
+
+    # Convert mermaid code blocks to format that mermaid.js expects
+    # Change: <pre lang="mermaid"><code>...</code></pre>
+    # To: <pre class="mermaid">...</pre>
+    html.gsub(/<pre lang="mermaid"[^>]*><code[^>]*>(.*?)<\/code><\/pre>/m) do
+      content = Regexp.last_match(1)
+      # Remove span tags from syntax highlighting but keep HTML entities
+      # Note: We keep &lt; &gt; as entities because Mermaid.js expects them that way
+      content = content.gsub(/<\/?span[^>]*>/, '')
+      "<pre class=\"mermaid\">#{content}</pre>"
+    end
+  end
+
+  def wrap_in_html_document(body_html, input_path)
+    title = input_path.basename('.*').to_s.tr('_-', ' ').capitalize
+
+    <<~HTML
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>#{title}</title>
+        <style>
+          body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #24292f;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+            background: #ffffff;
+          }
+          
+          @media (max-width: 767px) {
+            body {
+              padding: 15px;
+            }
+          }
+          
+          h1, h2, h3, h4, h5, h6 {
+            margin-top: 24px;
+            margin-bottom: 16px;
+            font-weight: 600;
+            line-height: 1.25;
+          }
+          
+          h1 {
+            font-size: 2em;
+            border-bottom: 1px solid #d0d7de;
+            padding-bottom: 0.3em;
+          }
+          
+          h2 {
+            font-size: 1.5em;
+            border-bottom: 1px solid #d0d7de;
+            padding-bottom: 0.3em;
+          }
+          
+          h3 { font-size: 1.25em; }
+          h4 { font-size: 1em; }
+          h5 { font-size: 0.875em; }
+          h6 { font-size: 0.85em; color: #57606a; }
+          
+          p {
+            margin-top: 0;
+            margin-bottom: 16px;
+          }
+          
+          a {
+            color: #0969da;
+            text-decoration: none;
+          }
+          
+          a:hover {
+            text-decoration: underline;
+          }
+          
+          pre {
+            background: #f6f8fa;
+            border-radius: 6px;
+            padding: 16px;
+            overflow: auto;
+            font-size: 85%;
+            line-height: 1.45;
+            margin-bottom: 16px;
+          }
+          
+          code {
+            font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+            font-size: 85%;
+            background: rgba(175, 184, 193, 0.2);
+            padding: 0.2em 0.4em;
+            border-radius: 6px;
+          }
+          
+          pre code {
+            background: transparent;
+            padding: 0;
+            border-radius: 0;
+          }
+          
+          blockquote {
+            padding: 0 1em;
+            color: #57606a;
+            border-left: 0.25em solid #d0d7de;
+            margin: 0 0 16px 0;
+          }
+          
+          table {
+            border-spacing: 0;
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 0;
+            margin-bottom: 16px;
+            overflow: auto;
+          }
+          
+          table th {
+            font-weight: 600;
+            padding: 6px 13px;
+            border: 1px solid #d0d7de;
+            background-color: #f6f8fa;
+          }
+          
+          table td {
+            padding: 6px 13px;
+            border: 1px solid #d0d7de;
+          }
+          
+          table tr {
+            background-color: #ffffff;
+            border-top: 1px solid #d0d7de;
+          }
+          
+          table tr:nth-child(2n) {
+            background-color: #f6f8fa;
+          }
+          
+          ul, ol {
+            padding-left: 2em;
+            margin-top: 0;
+            margin-bottom: 16px;
+          }
+          
+          li {
+            margin-top: 0.25em;
+          }
+          
+          li + li {
+            margin-top: 0.25em;
+          }
+          
+          input[type="checkbox"] {
+            margin: 0 0.5em 0 0;
+            vertical-align: middle;
+          }
+          
+          hr {
+            height: 0.25em;
+            padding: 0;
+            margin: 24px 0;
+            background-color: #d0d7de;
+            border: 0;
+          }
+          
+          img {
+            max-width: 100%;
+            height: auto;
+            box-sizing: content-box;
+          }
+          
+          .mermaid {
+            display: flex;
+            justify-content: center;
+            margin: 1em 0;
+          }
+        </style>
+        <script type="module">
+          import mermaid from '#{MERMAID_CDN_URL}';
+
+          mermaid.initialize({
+            startOnLoad: false,  // We'll render manually
+            theme: 'default',
+            securityLevel: 'loose',
+            fontFamily: 'Arial, sans-serif'
+          });
+
+          // Wait for DOM to load
+          document.addEventListener('DOMContentLoaded', async () => {
+            const mermaidDivs = document.querySelectorAll('pre.mermaid');
+
+            for (let i = 0; i < mermaidDivs.length; i++) {
+              const div = mermaidDivs[i];
+              const graphDefinition = div.textContent;
+
+              try {
+                // Render to SVG
+                const { svg } = await mermaid.render(`mermaid-${i}`, graphDefinition);
+
+                // Create an img element with inline SVG data URI
+                const img = document.createElement('img');
+                const svgBlob = new Blob([svg], { type: 'image/svg+xml' });
+                const svgDataUri = await new Promise(resolve => {
+                  const reader = new FileReader();
+                  reader.onloadend = () => resolve(reader.result);
+                  reader.readAsDataURL(svgBlob);
+                });
+
+                img.src = svgDataUri;
+                img.alt = 'Mermaid Diagram';
+                img.style.maxWidth = '100%';
+                img.style.height = 'auto';
+                img.style.display = 'block';
+                img.style.margin = '1em auto';
+
+                // Replace the pre element with the img
+                div.parentNode.replaceChild(img, div);
+              } catch (err) {
+                console.error('Failed to render mermaid diagram:', err);
+                div.style.backgroundColor = '#fee';
+                div.style.padding = '1em';
+                div.innerHTML = `<strong>Error rendering diagram:</strong><br>${err.message}<br><br><pre>${graphDefinition}</pre>`;
+              }
+            }
+          });
+        </script>
+      </head>
+      <body>
+        #{body_html}
+      </body>
+      </html>
+    HTML
+  end
+
+  def determine_output_path(input_path)
+    basename = input_path.basename('.*')
+    dir = @output_dir || input_path.dirname
+    (dir / "#{basename}.html").cleanpath
+  end
+end
+
+#-- CLI --------------------------------------------------------------------
+
+def parse_options
+  options = { simulate: false, standalone: true, output_dir: nil }
+
+  parser = OptionParser.new do |opts|
+    opts.banner = "Usage: #{File.basename($PROGRAM_NAME)} [options] <markdown-files...>"
+    opts.separator ''
+    opts.separator 'Convert GitLab-flavored Markdown to HTML with Mermaid support'
+    opts.separator ''
+
+    opts.on('-o', '--output-dir DIR', 'Output directory (default: same as input)') do |dir|
+      options[:output_dir] = dir
+    end
+
+    opts.on('-f', '--[no-]fragment', 'Output HTML fragment instead of standalone document') do |fragment|
+      options[:standalone] = !fragment
+    end
+
+    opts.on('-s', '--simulate', 'Simulate only (no HTML generation)') do
+      options[:simulate] = true
+    end
+
+    opts.on('-h', '--help', 'Show this help') do
+      puts opts
+      exit
+    end
+  end
+
+  parser.parse!
+  options
+rescue OptionParser::InvalidOption, OptionParser::InvalidArgument => e
+  warn "Error: #{e.message}"
+  warn "Use -h or --help for usage information"
+  exit 1
+end
+
+def main
+  options = parse_options
+
+  if ARGV.empty?
+    warn 'Error: No markdown files specified'
+    warn "Usage: #{File.basename($PROGRAM_NAME)} [options] <markdown-files...>"
+    warn "Use -h or --help for more information"
+    exit 1
+  end
+
+  begin
+    converter = MarkdownToHtmlConverter.new(
+      input_paths: ARGV,
+      output_dir: options[:output_dir],
+      standalone: options[:standalone],
+      simulate: options[:simulate]
+    )
+
+    converter.convert_all
+  rescue StandardError => e
+    warn "Fatal error: #{e.message}"
+    exit 1
+  end
+end
+
+main if __FILE__ == $PROGRAM_NAME
