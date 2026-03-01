@@ -189,3 +189,4 @@ eval "$(zoxide init zsh)"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+export CLAUDE_CODE_MAX_OUTPUT_TOKENS=64000
