@@ -176,7 +176,7 @@ alias dockly="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock l
 alias ncli="n-cli"
 
 chpwd() {
-  x
+  [[ -o interactive ]] && x
 }
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
