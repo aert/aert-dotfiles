@@ -1,7 +1,7 @@
 font-family = "MonaspiceRn NF"
 font-feature=-liga
 font-thicken=true
-font-size = 14
+font-size = 16
 window-inherit-font-size       = true
 
 mouse-hide-while-typing = true
@@ -14,4 +14,4 @@ quit-after-last-window-closed = true
 
 background-opacity = 0.9
 background-blur = true
-theme = dark:Catppuccin Frappe, light:Blue Dolphin
+theme = dark:Dracula, light:Belafonte Day
