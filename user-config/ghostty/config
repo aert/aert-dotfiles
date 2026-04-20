@@ -1,7 +1,7 @@
-font-family = "Monaspace Radon NF Medium"
+font-family = "Monaspace Radon NF"
 font-feature=-liga
 font-thicken=true
-font-size = 12
+font-size = 14
 window-inherit-font-size       = true
 
 mouse-hide-while-typing = true
@@ -10,8 +10,9 @@ resize-overlay = never
 window-save-state = always
 
 macos-titlebar-style = tabs
+gtk-titlebar-style = tabs
 quit-after-last-window-closed = true
 
 background-opacity = 0.9
 background-blur = true
-theme = dark:Dracula, light:Belafonte Day
+theme = dark:Aizen Dark, light:Belafonte Day
