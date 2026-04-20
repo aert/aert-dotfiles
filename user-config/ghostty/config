@@ -1,7 +1,7 @@
-font-family = "MonaspiceRn NF"
+font-family = "Monaspace Radon NF Medium"
 font-feature=-liga
 font-thicken=true
-font-size = 16
+font-size = 12
 window-inherit-font-size       = true
 
 mouse-hide-while-typing = true
