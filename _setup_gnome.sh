@@ -13,3 +13,12 @@ for i in $(seq 1 "$NUM_WORKSPACES"); do
     gsettings set "org.gnome.desktop.wm.keybindings" "switch-to-workspace-$i" "['<Super>$key']"
     dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-$i" "['<Super><Shift>$key']"
 done
+
+#-- flameshot
+
+FLAMESHOT_PATH="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot/"
+dconf write "${FLAMESHOT_PATH}name" "'Flameshot'"
+dconf write "${FLAMESHOT_PATH}command" "'flameshot gui'"
+dconf write "${FLAMESHOT_PATH}binding" "'<Alt><Shift>4'"
+gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['$FLAMESHOT_PATH']"
+
