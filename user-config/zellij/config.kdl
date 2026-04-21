@@ -310,7 +310,126 @@ web_client {
 // Choose the theme that is specified in the themes section.
 // Default: default
 // 
-theme "catppuccin-frappe"
+// theme "catppuccin-frappe"
+
+themes {
+    my_theme {
+        ribbon_unselected {
+            base 192 192 192
+            background 30 30 46
+            emphasis_0 243 139 168
+            emphasis_1 249 226 175
+            emphasis_2 137 180 250
+            emphasis_3 203 166 247
+        }
+        ribbon_selected {
+            base 30 30 46
+            background 137 180 250
+            emphasis_0 243 139 168
+            emphasis_1 249 226 175
+            emphasis_2 137 180 250
+            emphasis_3 203 166 247
+        }
+        text_unselected {
+            base 192 192 192
+            background 30 30 46
+            emphasis_0 243 139 168
+            emphasis_1 249 226 175
+            emphasis_2 137 180 250
+            emphasis_3 203 166 247
+        }
+        text_selected {
+            base 192 192 192
+            background 30 30 46
+            emphasis_0 243 139 168
+            emphasis_1 249 226 175
+            emphasis_2 137 180 250
+            emphasis_3 203 166 247
+        }
+        table_title {
+            base 192 192 192
+            background 30 30 46
+            emphasis_0 243 139 168
+            emphasis_1 249 226 175
+            emphasis_2 137 180 250
+            emphasis_3 203 166 247
+        }
+        table_cell_unselected {
+            base 192 192 192
+            background 30 30 46
+            emphasis_0 243 139 168
+            emphasis_1 249 226 175
+            emphasis_2 137 180 250
+            emphasis_3 203 166 247
+        }
+        table_cell_selected {
+            base 192 192 192
+            background 30 30 46
+            emphasis_0 243 139 168
+            emphasis_1 249 226 175
+            emphasis_2 137 180 250
+            emphasis_3 203 166 247
+        }
+        list_unselected {
+            base 192 192 192
+            background 30 30 46
+            emphasis_0 243 139 168
+            emphasis_1 249 226 175
+            emphasis_2 137 180 250
+            emphasis_3 203 166 247
+        }
+        list_selected {
+            base 192 192 192
+            background 30 30 46
+            emphasis_0 243 139 168
+            emphasis_1 249 226 175
+            emphasis_2 137 180 250
+            emphasis_3 203 166 247
+        }
+        frame_unselected {
+            base 192 192 192
+            background 30 30 46
+            emphasis_0 243 139 168
+            emphasis_1 249 226 175
+            emphasis_2 137 180 250
+            emphasis_3 203 166 247
+        }
+        frame_selected {
+            base 137 180 250
+            background 30 30 46
+            emphasis_0 243 139 168
+            emphasis_1 249 226 175
+            emphasis_2 137 180 250
+            emphasis_3 203 166 247
+        }
+        frame_highlight {
+            base 243 139 168
+            background 30 30 46
+            emphasis_0 243 139 168
+            emphasis_1 249 226 175
+            emphasis_2 137 180 250
+            emphasis_3 203 166 247
+        }
+        exit_code_success {
+            base 166 227 161
+            background 30 30 46
+            emphasis_0 243 139 168
+            emphasis_1 249 226 175
+            emphasis_2 137 180 250
+            emphasis_3 203 166 247
+        }
+        exit_code_error {
+            base 243 139 168
+            background 30 30 46
+            emphasis_0 243 139 168
+            emphasis_1 249 226 175
+            emphasis_2 137 180 250
+            emphasis_3 203 166 247
+        }
+    }
+}
+
+theme "my_theme"
  
 // Choose the base input mode of zellij.
 // Default: normal
