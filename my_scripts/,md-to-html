@@ -111,7 +111,7 @@ class MarkdownToHtmlConverter
     markdown = markdown.sub(/\A---\s*\n.*?\n---\s*\n/m, '')
 
     # Use Commonmarker for GitHub-flavored markdown with task lists and tables
-    html = Commonmarker.to_html(markdown)
+    html = Commonmarker.to_html(markdown, plugins: { syntax_highlighter: { theme: 'InspiredGitHub' } })
 
     # Convert mermaid code blocks to format that mermaid.js expects
     # Change: <pre lang="mermaid"><code>...</code></pre>
@@ -193,6 +193,7 @@ class MarkdownToHtmlConverter
           
           pre {
             background: #f6f8fa;
+            border: 1px solid #d0d7de;
             border-radius: 6px;
             padding: 16px;
             overflow: auto;
