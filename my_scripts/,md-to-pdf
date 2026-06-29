@@ -1,0 +1,233 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+# Requires: npm install -g @mermaid-js/mermaid-cli
+# (bundles puppeteer/Chromium — used for both mermaid pre-rendering and PDF generation)
+
+load File.join(File.dirname(File.realpath(__FILE__)), ',md-to-html')
+
+require 'tempfile'
+require 'open3'
+
+#-- MarkdownToPdfConverter -------------------------------------------------
+
+class MarkdownToPdfConverter < MarkdownToHtmlConverter
+  def initialize(input_paths:, output_dir: nil, simulate: false, page_size: 'A4', margin: 10)
+    @page_size = page_size
+    @margin = margin
+    super(input_paths: input_paths, output_dir: output_dir, standalone: true, simulate: simulate)
+    say "Page: #{page_size}, Margin: #{margin}mm", subitem: true
+    say "Mermaid: #{mmdc_available? ? 'mmdc found — pre-rendering to SVG' : 'mmdc not found — diagrams shown as code'}", subitem: true
+    say "PDF engine: puppeteer (#{puppeteer_path || 'not found — will fail'})", subitem: true
+  end
+
+  private
+
+  # Override: pre-render mermaid blocks to inline SVG instead of CDN JS
+  def process_mermaid(html)
+    html.gsub(/<pre lang="mermaid"[^>]*><code[^>]*>(.*?)<\/code><\/pre>/m) do
+      content = Regexp.last_match(1).gsub(/<\/?span[^>]*>/, '')
+      content = decode_html_entities(content)
+      render_mermaid_to_svg(content) || "<pre><code>#{content}</code></pre>"
+    end
+  end
+
+  # Override: build PDF-specific HTML — no CDN, no body padding (puppeteer handles margins)
+  def wrap_in_html_document(body_html, input_path)
+    title = input_path.basename('.*').to_s.tr('_-', ' ').capitalize
+
+    <<~HTML
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <title>#{title}</title>
+        <style>#{html_styles(extra_css: 'body { padding: 0; font-size: 11px; }')}</style>
+      </head>
+      <body>
+        #{body_html}
+      </body>
+      </html>
+    HTML
+  end
+
+  def output_extension = '.pdf'
+
+  def write_output(content, output_path)
+    run_puppeteer_pdf(content, output_path.to_s)
+  end
+
+  def decode_html_entities(str)
+    str.gsub('&lt;', '<').gsub('&gt;', '>').gsub('&amp;', '&').gsub('&quot;', '"').gsub('&#39;', "'")
+  end
+
+  def mmdc_available?
+    return @mmdc_available unless @mmdc_available.nil?
+    @mmdc_available = system('which mmdc > /dev/null 2>&1')
+  end
+
+  def render_mermaid_to_svg(content)
+    return nil unless mmdc_available?
+
+    mmd_file = Tempfile.new(['mermaid', '.mmd'])
+    svg_file = Tempfile.new(['mermaid', '.svg'])
+
+    begin
+      mmd_file.write(content)
+      mmd_file.close
+      svg_file.close
+
+      _, stderr, status = Open3.capture3('mmdc', '-i', mmd_file.path, '-o', svg_file.path)
+
+      unless status.success?
+        say("mmdc error: #{stderr.strip}", subitem: true, subitem_level: 3, error: true)
+        return nil
+      end
+
+      svg = File.read(svg_file.path)
+      "<div class=\"mermaid\">#{svg}</div>"
+    ensure
+      mmd_file.unlink rescue nil
+      svg_file.unlink rescue nil
+    end
+  end
+
+  def puppeteer_path
+    return @puppeteer_path if defined?(@puppeteer_path)
+
+    # Resolve from npm global root — puppeteer may be top-level or bundled inside mmdc
+    npm_root = `npm root -g 2>/dev/null`.strip
+    @puppeteer_path = if npm_root.empty?
+                        nil
+                      else
+                        [
+                          File.join(npm_root, 'puppeteer'),
+                          File.join(npm_root, '@mermaid-js', 'mermaid-cli', 'node_modules', 'puppeteer'),
+                        ].find { |p| File.exist?(File.join(p, 'package.json')) }
+                      end
+  end
+
+  def run_puppeteer_pdf(html_content, pdf_path)
+    raise 'puppeteer not found. Install mmdc: npm install -g @mermaid-js/mermaid-cli' unless puppeteer_path
+
+    html_file = Tempfile.new(['md-to-pdf', '.html'])
+
+    begin
+      html_file.write(html_content)
+      html_file.close
+
+      js = puppeteer_js(html_file.path, pdf_path)
+      js_file = Tempfile.new(['md-to-pdf', '.js'])
+
+      begin
+        js_file.write(js)
+        js_file.close
+
+        _, stderr, status = Open3.capture3('node', js_file.path)
+        raise "puppeteer failed: #{stderr.strip}" unless status.success?
+      ensure
+        js_file.unlink rescue nil
+      end
+    ensure
+      html_file.unlink rescue nil
+    end
+  end
+
+  def puppeteer_js(html_path, pdf_path)
+    <<~JS
+      'use strict';
+      const puppeteer = require(#{puppeteer_path.inspect});
+
+      (async () => {
+        const browser = await puppeteer.launch({
+          args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+        });
+        try {
+          const page = await browser.newPage();
+          await page.goto('file://#{html_path}', { waitUntil: 'networkidle0', timeout: 30000 });
+          await page.pdf({
+            path: #{pdf_path.inspect},
+            format: #{@page_size.inspect},
+            margin: {
+              top:    '#{@margin}mm',
+              bottom: '#{@margin}mm',
+              left:   '#{@margin}mm',
+              right:  '#{@margin}mm'
+            },
+            printBackground: true
+          });
+        } finally {
+          await browser.close();
+        }
+      })().catch(err => { console.error(err.toString()); process.exit(1); });
+    JS
+  end
+end
+
+#-- CLI --------------------------------------------------------------------
+
+def parse_options
+  options = { simulate: false, output_dir: nil, page_size: 'A4', margin: 10 }
+
+  parser = OptionParser.new do |opts|
+    opts.banner = "Usage: #{File.basename($PROGRAM_NAME)} [options] <markdown-files...>"
+    opts.separator ''
+    opts.separator 'Convert Markdown to PDF via puppeteer (Mermaid pre-rendered via mmdc)'
+    opts.separator ''
+
+    opts.on('-o', '--output-dir DIR', 'Output directory (default: same as input)') do |dir|
+      options[:output_dir] = dir
+    end
+
+    opts.on('-p', '--page-size SIZE', 'Page size (default: A4)') do |size|
+      options[:page_size] = size
+    end
+
+    opts.on('-m', '--margin MM', Integer, 'Page margin in mm (default: 20)') do |mm|
+      options[:margin] = mm
+    end
+
+    opts.on('-s', '--simulate', 'Simulate only (no PDF generation)') do
+      options[:simulate] = true
+    end
+
+    opts.on('-h', '--help', 'Show this help') do
+      puts opts
+      exit
+    end
+  end
+
+  parser.parse!
+  options
+rescue OptionParser::InvalidOption, OptionParser::InvalidArgument => e
+  warn "Error: #{e.message}"
+  warn "Use -h or --help for usage information"
+  exit 1
+end
+
+def main
+  options = parse_options
+
+  if ARGV.empty?
+    warn 'Error: No markdown files specified'
+    warn "Usage: #{File.basename($PROGRAM_NAME)} [options] <markdown-files...>"
+    warn "Use -h or --help for more information"
+    exit 1
+  end
+
+  begin
+    converter = MarkdownToPdfConverter.new(
+      input_paths: ARGV,
+      output_dir: options[:output_dir],
+      simulate: options[:simulate],
+      page_size: options[:page_size],
+      margin: options[:margin]
+    )
+
+    converter.convert_all
+  rescue StandardError => e
+    warn "Fatal error: #{e.message}"
+    exit 1
+  end
+end
+
+main if __FILE__ == $PROGRAM_NAME
