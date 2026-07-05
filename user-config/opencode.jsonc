@@ -1,5 +1,29 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "openrouter/deepseek/deepseek-v4-flash",
-  "small_model": "openrouter/deepseek/deepseek-chat"
+  "model": "openrouter/deepseek/deepseek-v4-flash-NITRO",
+  "small_model": "openrouter/deepseek/deepseek-chat-NITRO",
+  "provider": {
+    "openrouter": {
+      "models": {
+        "deepseek/deepseek-v4-flash-NITRO": {
+          "id": "deepseek/deepseek-v4-flash",
+          "options": {
+            "provider": {
+              "order": ["nitro"],
+              "allow_fallbacks": true
+            }
+          }
+        },
+        "deepseek/deepseek-chat-NITRO": {
+          "id": "deepseek/deepseek-chat",
+          "options": {
+            "provider": {
+              "order": ["nitro"],
+              "allow_fallbacks": true
+            }
+          }
+        }
+      }
+    }
+  }
 }
