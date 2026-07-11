@@ -149,7 +149,8 @@ alias k='kubectl'
 ## [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use
 
 
-#-- yarn
+#-- yarn/bun
+export PATH="$HOME/.bun/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
 
 export XZ_OPT='-T0 -9'
