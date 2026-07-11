@@ -1,8 +1,0 @@
-{
-  "lastChangelogVersion": "0.80.3",
-  "theme": "dark",
-  "defaultProvider": "openrouter",
-  "defaultModel": "deepseek/deepseek-v4-flash",
-  "defaultThinkingLevel": "high",
-  "enableInstallTelemetry": false
-}
