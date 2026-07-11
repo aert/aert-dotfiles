@@ -16,6 +16,7 @@ quit-after-last-window-closed = true
 
 background-opacity = 0.9
 background-blur = true
-theme = dark:Aizen Dark, light:Belafonte Day
+#theme = dark:Breeze, light:Belafonte Day
+theme = dark:Broadcast, light:Belafonte Day
 
 shell-integration-features = ssh-terminfo,ssh-env
