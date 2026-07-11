@@ -2,6 +2,7 @@
   "$schema": "https://opencode.ai/config.json",
   "lsp": false,
   "model": "openrouter/deepseek/deepseek-v4-flash-NITRO",
+  "theme": "system",
   "small_model": "openrouter/deepseek/deepseek-chat-NITRO",
   "provider": {
     "openrouter": {
