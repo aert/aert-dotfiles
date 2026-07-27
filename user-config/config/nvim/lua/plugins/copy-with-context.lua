@@ -8,8 +8,8 @@ return {
           absolute = '<leader>yY',
           remote = '<leader>yr',
         },
-        formats = {
-          default = '# {filepath}:{line}',
+        output_formats = {
+          default = '@{filepath}:{line}',
           remote = '# {remote_url}',
         },
         trim_lines = false,
