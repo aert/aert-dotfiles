@@ -1,5 +1,31 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
+#
+# my_clean_filename.rb -- clean up pirated media filenames
+#
+# Strips release-group tags, codec/resolution noise, brackets, and other
+# junk from filenames and directory names.  Also removes useless files
+# (txt/jpg/url), flattens single-file directories, and deletes empty dirs.
+#
+# Usage:
+#   my_clean_filename.rb [options] <directories...>
+#
+# Options:
+#   -f, --force          Execute changes (default is simulation)
+#   --only=PROCESSORS    Comma-separated: cleaner,useless,onefile,empty
+#   -h, --help           Show help
+#
+# Processors (run in this order by default):
+#   cleaner   -- remove tags/brackets/junk from filenames and dir names
+#   useless   -- delete known junk files (*.txt, *.url, torrent leftovers)
+#   onefile   -- lift single files out of their parent directory
+#   empty     -- remove directories that ended up empty
+#
+# Examples:
+#   my_clean_filename.rb ./Downloads              # simulate
+#   my_clean_filename.rb -f ./Downloads           # for real
+#   my_clean_filename.rb --only=cleaner -f .      # rename only
+#
 
 require 'bundler/inline'
 
@@ -16,7 +42,7 @@ require 'active_support/inflector'
 
 IGNORE_DIRS = %w[.svn .git].freeze
 
-#-- WithSay ----------------------------------------------------------------{{{
+# ── WithSay ───────────────────────────────────────────────────────────
 
 module WithSay
   def say(message, subitem: false, count: 0, index: 0, error: false, subitem_level: 1)
@@ -49,9 +75,7 @@ module WithSay
   end
 end
 
-#-- WithSay ----------------------------------------------------------------}}}
-
-#-- BaseProcessor ----------------------------------------------------------{{{
+# ── BaseProcessor ─────────────────────────────────────────────────────
 
 class BaseProcessor
   include WithSay
@@ -79,35 +103,45 @@ class BaseProcessor
   def process_dir(path, is_root_dir: false)
     return if IGNORE_DIRS.include?(path.basename.to_s)
 
-    before_children(path, is_root_dir:)
+    new_path = before_children(path, is_root_dir:)
+    effective = new_path || path
 
-    path.each_child do |child|
-      process_entry(child, is_root_dir:)
-    end
+    effective.each_child { |child| process_entry(child, is_root_dir:) }
 
-    after_children(path, is_root_dir:)
+    after_children(effective, is_root_dir:)
   end
 
-  # Hook: called before iterating children (override in subclass)
   def before_children(_path, is_root_dir:); end
-
-  # Hook: called for each child entry (override in subclass)
   def process_entry(_child, is_root_dir:); end
-
-  # Hook: called after all children processed (override in subclass)
   def after_children(_path, is_root_dir:); end
+
+  def rename(path, cleaned)
+    return if cleaned.empty?
+    return if path.basename.to_s == cleaned
+
+    dest = (path.dirname / cleaned).cleanpath
+    display_rename(path.basename.to_s, cleaned, dest)
+    return nil if @simulate
+
+    FileUtils.mv(path, dest)
+    dest
+  end
+
+  def display_rename(orig, cleaned, dest)
+    puts "┌─#{orig.to_s.tr("\r", ' ')}"
+    puts "┼─#{cleaned}"
+    puts "└─#{dest}"
+  end
 end
 
-#-- BaseProcessor ----------------------------------------------------------}}}
-
-#-- UselessFilesRemover ----------------------------------------------------{{{
+# ── UselessFilesRemover ───────────────────────────────────────────────
 
 class UselessFilesRemover < BaseProcessor
-  REMOVE_NAMES = [
-    'visit for more books.txt',
-    'tutsgalaxy com.txt',
-    'bookflare net.txt',
-    'free audiobook version.txt'
+  REMOVE_NAMES = %w[
+    visit for more books.txt
+    tutsgalaxy com.txt
+    bookflare net.txt
+    free audiobook version.txt
   ].freeze
 
   REMOVE_PATTERNS = [
@@ -120,23 +154,20 @@ class UselessFilesRemover < BaseProcessor
     /^www yts.*\.jpg$/i,
     /^www yify.*\.jpg$/i,
     /^more books audio.*\.txt$/i,
-    /^ahashare.*\.txt$/i
+    /^ahashare.*\.txt$/i,
+    /^.*\.(txt|jpg|png)$/i
   ].freeze
 
   private
 
   def process_entry(child, is_root_dir:)
-    if child.directory?
-      process_dir(child)
-    elsif child.file?
-      process_file(child)
-    end
+    child.directory? ? process_dir(child) : process_file(child)
   end
 
   def process_file(path)
     basename = path.basename.to_s.downcase
     should_delete = REMOVE_NAMES.include?(basename) ||
-                    REMOVE_PATTERNS.any? { |pattern| pattern.match?(path.basename.to_s) }
+                    REMOVE_PATTERNS.any? { |re| re.match?(path.basename.to_s) }
     return unless should_delete
 
     say path.to_s, subitem: true
@@ -144,9 +175,7 @@ class UselessFilesRemover < BaseProcessor
   end
 end
 
-#-- UselessFilesRemover ----------------------------------------------------}}}
-
-#-- OneFileDirToFileHandler ------------------------------------------------{{{
+# ── OneFileDirToFileHandler ───────────────────────────────────────────
 
 class OneFileDirToFileHandler < BaseProcessor
   private
@@ -171,15 +200,12 @@ class OneFileDirToFileHandler < BaseProcessor
     new_name = file_basename.size >= dir_basename.size ? file_basename : dir_basename
     new_path = (dir_path.dirname / "#{new_name}#{ext}").cleanpath
 
-    puts "┌─#{file_path}"
-    puts "└─#{new_path}"
+    display_rename(file_path.to_s, new_path.basename.to_s, new_path)
     FileUtils.mv(file_path, new_path) unless @simulate
   end
 end
 
-#-- OneFileDirToFileHandler ------------------------------------------------}}}
-
-#-- EmptyDirRemover --------------------------------------------------------{{{
+# ── EmptyDirRemover ───────────────────────────────────────────────────
 
 class EmptyDirRemover < BaseProcessor
   private
@@ -197,136 +223,187 @@ class EmptyDirRemover < BaseProcessor
   end
 end
 
-#-- EmptyDirRemover --------------------------------------------------------}}}
-
-#-- FilenameCleaner --------------------------------------------------------{{{
+# ── FilenameCleaner ───────────────────────────────────────────────────
 
 class FilenameCleaner < BaseProcessor
-  IGNORE_WORDS = %w[
-    h264 x264 x265 720p 1080p 4k uhd
-    epub pdf
-    mp3 flac ogg
-    blueray bluray avi hdtv hdrip dvdrip webm webrip brrip yify xvid evo ac3
-    imax bdrip
-    galaxytv galaxyrg wrcr tbs deflate minx 800mb phoenix torrentgalaxy
-    web-dl aac-hhweb
+  TAG_WORDS = %w[
+    h264 x264 x265 hevc hvec avc
+    720p 1080p 2160p 480p 360p 4k uhd 8k
+    epub pdf mp3 flac ogg m4a aac wav
+    blueray bluray avi hdtv hdrip dvdrip webm
+    webrip brrip yify xvid evo ac3
+    imax bdrip web-dl webdl web
+    galaxytv galaxyrg wrcr tbs deflate minx
+    800mb phoenix torrentgalaxy aac-hhweb
     neonoir elite ddp5
+    10bit 10bits 8bit
+    internal internal
+    hdts ts cam
+    repack proper readnfo nfo
+    atvp atv dks rapta t3nzin hhweb
+    esub subbed dl webdl web-dl
+    extreme immortal
+    group group1 group2 release scene
   ].freeze
 
   FRENCH_WORDS = %w[truefrench french].freeze
-  SPECIAL_WORDS = %w[-extreme].freeze
+
+  SUFFIX_WORDS = %w[
+    yts yify torrentgalaxy phoenix
+  ].freeze
+
+  ALL_TAGS = (TAG_WORDS + SUFFIX_WORDS).freeze
 
   private
 
   def before_children(path, is_root_dir:)
-    orig, cleaned, dest = clean(path, is_dir: true)
-    return if orig == cleaned
+    return if is_root_dir
 
-    display(orig, cleaned, dest)
-    return if @simulate
-
-    FileUtils.mv(path, dest)
-    # Update path reference for child processing would require returning new path
-    # but we process children from the original path object which is now moved
+    rename(path, self.class.clean(path.basename.to_s, is_dir: true))
   end
 
   def process_entry(child, is_root_dir:)
     if child.directory?
       process_dir(child)
     elsif child.file?
-      process_file(child)
+      rename(child, self.class.clean(child.basename.to_s))
     else
       say "#{child}: not a regular file", error: true
     end
   end
 
-  def process_file(path)
-    orig, cleaned, dest = clean(path)
-    return if orig == cleaned
+  # ── Cleaning pipeline ────────────────────────────────────────────
 
-    display(orig, cleaned, dest)
-    FileUtils.mv(path, dest) unless @simulate
+  def self.clean(name, is_dir: false)
+    ext = is_dir ? '' : Pathname.new(name).extname
+    basename = is_dir ? name : Pathname.new(name).basename('.*').to_s
+
+    s = basename.gsub(/_/, ' ')
+         .gsub(/\[.*?\]/, '')
+         .gsub(/[\[\](){}]/, '')
+         .gsub(/\s*-\s*$/, '')
+         .gsub(/[^'\-\p{Alnum}\p{Arabic}. ]/i, ' ')
+
+    s = strip_tags(s)
+    s = replace_french(s)
+    s = deduplicate_season(s)
+    s = preserve_dots(s)
+    s = normalize_space(s)
+    s + ext
   end
 
-  def clean(path, is_dir: false)
-    ext = is_dir ? '' : path.realpath.extname
-    orig = path.realpath.basename(is_dir ? '' : '.*').to_s
-    cleaned = build_cleaned_name(orig)
-    cleaned += ext
-
-    [
-      orig + ext,
-      cleaned,
-      (path.realpath.dirname / cleaned).cleanpath
-    ]
+  def self.preserve_dots(str)
+    str.gsub(/(\d)\.(\d)/) { "#{$1}\x00#{$2}" }
+       .tr('.', ' ')
+       .tr("\x00", '.')
   end
 
-  def build_cleaned_name(orig)
-    cleaned = ActiveSupport::Inflector.transliterate(orig)
-    cleaned = cleaned.gsub(/\b\.$|\b\.\b/, ' ')      # dots in middle
-                     .gsub(/\[.*?\]/, '')             # bracketed content
-                     .gsub(/[^'_\-\p{Alnum}\p{Arabic}]/i, ' ')
-                     .gsub(/ \d+p/, '')               # resolution markers like 720p
+  def self.strip_tags(str)
+    words = str.split
+    return str if words.empty?
 
-    remove_words(cleaned, IGNORE_WORDS, '')
-    remove_words(cleaned, FRENCH_WORDS, ' FR')
+    all_tag_parts = words.flat_map { |w| w.split(/[-.]+/) }
+                         .reject(&:empty?)
+                         .all? { |p| ALL_TAGS.include?(p.downcase) }
 
-    cleaned = normalize_whitespace(cleaned)
+    return '' if all_tag_parts
 
-    remove_words(cleaned, SPECIAL_WORDS, '')
-
-    normalize_whitespace(cleaned)
+    words.map { |w| clean_word(w) }.compact.join(' ')
   end
 
-  def remove_words(str, words, replacement)
-    words.each do |word|
-      str.gsub!(/^#{Regexp.escape(word)}\b|\b#{Regexp.escape(word)}$|\b#{Regexp.escape(word)}\b/i, replacement)
+  def self.clean_word(word)
+    stripped = word.gsub(/^[-]+|[-]+$/, '')
+    return if stripped.empty?
+    return if leading_tag?(word)
+
+    if stripped.include?('.')
+      segments = stripped.split('.')
+      kept = segments.map { |s| filter_dot_segment(s) }.compact
+      return nil if kept.empty?
+      return kept.join('.') if kept.length > 1 && kept.last.match?(/\A\d\z/)
+      return kept.join(' ')
     end
+
+    parts = stripped.split('-')
+    return if parts.all? { |p| p.empty? || tag?(p) }
+
+    assemble_parts(parts)
   end
 
-  def normalize_whitespace(str)
+  def self.filter_dot_segment(seg)
+    return nil if seg.empty?
+    parts = seg.include?('-') ? seg.split('-') : [seg]
+    non_tags = parts.reject { |p| tag?(p) }
+    non_tags.empty? ? nil : non_tags.join(' ')
+  end
+
+  def self.assemble_parts(parts)
+    return parts.first if parts.length == 1
+    return parts.join('.') if parts.all? { |p| p.match?(/\A\d+\z/) }
+
+    non_tags = parts.reject { |p| tag?(p) }
+    non_tags.empty? ? nil : non_tags.join(' ')
+  end
+
+  def self.leading_tag?(word)
+    return false unless word.start_with?('-')
+
+    rest = word.sub(/^[-]+/, '')
+    rest.empty? || tag?(rest)
+  end
+
+  def self.tag?(word)
+    ALL_TAGS.include?(word.downcase)
+  end
+
+  def self.replace_french(str)
+    str.gsub(/\b(?:#{FRENCH_WORDS.join('|')})\b/i, ' FR')
+       .gsub(/\s+FR\b/, ' FR')
+  end
+
+  def self.deduplicate_season(str)
+    str.gsub(/\bSeason\s+(\d+)\s+S0?\1\b/i, 'S\1')
+       .gsub(/\bS0?(\d+)\s+Season\s+\1\b/i, 'S\1')
+  end
+
+  def self.normalize_space(str)
     str.squeeze(' ')
        .squeeze('-')
        .strip
        .gsub(/^[-_]+|[-_]+$/, '')
        .strip
   end
-
-  def display(orig, cleaned, dest)
-    puts "┌─#{orig.to_s.tr("\r", ' ')}"
-    puts "┼─#{cleaned}"
-    puts "└─#{dest}"
-  end
 end
 
-#-- FilenameCleaner --------------------------------------------------------}}}
-
-#-- CLI --------------------------------------------------------------------{{{
+# ── CLI ───────────────────────────────────────────────────────────────
 
 PROCESSORS = {
   'cleaner' => FilenameCleaner,
   'useless' => UselessFilesRemover,
   'onefile' => OneFileDirToFileHandler,
-  'empty' => EmptyDirRemover
+  'empty'  => EmptyDirRemover
 }.freeze
 
-DEFAULT_PROCESSOR_ORDER = %w[cleaner useless onefile empty].freeze
+DEFAULT_ORDER = %w[cleaner useless onefile empty].freeze
 
 def parse_options
-  options = { simulate: true, processors: DEFAULT_PROCESSOR_ORDER.dup }
+  options = { simulate: true, processors: DEFAULT_ORDER.dup }
 
   parser = OptionParser.new do |opts|
     opts.banner = "Usage: #{File.basename($PROGRAM_NAME)} [options] <directories...>"
     opts.separator ''
-    opts.separator 'Cleans filenames, removes useless files, and organizes directories.'
+    opts.separator 'Cleans filenames, removes useless files, and flattens single-file directories.'
+    opts.separator ''
+    opts.separator 'Processors (run in order):'
+    opts.separator "  #{PROCESSORS.keys.join(', ')}"
     opts.separator ''
     opts.separator 'Options:'
 
-    opts.on('-f', '--force', 'Execute changes (default is simulation mode)') do
+    opts.on('-f', '--force', 'Execute changes (default is simulation)') do
       options[:simulate] = false
     end
 
-    opts.on('--only=PROCESSORS', Array, "Run only specific processors (#{PROCESSORS.keys.join(', ')})") do |list|
+    opts.on('--only=PROCESSORS', Array, "Run only: #{PROCESSORS.keys.join(', ')}") do |list|
       invalid = list - PROCESSORS.keys
       unless invalid.empty?
         warn "Unknown processors: #{invalid.join(', ')}"
@@ -336,7 +413,7 @@ def parse_options
       options[:processors] = list
     end
 
-    opts.on('-h', '--help', 'Show this help message') do
+    opts.on('-h', '--help', 'Show this help') do
       puts opts
       exit
     end
@@ -361,5 +438,3 @@ def main
 end
 
 main if __FILE__ == $PROGRAM_NAME
-
-#-- CLI --------------------------------------------------------------------}}}
