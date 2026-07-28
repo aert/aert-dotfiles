@@ -44,9 +44,10 @@ class MarkdownToHtmlConverter
 
   MERMAID_CDN_URL = 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs'
 
-  def initialize(input_paths:, output_dir: nil, standalone: true, simulate: false)
+  def initialize(input_paths:, output_dir: nil, output_path: nil, standalone: true, simulate: false)
     @input_paths = validate_inputs(input_paths)
     @output_dir = output_dir ? Pathname.new(output_dir) : nil
+    @output_path = output_path ? Pathname.new(output_path) : nil
     @standalone = standalone
     @simulate = simulate
 
@@ -55,6 +56,10 @@ class MarkdownToHtmlConverter
   end
 
   def convert_all
+    if @output_path && @input_paths.size > 1
+      raise '--output PATH cannot be used with multiple input files'
+    end
+
     @input_paths.each_with_index do |path, idx|
       convert_file(path, index: idx, count: @input_paths.size)
     end
@@ -349,6 +354,8 @@ class MarkdownToHtmlConverter
   end
 
   def determine_output_path(input_path)
+    return @output_path.cleanpath if @output_path
+
     basename = input_path.basename('.*')
     dir = @output_dir || input_path.dirname
     (dir / "#{basename}#{output_extension}").cleanpath
@@ -358,7 +365,7 @@ end
 #-- CLI --------------------------------------------------------------------
 
 def parse_options
-  options = { simulate: false, standalone: true, output_dir: nil }
+  options = { simulate: false, standalone: true, output_dir: nil, output_path: nil }
 
   parser = OptionParser.new do |opts|
     opts.banner = "Usage: #{File.basename($PROGRAM_NAME)} [options] <markdown-files...>"
@@ -368,6 +375,10 @@ def parse_options
 
     opts.on('-o', '--output-dir DIR', 'Output directory (default: same as input)') do |dir|
       options[:output_dir] = dir
+    end
+
+    opts.on('-p', '--output PATH', 'Output file path (overrides derived path; only valid with single input)') do |path|
+      options[:output_path] = path
     end
 
     opts.on('-f', '--[no-]fragment', 'Output HTML fragment instead of standalone document') do |fragment|
@@ -406,6 +417,7 @@ def main
     converter = MarkdownToHtmlConverter.new(
       input_paths: ARGV,
       output_dir: options[:output_dir],
+      output_path: options[:output_path],
       standalone: options[:standalone],
       simulate: options[:simulate]
     )

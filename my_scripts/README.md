@@ -28,9 +28,20 @@ Convert GitLab-flavored Markdown to HTML with Mermaid diagram support.
 
 **Options:**
 - `-o, --output-dir DIR` - Output directory (default: same as input)
+- `-p, --output PATH` - Output file path (overrides --output-dir; only valid with single input)
 - `-f, --[no-]fragment` - Output HTML fragment instead of standalone document
 - `-s, --simulate` - Simulate only (no HTML generation)
 - `-h, --help` - Show help
+
+### `,md-preview` - Markdown Preview in Browser
+Renders a markdown file to HTML and opens it in your default browser.
+
+**Quick Usage:**
+```bash
+,md-preview document.md
+```
+
+The HTML file is saved to `/tmp/md-previews/` with a timestamped filename.
 
 ---
 

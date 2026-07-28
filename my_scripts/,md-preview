@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+# Usage: ,md-preview <markdown-file>
+#
+# Renders a markdown file to HTML in /tmp/md-previews/ and opens it in the browser.
+
+require 'tmpdir'
+
+INPUT = ARGV[0]
+
+unless INPUT && File.file?(INPUT)
+  warn 'Usage: ,md-preview <markdown-file>'
+  warn 'Error: Provide an existing markdown file.' unless INPUT
+  warn "Error: Not a file — #{INPUT}" if INPUT && !File.file?(INPUT)
+  exit 1
+end
+
+input_path = Pathname.new(INPUT).realpath
+tmp_subdir = Pathname.new(Dir.tmpdir) / 'md-previews'
+tmp_subdir.mkpath
+
+timestamp = Time.now.strftime('%Y%m%d_%H%M%S')
+basename = input_path.basename('.*')
+output_path = tmp_subdir / "#{timestamp}_#{basename}.html"
+
+script_dir = __dir__
+md_to_html = script_dir.empty? ? ',md-to-html' : File.join(script_dir, ',md-to-html')
+
+unless system(md_to_html, '--output', output_path.to_s, input_path.to_s)
+  warn 'Error: Conversion failed.'
+  exit 1
+end
+
+browser = case RUBY_PLATFORM
+          when /linux/   then 'xdg-open'
+          when /darwin/  then 'open'
+          else
+            warn "Error: Unsupported platform: #{RUBY_PLATFORM}"
+            exit 1
+          end
+
+system(browser, output_path.to_s)
