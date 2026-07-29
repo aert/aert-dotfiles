@@ -1,0 +1,79 @@
+# Linux-only (Debian + Fedora)
+# ==============================
+# i3 window manager, X11 utilities, Gnome desktop config, dev packages
+
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- link:
+    # ── Window manager (i3) ──────────────────────────────────────────
+    ~/.i3: user-config/.i3
+    ~/.i3status.conf: user-config/.i3status.conf
+    ~/.config/i3: user-config/config/i3
+
+    # ── Notifications ────────────────────────────────────────────────
+    ~/.config/dunst: user-config/config/dunst
+
+    # ── X11 / display ────────────────────────────────────────────────
+    ~/.config/compton.conf: user-config/config/compton.conf
+    ~/.config/redshift.conf: user-config/config/redshift.conf
+
+    # ── Launcher (rofi) ──────────────────────────────────────────────
+    ~/.config/rofi: user-config/rofi
+
+- shell:
+    # ── Debian / Ubuntu packages ──────────────────────────────────────
+    - description: Install Debian/Ubuntu base packages
+      command: |
+        sudo apt-get install -y --no-install-recommends \
+          meld tig htop zsh xclip tmux ranger fonts-ibm-plex
+      stderr: true
+      stdin: false
+      stdout: true
+
+    - description: Install Debian/Ubuntu dev packages
+      command: |
+        sudo apt-get install -y --no-install-recommends \
+          build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev \
+          libsqlite3-dev libncursesw5-dev xz-utils tk-dev libxml2-dev \
+          libxmlsec1-dev libffi-dev liblzma-dev libyaml-dev libreadline6-dev \
+          libgmp-dev libncurses5-dev libgdbm6 libgdbm-dev libdb-dev uuid-dev \
+          dirmngr gpg gawk curl git
+      stderr: true
+      stdin: false
+      stdout: true
+
+    - description: Disable PackageKit on Debian
+      command: sudo dpkg-divert --divert /etc/PackageKit/20packagekit.distrib --rename /etc/apt/apt.conf.d/20packagekit 2>/dev/null || true
+      stderr: true
+      stdin: false
+      stdout: true
+
+    # ── Gnome desktop settings ────────────────────────────────────────
+    - description: Configure Gnome workspaces and keybindings
+      command: |
+        gsettings set org.gnome.Terminal.Legacy.Settings headerbar false 2>/dev/null || true
+        gsettings set org.gnome.desktop.wm.preferences num-workspaces 10
+        gsettings set "org.gnome.desktop.wm.keybindings" "close" "['<Super>q']"
+        for i in $(seq 1 10); do
+          key=$([ "$i" -eq 10 ] && echo 0 || echo "$i")
+          [ "$i" -ne 10 ] && gsettings set "org.gnome.shell.keybindings" "switch-to-application-$i" "[]" 2>/dev/null || true
+          gsettings set "org.gnome.desktop.wm.keybindings" "switch-to-workspace-$i" "['<Super>$key']"
+          dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-$i" "['<Super><Shift>$key']"
+        done
+      stderr: true
+      stdin: false
+      stdout: true
+
+    - description: Configure Flameshot screenshot binding
+      command: |
+        FLAMESHOT_PATH="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot/"
+        dconf write "${FLAMESHOT_PATH}name" "'Flameshot'"
+        dconf write "${FLAMESHOT_PATH}command" "'flameshot gui'"
+        dconf write "${FLAMESHOT_PATH}binding" "'<Alt><Shift>4'"
+        gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['$FLAMESHOT_PATH']"
+      stderr: true
+      stdin: false
+      stdout: true

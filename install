@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+#
+# Bootstrap script for dotbot — auto-detects OS and loads the right configs
+#
+# Usage:
+#   ./install           # install all dotfiles
+#   ./install -n        # dry-run (show what would change)
+#   sudo ./install-system   # install system-level /etc/ configs
+
+set -e
+
+DIR="$(cd "$(dirname "$0" )" && pwd)"
+OP="${1:--}"  # first arg or placeholder
+
+# Usage tip: system configs
+if [ "$(basename "$0")" = "install-system" ] || [ "$OP" = "system" ]; then
+  shift 2>/dev/null || true
+  exec sudo env PATH="$PATH" mise exec -- dotbot -d "$DIR" -c "$DIR/install.conf.system.yaml" "$@"
+fi
+
+# Uses dotbot managed by mise (pipx:dotbot): https://github.com/anishathalye/dotbot
+# Install prerequisites: mise install
+
+CONFIGS="-c $DIR/install.conf.shared.yaml"
+
+case "$(uname -s)" in
+  Linux)
+    CONFIGS="$CONFIGS -c $DIR/install.conf.linux.yaml"
+    if [ -f /etc/fedora-release ]; then
+      CONFIGS="$CONFIGS -c $DIR/install.conf.fedora.yaml"
+    fi
+    ;;
+  Darwin)
+    CONFIGS="$CONFIGS -c $DIR/install.conf.darwin.yaml"
+    ;;
+  *)
+    echo "Unknown OS: $(uname -s)" >&2
+    exit 1
+    ;;
+esac
+
+# shellcheck disable=SC2086
+mise exec -- dotbot -d "$DIR" $CONFIGS "$@"

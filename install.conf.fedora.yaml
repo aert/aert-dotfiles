@@ -1,0 +1,80 @@
+# Fedora-only
+# ============
+# KDE desktop shortcuts, Fedora packages, dev tools
+
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- link:
+    # ── KDE desktop config ──────────────────────────────────────────
+    ~/.config/kde: user-config/kde
+
+- shell:
+    # ── Fedora packages ─────────────────────────────────────────────
+    - description: Install Fedora base packages
+      command: |
+        sudo dnf install -y libpq-devel dconf-editor git-delta tig fd-find \
+          exa gcc g++ ripgrep cmake editorconfig powerline-fonts \
+          lsd ShellCheck shfmt lshw \
+          aspell-ar aspell-fr aspell-en \
+          mysql-devel ImageMagick ImageMagick-devel
+      stderr: true
+      stdin: false
+      stdout: true
+
+    - description: Install Fedora dev packages (asdf/python prereqs)
+      command: |
+        sudo dnf install -y make gcc zlib-devel bzip2 bzip2-devel readline-devel \
+          sqlite sqlite-devel openssl-devel tk-devel libffi-devel xz-devel
+      stderr: true
+      stdin: false
+      stdout: true
+
+    - description: Install LaTeX build tools
+      command: sudo dnf install -y python3-sphinx-latex
+      stderr: true
+      stdin: false
+      stdout: true
+
+    - description: Install dev tools (language servers, linters)
+      command: |
+        npm install -g typescript-language-server typescript eslint prettier \
+          prettier-eslint prettier-eslint-cli javascript-typescript-langserver 2>/dev/null || true
+        gem install solargraph rubocop rubocop-rails rubocop-performance sqlint 2>/dev/null || true
+        pip install neovim wheel python-language-server prospector black 2>/dev/null || true
+      stderr: true
+      stdin: false
+      stdout: true
+
+    - description: Download sqlfmt
+      command: |
+        if [ ! -f "$HOME/bin/sqlfmt" ]; then
+          wget -q -O - https://github.com/mjibson/sqlfmt/releases/latest/download/sqlfmt_0.4.0_linux_amd64.tar.gz \
+            | tar -xpvzf - --directory "$HOME/bin/" 2>/dev/null || true
+        fi
+      stderr: true
+      stdin: false
+      stdout: true
+
+    - description: Disable PackageKit on Fedora
+      command: |
+        sudo systemctl stop packagekit.service 2>/dev/null || true
+        sudo systemctl disable packagekit.service 2>/dev/null || true
+        sudo systemctl mask packagekit.service 2>/dev/null || true
+        sudo systemctl stop packagekit-offline-update.service 2>/dev/null || true
+        sudo systemctl disable packagekit-offline-update.service 2>/dev/null || true
+        sudo systemctl mask packagekit-offline-update.service 2>/dev/null || true
+      stderr: true
+      stdin: false
+      stdout: true
+
+    # ── KDE settings ────────────────────────────────────────────────
+    - description: Configure KDE (BorderlessMaximizedWindows)
+      command: |
+        kwriteconfig5 --file ~/.config/kwinrc --group Windows --key BorderlessMaximizedWindows true 2>/dev/null || true
+        qdbus org.kde.KWin /KWin reconfigure 2>/dev/null || true
+      stderr: true
+      stdin: false
+      stdout: true

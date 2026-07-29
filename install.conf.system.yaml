@@ -1,0 +1,26 @@
+# System-level configs — /etc/ files
+# =====================================
+# Requires sudo. Apply with:
+#   sudo env PATH="$PATH" mise exec -- dotbot -d "$DIR" -c install.conf.system.yaml
+#
+# Or run the install script as root:
+#   sudo ./install-system
+
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- link:
+    # ── APT package manager (Debian) ──────────────────────────────────
+    /etc/apt/sources.list: system-config/etc/apt/sources.list
+    /etc/apt/sources.list.d: system-config/etc/apt/sources.list.d
+
+    # ── DNF package manager (Fedora) ─────────────────────────────────
+    /etc/dnf/dnf.conf: system-config/etc/dnf/dnf.conf
+
+    # ── Kernel parameters ─────────────────────────────────────────────
+    /etc/sysctl.d: system-config/etc/sysctl.d
+
+    # ── Filesystem table ──────────────────────────────────────────────
+    /etc/fstab: system-config/etc/fstab

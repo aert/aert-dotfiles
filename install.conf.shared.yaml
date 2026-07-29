@@ -1,0 +1,60 @@
+# Shared — linked on every machine
+# ==================================
+
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- link:
+    # ── Shells & environment ──────────────────────────────────────────
+    ~/.bashrc: user-config/.bashrc
+    ~/.zshenv: user-config/.zshenv
+    ~/.zshrc: user-config/.zshrc
+    ~/.zsh_plugins.txt: user-config/.zsh_plugins.txt
+
+    # ── Editors ───────────────────────────────────────────────────────
+    ~/.ctags: user-config/.ctags
+    ~/.gemrc: user-config/.gemrc
+    ~/.ideavimrc: user-config/.ideavimrc
+    ~/.spacemacs.d: user-config/.spacemacs.d
+    ~/.ackrc: user-config/.ackrc
+    ~/.config/nvim: user-config/config/nvim
+    ~/.config/VSCodium/User/settings.json: user-config/config/VSCodium/settings.json
+    ~/.config/VSCodium/User/keybindings.json: user-config/config/VSCodium/keybindings.json
+    ~/.config/VSCodium/User/snippets: user-config/config/VSCodium/snippets
+    ~/.config/sublime-text/Packages/User/Preferences.sublime-settings: user-config/Preferences.sublime-settings
+
+    # ── Terminal emulators ────────────────────────────────────────────
+    ~/.config/ghostty: user-config/ghostty
+    ~/.config/alacritty.yml: user-config/config/alacritty.yml
+    ~/.config/rio: user-config/config/rio
+    ~/.config/zellij: user-config/zellij
+
+    # ── Multiplexers ─────────────────────────────────────────────────
+    ~/.tmux.conf: user-config/.tmux.conf
+
+    # ── File managers / viewers ──────────────────────────────────────
+    ~/.config/ranger: user-config/config/ranger
+    ~/.config/zathura: user-config/config/zathura
+
+    # ── Database ──────────────────────────────────────────────────────
+    ~/.config/pgcli: user-config/config/pgcli
+
+    # ── AI / CLI tools ────────────────────────────────────────────────
+    ~/.config/opencode.jsonc: user-config/opencode.jsonc
+    ~/.config/crush.json: user-config/crush.json
+    ~/.claude/statusline-command.sh: user-config/claude/statusline-command.sh
+    ~/.config/mise/config.toml: mise.toml
+
+    # ── Scripts on PATH ───────────────────────────────────────────────
+    ~/bin/my_scripts: my_scripts
+    ~/bin/prompt.sh: user-config/bin/prompt.sh
+
+
+- shell:
+    - description: Install VSCodium extensions
+      command: xargs -n1 codium --install-extension < user-config/config/VSCodium/__extensions.txt
+      stderr: true
+      stdin: false
+      stdout: true

@@ -1,0 +1,9 @@
+# mise.toml — local dev tools for this dotfiles repo
+# See https://github.com/jdx/mise for more info
+
+[tools]
+# pipx — isolated Python app installer (required for pipx: packages)
+pipx = "latest"
+
+# dotbot — dotfile management CLI (installed via pipx for isolation)
+"pipx:dotbot" = "latest"

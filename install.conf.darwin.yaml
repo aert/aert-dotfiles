@@ -1,0 +1,10 @@
+# macOS-only
+# ============
+# Add macOS-specific configs here
+#
+# - defaults:
+#     link:
+#       create: true
+#       relink: true
+# - link:
+#     ~/Library/Application Support/SomeApp: user-config/darwin/SomeApp
