@@ -5,6 +5,7 @@
 # Renders a markdown file to HTML in /tmp/md-previews/ and opens it in the browser.
 
 require 'tmpdir'
+require 'pathname'
 
 INPUT = ARGV[0]
 
