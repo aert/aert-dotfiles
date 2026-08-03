@@ -17,19 +17,24 @@ set -euo pipefail
 
 BASE="${1:?Usage: ,git-changed <base-branch>}"
 
-# Merge index-vs-BASE and working-tree-vs-index into two-letter codes.
-# The separator "---" switches awk from "index" mode to "working-tree" mode.
+# Merge index-vs-BASE, working-tree-vs-index, and untracked files into
+# two-letter codes.  Three sections separated by "---":
+#   1. git diff --cached         → index vs BASE  (committed + staged)
+#   2. git diff                  → working tree vs index  (unstaged changes)
+#   3. git ls-files --others     → untracked files  (treated as "A" in wt column)
 {
   git diff "$BASE" --cached --name-status --diff-filter=AMDR
   echo "---"
   git diff --name-status --diff-filter=AMDR
+  echo "---"
+  git ls-files --others --exclude-standard | sed 's/^/A\t/'
 } | awk -F'\t' '
-  /^---$/ { mode = "wt"; next }
+  /^---$/ { mode++; next }
   {
     type = substr($1, 1, 1)
     file = (type == "R") ? $NF : $2   # rename has two paths; use the new name
-    if (mode == "") idx[file] = type
-    else           wt[file]  = type
+    if (mode == 0) idx[file] = type
+    else           wt[file]  = (mode == 1) ? type : "A"
     files[file] = 1
   }
   END {
