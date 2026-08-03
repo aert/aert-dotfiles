@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# Usage: ,git-changed <base>
+#
+# Lists files changed relative to BASE, one per line, ordered by filename.
+# Each line is prefixed with a two-letter status code (like `git status --short`):
+#   first letter: index (staging area) vs BASE     (includes committed + staged)
+#   second letter: working tree vs index            (unstaged changes)
+#   ' ' = no change in that slot
+#
+# Color (applied to the entire line, uses the first non-space status):
+#   green  = added
+#   red    = deleted
+#   cyan   = modified
+#   yellow = renamed
+
+set -euo pipefail
+
+BASE="${1:?Usage: ,git-changed <base-branch>}"
+
+# Merge index-vs-BASE and working-tree-vs-index into two-letter codes.
+# The separator "---" switches awk from "index" mode to "working-tree" mode.
+{
+  git diff "$BASE" --cached --name-status --diff-filter=AMDR
+  echo "---"
+  git diff --name-status --diff-filter=AMDR
+} | awk -F'\t' '
+  /^---$/ { mode = "wt"; next }
+  {
+    type = substr($1, 1, 1)
+    file = (type == "R") ? $NF : $2   # rename has two paths; use the new name
+    if (mode == "") idx[file] = type
+    else           wt[file]  = type
+    files[file] = 1
+  }
+  END {
+    for (f in files) {
+      s = (f in idx) ? idx[f] : " "
+      u = (f in wt)  ? wt[f]  : " "
+      printf "%s%s\t%s\n", s, u, f
+    }
+  }' \
+| sort -k2 \
+| awk -F'\t' '
+  {
+    code = $1
+    file = $2
+    # color from first non-space status in the two-letter code
+    if      (code ~ /A/) color = 32    # green
+    else if (code ~ /D/) color = 31    # red
+    else if (code ~ /M/) color = 36    # cyan
+    else if (code ~ /R/) color = 33    # yellow
+    else                 color = 0
+    printf "\033[%dm%s %s\033[0m\n", color, code, file
+  }'
