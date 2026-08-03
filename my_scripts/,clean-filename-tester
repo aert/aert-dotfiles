@@ -1,17 +1,17 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 #
-# my_clean_filename-tester.rb -- integration test harness
+# ,clean-filename-tester -- integration test harness
 #
-# Tests any executable that accepts the same CLI as my_clean_filename.rb.
+# Tests any executable that accepts the same CLI as ,clean-filename.
 # Measures only the cleaner runtime (excludes setup).  Generates hundreds
 # of test cases to push runtime well past 10 seconds on the Ruby version.
 #
 # Usage:
-#   ./my_clean_filename-tester.rb                          # run all tests
-#   ./my_clean_filename-tester.rb --verbose                 # show failure details
-#   ./my_clean_filename-tester.rb <filter>                  # run tests matching filter
-#   CLEANER=/path/to/other ./my_clean_filename-tester.rb   # test a different binary
+#   ,clean-filename-tester                           # run all tests
+#   ,clean-filename-tester --verbose                 # show failure details
+#   ,clean-filename-tester <filter>                  # run tests matching filter
+#   CLEANER=/path/to/other ,clean-filename-tester   # test a different binary
 
 require 'fileutils'
 require 'tmpdir'
@@ -20,7 +20,7 @@ require 'benchmark'
 
 TEST_DIR   = File.join(Dir.tmpdir, "cleaner_test_#{Process.pid}")
 SCRIPT_DIR = File.dirname(File.expand_path($PROGRAM_NAME))
-CLEANER    = ENV['CLEANER'] || File.join(SCRIPT_DIR, 'my_clean_filename.rb')
+CLEANER    = ENV['CLEANER'] || File.join(SCRIPT_DIR, ',clean-filename')
 
 unless File.exist?(CLEANER)
   path = `which #{File.basename(CLEANER)} 2>/dev/null`.strip

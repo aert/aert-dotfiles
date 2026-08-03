@@ -1,14 +1,14 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 #
-# my_clean_filename.rb -- clean up pirated media filenames
+# ,clean-filename -- clean up pirated media filenames
 #
 # Strips release-group tags, codec/resolution noise, brackets, and other
 # junk from filenames and directory names.  Also removes useless files
 # (txt/jpg/url), flattens single-file directories, and deletes empty dirs.
 #
 # Usage:
-#   my_clean_filename.rb [options] <directories...>
+#   ,clean-filename [options] <directories...>
 #
 # Options:
 #   -f, --force          Execute changes (default is simulation)
@@ -22,9 +22,9 @@
 #   empty     -- remove directories that ended up empty
 #
 # Examples:
-#   my_clean_filename.rb ./Downloads              # simulate
-#   my_clean_filename.rb -f ./Downloads           # for real
-#   my_clean_filename.rb --only=cleaner -f .      # rename only
+#   ,clean-filename ./Downloads              # simulate
+#   ,clean-filename -f ./Downloads           # for real
+#   ,clean-filename --only=cleaner -f .      # rename only
 #
 
 require 'bundler/inline'

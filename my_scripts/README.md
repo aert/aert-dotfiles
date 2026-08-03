@@ -1,283 +1,120 @@
 # My Scripts
 
-Collection of custom utility scripts for various tasks.
+Collection of utility scripts on `$PATH` via `~/bin/my_scripts/`.
+
+## Convention
+
+All scripts use a `,` prefix for easy discovery (sorts to top in listings),
+dash-separated names, no file extensions. Shebang lines determine the interpreter.
 
 ## Markdown & Document Conversion
 
-### `,md-to-html` - Markdown to HTML Converter
-Convert GitLab-flavored Markdown to HTML with Mermaid diagram support.
+### `,md-to-html`
+GitLab-flavored Markdown to HTML with Mermaid diagram support (inline SVG).
 
-**Features:**
-- GitLab-flavored Markdown (tables, task lists, code blocks)
-- Mermaid diagrams rendered as inline SVG images (copyable to Word)
-- YAML frontmatter stripping
-- Standalone HTML with embedded CSS
-- Fragment mode for embedding
-
-**Quick Usage:**
 ```bash
-# Basic conversion
 ,md-to-html document.md
-
-# Custom output directory
 ,md-to-html -o ~/html *.md
-
-# Fragment mode (no HTML wrapper)
 ,md-to-html --fragment document.md
 ```
 
-**Options:**
-- `-o, --output-dir DIR` - Output directory (default: same as input)
-- `-p, --output PATH` - Output file path (overrides --output-dir; only valid with single input)
-- `-f, --[no-]fragment` - Output HTML fragment instead of standalone document
-- `-s, --simulate` - Simulate only (no HTML generation)
-- `-h, --help` - Show help
+### `,md-preview`
+Renders markdown to HTML and opens in browser. Saved to `/tmp/md-previews/`.
 
-### `,md-preview` - Markdown Preview in Browser
-Renders a markdown file to HTML and opens it in your default browser.
-
-**Quick Usage:**
 ```bash
 ,md-preview document.md
 ```
 
-The HTML file is saved to `/tmp/md-previews/` with a timestamped filename.
-
----
-
-## File Management
-
-### `my_clean_filename.rb` - Filename Cleaner & Organizer
-Cleans filenames, removes useless files, and organizes directories.
-
-**Features:**
-- Sanitizes filenames (removes special characters, normalizes spaces)
-- Removes useless files (.DS_Store, Thumbs.db, etc.)
-- Flattens single-file directories
-- Removes empty directories
-- Simulation mode (dry-run) by default
-
-**Quick Usage:**
-```bash
-# Simulate cleanup (preview changes)
-my_clean_filename.rb ~/Downloads
-
-# Execute cleanup
-my_clean_filename.rb --force ~/Downloads
-
-# Run specific processors only
-my_clean_filename.rb --only=cleaner,useless ~/Downloads
-```
-
-**Options:**
-- `-f, --force` - Execute changes (default is simulation mode)
-- `--only=PROCESSORS` - Run only specific processors (cleaner, useless, onefile, empty)
-- `-h, --help` - Show help
-
----
-
-### `my_rm_youtube_id.rb` - YouTube ID Remover
-Removes YouTube video IDs from filenames in bulk.
-
-**Quick Usage:**
-```bash
-# Simulate (preview changes)
-my_rm_youtube_id.rb ~/Videos
-
-# Execute changes
-my_rm_youtube_id.rb -f ~/Videos
-```
-
-Converts: `Video Title [dQw4w9WgXcQ].mp4` → `Video Title.mp4`
-
----
-
-### `my_flatten_pdf_dir.py` - PDF Directory Flattener
-Flattens nested PDF directories into a single level.
-
-**Quick Usage:**
-```bash
-python3 my_flatten_pdf_dir.py ~/Documents/PDFs ~/Documents/PDFs_Flat
-```
-
----
-
-## Media Processing
-
-### `my_encode_720p.rb` - Video Encoder
-Encodes videos to 720p using ffmpeg.
-
-**Quick Usage:**
-```bash
-my_encode_720p.rb input.mp4
-# Creates: input-720p.mp4
-```
-
----
-
-### `my_scan_unpaper.rb` - Scan Cleaner
-Cleans scanned documents using unpaper.
-
-**Quick Usage:**
-```bash
-my_scan_unpaper.rb scan.jpg
-# Creates: scan-cleaned.jpg
-```
-
----
-
-## System Utilities
-
-### `my_cypher.rb` - ROT13 Cipher
-Simple ROT13 encoder/decoder.
-
-**Quick Usage:**
-```bash
-# From argument
-my_cypher.rb "Hello World"
-
-# From stdin
-echo "Hello World" | my_cypher.rb
-```
-
----
-
-### `my_docker_df.rb` - Docker Disk Usage
-Shows Docker disk usage statistics.
-
-**Quick Usage:**
-```bash
-my_docker_df.rb
-```
-
----
-
-### `my_ec` - Emacs Client
-Opens files in existing Emacs instance or starts new one.
-
-**Quick Usage:**
-```bash
-my_ec file.txt
-```
-
----
-
-### `grox.rb` - Grox Utility
-Custom utility script for grox operations.
-
-**Quick Usage:**
-```bash
-grox.rb [options]
-```
-
----
-
-## i3 Window Manager Scripts
-
-### `i3-exit` - i3 Exit Menu
-Provides exit options for i3 window manager.
-
-### `i3-keyboard-layout` - i3 Keyboard Layout Switcher
-Switches keyboard layouts in i3.
-
-### `my_i3_status.sh` - i3 Status Bar
-Custom status bar for i3.
-
----
+### `,md-to-pdf`
+Markdown to PDF conversion.
 
 ## Git Utilities
 
-### `my_git_clean_local_branches.sh` - Git Branch Cleaner
+### `,git-changed`
+Lists files changed relative to a base branch (committed + staged + unstaged).
+Two-letter status code prefix, color-coded output.
+
+```bash
+,git-changed main
+,git-changed develop
+```
+
+### `,git-clean-local-branches`
 Removes merged local branches.
 
-**Quick Usage:**
-```bash
-my_git_clean_local_branches.sh
-```
-
----
-
-### `my_git_files_recent.sh` - Recent Git Files
+### `,git-files-recent`
 Lists recently modified files in git repository.
 
-**Quick Usage:**
+## File Management
+
+### `,clean-filename`
+Sanitizes filenames, removes junk files, flattens single-file directories,
+removes empty dirs. Simulation mode by default.
+
 ```bash
-my_git_files_recent.sh
+,clean-filename ~/Downloads          # simulate
+,clean-filename -f ~/Downloads       # execute
+,clean-filename --only=cleaner -f .  # rename only
 ```
 
----
+### `,clean-filename-tester`
+Integration test harness for `,clean-filename`.
 
-## Network & System
+### `,flatten-pdf-dir`
+Flattens nested PDF directories into a single level.
 
-### `my_toggle_wifi.sh` - WiFi Toggle
-Toggles WiFi on/off.
-
-**Quick Usage:**
 ```bash
-my_toggle_wifi.sh
+,flatten-pdf-dir ~/Documents/PDFs ~/Documents/PDFs_Flat
 ```
 
----
+## Media Processing
 
-### `my_tplink_status.py` - TP-Link Status
-Checks TP-Link router status.
+### `,encode-720p`
+Encodes videos to 720p using ffmpeg.
 
-**Quick Usage:**
 ```bash
-python3 my_tplink_status.py
+,encode-720p input.mp4
+# Creates: input-720p.mp4
 ```
 
----
+### `,scan-unpaper`
+Cleans scanned documents using unpaper.
 
-### `my_resize_tmpfs.sh` - tmpfs Resizer
+```bash
+,scan-unpaper scan.jpg
+# Creates: scan-cleaned.jpg
+```
+
+### `,yd-music`, `,yd-podcast`, `,yd-vid`
+YouTube download wrappers (yt-dlp).
+
+## System Utilities
+
+### `,docker-df`
+Docker disk usage statistics.
+
+### `,resize-tmpfs`
 Resizes tmpfs filesystems.
 
-**Quick Usage:**
 ```bash
-my_resize_tmpfs.sh <size>
+,resize-tmpfs <size>
 ```
 
----
+### `,tplink-status`
+Checks TP-Link router status.
 
-### `my_fix_screen.sh` - Screen Fixer
-Fixes screen resolution/display issues.
+### `net-speed`
+Network speed readout (Linux `/sys/class/net/`).
 
-**Quick Usage:**
-```bash
-my_fix_screen.sh
-```
+### `sync_me`
+Sync utility.
 
----
+### `xinput-toggle`
+Toggles XInput device settings.
 
-### `my_emacs_stop.sh` - Emacs Daemon Stop
-Stops Emacs daemon.
+## Dependencies
 
-**Quick Usage:**
-```bash
-my_emacs_stop.sh
-```
-
----
-
-## Installation
-
-Most scripts are standalone and require only their dependencies:
-
-- **Ruby scripts**: Require Ruby 2.7+ (use `bundler/inline` for gem dependencies)
-- **Python scripts**: Require Python 3.6+
-- **Shell scripts**: Require bash
-
-Make scripts executable:
-```bash
-chmod +x script_name
-```
-
-## Conventions
-
-- Scripts starting with `,` are actively used utilities
-- Scripts with `my_` prefix are personal utility scripts
-- All scripts use simulation/dry-run mode by default where applicable (use `-f` or `--force` to execute)
-
-## Contributing
-
-These are personal scripts. Feel free to copy and modify for your own use.
+- **Ruby scripts**: Ruby 2.7+ (use `bundler/inline` for gem dependencies)
+- **Python scripts**: Python 3.6+
+- **Shell scripts**: bash
+- **External tools**: ffmpeg, yt-dlp, unpaper, FontForge, Docker

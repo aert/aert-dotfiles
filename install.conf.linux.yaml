@@ -1,6 +1,6 @@
 # Linux-only (Debian + Fedora)
 # ==============================
-# i3 window manager, X11 utilities, Gnome desktop config, dev packages
+# X11 utilities, Gnome desktop config, dev packages
 
 - defaults:
     link:
@@ -8,16 +8,7 @@
       relink: true
 
 - link:
-    # ── Window manager (i3) ──────────────────────────────────────────
-    ~/.i3: user-config/.i3
-    ~/.i3status.conf: user-config/.i3status.conf
-    ~/.config/i3: user-config/config/i3
-
-    # ── Notifications ────────────────────────────────────────────────
-    ~/.config/dunst: user-config/config/dunst
-
     # ── X11 / display ────────────────────────────────────────────────
-    ~/.config/compton.conf: user-config/config/compton.conf
     ~/.config/redshift.conf: user-config/config/redshift.conf
 
     # ── Launcher (rofi) ──────────────────────────────────────────────

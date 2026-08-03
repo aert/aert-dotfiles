@@ -6,16 +6,6 @@
 #
 # See file LICENSE at the project root directory for license information.
 #
-# i3status.conf should contain:
-# general {
-#   output_format = i3bar
-# }
-#
-# i3 config looks like this:
-# bar {
-#   status_command exec /usr/share/doc/i3status/contrib/net-speed.sh
-# }
-#
 # Single interface:
 # ifaces="eth0"
 #
