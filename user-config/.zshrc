@@ -175,6 +175,7 @@ alias mosh="export LC_ALL=\"en_US.UTF8\" && mosh"
 alias mux=tmuxinator
 alias dockly="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock lirantal/dockly"
 alias ncli="n-cli"
+alias weather="curl 'https://wttr.in/xls?format=v2'"
 
 chpwd() {
   [[ -o interactive ]] && x
