@@ -23,6 +23,15 @@ require 'open3'
 #-- MarkdownToPdfConverter -------------------------------------------------
 
 class MarkdownToPdfConverter < MarkdownToHtmlConverter
+  # Printable page heights (mm) for the formats puppeteer accepts as `format:`.
+  # Used to constrain diagram SVGs so no diagram ever spans two pages.
+  PAGE_HEIGHTS_MM = {
+    'A0' => 1189, 'A1' => 841, 'A2' => 594, 'A3' => 420,
+    'A4' => 297, 'A5' => 210, 'A6' => 148,
+    'LETTER' => 279.4, 'LEGAL' => 355.6,
+    'TABLOID' => 431.8, 'LEDGER' => 279.4
+  }.freeze
+
   def initialize(input_paths:, output_dir: nil, simulate: false, page_size: 'A4', margin: 10)
     @page_size = page_size
     @margin = margin
@@ -53,13 +62,40 @@ class MarkdownToPdfConverter < MarkdownToHtmlConverter
       <head>
         <meta charset="UTF-8">
         <title>#{title}</title>
-        <style>#{html_styles(extra_css: 'body { padding: 0; font-size: 11px; }')}</style>
+        <style>#{html_styles(extra_css: "body { padding: 0; font-size: 11px; } #{diagram_fit_css}")}</style>
       </head>
       <body>
         #{body_html}
       </body>
       </html>
     HTML
+  end
+
+  # CSS so a diagram never spans two pages:
+  # - break-inside: avoid keeps the (now page-fitting) block unbreakable
+  # - max-height scales taller SVGs down to the printable page height; the SVG
+   #  viewBox (preserveAspectRatio: meet) keeps the diagram's aspect ratio
+  # - !important beats the inline max-width style mmdc bakes into its SVGs
+  # A few mm are reserved for the wrapper's 1em vertical margins (html_styles),
+  # so the whole block fits on a single printable page.
+  def diagram_fit_css
+    page_height_mm = PAGE_HEIGHTS_MM[@page_size.upcase]
+    if page_height_mm.nil?
+      say("Unknown page size #{@page_size.inspect} — diagrams constrained to width only", subitem: true, error: true)
+      return <<~CSS
+        .mermaid { break-inside: avoid; page-break-inside: avoid; }
+        .mermaid svg { max-width: 100% !important; }
+      CSS
+    end
+
+    svg_max_mm = [page_height_mm - 2 * @margin - 6, 20].max
+    <<~CSS
+      .mermaid { break-inside: avoid; page-break-inside: avoid; }
+      .mermaid svg {
+        max-width: 100% !important;
+        max-height: #{svg_max_mm}mm !important;
+      }
+    CSS
   end
 
   def output_extension = '.pdf'
@@ -189,12 +225,11 @@ def parse_options
     opts.on('-o', '--output-dir DIR', 'Output directory (default: same as input)') do |dir|
       options[:output_dir] = dir
     end
-
     opts.on('-p', '--page-size SIZE', 'Page size (default: A4)') do |size|
       options[:page_size] = size
     end
 
-    opts.on('-m', '--margin MM', Integer, 'Page margin in mm (default: 20)') do |mm|
+    opts.on('-m', '--margin MM', Integer, 'Page margin in mm (default: 10)') do |mm|
       options[:margin] = mm
     end
 
