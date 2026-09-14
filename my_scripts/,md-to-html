@@ -388,9 +388,14 @@ class MarkdownToHtmlConverter
         margin: 1em 0;
       }
 
+      /* !important: PlantUML's own SVGs carry a fixed pixel width/height (as attributes AND
+         inline style) plus preserveAspectRatio="none" — non-!important width/height:auto here
+         would lose to that inline style, and capping only one dimension independently makes the
+         diagram's internal content stretch non-uniformly instead of scaling down as a whole. */
       .plantuml svg {
-        max-width: 100%;
-        height: auto;
+        width: auto !important;
+        height: auto !important;
+        max-width: 100% !important;
       }
 
       #{extra_css}

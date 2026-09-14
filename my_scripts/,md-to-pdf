@@ -75,9 +75,18 @@ class MarkdownToPdfConverter < MarkdownToHtmlConverter
 
   # CSS so a diagram never spans two pages:
   # - break-inside: avoid keeps the (now page-fitting) block unbreakable
-  # - max-height scales taller SVGs down to the printable page height; the SVG
-   #  viewBox (preserveAspectRatio: meet) keeps the diagram's aspect ratio
-  # - !important beats the inline max-width style mmdc bakes into its SVGs
+  # - max-height scales taller SVGs down to the printable page height
+  # - width/height: auto !important is what actually keeps the aspect ratio: mmdc's SVGs default
+  #   to preserveAspectRatio="meet" and an unset height, so capping only max-width happened to
+  #   look fine on them, but PlantUML's SVGs carry a *fixed* pixel width AND height (as attributes
+  #   and inline style) plus preserveAspectRatio="none" — constraining max-width or max-height
+  #   alone (without freeing the other axis back to auto) leaves the other axis pinned at that
+  #   fixed value, so the box's aspect ratio drifts from the diagram's own and the content
+  #   visibly stretches to fill it. Forcing both to auto restores the standard "auto/auto plus
+  #   max-width/max-height" replaced-element sizing algorithm (same idiom as `img{max-width:100%;
+  #   height:auto}`), which scales the whole box down uniformly regardless of what fixed
+  #   width/height/preserveAspectRatio the source tool baked in — safe for both diagram types.
+  # - !important beats the inline width/height/max-width styles both mmdc and plantuml bake in
   # A few mm are reserved for the wrapper's 1em vertical margins (html_styles),
   # so the whole block fits on a single printable page.
   def diagram_fit_css
@@ -86,7 +95,7 @@ class MarkdownToPdfConverter < MarkdownToHtmlConverter
       say("Unknown page size #{@page_size.inspect} — diagrams constrained to width only", subitem: true, error: true)
       return <<~CSS
         .mermaid, .plantuml { break-inside: avoid; page-break-inside: avoid; }
-        .mermaid svg, .plantuml svg { max-width: 100% !important; }
+        .mermaid svg, .plantuml svg { width: auto !important; height: auto !important; max-width: 100% !important; }
       CSS
     end
 
@@ -94,6 +103,8 @@ class MarkdownToPdfConverter < MarkdownToHtmlConverter
     <<~CSS
       .mermaid, .plantuml { break-inside: avoid; page-break-inside: avoid; }
       .mermaid svg, .plantuml svg {
+        width: auto !important;
+        height: auto !important;
         max-width: 100% !important;
         max-height: #{svg_max_mm}mm !important;
       }
