@@ -2,6 +2,18 @@
 # frozen_string_literal: true
 # Requires: npm install -g @mermaid-js/mermaid-cli
 # (bundles puppeteer/Chromium — used for both mermaid pre-rendering and PDF generation)
+#
+# Multi-file documents without duplicating content: inherited from ,md-to-html (see its header)
+# — a line `<!-- include: relative/path.md -->` in the input file is replaced with that file's
+# content before rendering, recursively, relative to each file's own directory. E.g. an index.md
+# that's just a title + a list of `<!-- include: ... -->` lines renders as one PDF containing
+# every referenced file, with edits to those files picked up on the next run — nothing to
+# regenerate or keep in sync by hand.
+#
+# Image paths (in the top-level file and in anything it includes) are rewritten to absolute
+# filesystem paths as part of loading, so relative `![](...)` links resolve correctly even
+# though rendering here goes through a Puppeteer tempfile HTML in a different directory (see
+# run_puppeteer_pdf below) — no need to inline images as base64.
 
 load File.join(File.dirname(File.realpath(__FILE__)), ',md-to-html')
 

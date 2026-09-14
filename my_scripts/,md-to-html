@@ -2,6 +2,24 @@
 # frozen_string_literal: true
 # sudo apt install libclang-dev
 # optional: npm install -g @mermaid-js/mermaid-cli  (used by ,md-to-pdf for offline mermaid rendering)
+#
+# Include directive — compose one document out of several source files without duplicating
+# their content: a line containing only `<!-- include: relative/path.md -->` is replaced with
+# that file's content before rendering. The path is resolved relative to the directory of the
+# file the directive appears in (so an included file can itself include others, resolved
+# relative to *its own* directory — recursive, depth-first). It's plain CommonMark (an HTML
+# comment), so GitHub/GitLab previews of the source file just render it as invisible, and any
+# renderer that doesn't know about it sees nothing. Circular includes raise an error instead of
+# looping.
+#
+# Relative image paths are rewritten to absolute filesystem paths as part of loading each file
+# (its own images against its own directory, included files' images against theirs) — this is
+# what lets images keep resolving no matter what directory the final HTML is rendered from
+# (notably ,md-to-pdf's Puppeteer step, which loads the generated HTML from a tempfile in a
+# different directory than the source). Already-absolute paths, URLs (`http(s)://`) and `data:`
+# URIs are left untouched. This rewriting also applies to plain (non-included) single-file runs,
+# so a standalone .md with relative images renders correctly through ,md-to-pdf too — no need to
+# inline images as base64 data URIs.
 
 require 'bundler/inline'
 
@@ -66,12 +84,46 @@ class MarkdownToHtmlConverter
   end
 
   def render_file_to_html(input_path)
-    markdown = input_path.read(encoding: 'UTF-8')
+    markdown = load_and_process(input_path)
     html_body = render_markdown_to_html(markdown)
     @standalone ? wrap_in_html_document(html_body, input_path) : html_body
   end
 
   private
+
+  INCLUDE_RE = /^<!--\s*include:\s*(.+?)\s*-->\s*$/.freeze
+  ABSOLUTE_OR_REMOTE_RE = %r{\A(?:[a-zA-Z][a-zA-Z0-9+.-]*://|/|data:)}.freeze
+
+  # Reads path, rewrites its own relative image links to absolute paths, then resolves any
+  # `<!-- include: ... -->` directives it contains (each recursively loaded the same way,
+  # relative to *its* own directory). Returns the fully-resolved markdown text.
+  def load_and_process(path, seen: [])
+    raise "Include not found: #{path}" unless path.file?
+
+    real = path.realpath.to_s
+    raise "Circular include: #{path} (already included via #{seen.join(' -> ')})" if seen.include?(real)
+
+    content = path.read(encoding: 'UTF-8')
+    content = rewrite_relative_image_paths(content, path.dirname)
+    resolve_includes(content, path.dirname, seen: seen + [real])
+  end
+
+  def resolve_includes(markdown, base_dir, seen:)
+    markdown.gsub(INCLUDE_RE) do
+      include_path = (base_dir + Regexp.last_match(1)).cleanpath
+      load_and_process(include_path, seen: seen)
+    end
+  end
+
+  def rewrite_relative_image_paths(content, dir)
+    content.gsub(/!\[([^\]]*)\]\(([^)\s]+)((?:\s+"[^"]*")?)\)/) do
+      alt = Regexp.last_match(1)
+      src = Regexp.last_match(2)
+      title = Regexp.last_match(3)
+      src = (dir + src).cleanpath.to_s unless src.match?(ABSOLUTE_OR_REMOTE_RE)
+      "![#{alt}](#{src}#{title})"
+    end
+  end
 
   def validate_inputs(paths)
     raise 'No input paths provided' if paths.empty?
