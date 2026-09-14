@@ -2,6 +2,8 @@
 # frozen_string_literal: true
 # Requires: npm install -g @mermaid-js/mermaid-cli
 # (bundles puppeteer/Chromium — used for both mermaid pre-rendering and PDF generation)
+# optional: mise use -g github:plantuml/plantuml  (native binary, no JVM needed — pre-renders
+# ```plantuml fences the same way; see ,md-to-html's header. Without it they render as code blocks.)
 #
 # Multi-file documents without duplicating content: inherited from ,md-to-html (see its header)
 # — a line `<!-- include: relative/path.md -->` in the input file is replaced with that file's
@@ -83,15 +85,15 @@ class MarkdownToPdfConverter < MarkdownToHtmlConverter
     if page_height_mm.nil?
       say("Unknown page size #{@page_size.inspect} — diagrams constrained to width only", subitem: true, error: true)
       return <<~CSS
-        .mermaid { break-inside: avoid; page-break-inside: avoid; }
-        .mermaid svg { max-width: 100% !important; }
+        .mermaid, .plantuml { break-inside: avoid; page-break-inside: avoid; }
+        .mermaid svg, .plantuml svg { max-width: 100% !important; }
       CSS
     end
 
     svg_max_mm = [page_height_mm - 2 * @margin - 6, 20].max
     <<~CSS
-      .mermaid { break-inside: avoid; page-break-inside: avoid; }
-      .mermaid svg {
+      .mermaid, .plantuml { break-inside: avoid; page-break-inside: avoid; }
+      .mermaid svg, .plantuml svg {
         max-width: 100% !important;
         max-height: #{svg_max_mm}mm !important;
       }
@@ -102,10 +104,6 @@ class MarkdownToPdfConverter < MarkdownToHtmlConverter
 
   def write_output(content, output_path)
     run_puppeteer_pdf(content, output_path.to_s)
-  end
-
-  def decode_html_entities(str)
-    str.gsub('&lt;', '<').gsub('&gt;', '>').gsub('&amp;', '&').gsub('&quot;', '"').gsub('&#39;', "'")
   end
 
   def mmdc_available?

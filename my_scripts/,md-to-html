@@ -2,6 +2,8 @@
 # frozen_string_literal: true
 # sudo apt install libclang-dev
 # optional: npm install -g @mermaid-js/mermaid-cli  (used by ,md-to-pdf for offline mermaid rendering)
+# optional: mise use -g github:plantuml/plantuml  (native binary, no JVM needed — used here and by
+# ,md-to-pdf to pre-render ```plantuml fences to inline SVG; without it they render as code blocks)
 #
 # Include directive — compose one document out of several source files without duplicating
 # their content: a line containing only `<!-- include: relative/path.md -->` is replaced with
@@ -30,6 +32,7 @@ end
 
 require 'pathname'
 require 'optparse'
+require 'open3'
 
 #-- WithSay ----------------------------------------------------------------
 
@@ -71,6 +74,7 @@ class MarkdownToHtmlConverter
 
     say "#{self.class.name}: #{simulate ? 'simulate only' : 'force run'}"
     say "Mode: #{standalone ? 'standalone HTML' : 'HTML fragment'}, Output dir: #{output_dir || 'same as input'}", subitem: true
+    say "PlantUML: #{plantuml_available? ? 'plantuml found — pre-rendering to SVG' : 'plantuml not found — diagrams shown as code (install: mise use -g github:plantuml/plantuml)'}", subitem: true
   end
 
   def convert_all
@@ -175,7 +179,8 @@ class MarkdownToHtmlConverter
   def render_markdown_to_html(markdown)
     markdown = markdown.sub(/\A---\s*\n.*?\n---\s*\n/m, '')
     html = Commonmarker.to_html(markdown, plugins: { syntax_highlighter: { theme: 'InspiredGitHub' } })
-    process_mermaid(html)
+    html = process_mermaid(html)
+    process_plantuml(html)
   end
 
   # Overridable: subclasses can change how mermaid blocks are processed
@@ -184,6 +189,38 @@ class MarkdownToHtmlConverter
       content = Regexp.last_match(1).gsub(/<\/?span[^>]*>/, '')
       "<pre class=\"mermaid\">#{content}</pre>"
     end
+  end
+
+  # Unlike mermaid (rendered client-side by the CDN script below, or pre-rendered only for the
+  # PDF path — see ,md-to-pdf), PlantUML has no mature browser-side renderer, so it's always
+  # pre-rendered to inline SVG here in the base class — same code path for HTML and PDF output.
+  def process_plantuml(html)
+    html.gsub(/<pre lang="plantuml"[^>]*><code[^>]*>(.*?)<\/code><\/pre>/m) do
+      content = decode_html_entities(Regexp.last_match(1).gsub(/<\/?span[^>]*>/, ''))
+      render_plantuml_to_svg(content) || "<pre><code>#{content}</code></pre>"
+    end
+  end
+
+  def decode_html_entities(str)
+    str.gsub('&lt;', '<').gsub('&gt;', '>').gsub('&amp;', '&').gsub('&quot;', '"').gsub('&#39;', "'")
+  end
+
+  def plantuml_available?
+    return @plantuml_available unless @plantuml_available.nil?
+    @plantuml_available = system('which plantuml > /dev/null 2>&1')
+  end
+
+  def render_plantuml_to_svg(content)
+    return nil unless plantuml_available?
+
+    svg, stderr, status = Open3.capture3('plantuml', '-tsvg', '-pipe', stdin_data: content)
+
+    unless status.success?
+      say("plantuml error: #{stderr.strip}", subitem: true, subitem_level: 3, error: true)
+      return nil
+    end
+
+    "<div class=\"plantuml\">#{svg}</div>"
   end
 
   def wrap_in_html_document(body_html, input_path)
@@ -345,10 +382,15 @@ class MarkdownToHtmlConverter
         box-sizing: content-box;
       }
 
-      .mermaid {
+      .mermaid, .plantuml {
         display: flex;
         justify-content: center;
         margin: 1em 0;
+      }
+
+      .plantuml svg {
+        max-width: 100%;
+        height: auto;
       }
 
       #{extra_css}
