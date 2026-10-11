@@ -136,9 +136,9 @@ confirm-before-quit = false
 # width = 600
 # height = 400
 mode = "maximized"
-opacity = 0.8
-blur = true
-decorations = "Transparent"
+opacity = 0.6
+blur = "macos-glass-regular"
+decorations = "transparent"
 # colorspace = "display-p3"
 
 # Renderer
