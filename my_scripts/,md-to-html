@@ -63,7 +63,7 @@ end
 class MarkdownToHtmlConverter
   include WithSay
 
-  MERMAID_CDN_URL = 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs'
+  MERMAID_CDN_URL = 'https://cdn.jsdelivr.net/npm/mermaid@12.2.0/dist/mermaid.esm.min.mjs'
 
   def initialize(input_paths:, output_dir: nil, output_path: nil, standalone: true, simulate: false)
     @input_paths = validate_inputs(input_paths)
