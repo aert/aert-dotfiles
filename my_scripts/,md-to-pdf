@@ -1,9 +1,10 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env -S ,mise-global-exec ruby
 # frozen_string_literal: true
-# Requires: npm install -g @mermaid-js/mermaid-cli
-# (bundles puppeteer/Chromium — used for both mermaid pre-rendering and PDF generation)
-# optional: mise use -g github:plantuml/plantuml  (native binary, no JVM needed — pre-renders
-# ```plantuml fences the same way; see ,md-to-html's header. Without it they render as code blocks.)
+# Requires @mermaid-js/mermaid-cli (bundles puppeteer/Chromium — used for both mermaid
+# pre-rendering and PDF generation); optionally plantuml (pre-renders ```plantuml fences the same
+# way; without it they render as code blocks). Run ,__install_requirements.sh to install/upgrade
+# everything — see ,md-to-html's header. Like ,md-to-html, this runs on the global mise toolset
+# via ,mise-global-exec, ignoring any project-local mise versions.
 #
 # Multi-file documents without duplicating content: inherited from ,md-to-html (see its header)
 # — a line `<!-- include: relative/path.md -->` in the input file is replaced with that file's

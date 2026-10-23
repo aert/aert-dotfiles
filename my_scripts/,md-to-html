@@ -1,9 +1,12 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env -S ,mise-global-exec ruby
 # frozen_string_literal: true
-# sudo apt install libclang-dev
-# optional: npm install -g @mermaid-js/mermaid-cli  (used by ,md-to-pdf for offline mermaid rendering)
-# optional: mise use -g github:plantuml/plantuml  (native binary, no JVM needed — used here and by
-# ,md-to-pdf to pre-render ```plantuml fences to inline SVG; without it they render as code blocks)
+# Dependencies: run ,__install_requirements.sh (idempotent, upgrades to latest). Everything comes
+# from the *global* mise install — the shebang runs this script via ,mise-global-exec, so a
+# project-local mise.toml (e.g. ruby 2.7) is ignored. Installed: ruby + gems (bundler, commonmarker;
+# commonmarker needs libclang to build: apt install libclang-dev / dnf install clang-devel /
+# xcode-select --install), node + @mermaid-js/mermaid-cli (used by ,md-to-pdf for mermaid), and
+# optionally github:plantuml/plantuml (native binary, no JVM needed — used here and by ,md-to-pdf to
+# pre-render ```plantuml fences to inline SVG; without it they render as code blocks).
 #
 # Include directive — compose one document out of several source files without duplicating
 # their content: a line containing only `<!-- include: relative/path.md -->` is replaced with

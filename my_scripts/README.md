@@ -26,7 +26,26 @@ Renders markdown to HTML and opens in browser. Saved to `/tmp/md-previews/`.
 ```
 
 ### `,md-to-pdf`
-Markdown to PDF conversion.
+Markdown to PDF conversion (mermaid and PlantUML diagrams pre-rendered to SVG).
+
+### Setup
+
+`mise` is the only prerequisite. Run `,__install_requirements.sh` to install
+everything `,md-to-html` and `,md-to-pdf` need (ruby, node, the `commonmarker` gem,
+`@mermaid-js/mermaid-cli`, PlantUML). It is idempotent, only installs what is missing (global ruby/node are
+never upgraded; PlantUML and mermaid-cli are upgraded to latest), and works on Linux and macOS (Apple Silicon).
+
+## Global mise tools
+
+### `,mise-global-exec`
+Runs a command on the **global** mise toolset, ignoring the current directory's `mise.toml`
+(so a project pinned to e.g. ruby 2.7 doesn't affect it). Also usable as a script shebang:
+`#!/usr/bin/env -S ,mise-global-exec ruby` (or `node`, `python`, ...). `,md-to-html` and
+`,md-to-pdf` use it.
+
+```bash
+,mise-global-exec node -v
+```
 
 ## Git Utilities
 

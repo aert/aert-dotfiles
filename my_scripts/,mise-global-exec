@@ -1,0 +1,26 @@
+#!/bin/sh
+# Runs a command on the *global* mise toolset (ruby, node, python, plantuml, mmdc, ...), never a
+# project-local one.   Usage: ,mise-global-exec CMD [ARGS...]
+# As a script shebang: `#!/usr/bin/env -S ,mise-global-exec ruby` (or node, python, ...)
+#
+# mise resolves tools from the current directory's mise.toml/.tool-versions, so from inside a
+# project pinned to e.g. ruby 2.7 a plain `ruby` is 2.7 and breaks on newer gems/syntax. Resolving
+# from $HOME picks only the global config; the command itself still runs in the caller's cwd, so
+# relative paths keep working. The global tool bin dirs are prepended to PATH so that CMD and its
+# child processes (node, npm, mmdc, plantuml, ...) all come from the global install.
+set -eu
+
+[ $# -gt 0 ] || { echo "usage: ,mise-global-exec CMD [ARGS...]" >&2; exit 2; }
+command -v mise > /dev/null 2>&1 || { echo ",mise-global-exec: mise is required (https://mise.jdx.dev)" >&2; exit 1; }
+
+global_bins=$(cd "$HOME" && mise bin-paths | paste -sd: -)
+PATH="$global_bins:$PATH"
+export PATH
+
+command -v "$1" > /dev/null 2>&1 || { echo ",mise-global-exec: '$1' not found in the global mise toolset — run ,__install_requirements.sh" >&2; exit 1; }
+
+# drop project-local language state that would leak into the global tools
+unset GEM_HOME GEM_PATH GEM_ROOT RUBYOPT RUBYLIB BUNDLE_GEMFILE BUNDLE_PATH BUNDLE_BIN_PATH BUNDLER_VERSION
+unset VIRTUAL_ENV PYTHONHOME PYTHONPATH NODE_PATH NODE_OPTIONS
+
+exec "$@"

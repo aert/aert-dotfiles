@@ -27,6 +27,8 @@ sudo ./install system  # Apply system-level /etc/ configs
 │   ├── ,md-to-html              #   Markdown→HTML with Mermaid SVG diagrams
 │   ├── ,md-preview              #   Markdown preview in browser (via /tmp/md-previews/)
 │   ├── ,md-to-pdf               #   Markdown→PDF conversion
+│   ├── ,mise-global-exec        #   run a command on the global mise toolset (ignores project mise.toml)
+│   ├── ,__install_requirements.sh  # install missing deps (upgrades only plantuml + mermaid-cli) for ,md-to-html/,md-to-pdf via global mise
 │   ├── ,clean-filename          #   bulk filename sanitizer (dry-run by default)
 │   ├── ,git-clean-local-branches  # prune merged git branches
 │   ├── ,git-files-recent        #   show recently modified git files
@@ -161,6 +163,8 @@ Dotbot manages symlinks via per-OS config files. Key details:
 ### Markdown Pipeline
 
 The `,md-to-html` script is the most complex tool: supports GitLab-flavored markdown, Mermaid diagrams (rendered as inline SVG), YAML frontmatter stripping, standalone HTML or fragment mode, custom output paths. Preview via `,md-preview` saves to `/tmp/md-previews/`.
+
+Dependencies (ruby, node, `commonmarker`, mermaid-cli, PlantUML) are installed by `,__install_requirements.sh` if missing (never upgrades global ruby/node; always upgrades PlantUML and mermaid-cli), idempotent, Linux and macOS arm. `,md-to-html` and `,md-to-pdf` use the shebang `#!/usr/bin/env -S ,mise-global-exec ruby`, so they always run on the **global** mise install (never a project-local `mise.toml` such as ruby 2.7). Use the same shebang pattern (`node`, `python`, ...) for new scripts that need global tools.
 
 ---
 
