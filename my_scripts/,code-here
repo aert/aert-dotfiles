@@ -1,0 +1,224 @@
+#!/usr/bin/env bash
+# ,code-here: serve the current folder as a VS Code project in the browser
+# (official `code serve-web`).
+#
+# Defaults: sandboxed (bubblewrap), read-only, reachable on localhost AND the
+# Tailscale IP (never on your LAN). Foreground process: Ctrl-C stops it.
+set -euo pipefail
+
+PORT=60123
+BIND="both"      # both | local | tailscale | <explicit IP>
+SANDBOX=1
+READONLY=1
+
+usage() {
+  cat <<'EOF'
+Usage: ,code-here [options]
+
+Serves the current directory with VS Code in the browser (code serve-web).
+
+Defaults: sandboxed, read-only, localhost over HTTP and your Tailscale name over
+HTTPS (tailscale cert; HTTPS certificates must be enabled for the tailnet).
+
+Options:
+  -p PORT   Port to listen on (default 60123, next free port if busy)
+  -H HOST   both (default) | local | tailscale | an explicit IP
+  -w        Make the folder writable (still sandboxed)
+  -S        Disable the sandbox (terminal gets full access as your user!)
+  -h        Show this help
+
+Never binds to 0.0.0.0 unless you pass it explicitly. Stop with Ctrl-C.
+EOF
+}
+
+while getopts "p:H:wSh" opt; do
+  case "$opt" in
+    p) PORT="$OPTARG" ;;
+    H) BIND="$OPTARG" ;;
+    w) READONLY=0 ;;
+    S) SANDBOX=0 ;;
+    h) usage; exit 0 ;;
+    *) usage; exit 1 ;;
+  esac
+done
+
+[[ "$PORT" =~ ^[0-9]+$ ]] || { echo "error: invalid port '$PORT'" >&2; exit 1; }
+
+if [[ "$SANDBOX" -eq 0 ]]; then
+  echo "warning: sandbox disabled; the terminal can access all of your files" >&2
+fi
+
+CODE_BIN="$(command -v code || true)"
+[[ -n "$CODE_BIN" ]] || {
+  echo "error: 'code' CLI not found in PATH (install the standalone VS Code CLI)" >&2
+  exit 1
+}
+
+# --- Resolve bind addresses -------------------------------------------------
+# serve-web listens on a single address, always plain HTTP on 127.0.0.1 here.
+# The Tailscale side is a socat TLS forwarder (tailscale cert): serve-web's
+# login fails over plain HTTP on a non-localhost origin (not a secure context).
+LISTEN_HOST="127.0.0.1"
+TS_IP=""
+TS_NAME=""
+SHOW_LOCAL=1
+
+get_ts_ip() { tailscale ip -4 2>/dev/null | head -n1 || true; }
+get_ts_name() {
+  tailscale status --json 2>/dev/null |
+    python3 -c 'import json,sys; print(json.load(sys.stdin)["Self"]["DNSName"].rstrip("."))' 2>/dev/null || true
+}
+
+case "$BIND" in
+  local)
+    ;;
+  both)
+    TS_IP="$(get_ts_ip)"
+    if [[ -z "$TS_IP" ]]; then
+      echo "warning: Tailscale IP not found (is tailscale up?); localhost only" >&2
+    fi
+    ;;
+  tailscale)
+    TS_IP="$(get_ts_ip)"
+    [[ -n "$TS_IP" ]] || { echo "error: could not get Tailscale IP" >&2; exit 1; }
+    SHOW_LOCAL=0
+    ;;
+  *)
+    LISTEN_HOST="$BIND"
+    if [[ "$BIND" == "0.0.0.0" || "$BIND" == "::" ]]; then
+      echo "warning: binding to all interfaces exposes this to your LAN" >&2
+    fi
+    ;;
+esac
+
+if [[ -n "$TS_IP" ]]; then
+  command -v socat >/dev/null 2>&1 || {
+    echo "error: socat not found (sudo apt install socat); needed for the Tailscale listener" >&2
+    echo "       or run with -H local" >&2
+    exit 1
+  }
+  TS_NAME="$(get_ts_name)"
+  [[ -n "$TS_NAME" ]] || { echo "error: could not get the Tailscale DNS name (MagicDNS on?)" >&2; exit 1; }
+fi
+
+# --- Port -------------------------------------------------------------------
+port_in_use() { ss -ltn 2>/dev/null | awk '{print $4}' | grep -Eq "[:.]$1\$"; }
+while port_in_use "$PORT"; do PORT=$((PORT + 1)); done
+
+# --- State, token -----------------------------------------------------------
+DIR="$(pwd -P)"
+STATE="${XDG_STATE_HOME:-$HOME/.local/state}/code-here"
+mkdir -p "$STATE"
+chmod 700 "$STATE"
+
+CERT_FILE="" KEY_FILE=""
+if [[ -n "$TS_IP" ]]; then
+  mkdir -p "$STATE/certs"; chmod 700 "$STATE/certs"
+  CERT_FILE="$STATE/certs/$TS_NAME.crt"; KEY_FILE="$STATE/certs/$TS_NAME.key"
+  if ! tailscale cert --cert-file "$CERT_FILE" --key-file "$KEY_FILE" "$TS_NAME" >&2; then
+    echo "error: 'tailscale cert $TS_NAME' failed. Enable HTTPS certificates in the" >&2
+    echo "       admin console (DNS), and if it reports a permission error run:" >&2
+    echo "       sudo tailscale set --operator=\$USER" >&2
+    echo "       Or use -H local (SSH port-forward)." >&2
+    exit 1
+  fi
+  chmod 600 "$KEY_FILE"
+fi
+
+TOKEN_FILE="$(mktemp)"
+FWD_PID=""
+cleanup() {
+  [[ -n "$FWD_PID" ]] && kill "$FWD_PID" 2>/dev/null || true
+  rm -f "$TOKEN_FILE"
+}
+trap cleanup EXIT
+trap 'exit 130' INT TERM
+
+chmod 600 "$TOKEN_FILE"
+if command -v openssl >/dev/null 2>&1; then
+  openssl rand -hex 24 > "$TOKEN_FILE"
+else
+  head -c 24 /dev/urandom | od -An -tx1 | tr -d ' \n' > "$TOKEN_FILE"
+fi
+TOKEN="$(cat "$TOKEN_FILE")"
+
+ENC_DIR="$(printf '%s' "$DIR" | sed 's/%/%25/g; s/ /%20/g; s/#/%23/g; s/&/%26/g; s/?/%3F/g')"
+QS="?tkn=$TOKEN&folder=$ENC_DIR"
+
+MODE=""
+[[ "$SANDBOX" -eq 1 ]] && MODE=" [sandboxed]"
+[[ "$SANDBOX" -eq 1 && "$READONLY" -eq 1 ]] && MODE="$MODE [read-only]"
+[[ "$SANDBOX" -eq 1 && "$READONLY" -eq 0 ]] && MODE="$MODE [writable]"
+
+echo "Folder : $DIR$MODE"
+if [[ "$LISTEN_HOST" == "127.0.0.1" ]]; then
+  [[ "$SHOW_LOCAL" -eq 1 ]] && echo "Local  : http://localhost:$PORT/$QS"
+  [[ -n "$TS_IP" ]] && echo "Tailnet: https://$TS_NAME:$PORT/$QS"
+else
+  echo "Open   : http://$LISTEN_HOST:$PORT/$QS"
+fi
+echo "Stop   : Ctrl-C"
+echo
+
+# --- TLS forwarder (Tailscale IP -> loopback) -----------------------------------
+if [[ -n "$TS_IP" ]]; then
+  socat "OPENSSL-LISTEN:$PORT,bind=$TS_IP,cert=$CERT_FILE,key=$KEY_FILE,verify=0,fork,reuseaddr" "TCP:127.0.0.1:$PORT" &
+  FWD_PID=$!
+fi
+
+SERVE_ARGS=(serve-web
+  --host "$LISTEN_HOST" --port "$PORT"
+  --connection-token-file "$TOKEN_FILE"
+  --server-data-dir "$STATE/server-data"
+  --accept-server-license-terms)
+
+# --- Run --------------------------------------------------------------------
+if [[ "$SANDBOX" -eq 0 ]]; then
+  "$CODE_BIN" "${SERVE_ARGS[@]}"
+  exit $?
+fi
+
+command -v bwrap >/dev/null 2>&1 || {
+  echo "error: bubblewrap not found (sudo apt install bubblewrap)" >&2
+  exit 1
+}
+
+BIND_FLAG="--bind"
+[[ "$READONLY" -eq 1 ]] && BIND_FLAG="--ro-bind"
+
+BWRAP_ARGS=(
+  --unshare-all --share-net --die-with-parent --new-session
+  --tmpfs /
+  --dev /dev --proc /proc
+  --tmpfs /tmp --tmpfs /run --tmpfs /home --tmpfs /root
+  --ro-bind-try /run/systemd/resolve /run/systemd/resolve
+  --perms 0700 --dir "/run/user/$(id -u)"
+  --bind "$STATE" "$STATE"
+  --ro-bind "$TOKEN_FILE" "$TOKEN_FILE"
+  --setenv HOME "$STATE"
+  --setenv GIT_OPTIONAL_LOCKS 0
+)
+
+# Allowlist of system dirs (not `--ro-bind / /`: it is recursive, chokes on
+# stale mounts under $HOME, and would expose /run sockets such as docker's)
+for d in /usr /bin /sbin /lib /lib32 /lib64 /etc /opt /var /sys; do
+  BWRAP_ARGS+=(--ro-bind-try "$d" "$d")
+done
+
+# If the code binary lives under /home etc., re-expose it read-only
+CODE_REAL="$(readlink -f "$CODE_BIN")"
+case "$CODE_REAL" in
+  /home/*|/root/*|/mnt/*|/media/*)
+    BWRAP_ARGS+=(--ro-bind "$(dirname "$CODE_REAL")" "$(dirname "$CODE_REAL")") ;;
+esac
+
+# The project folder, mounted last so it overlays the tmpfs
+BWRAP_ARGS+=("$BIND_FLAG" "$DIR" "$DIR" --chdir "$DIR")
+
+# Git may complain about ownership inside the sandbox
+export GIT_CONFIG_COUNT=1
+export GIT_CONFIG_KEY_0=safe.directory
+export GIT_CONFIG_VALUE_0="$DIR"
+
+# Not exec'd, so the trap can stop the forwarder and remove the token file
+bwrap "${BWRAP_ARGS[@]}" "$CODE_REAL" "${SERVE_ARGS[@]}"
