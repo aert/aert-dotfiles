@@ -16,9 +16,6 @@
     /etc/apt/sources.list: system-config/etc/apt/sources.list
     /etc/apt/sources.list.d: system-config/etc/apt/sources.list.d
 
-    # ── DNF package manager (Fedora) ─────────────────────────────────
-    /etc/dnf/dnf.conf: system-config/etc/dnf/dnf.conf
-
     # ── Kernel parameters ─────────────────────────────────────────────
     /etc/sysctl.d: system-config/etc/sysctl.d
 

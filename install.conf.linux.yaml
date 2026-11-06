@@ -1,6 +1,6 @@
-# Linux-only (Debian + Fedora)
+# Linux-only (Debian/Ubuntu/Pop!_OS, Gnome)
 # ==============================
-# X11 utilities, Gnome desktop config, dev packages
+# Gnome desktop config
 
 - defaults:
     link:
@@ -8,43 +8,10 @@
       relink: true
 
 - link:
-    # ── X11 / display ────────────────────────────────────────────────
-    ~/.config/redshift.conf: user-config/config/redshift.conf
-
     # ── Git tooling (lazygit reads ~/.config on Linux) ───────────────
     ~/.config/lazygit/config.yml: user-config/lazygit/config.yml
 
-    # ── Launcher (rofi) ──────────────────────────────────────────────
-    ~/.config/rofi: user-config/rofi
-
 - shell:
-    # ── Debian / Ubuntu packages ──────────────────────────────────────
-    - description: Install Debian/Ubuntu base packages
-      command: |
-        sudo apt-get install -y --no-install-recommends \
-          meld tig htop zsh xclip tmux ranger fonts-ibm-plex
-      stderr: true
-      stdin: false
-      stdout: true
-
-    - description: Install Debian/Ubuntu dev packages
-      command: |
-        sudo apt-get install -y --no-install-recommends \
-          build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev \
-          libsqlite3-dev libncursesw5-dev xz-utils tk-dev libxml2-dev \
-          libxmlsec1-dev libffi-dev liblzma-dev libyaml-dev libreadline6-dev \
-          libgmp-dev libncurses5-dev libgdbm6 libgdbm-dev libdb-dev uuid-dev \
-          dirmngr gpg gawk curl git
-      stderr: true
-      stdin: false
-      stdout: true
-
-    - description: Disable PackageKit on Debian
-      command: sudo dpkg-divert --divert /etc/PackageKit/20packagekit.distrib --rename /etc/apt/apt.conf.d/20packagekit 2>/dev/null || true
-      stderr: true
-      stdin: false
-      stdout: true
-
     # ── Gnome desktop settings ────────────────────────────────────────
     - description: Configure Gnome workspaces and keybindings
       command: |

@@ -26,9 +26,6 @@ CONFIGS="-c $DIR/install.conf.shared.yaml"
 case "$(uname -s)" in
   Linux)
     CONFIGS="$CONFIGS -c $DIR/install.conf.linux.yaml"
-    if [ -f /etc/fedora-release ]; then
-      CONFIGS="$CONFIGS -c $DIR/install.conf.fedora.yaml"
-    fi
     ;;
   Darwin)
     CONFIGS="$CONFIGS -c $DIR/install.conf.darwin.yaml"
