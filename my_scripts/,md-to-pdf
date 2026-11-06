@@ -65,13 +65,18 @@ class MarkdownToPdfConverter < MarkdownToHtmlConverter
       <head>
         <meta charset="UTF-8">
         <title>#{title}</title>
-        <style>#{html_styles(extra_css: "body { padding: 0; font-size: 11px; } #{diagram_fit_css}")}</style>
+        <style>#{html_styles(extra_css: "body { padding: 0; font-size: 11px; } #{code_wrap_css} #{diagram_fit_css}")}</style>
       </head>
       <body>
         #{body_html}
       </body>
       </html>
     HTML
+  end
+
+  # Long lines in code blocks (JSON examples) wrap instead of being clipped at the page edge
+  def code_wrap_css
+    "pre, pre code { white-space: pre-wrap !important; overflow-wrap: anywhere; word-break: break-word; overflow: visible !important; }"
   end
 
   # CSS so a diagram never spans two pages:
