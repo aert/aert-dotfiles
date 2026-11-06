@@ -21,14 +21,14 @@ fi
 # Uses dotbot managed by mise (pipx:dotbot): https://github.com/anishathalye/dotbot
 # Install prerequisites: mise install
 
-CONFIGS="-c $DIR/install.conf.shared.yaml"
+CONFIGS="$DIR/install.conf.shared.yaml"
 
 case "$(uname -s)" in
   Linux)
-    CONFIGS="$CONFIGS -c $DIR/install.conf.linux.yaml"
+    CONFIGS="$CONFIGS $DIR/install.conf.linux.yaml"
     ;;
   Darwin)
-    CONFIGS="$CONFIGS -c $DIR/install.conf.darwin.yaml"
+    CONFIGS="$CONFIGS $DIR/install.conf.darwin.yaml"
     ;;
   *)
     echo "Unknown OS: $(uname -s)" >&2
@@ -37,4 +37,4 @@ case "$(uname -s)" in
 esac
 
 # shellcheck disable=SC2086
-mise exec -- dotbot -d "$DIR" $CONFIGS "$@"
+mise exec -- dotbot -d "$DIR" -c $CONFIGS "$@"
