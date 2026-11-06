@@ -1,0 +1,8 @@
+# diffnav integration (diffnav reads a unified diff on stdin)
+
+# D: open the commit under the cursor in diffnav
+bind generic D !sh -c 'git show --format= %(commit) | diffnav'
+# D in status view: working changes vs HEAD
+bind status  D !sh -c 'git diff HEAD | diffnav'
+# B: everything the commit/branch under the cursor adds relative to main
+bind generic B !sh -c 'git diff main...%(commit) | diffnav'
