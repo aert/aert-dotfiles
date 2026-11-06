@@ -1,0 +1,21 @@
+git:
+  diffRenderers:
+    - command: delta --dark --paging=never --line-numbers
+    - command: difft --color=always
+      type: extDiff
+customCommands:
+  - key: D
+    context: commits
+    description: Open commit in diffnav
+    command: git show --format= {{.SelectedLocalCommit.Hash}} | diffnav
+    output: terminal
+  - key: D
+    context: localBranches
+    description: Review branch vs main in diffnav
+    command: git diff main...{{.SelectedLocalBranch.Name}} | diffnav
+    output: terminal
+  - key: D
+    context: files
+    description: Open working changes in diffnav
+    command: git diff HEAD | diffnav
+    output: terminal
