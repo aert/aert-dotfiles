@@ -1,9 +1,29 @@
-# mise.toml — local dev tools for this dotfiles repo
-# See https://github.com/jdx/mise for more info
+# Global mise config (symlinked to ~/.config/mise/config.toml); also used as this repo's dev tools
 
 [tools]
-# pipx — isolated Python app installer (required for pipx: packages)
+# dotbot — needed by ./install (pipx is its installer)
 pipx = "latest"
-
-# dotbot — dotfile management CLI (installed via pipx for isolation)
 "pipx:dotbot" = "latest"
+
+bun = "latest"
+crush = "latest"
+gh = "latest"
+"github:anomalyco/opencode" = "latest"
+"github:can1357/oh-my-pi" = "latest"
+"github:plantuml/plantuml" = "latest"
+herdr = "latest"
+java = "latest"
+lazydocker = "latest"
+lazygit = "latest"
+node = "latest"
+python = "latest"
+ruby = "latest"
+usage = "latest"
+uv = "0.13.6"
+
+[settings]
+idiomatic_version_file_enable_tools = []
+experimental = true
+
+[settings.ruby]
+compile = false
