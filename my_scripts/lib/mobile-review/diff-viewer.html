@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>@@TITLE@@</title>
+<style>@@D2H_CSS@@</style>
+<style media="screen and (prefers-color-scheme: light)">@@HLJS_LIGHT@@</style>
+<style media="screen and (prefers-color-scheme: dark)">@@HLJS_DARK@@</style>
+<style>
+@font-face{font-family:'Iosevka';font-weight:400;font-style:normal;src:url(data:font/woff2;base64,@@FONT_400@@) format('woff2')}
+@font-face{font-family:'Iosevka';font-weight:700;font-style:normal;src:url(data:font/woff2;base64,@@FONT_700@@) format('woff2')}
+
+:root{--fs:14px;--bg:#fff;--fg:#1f2328;--bar:#f6f8fa;--bar-border:#d0d7de;--btn:#fff;--btn-on:#0969da;--btn-on-fg:#fff;--muted:#59636e}
+@media (prefers-color-scheme: dark){:root{--bg:#0d1117;--fg:#e6edf3;--bar:#161b22;--bar-border:#30363d;--btn:#21262d;--btn-on:#1f6feb;--btn-on-fg:#fff;--muted:#8b949e}}
+
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.mono,pre.review-header,.d2h-wrapper,.d2h-code-line-ctn,.d2h-code-linenumber,.d2h-code-side-linenumber,.d2h-code-line,.d2h-code-side-line,.d2h-file-name{
+  font-family:'Iosevka',ui-monospace,Menlo,Consolas,monospace;font-variant-ligatures:none;font-feature-settings:"liga" 0,"calt" 0}
+.d2h-code-line-ctn,.d2h-code-line,.d2h-code-side-line,.d2h-code-linenumber,.d2h-code-side-linenumber{font-size:var(--fs);line-height:1.45}
+
+#bar{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:6px 8px;background:var(--bar);border-bottom:1px solid var(--bar-border)}
+#bar .grp{display:inline-flex;border:1px solid var(--bar-border);border-radius:8px;overflow:hidden}
+#bar button{font:600 14px system-ui,sans-serif;min-height:40px;min-width:44px;padding:0 14px;border:0;background:var(--btn);color:var(--fg);cursor:pointer}
+#bar .grp button+button{border-left:1px solid var(--bar-border)}
+#bar button[aria-pressed=true]{background:var(--btn-on);color:var(--btn-on-fg)}
+#bar .sp{flex:1}
+#bar .hint{color:var(--muted);font-size:12px}
+
+pre.review-header{white-space:pre-wrap;overflow-wrap:anywhere;font-size:var(--fs);line-height:1.45;margin:0;padding:10px 10px 6px}
+#diff{padding:0 8px 24px}
+.d2h-wrapper{text-align:left}
+.d2h-file-header{position:sticky;top:57px;z-index:10}
+
+/* wrap toggle: only flip white-space; diff2html's own table/cell layout stays intact */
+body.wrap .d2h-code-line-ctn{white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal}
+/* highlight.js themes paint .hljs with their own background: keep diff2html's add/del colours visible */
+.d2h-wrapper .hljs{background:transparent!important}
+a.rendered{margin:0 8px 0 auto;padding:6px 12px;border:1px solid var(--bar-border);border-radius:6px;background:var(--btn);color:var(--btn-on);font:600 13px system-ui,sans-serif;text-decoration:none;white-space:nowrap}
+@media (prefers-color-scheme: dark){a.rendered{color:#58a6ff}}
+/* long file names/paths must wrap too */
+.d2h-file-name{white-space:normal;overflow-wrap:anywhere}
+
+@page{size:A4;margin:10mm}
+@media print{
+  #bar{display:none}
+  .d2h-file-header{position:static}
+  .d2h-file-wrapper{break-inside:auto}
+}
+</style>
+</head>
+<body class="wrap">
+<div id="bar">
+  <div class="grp" role="group" aria-label="Layout">
+    <button id="b-unified" type="button">Unified</button>
+    <button id="b-split" type="button">Split</button>
+  </div>
+  <button id="b-wrap" type="button" aria-pressed="true" style="border:1px solid var(--bar-border);border-radius:8px">Wrap</button>
+  <div class="grp" role="group" aria-label="Font size">
+    <button id="b-smaller" type="button" aria-label="Smaller text">A−</button>
+    <button id="b-bigger" type="button" aria-label="Bigger text">A+</button>
+  </div>
+</div>
+<pre class="review-header">@@HEADER@@</pre>
+<div id="diff"></div>
+
+<script id="patch" type="application/json">@@PATCH_JSON@@</script>
+<script id="config" type="application/json">@@CONFIG_JSON@@</script>
+<script>@@D2H_JS@@</script>
+<script>
+(function () {
+  var cfg = JSON.parse(document.getElementById('config').textContent);
+  var patch = JSON.parse(document.getElementById('patch').textContent);
+  var KEY = 'mobile-review-prefs';
+  var st = { view: window.matchMedia('(min-width: 900px)').matches ? 'side-by-side' : 'line-by-line', wrap: true, size: 14 };
+  if (cfg.print) {
+    st = { view: 'line-by-line', wrap: true, size: 11 };
+  } else {
+    try { var saved = JSON.parse(localStorage.getItem(KEY) || '{}'); for (var k in saved) st[k] = saved[k]; } catch (e) {}
+  }
+  var $ = function (id) { return document.getElementById(id); };
+  function save() { if (!cfg.print) { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} } }
+
+  // diff2html picks the highlight.js language from the file extension, so extensionless scripts
+  // (,md-to-html ...) and dotfiles would stay uncoloured. We set data-lang ourselves:
+  // 1. hints computed by ,mobile-review from each file's shebang (cfg.langs: path -> language),
+  // 2. well-known filenames, 3. a "#!" first line visible in the diff.
+  var BY_NAME = { '.zshrc': 'bash', '.bashrc': 'bash', '.zshenv': 'bash', '.zprofile': 'bash', '.profile': 'bash',
+    '.tigrc': 'ini', '.gitconfig': 'ini', '.ackrc': 'ini', '.gemrc': 'yaml', 'Gemfile': 'ruby', 'Rakefile': 'ruby',
+    'Brewfile': 'ruby', 'Vagrantfile': 'ruby', 'Dockerfile': 'dockerfile', 'Makefile': 'makefile', 'fstab': 'ini' };
+  function fromShebang(line) {
+    var m = /^#!.*\b(ruby|python[0-9.]*|node|bun|deno|bash|zsh|sh|perl|php|lua)\b/.exec(line || '');
+    if (!m) return null;
+    var l = m[1];
+    return /^python/.test(l) ? 'python' : /^(node|bun|deno)$/.test(l) ? 'javascript' : /^(bash|zsh|sh)$/.test(l) ? 'bash' : l;
+  }
+  function pathOf(w) {
+    var nameEl = w.querySelector('.d2h-file-name');
+    return (nameEl ? nameEl.textContent : '').trim().split(' \u2192 ').pop();
+  }
+  // markdown files of the diff have a rendered sibling next to this page (cfg.rendered: path -> file name)
+  function addRenderedLinks(root) {
+    var map = cfg.rendered || {};
+    root.querySelectorAll('.d2h-file-wrapper').forEach(function (w) {
+      var target = map[pathOf(w)], hdr = w.querySelector('.d2h-file-header');
+      if (!target || !hdr) return;
+      var a = document.createElement('a');
+      a.className = 'rendered'; a.href = encodeURI(target); a.textContent = 'Rendered \u2197';
+      hdr.insertBefore(a, hdr.querySelector('.d2h-file-collapse'));
+    });
+  }
+  function detectLanguages(root, map) {
+    root.querySelectorAll('.d2h-file-wrapper').forEach(function (w) {
+      var path = pathOf(w);
+      var base = path.split('/').pop();
+      var ctn = w.querySelector('.d2h-code-line-ctn');
+      var lang = (cfg.langs || {})[path] || BY_NAME[base] || fromShebang(ctn ? ctn.textContent : '');
+      if (lang) { map.set('mr-' + lang, lang); w.setAttribute('data-lang', 'mr-' + lang); }
+    });
+  }
+
+  function draw() {
+    var el = $('diff');
+    el.innerHTML = '';
+    var langMap = new Map();
+    var ui = new Diff2HtmlUI(el, patch, {
+      outputFormat: st.view, drawFileList: true, fileListToggle: true, fileListStartVisible: true,
+      fileContentToggle: true, matching: 'lines', synchronisedScroll: true,
+      colorScheme: 'auto', highlight: false, highlightLanguages: langMap, renderNothingWhenEmpty: false
+    });
+    ui.draw();
+    detectLanguages(el, langMap);
+    addRenderedLinks(el);
+    ui.highlightCode();
+  }
+  function sync() {
+    document.body.classList.toggle('wrap', st.wrap);
+    document.documentElement.style.setProperty('--fs', st.size + 'px');
+    $('b-unified').setAttribute('aria-pressed', st.view === 'line-by-line');
+    $('b-split').setAttribute('aria-pressed', st.view === 'side-by-side');
+    $('b-wrap').setAttribute('aria-pressed', st.wrap);
+  }
+  $('b-unified').onclick = function () { st.view = 'line-by-line'; save(); sync(); draw(); };
+  $('b-split').onclick = function () { st.view = 'side-by-side'; save(); sync(); draw(); };
+  $('b-wrap').onclick = function () { st.wrap = !st.wrap; save(); sync(); };
+  $('b-smaller').onclick = function () { st.size = Math.max(9, st.size - 1); save(); sync(); };
+  $('b-bigger').onclick = function () { st.size = Math.min(26, st.size + 1); save(); sync(); };
+  sync();
+  draw();
+})();
+</script>
+</body>
+</html>

@@ -20,6 +20,7 @@ python = "latest"
 ruby = "latest"
 usage = "latest"
 uv = "0.13.6"
+"npm:diff2html-cli" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = []

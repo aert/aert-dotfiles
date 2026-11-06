@@ -123,37 +123,6 @@ class MarkdownToPdfConverter < MarkdownToHtmlConverter
     run_puppeteer_pdf(content, output_path.to_s)
   end
 
-  def mmdc_available?
-    return @mmdc_available unless @mmdc_available.nil?
-    @mmdc_available = system('which mmdc > /dev/null 2>&1')
-  end
-
-  def render_mermaid_to_svg(content)
-    return nil unless mmdc_available?
-
-    mmd_file = Tempfile.new(['mermaid', '.mmd'])
-    svg_file = Tempfile.new(['mermaid', '.svg'])
-
-    begin
-      mmd_file.write(content)
-      mmd_file.close
-      svg_file.close
-
-      _, stderr, status = Open3.capture3('mmdc', '-i', mmd_file.path, '-o', svg_file.path)
-
-      unless status.success?
-        say("mmdc error: #{stderr.strip}", subitem: true, subitem_level: 3, error: true)
-        return nil
-      end
-
-      svg = File.read(svg_file.path)
-      "<div class=\"mermaid\">#{svg}</div>"
-    ensure
-      mmd_file.unlink rescue nil
-      svg_file.unlink rescue nil
-    end
-  end
-
   def puppeteer_path
     return @puppeteer_path if defined?(@puppeteer_path)
 

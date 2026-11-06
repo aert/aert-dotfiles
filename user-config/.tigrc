@@ -1,8 +1,20 @@
 # diffnav integration (diffnav reads a unified diff on stdin)
 
 # D: open the commit under the cursor in diffnav
-bind generic D !sh -c 'git show --format= %(commit) | diffnav'
+# (on tig's "Unstaged/Untracked changes" rows %(commit) is the all-zero id: show working changes instead)
+bind generic D !sh -c 'c=%(commit); case $c in 0000000*) git diff HEAD;; *) git show --format= $c;; esac | diffnav'
 # D in status view: working changes vs HEAD
 bind status  D !sh -c 'git diff HEAD | diffnav'
-# B: everything the commit/branch under the cursor adds relative to main
-bind generic B !sh -c 'git diff main...%(commit) | diffnav'
+# B: everything the commit/branch under the cursor adds relative to main (or master in repos without main)
+bind generic B !sh -c 'c=%(commit); b=main; git rev-parse --verify -q main >/dev/null || b=master; case $c in 0000000*) git diff HEAD;; *) git diff $b...$c;; esac | diffnav'
+
+# ,mobile-review: write a folder (00_diff.html + rendered markdown files of the diff) into the Syncthing review folder (tablet)
+# (M is taken by tig's status-view mergetool; T/Y/U are unbound.) `+` shows the first line of output (the written
+# folder path, or the error) in the status bar and then closes the pipe, so ,mobile-review prints nothing else on
+# stdout/stderr. Regression test: tests_my_scripts/mobile_review/e2e/commit_test.rb
+# Y: commit under the cursor
+bind generic Y +sh -c ',mobile-review diff --commit %(commit) 2>&1'
+# Y in status view: working changes vs HEAD
+bind status  Y +sh -c ',mobile-review diff --working 2>&1'
+# U: everything the commit/branch under the cursor adds relative to main
+bind generic U +sh -c ',mobile-review diff --range main...%(commit) 2>&1'

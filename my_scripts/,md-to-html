@@ -24,7 +24,12 @@
 # different directory than the source). Already-absolute paths, URLs (`http(s)://`) and `data:`
 # URIs are left untouched. This rewriting also applies to plain (non-included) single-file runs,
 # so a standalone .md with relative images renders correctly through ,md-to-pdf too — no need to
-# inline images as base64 data URIs.
+# inline images as base64 data URIs. For HTML that must travel (e.g. synced to a tablet), pass
+# --inline-images: local images are then embedded as base64 data: URIs instead.
+#
+# Mermaid: by default ```mermaid fences are rendered in the browser by a CDN script (needs network).
+# --prerender-mermaid renders them to inline SVG with mmdc instead (no script, works offline; falls
+# back to a code block if mmdc is missing). ,md-to-pdf always pre-renders, sharing this code.
 
 require 'bundler/inline'
 
@@ -36,6 +41,7 @@ end
 require 'pathname'
 require 'optparse'
 require 'open3'
+require 'tempfile'
 
 #-- WithSay ----------------------------------------------------------------
 
@@ -68,7 +74,10 @@ class MarkdownToHtmlConverter
 
   MERMAID_CDN_URL = 'https://cdn.jsdelivr.net/npm/mermaid@12.2.0/dist/mermaid.esm.min.mjs'
 
-  def initialize(input_paths:, output_dir: nil, output_path: nil, standalone: true, simulate: false)
+  def initialize(input_paths:, output_dir: nil, output_path: nil, standalone: true, simulate: false, inline_images: false,
+                 prerender_mermaid: false)
+    @inline_images = inline_images
+    @prerender_mermaid = prerender_mermaid
     @input_paths = validate_inputs(input_paths)
     @output_dir = output_dir ? Pathname.new(output_dir) : nil
     @output_path = output_path ? Pathname.new(output_path) : nil
@@ -128,8 +137,27 @@ class MarkdownToHtmlConverter
       src = Regexp.last_match(2)
       title = Regexp.last_match(3)
       src = (dir + src).cleanpath.to_s unless src.match?(ABSOLUTE_OR_REMOTE_RE)
+      src = image_data_uri(src) || src if @inline_images
       "![#{alt}](#{src}#{title})"
     end
+  end
+
+  IMAGE_MIME_TYPES = {
+    '.png' => 'image/png', '.jpg' => 'image/jpeg', '.jpeg' => 'image/jpeg', '.gif' => 'image/gif',
+    '.webp' => 'image/webp', '.svg' => 'image/svg+xml', '.bmp' => 'image/bmp', '.avif' => 'image/avif'
+  }.freeze
+
+  # With --inline-images: local image files become base64 data: URIs so the HTML is
+  # self-contained (e.g. synced to a tablet). Remote URLs, existing data: URIs and
+  # unreadable/unknown files are returned as nil, i.e. left untouched.
+  def image_data_uri(src)
+    return nil if src.match?(%r{\A(?:[a-zA-Z][a-zA-Z0-9+.-]*://|data:)})
+
+    file = Pathname.new(src)
+    mime = IMAGE_MIME_TYPES[file.extname.downcase]
+    return nil unless mime && file.file? && file.readable?
+
+    "data:#{mime};base64,#{[file.binread].pack('m0')}"
   end
 
   def validate_inputs(paths)
@@ -186,8 +214,17 @@ class MarkdownToHtmlConverter
     process_plantuml(html)
   end
 
-  # Overridable: subclasses can change how mermaid blocks are processed
+  # Overridable: subclasses can change how mermaid blocks are processed.
+  # With prerender_mermaid (--prerender-mermaid): blocks become inline SVG via mmdc, so the HTML
+  # needs no CDN script and works offline. Falls back to a plain code block if mmdc is missing/fails.
   def process_mermaid(html)
+    if @prerender_mermaid
+      return html.gsub(/<pre lang="mermaid"[^>]*><code[^>]*>(.*?)<\/code><\/pre>/m) do
+        content = decode_html_entities(Regexp.last_match(1).gsub(/<\/?span[^>]*>/, ''))
+        render_mermaid_to_svg(content) || "<pre><code>#{content}</code></pre>"
+      end
+    end
+
     html.gsub(/<pre lang="mermaid"[^>]*><code[^>]*>(.*?)<\/code><\/pre>/m) do
       content = Regexp.last_match(1).gsub(/<\/?span[^>]*>/, '')
       "<pre class=\"mermaid\">#{content}</pre>"
@@ -201,6 +238,36 @@ class MarkdownToHtmlConverter
     html.gsub(/<pre lang="plantuml"[^>]*><code[^>]*>(.*?)<\/code><\/pre>/m) do
       content = decode_html_entities(Regexp.last_match(1).gsub(/<\/?span[^>]*>/, ''))
       render_plantuml_to_svg(content) || "<pre><code>#{content}</code></pre>"
+    end
+  end
+
+  def mmdc_available?
+    return @mmdc_available unless @mmdc_available.nil?
+    @mmdc_available = system('which mmdc > /dev/null 2>&1')
+  end
+
+  def render_mermaid_to_svg(content)
+    return nil unless mmdc_available?
+
+    mmd_file = Tempfile.new(['mermaid', '.mmd'])
+    svg_file = Tempfile.new(['mermaid', '.svg'])
+
+    begin
+      mmd_file.write(content)
+      mmd_file.close
+      svg_file.close
+
+      _, stderr, status = Open3.capture3('mmdc', '-i', mmd_file.path, '-o', svg_file.path)
+
+      unless status.success?
+        say("mmdc error: #{stderr.strip}", subitem: true, subitem_level: 3, error: true)
+        return nil
+      end
+
+      "<div class=\"mermaid\">#{File.read(svg_file.path)}</div>"
+    ensure
+      mmd_file.unlink rescue nil
+      svg_file.unlink rescue nil
     end
   end
 
@@ -237,7 +304,7 @@ class MarkdownToHtmlConverter
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>#{title}</title>
         <style>#{html_styles}</style>
-        #{mermaid_script_tag}
+        #{mermaid_script_tag unless @prerender_mermaid}
       </head>
       <body>
         #{body_html}
@@ -487,6 +554,14 @@ def parse_options
       options[:standalone] = !fragment
     end
 
+    opts.on('-i', '--inline-images', 'Embed local images as base64 data: URIs (self-contained HTML)') do
+      options[:inline_images] = true
+    end
+
+    opts.on('-m', '--prerender-mermaid', 'Pre-render mermaid to inline SVG via mmdc (no CDN, works offline)') do
+      options[:prerender_mermaid] = true
+    end
+
     opts.on('-s', '--simulate', 'Simulate only (no HTML generation)') do
       options[:simulate] = true
     end
@@ -521,7 +596,9 @@ def main
       output_dir: options[:output_dir],
       output_path: options[:output_path],
       standalone: options[:standalone],
-      simulate: options[:simulate]
+      simulate: options[:simulate],
+      inline_images: options[:inline_images] || false,
+      prerender_mermaid: options[:prerender_mermaid] || false
     )
 
     converter.convert_all

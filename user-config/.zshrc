@@ -145,7 +145,6 @@ alias k='kubectl'
 # . $HOME/.keychain/$HOST-sh
 
 #-- node
-# export NVM_DIR="/home/ari/.nvm"
 ## [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use
 
 

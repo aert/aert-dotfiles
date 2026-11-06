@@ -1,0 +1,57 @@
+#!/usr/bin/env -S ,mise-global-exec ruby
+# frozen_string_literal: true
+#
+# Test runner for the scripts in my_scripts/ (minitest). See tests_my_scripts/README.md.
+#
+#   tests_my_scripts/run                              # every suite
+#   tests_my_scripts/run mobile_review                # one script's suite
+#   tests_my_scripts/run mobile_review/unit           # one layer (fast, no CLI runs)
+#   tests_my_scripts/run mobile_review/e2e/commit_test.rb
+#   tests_my_scripts/run mobile_review -n /tig/       # anything starting with `-` goes to minitest (-n, --seed, -v)
+#   tests_my_scripts/run --list                       # list suites and files
+#
+# Runs on the global mise ruby (shebang), like the scripts themselves.
+
+require 'pathname'
+
+ROOT = Pathname.new(__dir__)
+
+if ARGV.include?('--list')
+  ROOT.children.select(&:directory?).reject { |d| d.basename.to_s == 'support' }.sort.each do |suite|
+    puts suite.basename
+    Dir.glob('**/*_test.rb', base: suite.to_s).sort.each { |f| puts "  #{f}" }
+  end
+  exit
+end
+
+# Words are suite/layer/file selectors; anything starting with `-` (and the value of -n/--name/--seed/-e/--exclude)
+# is passed on to minitest.
+VALUE_OPTIONS = %w[-n --name --seed -e --exclude].freeze
+selectors = []
+minitest_args = []
+args = ARGV.dup
+until args.empty?
+  arg = args.shift
+  if arg.start_with?('-')
+    minitest_args << arg
+    minitest_args << args.shift if VALUE_OPTIONS.include?(arg) && !args.empty?
+  else
+    selectors << arg
+  end
+end
+
+files = if selectors.empty?
+          Dir.glob(ROOT.join('**/*_test.rb')).sort
+        else
+          selectors.flat_map do |sel|
+            target = ROOT.join(sel)
+            if target.file? then [target.to_s]
+            elsif target.directory? then Dir.glob(target.join('**/*_test.rb')).sort
+            else abort "tests_my_scripts/run: no such suite, layer or file: #{sel} (try --list)"
+            end
+          end
+        end
+abort 'tests_my_scripts/run: no test files found' if files.empty?
+
+ARGV.replace(minitest_args)
+files.each { |f| require f }

@@ -1,7 +1,8 @@
 # AGENTS.md — aert/dotfiles
 
-Three distinct areas:
+Four distinct areas:
 - **`my_scripts/`** — shared executable scripts, intended to be on `$PATH`
+- **`tests_my_scripts/`** — automated tests for those scripts (`tests_my_scripts/run`)
 - **`user-config/`** — per-user dotfiles symlinked to `~/`
 - **`system-config/`** — system-level configs intended for `/etc/`
 
@@ -24,11 +25,13 @@ sudo ./install system  # Apply system-level /etc/ configs
 ```
 /
 ├── my_scripts/                  # EXECUTABLE SCRIPTS — on $PATH via ~/bin/my_scripts/
-│   ├── ,md-to-html              #   Markdown→HTML with Mermaid SVG diagrams
+│   ├── ,md-to-html              #   Markdown→HTML (Mermaid/PlantUML diagrams; -i inline images, -m pre-render mermaid for offline use)
 │   ├── ,md-preview              #   Markdown preview in browser (via /tmp/md-previews/)
 │   ├── ,md-to-pdf               #   Markdown→PDF conversion
+│   ├── ,mobile-review           #   send md/files/commit diffs to the tablet (~/Sync/Mobile/00_review, Syncthing)
+│   ├── lib/mobile-review/       #   its assets: diff-viewer.html template + Iosevka subset fonts (not scripts)
 │   ├── ,mise-global-exec        #   run a command on the global mise toolset (ignores project mise.toml)
-│   ├── ,__install_requirements.sh  # install missing deps (upgrades only plantuml + mermaid-cli) for ,md-to-html/,md-to-pdf via global mise
+│   ├── ,__install_requirements.sh  # install missing deps (upgrades only plantuml + mermaid-cli; diff2html-cli only if missing) for ,md-to-html/,md-to-pdf/,mobile-review via global mise
 │   ├── ,clean-filename          #   bulk filename sanitizer (dry-run by default)
 │   ├── ,git-clean-local-branches  # prune merged git branches
 │   ├── ,git-files-recent        #   show recently modified git files
@@ -41,8 +44,8 @@ sudo ./install system  # Apply system-level /etc/ configs
 │   ├── .zshenv                  #   env setup for Cursor AI agent
 │   ├── .tmux.conf               #   tmux config (byobu-like keybindings, vi mode)
 │   ├── ghostty/config           #   terminal emulator (primary)
-│   ├── .tigrc                   #   tig keybindings (diffnav integration)
-│   ├── lazygit/config.yml       #   lazygit diff renderers + diffnav commands
+│   ├── .tigrc                   #   tig keybindings (diffnav D/B, ,mobile-review Y/U)
+│   ├── lazygit/config.yml       #   lazygit diff renderers + diffnav (D) / ,mobile-review (Y) commands
 │   ├── claude/statusline-command.sh  # Claude Code statusline
 │   ├── config/
 │   │   ├── nvim/                #   LazyVim (Neovim) config
@@ -53,6 +56,8 @@ sudo ./install system  # Apply system-level /etc/ configs
 │   ├── opencode.jsonc           #   Opencode AI config
 │   ├── .zsh_plugins.txt         #   zsh plugin list
 │   └── bin/prompt.sh            #   git prompt script
+│
+├── tests_my_scripts/            # TESTS for my_scripts/ (minitest): run, support/, <script>/{unit,e2e}/ — see its README.md
 │
 ├── system-config/               # SYSTEM CONFIGS — intended for /etc/
 │   └── etc/
@@ -109,6 +114,7 @@ sudo ./install system  # Apply system-level /etc/ configs
 | **Git** | delta pager (`--theme=zenburn`), meld as difftool, `tig` for CLI history |
 | **Terminal** | Ghostty (primary), Gnome Terminal |
 | **Tmux** | Byobu-like keybindings (F2-F12), vi-mode, `extended-keys on`, `tmux-256color` |
+| **Review on tablet** | `,mobile-review` (tig `Y`/`U`, lazygit `Y`) → Syncthing `~/Sync/Mobile/00_review` |
 | **AI** | Crush (`crush.json`), Opencode (`opencode.jsonc`), Claude Code (`claude/`) |
 | **Font** | `M+1Code Nerd Font Mono 16` (Ghostty), `Iosevka Term Slab Medium 11` (Gnome Terminal) |
 | **File mgmt** | ranger (file manager), lsd (ls replacement), fd-find, ripgrep, silver searcher (ag) |
@@ -147,11 +153,32 @@ Dotbot manages symlinks via per-OS config files. Key details:
 - **Comma prefix** (`,md-to-html`, `,md-preview`, `,md-to-pdf`, `,clean-filename`, etc.) for all scripts — these sort to top in directory listings
 - Naming: dash-separated names, no file extensions
 
+### Tests (`tests_my_scripts/`) — read before changing a script
+
+Scripts that have a suite (currently `,mobile-review` → `tests_my_scripts/mobile_review/`; `,clean-filename` has its own `,clean-filename-tester`):
+
+```bash
+tests_my_scripts/run                     # all suites (~15 s)
+tests_my_scripts/run mobile_review       # one script; add /unit for the fast layer
+tests_my_scripts/run mobile_review -n /tig/
+```
+
+Rules for agents and contributors:
+1. **After changing a script that has a suite, run its suite** and report the result; never leave it red.
+2. **Changing behaviour or a CLI flag means updating the tests in the same change** (edit them to describe the new behaviour; don't delete tests to get green), then the docs listed under "Docs to keep in sync".
+3. **Bug fix = regression test first**: reproduce it as a failing test named after the symptom, then fix. (Example: `test_e2e_survives_a_reader_that_closes_stdout_after_the_first_line_like_tig`, the tig `+` flag bug.)
+4. **New script = new suite**: `tests_my_scripts/<script_name_with_underscores>/` with `support.rb` + unit and e2e tests; reuse `tests_my_scripts/support/common.rb`.
+5. Tests are hermetic (scratch dirs, never `~/Sync/...` or this working tree) and use the global git config on purpose. See `tests_my_scripts/README.md`.
+
+### Mobile Review (`,mobile-review`)
+
+One command to get things onto the Android tablet for review. Writes `YYMMDDHHMM_<name>[.ext]` (e.g. `2611061219_`) into `~/Sync/Mobile/00_review` (Syncthing; override `--dest` / `$MOBILE_REVIEW_DIR`; refuses to create it). With no subcommand the type of each argument is guessed from its extension (`,mobile-review a.md b.md report.pdf shot.png`): `.md` is converted, `.pdf`/images are copied with the timestamp prefix, anything else errors. Subcommands: `md FILE...` (self-contained HTML via `,md-to-html --inline-images --prerender-mermaid`, or PDF with `--pdf`), `files PATH...` (a timestamped folder with the files copied as is, `.git/` skipped), `diff --commit REV | --range A...B | --working | -` (**a timestamped folder**: `00_diff.html` plus one rendered `<name>.html` per markdown file in the diff, taken as of the diff's last commit incl. its images/includes, with links between them rewritten to the rendered siblings and a "Rendered ↗" button in the diff page; `--working` also includes untracked files (≤1 MB, `.gitignore` respected); the diff page is one self-contained HTML page from `my_scripts/lib/mobile-review/diff-viewer.html`, filled at runtime with diff2html's UI bundle + highlight.js GitHub themes from the global `diff2html-cli` install and an embedded Iosevka subset; browser-side toolbar for Unified/Split, Wrap and font size; syntax highlighting incl. shebang-detected languages for extensionless scripts; `--pdf` via headless chromium, unified + wrapped on A4). `-n` is a dry run. Every output file is written as `.syncthing.<name>.tmp` (Syncthing's own temp name, skipped by its scanner; verified against Syncthing 1.27 via its REST API) and renamed when complete, so a partial file is never synced; folders are created at once and filled file by file, `00_diff.*` last (a temp-named *folder* would not work: Syncthing skips the folder but still indexes the files inside). `diff2html-cli` comes from the global mise config (`npm:diff2html-cli` in `mise.toml`). Keybindings: tig `Y`/`U`, lazygit `Y`. Design notes and rationale: `MOBILE_REVIEW_PLAN.md`.
+
 ### Markdown Pipeline
 
-The `,md-to-html` script is the most complex tool: supports GitLab-flavored markdown, Mermaid diagrams (rendered as inline SVG), YAML frontmatter stripping, standalone HTML or fragment mode, custom output paths. Preview via `,md-preview` saves to `/tmp/md-previews/`.
+The `,md-to-html` script is the most complex tool: supports GitLab-flavored markdown, Mermaid diagrams (rendered in-browser from a CDN by default; `-m/--prerender-mermaid` makes them inline SVG via mmdc for offline use), PlantUML (always inline SVG), `-i/--inline-images` (local images as base64 data URIs so the HTML can travel), YAML frontmatter stripping, standalone HTML or fragment mode (`-f`), custom output paths (`-o`/`-p`), `-s` dry run. `,md-to-pdf` subclasses it and shares the Mermaid pre-rendering. Preview via `,md-preview` saves to `/tmp/md-previews/`.
 
-Dependencies (ruby, node, `commonmarker`, mermaid-cli, PlantUML) are installed by `,__install_requirements.sh` if missing (never upgrades global ruby/node; always upgrades PlantUML and mermaid-cli), idempotent, Linux and macOS arm. `,md-to-html` and `,md-to-pdf` use the shebang `#!/usr/bin/env -S ,mise-global-exec ruby`, so they always run on the **global** mise install (never a project-local `mise.toml` such as ruby 2.7). Use the same shebang pattern (`node`, `python`, ...) for new scripts that need global tools.
+Dependencies (ruby, node, `commonmarker`, mermaid-cli, PlantUML, diff2html-cli) are installed by `,__install_requirements.sh` if missing (never upgrades global ruby/node; always upgrades PlantUML and mermaid-cli; installs diff2html-cli only if missing), idempotent, Linux and macOS arm. `,md-to-html` and `,md-to-pdf` use the shebang `#!/usr/bin/env -S ,mise-global-exec ruby`, so they always run on the **global** mise install (never a project-local `mise.toml` such as ruby 2.7). Use the same shebang pattern (`node`, `python`, ...) for new scripts that need global tools.
 
 ---
 
@@ -188,7 +215,7 @@ New machine setup:
 - **Commented-out sections**: `.zshrc` has many commented-out pyenv/nvm/asdf sections and virtualenv configs — these are dead code
 - **`.gitconfig` references `~/.git_template`**: this template directory doesn't exist in the repo
 - **PATH scattered**: `.zshrc` has PATH modifications spread across multiple lines rather than consolidated
-- **README.md is minimal**: says almost nothing — just Gnome Terminal font/color settings
+- **Docs to keep in sync**: `README.md` (overview, setup, tablet workflow), `my_scripts/README.md` (per-script usage and flags) and this file all describe `,mobile-review`/`,md-to-html`; `MOBILE_REVIEW_PLAN.md` holds the design rationale; `tests_my_scripts/` holds the tests (and its README the testing rules). Update all of them when a script's CLI or behaviour changes
 - **Ghostty config has a `macos-titlebar-style` setting**: this config is shared cross-platform
 
 ---

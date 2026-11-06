@@ -1,0 +1,714 @@
+#!/usr/bin/env -S ,mise-global-exec ruby
+# frozen_string_literal: true
+# Prepare something for review on the tablet and drop it, timestamp-prefixed (YYMMDDHHMM, e.g.
+# 2611061219 = 2026-11-06 12:19), into the Syncthing folder (default ~/Sync/Mobile/00_review, override with
+# --dest or $MOBILE_REVIEW_DIR).
+#
+# With no subcommand the type of each argument is guessed from its extension (one output per file, types
+# can be mixed): .md/.markdown -> converted like `md`; .pdf and images (png jpg jpeg gif webp svg bmp avif
+# heic heif) -> copied unchanged, only prefixed with the timestamp. Anything else needs an explicit command.
+#
+#   ,mobile-review notes.md other.md       # -> <ts>_notes.html, <ts>_other.html (images + mermaid inlined)
+#   ,mobile-review report.pdf shot.png     # -> <ts>_report.pdf, <ts>_shot.png (plain copies)
+#   ,mobile-review --pdf notes.md          # -> <ts>_notes.pdf
+#   ,mobile-review md README.md            # explicit form of the first line (markdown only)
+#   ,mobile-review files src/ notes.txt    # -> <ts>_src_+1/ folder with the files as is (no conversion)
+#   ,mobile-review diff --commit REV       # -> <ts>_<repo>_<sha>/ folder: 00_diff.html + the markdown files of the diff
+#   ,mobile-review diff --range main...REV # everything a branch adds vs main
+#   ,mobile-review diff --working          # git diff HEAD
+#   git diff ... | ,mobile-review diff -  # any unified diff from stdin (diff only: no repo, so no markdown files)
+#
+# diff output is a folder: 00_diff.html (or .pdf) plus, for every markdown file added/modified/renamed in the
+# diff, its rendered version (<name>.html / .pdf), as of the diff's last commit (the commit, the range tip, or
+# the working tree for --working). Images and <!-- include: --> files are read from that commit too.
+# Colliding basenames become <dir>__<name>.
+#
+# The diff page (lib/mobile-review/diff-viewer.html) is rendered in the browser by diff2html's UI bundle:
+# toolbar with Unified/Split, Wrap and A-/A+ (choices remembered in localStorage; Split by default on wide
+# screens), GitHub light/dark theme following the OS, syntax highlighting (language also detected from
+# shebangs for extensionless scripts), Iosevka embedded as a subset woff2. No external references.
+#
+# Tests: tests_my_scripts/mobile_review (run: tests_my_scripts/run mobile_review). Run them after changing this
+# file and update them with every behaviour change.
+#
+# Dependencies: same as ,md-to-html / ,md-to-pdf (see ,__install_requirements.sh), and
+# for diff: diff2html-cli (mise npm: backend, also installed by ,__install_requirements.sh; only used as
+# the source of diff2html's JS/CSS bundles and the highlight.js themes) and, with --pdf,
+# chromium/google-chrome for printing.
+# Every output file is written under Syncthing's own temporary-file name (".syncthing.<name>.tmp", which its
+# scanner skips) and renamed when complete, so a half-written file is never synced. Folders are created at
+# once and filled file by file (00_diff.* last).
+
+require 'optparse'
+require 'pathname'
+require 'open3'
+require 'tmpdir'
+require 'fileutils'
+require 'cgi'
+require 'json'
+require 'stringio'
+
+DEFAULT_DEST = File.join(Dir.home, 'Sync', 'Mobile', '00_review')
+
+class MobileReviewError < StandardError; end
+
+class MobileReview
+  def initialize(dest:, simulate:, name:, pdf:, selectors: {})
+    @selectors = selectors
+    @dest = Pathname.new(File.expand_path(dest))
+    @simulate = simulate
+    @name = name
+    @pdf = pdf
+    @timestamp = Time.now.strftime('%y%m%d%H%M') # YYMMDDHHMM, e.g. 2611061219 = 2026-11-06 12:19
+  end
+
+  # --- md ------------------------------------------------------------------
+
+  def md(paths)
+    raise MobileReviewError, 'md: at least one markdown file expected' if paths.empty?
+    raise MobileReviewError, '--name only makes sense with a single input' if @name && paths.size > 1
+
+    paths.each { |p| md_one(Pathname.new(p)) }
+  end
+
+  # No subcommand given: classify each argument by extension. Markdown is converted (like `md`), PDFs and
+  # images are copied as they are with the timestamp prefix. Anything else needs an explicit subcommand.
+  def auto(paths)
+    raise MobileReviewError, '--name only makes sense with a single input' if @name && paths.size > 1
+
+    kinds = paths.map do |p|
+      raise MobileReviewError, "no such file: #{p}" unless File.exist?(p)
+
+      [p, classify(p)]
+    end
+    unknown = kinds.select { |_, k| k.nil? }.map(&:first)
+    unless unknown.empty?
+      raise MobileReviewError, "don't know what to do with: #{unknown.join(', ')} (auto-detected: .md, .pdf, images; " \
+                               'use `files PATH...` to copy other files/folders, or `diff ...`)'
+    end
+
+    kinds.each { |p, k| k == :md ? md_one(Pathname.new(p)) : copy_one(Pathname.new(p)) }
+  end
+
+  AUTO_IMAGE_EXTS = %w[.png .jpg .jpeg .gif .webp .svg .bmp .avif .heic .heif].freeze
+
+  def classify(path)
+    return nil unless File.file?(path)
+
+    ext = File.extname(path).downcase
+    return :md if %w[.md .markdown].include?(ext)
+    return :copy if ext == '.pdf' || AUTO_IMAGE_EXTS.include?(ext)
+
+    nil
+  end
+
+  private_constant :AUTO_IMAGE_EXTS
+
+  def md_one(src)
+    raise MobileReviewError, "md: not a file: #{src}" unless src.file?
+
+    ext = @pdf ? 'pdf' : 'html'
+    final = target_path(@name || src.basename('.*').to_s, ext)
+    return report_simulated(final, "markdown #{src} -> #{ext}") if @simulate
+
+    check_dest!
+
+    Dir.mktmpdir('mobile-review') do |tmp|
+      out = Pathname.new(tmp) / "out.#{ext}"
+      @pdf ? md_to_pdf(src, tmp, out) : md_to_html(src, out)
+      publish(out, final)
+    end
+  end
+
+  # PDF / image: copied unchanged, only the timestamp prefix is added.
+  def copy_one(src)
+    ext = src.extname.downcase.delete_prefix('.')
+    final = target_path(@name || src.basename('.*').to_s, ext)
+    return report_simulated(final, "copy #{src}") if @simulate
+
+    check_dest!
+    publish(src, final)
+  end
+
+  # --- files ---------------------------------------------------------------
+
+  # Copies the files as they are (no conversion) into a timestamped folder, keeping their paths relative
+  # to the common parent of the arguments. Directories are copied recursively (.git/ skipped); symlinks
+  # are followed and stored as regular files, so the folder looks the same on the tablet.
+  def files(paths)
+    raise MobileReviewError, 'files: at least one path expected' if paths.empty?
+
+    abs = paths.map do |p|
+      path = Pathname.new(p)
+      raise MobileReviewError, "files: no such file or directory: #{p}" unless path.exist?
+
+      path.expand_path
+    end
+    root = common_parent(abs)
+    rels = abs.map { |p| p.relative_path_from(root).to_s }
+
+    default_name = rels.first.tr('/', '_').sub(/\.[^.]+\z/, '')
+    default_name = "#{default_name}_+#{rels.size - 1}" if rels.size > 1
+    final = target_path(@name || default_name, nil)
+
+    copies = abs.flat_map { |a| collect_files(a, root) }
+    raise MobileReviewError, 'files: nothing to copy (no regular files found)' if copies.empty?
+
+    if @simulate
+      report_simulated(final, "folder with #{copies.size} file(s), relative to #{root}:")
+      copies.each { |_, rel| puts "     #{rel}" }
+      return
+    end
+
+    check_dest!
+    Dir.mktmpdir('mobile-review') do |tmp|
+      stage = Pathname.new(tmp) / 'folder'
+      copies.each do |src, rel|
+        (stage / rel).dirname.mkpath
+        FileUtils.cp(src, stage / rel)
+      end
+      publish_dir(stage, final)
+    end
+  end
+
+  # --- diff ----------------------------------------------------------------
+
+  # Selectors: --commit REV | --range A...B | --working | - (unified diff on stdin).
+  # Runs in the current directory's git repo (tig/lazygit run it from the repo root).
+  def diff(args)
+    sel = diff_selector(args)
+    # tig's "Unstaged/Untracked changes" rows have the all-zero object id: that means working changes
+    sel = { working: true } if [sel[:commit], sel[:range]&.split('...')&.last].compact.any? { |r| r.match?(/\A0{7,}\z/) }
+    repo = sel[:stdin] ? nil : git('rev-parse', '--show-toplevel').strip
+    repo_name = repo ? File.basename(repo) : nil
+
+    patch, header, default_name, blob_rev = case
+                                  when sel[:commit] then commit_diff(sel[:commit], repo_name)
+                                  when sel[:range] then range_diff(sel[:range], repo_name)
+                                  when sel[:working] then working_diff(repo_name, repo)
+                                  else stdin_diff
+                                  end
+    raise MobileReviewError, 'diff: nothing to review (empty diff)' if patch.strip.empty?
+
+    ext = @pdf ? 'pdf' : 'html'
+    final = target_path(@name || default_name, nil)
+    mds = repo ? markdown_files(patch, repo, blob_rev) : []
+    link_map = mds.to_h { |m| [m[:path], "#{m[:out]}.html"] } # markdown path in repo -> rendered sibling
+    rendered = mds.to_h { |m| [m[:path], "#{m[:out]}.#{ext}"] }
+    if @simulate
+      report_simulated(final, "folder with 00_diff.#{ext} (#{patch.lines.size} diff lines) + #{mds.size} rendered markdown file(s)")
+      mds.each { |m| puts "     #{m[:out]}.#{ext}  <-  #{m[:path]}  (#{blob_rev ? "at #{blob_rev}" : 'working tree'})" }
+      return
+    end
+
+    check_dest!
+    Dir.mktmpdir('mobile-review') do |tmp|
+      stage = Pathname.new(tmp) / 'folder'
+      stage.mkpath
+      langs = repo ? shebang_languages(patch, repo, blob_rev) : {}
+      diff_html = Pathname.new(tmp) / 'diff.html'
+      diff_html.write(render_diff_html(patch, header, print: @pdf, langs: langs, rendered: rendered), encoding: 'UTF-8')
+      if @pdf
+        html_to_pdf(diff_html, stage / '00_diff.pdf')
+      else
+        FileUtils.cp(diff_html, stage / '00_diff.html')
+      end
+      render_markdown_files(mds, repo, blob_rev, stage, ext, tmp, link_map)
+      publish_dir(stage, final)
+    end
+  end
+
+  private
+
+  def diff_selector(args)
+    sel = @selectors.dup
+    sel[:stdin] = true if args == ['-']
+    raise MobileReviewError, "diff: unexpected arguments: #{args.join(' ')}" unless args.empty? || args == ['-']
+
+    chosen = %i[commit range working stdin].count { |k| sel[k] }
+    raise MobileReviewError, 'diff: pick exactly one of --commit REV, --range A...B, --working, -' unless chosen == 1
+
+    sel
+  end
+
+  def git(*args, stdin_data: nil)
+    out, err, status = Open3.capture3('git', *args, stdin_data: stdin_data.to_s)
+    raise MobileReviewError, "git #{args.first} failed: #{err.strip}" unless status.success?
+
+    out.force_encoding('UTF-8').scrub
+  end
+
+  # diff.mnemonicPrefix (c/ w/ i/ ...) in the user's git config would change the header paths
+  PREFIX_ARGS = %w[--src-prefix=a/ --dst-prefix=b/].freeze
+  # b-side path of a `diff --git` header; tolerates any one-letter prefix (piped diffs may use c/ w/ i/ o/)
+  DIFF_HEADER_RE = %r{^diff --git [a-z]/.+? [a-z]/(.+)$}.freeze
+
+  # -m --first-parent: a merge commit shows its diff against its first parent instead of a combined diff
+  def commit_diff(rev, repo)
+    patch = git('show', '--format=', '-m', '--first-parent', '--no-ext-diff', '--no-color', *PREFIX_ARGS, rev)
+    header = git('show', '-s', '--format=%h  %an  %ad%n%n%B', rev)
+    [patch, header, "#{repo}_#{git('rev-parse', '--short', rev).strip}", rev]
+  end
+
+  # `main...X` falls back to `master...X` in repos whose default branch is master (and vice versa)
+  def resolve_default_base(range)
+    base, tip = range.split('...', 2)
+    return range unless tip && %w[main master].include?(base)
+
+    exists = ->(b) { system('git', 'rev-parse', '--verify', '--quiet', b, out: File::NULL, err: File::NULL) }
+    pick = [base, (%w[main master] - [base]).first].find(&exists)
+    pick ? "#{pick}...#{tip}" : range
+  end
+
+  def range_diff(range, repo)
+    range = resolve_default_base(range)
+    patch = git('diff', '--no-ext-diff', '--no-color', *PREFIX_ARGS, range)
+    log = git('log', '--no-merges', '--format=%h %s (%an)', range.sub('...', '..'))
+    header = "#{repo}: #{range}\n\n#{log}"
+    [patch, header, "#{repo}_#{range.gsub('...', '-vs-').gsub('..', '-vs-')}", range.split(/\.{2,3}/).last]
+  end
+
+  UNTRACKED_MAX_BYTES = 1_000_000
+
+  # `git diff HEAD` skips untracked files, so brand-new files would be missing from the review. They are
+  # appended as "new file" diffs (git diff --no-index against /dev/null); .gitignore is respected and files
+  # over UNTRACKED_MAX_BYTES are left out (and counted in the header).
+  def working_diff(repo_name, repo)
+    branch = git('rev-parse', '--abbrev-ref', 'HEAD').strip
+    patch = git('diff', '--no-ext-diff', '--no-color', *PREFIX_ARGS, 'HEAD')
+    untracked, skipped = untracked_diffs(repo)
+    patch += "\n" unless patch.empty? || patch.end_with?("\n")
+    patch += untracked.join
+    header = "#{repo_name} (#{branch}): working changes vs HEAD"
+    header += " (+#{untracked.size} untracked)" unless untracked.empty?
+    header += "\nskipped #{skipped} untracked file(s) over #{UNTRACKED_MAX_BYTES / 1_000_000} MB" if skipped.positive?
+    [patch, header, "#{repo_name}_working", nil]
+  end
+
+  def untracked_diffs(repo)
+    names = git('-C', repo, 'ls-files', '--others', '--exclude-standard', '-z').split("\0")
+    skipped = 0
+    diffs = names.filter_map do |name|
+      full = File.join(repo, name)
+      next unless File.file?(full)
+
+      if File.size(full) > UNTRACKED_MAX_BYTES
+        skipped += 1
+        next
+      end
+      out, err, st = Open3.capture3('git', '-C', repo, 'diff', '--no-index', '--no-ext-diff', '--no-color',
+                                    *PREFIX_ARGS, '--', '/dev/null', name)
+      raise MobileReviewError, "git diff --no-index #{name} failed: #{err.strip}" unless [0, 1].include?(st.exitstatus)
+
+      out.force_encoding('UTF-8').scrub
+    end
+    [diffs, skipped]
+  end
+
+  def stdin_diff
+    [$stdin.read.to_s.force_encoding('UTF-8').scrub, 'diff from stdin', 'diff', nil]
+  end
+
+  # diff2html colours code by file extension only. For extensionless scripts (most of my_scripts/) read the
+  # first line of the file (at blob_rev, or from the working tree when nil) and map its shebang to a
+  # highlight.js language. Returns { "path" => "ruby", ... } for the files in the patch that need a hint.
+  SHEBANG_LANGS = { /ruby/ => 'ruby', /python/ => 'python', /\b(node|bun|deno)\b/ => 'javascript',
+                    /\b(bash|zsh|sh)\b/ => 'bash', /perl/ => 'perl', /php/ => 'php', /lua/ => 'lua' }.freeze
+
+  def shebang_languages(patch, repo, blob_rev)
+    paths = patch.scan(DIFF_HEADER_RE).flatten.uniq
+    paths.each_with_object({}) do |path, langs|
+      next unless File.extname(path).empty?
+
+      first = if blob_rev
+                out, _, st = Open3.capture3('git', '-C', repo, 'show', "#{blob_rev}:#{path}")
+                st.success? ? out.lines.first.to_s : ''
+              else
+                File.file?(File.join(repo, path)) ? File.open(File.join(repo, path), &:gets).to_s : ''
+              end
+      next unless first.start_with?('#!')
+
+      lang = SHEBANG_LANGS.find { |re, _| first.match?(re) }&.last
+      langs[path] = lang if lang
+    end
+  end
+
+  # --- diff2html plumbing ----------------------------------------------------
+
+  # diff2html-cli comes from the global mise install (npm: backend); we only use it as the delivery
+  # vehicle for the diff2html library bundles + highlight.js themes (no subprocess: the page renders
+  # the diff in the browser, which is what makes the Unified/Split toggle possible). Assets are located
+  # relative to the binary — works for mise's isolated layout (node_modules/.mise/<pkg>@<ver>/node_modules/<pkg>)
+  # and a flat node_modules.
+  def diff2html_assets
+    bin, status = Open3.capture2('sh', '-c', 'command -v diff2html')
+    bin = bin.strip
+    unless status.success? && !bin.empty?
+      raise MobileReviewError, 'diff: diff2html not found — run ,__install_requirements.sh (or: mise use -g npm:diff2html-cli)'
+    end
+
+    root = Pathname.new(File.realpath(bin)).parent.parent.parent
+    find = lambda do |pkg, sub|
+      Dir.glob(root / 'node_modules' / "{.mise/#{pkg}@*/node_modules/,}#{pkg}" / sub).first
+    end
+    d2h = find.call('diff2html', 'bundles')
+    hljs = find.call('highlight.js', 'styles')
+    raise MobileReviewError, "diff: cannot locate diff2html / highlight.js assets under #{root}" unless d2h && hljs
+
+    [Pathname.new(d2h), Pathname.new(hljs)]
+  end
+
+  VIEWER_DIR = Pathname.new(File.dirname(File.realpath(__FILE__))) / 'lib' / 'mobile-review'
+
+  # Self-contained diff page: lib/mobile-review/diff-viewer.html filled with the diff2html UI bundle
+  # (includes highlight.js, so syntax highlighting works in both Unified and Split view), the GitHub
+  # light/dark highlight themes (follow the OS setting), embedded Iosevka (subset, see lib/.../fonts),
+  # the raw patch as JSON, and the commit header. Zero external references.
+  # print: true -> config for headless-Chromium PDF export (unified, wrapped, no toolbar).
+  def render_diff_html(patch, header, print: false, langs: {}, rendered: {})
+    bundles, hljs_dir = diff2html_assets
+    b64 = ->(f) { [File.binread(f)].pack('m0') }
+    fill = {
+      'TITLE' => CGI.escapeHTML(header.lines.first.to_s.strip),
+      'HEADER' => CGI.escapeHTML(header.strip),
+      'D2H_CSS' => (bundles / 'css' / 'diff2html.min.css').read,
+      'D2H_JS' => (bundles / 'js' / 'diff2html-ui.min.js').read.gsub('</script', '<\\/script'),
+      'HLJS_LIGHT' => (hljs_dir / 'github.min.css').read,
+      'HLJS_DARK' => (hljs_dir / 'github-dark.min.css').read,
+      'FONT_400' => b64.call(VIEWER_DIR / 'fonts' / 'Iosevka-400.woff2'),
+      'FONT_700' => b64.call(VIEWER_DIR / 'fonts' / 'Iosevka-700.woff2'),
+      'PATCH_JSON' => json_for_script(patch),
+      'CONFIG_JSON' => json_for_script({ print: print, langs: langs, rendered: rendered })
+    }
+    (VIEWER_DIR / 'diff-viewer.html').read.gsub(/@@([A-Z0-9_]+)@@/) { fill.fetch(Regexp.last_match(1)) }
+  end
+
+  # JSON that is safe inside <script type="application/json">: no literal "</script" / "<!--".
+  def json_for_script(obj)
+    JSON.generate(obj).gsub('<', '\\u003c')
+  end
+
+  def chrome_binary
+    %w[chromium chromium-browser google-chrome google-chrome-stable chrome].each do |c|
+      path, = Open3.capture2('sh', '-c', "command -v #{c}")
+      return path.strip unless path.strip.empty?
+    end
+    mac = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+    return mac if File.executable?(mac)
+
+    raise MobileReviewError, 'diff --pdf: no chromium/google-chrome found for printing'
+  end
+
+  def html_to_pdf(html, out)
+    _, err, status = Open3.capture3(chrome_binary, '--headless', '--disable-gpu', '--no-pdf-header-footer',
+                                    "--print-to-pdf=#{out}", "file://#{html}")
+    raise MobileReviewError, "chromium PDF export failed: #{err.lines.last.to_s.strip}" unless status.success? && out.file?
+  end
+
+  # --- markdown files referenced by a diff -----------------------------------
+
+  MD_EXT = /\.(md|markdown)\z/i.freeze
+  MD_IMAGE_RE = /!\[[^\]]*\]\(([^)\s]+)(?:\s+"[^"]*")?\)/.freeze
+  MD_INCLUDE_RE = /^<!--\s*include:\s*(.+?)\s*-->\s*$/.freeze
+  NOT_LOCAL_RE = %r{\A(?:[a-zA-Z][a-zA-Z0-9+.-]*:|/|#)}.freeze
+
+  # Markdown files touched by the patch (added/modified/renamed, not deleted) that exist at blob_rev (or in
+  # the working tree when blob_rev is nil). Returns [{path:, out:}], out = basename without extension, or the
+  # path with "/" -> "__" when two files share a basename.
+  def markdown_files(patch, repo, blob_rev)
+    found = patch.split(/^(?=diff --git )/).filter_map do |block|
+      next if block.match?(/^deleted file mode /)
+
+      path = block[DIFF_HEADER_RE, 1]
+      next unless path&.match?(MD_EXT)
+
+      exists = if blob_rev
+                 system('git', '-C', repo, 'cat-file', '-e', "#{blob_rev}:#{path}", out: File::NULL, err: File::NULL)
+               else
+                 File.file?(File.join(repo, path))
+               end
+      path if exists
+    end.uniq
+    counts = found.map { |pa| File.basename(pa).sub(MD_EXT, '') }.tally
+    found.map do |pa|
+      base = File.basename(pa).sub(MD_EXT, '')
+      { path: pa, out: counts[base] > 1 ? pa.sub(MD_EXT, '').gsub('/', '__') : base }
+    end
+  end
+
+  def git_blob(repo, rev, path)
+    out, _, st = Open3.capture3('git', '-C', repo, 'show', "#{rev}:#{path}", binmode: true)
+    st.success? ? out : nil
+  end
+
+  # Copy one markdown file *as of rev* into root/<path>, plus the local images and <!-- include: --> files it
+  # references (also as of rev), so ,md-to-html resolves them exactly as they were at that commit.
+  def materialize_markdown(repo, rev, path, root, seen = {})
+    return if seen[path]
+
+    seen[path] = true
+    blob = git_blob(repo, rev, path) or return
+    target = root / path
+    target.dirname.mkpath
+    target.binwrite(blob)
+
+    dir = File.dirname(path)
+    text = blob.dup.force_encoding('UTF-8').scrub
+    text.scan(MD_IMAGE_RE).flatten.each do |src|
+      src = src.split(/[?#]/).first.to_s
+      next if src.empty? || src.match?(NOT_LOCAL_RE)
+
+      rel = Pathname.new(File.join(dir, src)).cleanpath.to_s
+      next if rel.start_with?('..') || seen[rel]
+
+      seen[rel] = true
+      data = git_blob(repo, rev, rel) or next
+      (root / rel).dirname.mkpath
+      (root / rel).binwrite(data)
+    end
+    text.scan(MD_INCLUDE_RE).flatten.each do |inc|
+      rel = Pathname.new(File.join(dir, inc)).cleanpath.to_s
+      materialize_markdown(repo, rev, rel, root, seen) unless rel.start_with?('..')
+    end
+  end
+
+  # Links between the markdown files of one diff folder: <a href="other.md#x"> (relative to the file, or
+  # "/root/relative" GitLab-style) becomes the rendered sibling, <a href="other.html#x">, when other.md is
+  # part of the same folder. Links to files that are not in the folder are left as they are.
+  def rewrite_md_links(html_path, md_path, link_map)
+    dir = File.dirname(md_path)
+    html = html_path.read(encoding: 'UTF-8')
+    html = html.gsub(/(<a\b[^>]*?\shref=")([^"]+)(")/) do
+      pre, href, post = Regexp.last_match.captures
+      target, frag = href.split('#', 2)
+      target = target.to_s.split('?').first.to_s
+      if target.empty? || target.start_with?('//') || target.match?(%r{\A[a-zA-Z][a-zA-Z0-9+.-]*:})
+        next "#{pre}#{href}#{post}"
+      end
+
+      decoded = CGI.unescapeURIComponent(target)
+      rel = decoded.start_with?('/') ? decoded.delete_prefix('/') : File.join(dir, decoded)
+      out = link_map[Pathname.new(rel).cleanpath.to_s]
+      out ? "#{pre}#{out}#{frag ? "##{frag}" : ''}#{post}" : "#{pre}#{href}#{post}"
+    end
+    html_path.write(html, encoding: 'UTF-8')
+  end
+
+  # One <out>.<ext> per markdown file in the folder. A file that fails to render is reported and skipped
+  # (the diff and the other files are still delivered).
+  def render_markdown_files(mds, repo, rev, stage, ext, tmp, link_map)
+    mds.each_with_index do |m, i|
+      work = Pathname.new(tmp) / "md#{i}"
+      work.mkpath
+      src = if rev
+              materialize_markdown(repo, rev, m[:path], work / 'tree')
+              work / 'tree' / m[:path]
+            else
+              Pathname.new(repo) / m[:path]
+            end
+      out = stage / "#{m[:out]}.#{ext}"
+      if ext == 'pdf'
+        md_to_pdf(src, work.to_s, out)
+      else
+        md_to_html(src, out)
+        rewrite_md_links(out, m[:path], link_map)
+      end
+    rescue StandardError => e
+      warn "warning: skipped #{m[:path]}: #{e.message}"
+    end
+  end
+
+  # Rendering is done in-process by the existing converter classes (no stdout parsing).
+  def md_to_html(src, out)
+    load_converter(',md-to-html')
+    log = capture_output do
+      MarkdownToHtmlConverter.new(input_paths: [src.to_s], output_path: out.to_s,
+                                  inline_images: true, prerender_mermaid: true).convert_all
+    end
+    raise MobileReviewError, "md: HTML conversion failed#{log_tail(log)}" unless out.file?
+  end
+
+  def md_to_pdf(src, tmp, out)
+    load_converter(',md-to-pdf')
+    log = capture_output { MarkdownToPdfConverter.new(input_paths: [src.to_s], output_dir: tmp).convert_all }
+    produced = Pathname.new(tmp) / "#{src.basename('.*')}.pdf"
+    raise MobileReviewError, "md: PDF conversion failed#{log_tail(log)}" unless produced.file?
+
+    FileUtils.mv(produced, out)
+  end
+
+  # The converters narrate their progress with puts. That must not reach stdout/stderr: tig's `+` flag keeps
+  # only the *first* line of output and closes the pipe, so the next puts raised EPIPE and killed the run after
+  # the first markdown file. Our only stdout line is the final path. The log is returned for error messages.
+  def capture_output
+    out = StringIO.new
+    saved = [$stdout, $stderr]
+    $stdout = $stderr = out
+    yield
+    out.string
+  ensure
+    $stdout, $stderr = saved
+  end
+
+  def log_tail(log)
+    last = log.to_s.lines.map(&:strip).reject(&:empty?).last
+    last ? " (#{last})" : ''
+  end
+
+  # `load` re-executes the file (class constants would be redefined), so only once per script.
+  def load_converter(script)
+    @loaded_converters ||= {}
+    return if @loaded_converters[script]
+
+    load File.join(File.dirname(File.realpath(__FILE__)), script)
+    @loaded_converters[script] = true
+  end
+
+  # [[source Pathname, path relative to root], ...] for a file or, recursively, a directory (.git/ skipped)
+  def collect_files(path, root)
+    require 'find'
+    out = []
+    Find.find(path.to_s) do |f|
+      if File.basename(f) == '.git' && File.directory?(f)
+        Find.prune
+      elsif File.file?(f)
+        out << [Pathname.new(f), Pathname.new(f).relative_path_from(root).to_s]
+      end
+    end
+    out
+  end
+
+  def common_parent(abs_paths)
+    parents = abs_paths.map { |p| p.parent.each_filename.to_a }
+    prefix = parents.reduce { |a, b| a.zip(b).take_while { |x, y| x == y }.map(&:first) }
+    Pathname.new("/#{prefix.join('/')}")
+  end
+
+  def slug(name)
+    name.gsub(/[^A-Za-z0-9._+-]+/, '_').gsub(/\A[_.]+|_+\z/, '')
+  end
+
+  # <dest>/<ts>_<name>.<ext>, with -2, -3... if that exact name already exists.
+  # ext nil -> a folder name (no extension)
+  def target_path(name, ext)
+    base = "#{@timestamp}_#{slug(name)}"
+    suffix = ext ? ".#{ext}" : ''
+    candidate = @dest / "#{base}#{suffix}"
+    n = 1
+    candidate = @dest / "#{base}-#{n += 1}#{suffix}" while candidate.exist?
+    candidate
+  end
+
+  def check_dest!
+    return if @dest.directory?
+
+    raise MobileReviewError,
+          "destination #{@dest} does not exist (is Syncthing set up? refusing to create it; use --dest to override)"
+  end
+
+  def publish(tmp_file, final)
+    check_dest!
+    part = syncthing_temp(final)
+    FileUtils.cp(tmp_file, part)
+    File.rename(part, final)
+    say_path(final)
+  end
+
+  # The one line we print. A reader that went away (tig closes the pipe after the first line) is not an error:
+  # the work is already done.
+  def say_path(path)
+    puts path
+    $stdout.flush
+  rescue Errno::EPIPE
+    nil
+  end
+
+  # Syncthing's scanner skips FILES named ".syncthing.<name>.tmp" (its own temp-file convention), so every file
+  # is written under that name first and renamed when complete: a half-written file is never synced.
+  # (Verified against a running Syncthing 1.27: such a file is not indexed. A *directory* with that name is
+  # skipped too, but the files inside it are NOT, so folders cannot be staged under a temp name.)
+  def syncthing_temp(final)
+    final.dirname / ".syncthing.#{final.basename}.tmp"
+  end
+
+  # Folder output: the final folder is created right away and filled file by file (each one atomically, as
+  # above), with 00_diff.* last. The tablet may briefly see a partly filled folder, never a partial file.
+  def publish_dir(stage, final)
+    check_dest!
+    files = Dir.glob('**/*', File::FNM_DOTMATCH, base: stage.to_s).select { |r| (stage / r).file? }
+    final.mkpath
+    files.sort_by { |r| [r.start_with?('00_diff') ? 1 : 0, r] }.each do |rel|
+      dest = final / rel
+      dest.dirname.mkpath
+      tmp = syncthing_temp(dest)
+      FileUtils.cp(stage / rel, tmp)
+      File.rename(tmp, dest)
+    end
+    say_path(final)
+  end
+
+  def report_simulated(final, what)
+    check_dest!
+    puts "-- simulate: #{what}"
+    puts "   would write #{final}"
+  end
+end
+
+def parse_cli
+  opts = { dest: ENV.fetch('MOBILE_REVIEW_DIR', DEFAULT_DEST), simulate: false, name: nil, pdf: false, selectors: {} }
+
+  parser = OptionParser.new do |o|
+    o.banner = <<~BANNER
+      Usage: #{File.basename($PROGRAM_NAME)} [options] FILE...                     (type guessed from the extension)
+             #{File.basename($PROGRAM_NAME)} [options] <md|files|diff> <args...>
+
+        FILE...        .md -> self-contained HTML (or PDF with --pdf); .pdf and images -> copied as is,
+                       with the timestamp prefix. One output per file; types can be mixed.
+        md FILE...     same as above, markdown only (explicit form)
+        files PATH...  copy the given files/dirs as is into a timestamped folder (no conversion; .git/ skipped)
+        diff SEL       git diff -> folder: 00_diff.html + rendered markdown files of the diff (--pdf for PDFs); SEL = --commit REV | --range A...B | --working | -
+
+      Output goes to #{DEFAULT_DEST} (override: --dest or $MOBILE_REVIEW_DIR).
+      Names are prefixed with a YYMMDDHHMM timestamp (2611061219 = 2026-11-06 12:19).
+    BANNER
+    o.separator ''
+    o.on('-n', '--simulate', 'Show what would be written, write nothing') { opts[:simulate] = true }
+    o.on('--name NAME', 'Override the basename after the timestamp') { |v| opts[:name] = v }
+    o.on('--pdf', 'Produce a PDF instead of HTML (md, diff)') { opts[:pdf] = true }
+    o.on('--commit REV', 'diff: show one commit (message + diff)') { |v| opts[:selectors][:commit] = v }
+    o.on('--range A...B', 'diff: everything B adds relative to A (e.g. main...feature)') { |v| opts[:selectors][:range] = v }
+    o.on('--working', 'diff: working tree changes vs HEAD') { opts[:selectors][:working] = true }
+    o.on('--dest DIR', 'Destination folder') { |v| opts[:dest] = v }
+    o.on('-h', '--help', 'Show this help') do
+      puts o
+      exit
+    end
+  end
+
+  parser.parse!
+  [opts, parser]
+rescue OptionParser::ParseError => e
+  warn "Error: #{e.message}"
+  exit 1
+end
+
+def main
+  opts, parser = parse_cli
+  if ARGV.empty?
+    warn parser
+    exit 1
+  end
+
+  review = MobileReview.new(**opts)
+  if %w[md files diff].include?(ARGV.first)
+    command = ARGV.shift
+    review.public_send(command, ARGV)
+  else
+    review.auto(ARGV) # no subcommand: decide per file from its extension
+  end
+rescue MobileReviewError => e
+  warn "Error: #{e.message}"
+  exit 1
+end
+
+main if __FILE__ == $PROGRAM_NAME

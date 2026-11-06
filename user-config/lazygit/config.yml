@@ -12,10 +12,26 @@ customCommands:
   - key: D
     context: localBranches
     description: Review branch vs main in diffnav
-    command: git diff main...{{.SelectedLocalBranch.Name}} | diffnav
+    command: "b=main; git rev-parse --verify -q main >/dev/null || b=master; git diff $b...{{.SelectedLocalBranch.Name}} | diffnav"
     output: terminal
   - key: D
     context: files
     description: Open working changes in diffnav
     command: git diff HEAD | diffnav
     output: terminal
+  # ,mobile-review: write a folder (00_diff.html + rendered markdown files of the diff) into the Syncthing review folder (tablet)
+  - key: Y
+    context: commits
+    description: Send commit to tablet (,mobile-review)
+    command: ",mobile-review diff --commit {{.SelectedLocalCommit.Hash}}"
+    output: popup
+  - key: Y
+    context: localBranches
+    description: Send branch vs main to tablet (,mobile-review)
+    command: ",mobile-review diff --range main...{{.SelectedLocalBranch.Name}}"
+    output: popup
+  - key: Y
+    context: files
+    description: Send working changes to tablet (,mobile-review)
+    command: ",mobile-review diff --working"
+    output: popup

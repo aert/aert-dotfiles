@@ -62,13 +62,11 @@ if [[ -n "$ZSH_VERSION" ]]; then
 
 ## Low Priority
 
-### 8. Minimal Documentation
+### 8. Minimal Documentation — mostly resolved
 
-README.md only mentions Gnome Terminal settings. Missing:
-- Repository structure overview
-- Setup instructions for new machines
-- Tool dependencies list
-- Which OS versions are supported
+README.md now has the repository structure, new-machine setup, the scripts overview, the tablet-review
+workflow and the supported OSes; `AGENTS.md` and `my_scripts/README.md` cover conventions and per-script usage.
+Still missing: a single, complete list of tool dependencies (see `mise.toml` and `,__install_requirements.sh`).
 
 ### 9. Git Template Directory Missing
 

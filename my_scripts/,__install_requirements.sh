@@ -1,5 +1,5 @@
 #!/bin/sh
-# Installs everything ,md-to-html and ,md-to-pdf need, all through the GLOBAL mise install
+# Installs everything ,md-to-html, ,md-to-pdf and ,mobile-review need, all through the GLOBAL mise install
 # (mise is the only prerequisite). The md scripts run on that toolset via ,mise-global-exec, so
 # project-local mise versions (e.g. ruby 2.7) are never touched or used.
 #
@@ -10,6 +10,7 @@
 # mermaid-cli (standalone renderers, not language runtimes): every run upgrades them to latest.
 # Works on Linux (Debian/Fedora) and macOS (Apple Silicon).
 #   - mise tools: ruby, node, github:plantuml/plantuml (optional; without it ```plantuml fences render as code)
+#   - mise npm:   npm:diff2html-cli (used by ,mobile-review diff; installed only if missing, never upgraded)
 #   - ruby gems:  bundler + commonmarker (the scripts use bundler/inline, this pre-installs the gem)
 #   - npm:        @mermaid-js/mermaid-cli (mmdc + bundled puppeteer/Chromium, used by ,md-to-pdf),
 #                 installed with the global node's npm — mise's npm: backend currently refuses it
@@ -40,6 +41,14 @@ if mise use -g github:plantuml/plantuml@latest; then
   mise upgrade github:plantuml/plantuml
 else
   echo "plantuml install failed — skipping (optional; plantuml fences will render as code)" >&2
+fi
+
+# diff2html-cli (,mobile-review diff): only touch mise if the command isn't there yet
+if mise which diff2html > /dev/null 2>&1; then
+  say "diff2html: using $(mise which diff2html)"
+else
+  say "diff2html: not installed, installing latest"
+  mise use -g npm:diff2html-cli@latest || echo "diff2html-cli install failed — skipping (only needed by ,mobile-review diff)" >&2
 fi
 
 say "Ruby gems"
