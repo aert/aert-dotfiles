@@ -11,6 +11,9 @@
     # ── X11 / display ────────────────────────────────────────────────
     ~/.config/redshift.conf: user-config/config/redshift.conf
 
+    # ── Git tooling (lazygit reads ~/.config on Linux) ───────────────
+    ~/.config/lazygit/config.yml: user-config/lazygit/config.yml
+
     # ── Launcher (rofi) ──────────────────────────────────────────────
     ~/.config/rofi: user-config/rofi
 

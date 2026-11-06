@@ -31,6 +31,9 @@
     ~/.config/rio: user-config/config/rio
     ~/.config/zellij: user-config/zellij
 
+    # ── Git tooling ───────────────────────────────────────────────────
+    ~/.tigrc: user-config/.tigrc
+
     # ── Multiplexers ─────────────────────────────────────────────────
     ~/.tmux.conf: user-config/.tmux.conf
 

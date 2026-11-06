@@ -1,10 +1,12 @@
 # macOS-only
 # ============
-# Add macOS-specific configs here
-#
-# - defaults:
-#     link:
-#       create: true
-#       relink: true
-# - link:
-#     ~/Library/Application Support/SomeApp: user-config/darwin/SomeApp
+
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- link:
+    # ── Git tooling (lazygit reads ~/Library/Application Support on macOS;
+    #    only config.yml is linked so state files stay out of the repo) ──
+    ~/Library/Application Support/lazygit/config.yml: user-config/lazygit/config.yml
