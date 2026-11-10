@@ -152,6 +152,8 @@ alias k='kubectl'
 export PATH="$HOME/.bun/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
 
+export P_REVIEW="$HOME/Sync/Mobile/00_review"
+
 export XZ_OPT='-T0 -9'
 export EDITOR="nvim"
 
