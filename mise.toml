@@ -8,7 +8,6 @@ pipx = "latest"
 bun = "latest"
 crush = "latest"
 gh = "latest"
-"github:anomalyco/opencode" = "latest"
 "github:can1357/oh-my-pi" = "latest"
 "github:plantuml/plantuml" = "latest"
 herdr = "latest"
@@ -21,6 +20,8 @@ ruby = "latest"
 usage = "latest"
 uv = "0.13.6"
 "npm:diff2html-cli" = "latest"
+glab = "latest"
+opencode = "2.3.0"
 
 [settings]
 idiomatic_version_file_enable_tools = []
