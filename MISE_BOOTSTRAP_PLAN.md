@@ -1,6 +1,6 @@
 # Plan: replace dotbot with `mise bootstrap` (+ cleanup pass)
 
-Status: phases 1–2 done (2026-11-14); phases 3–5 to do. Checked against mise 2026.11.8.
+Status: phases 1–3 done (2026-11-14); phases 4–5 to do. Checked against mise 2026.11.8.
 
 Docs: <https://mise.jdx.dev/bootstrap.html>, <https://mise.jdx.dev/dotfiles.html>,
 <https://mise.jdx.dev/bootstrap/files.html>, `mise bootstrap --help`.
@@ -89,7 +89,12 @@ Kept: `,scan-unpaper`, `,git-clean-local-branches` and the rest.
 3. Remove the deleted scripts from `my_scripts/README.md` and `AGENTS.md`.
    Scripts with a test suite (`,mobile-review`, `,clean-filename`) are not candidates.
 
-## Phase 3: migrate the links to `mise bootstrap` (one commit)
+## Phase 3: migrate the links to `mise bootstrap` (one commit) — DONE
+
+Done as planned. Differences: the Gnome hook now starts with a `gsettings` check (it runs under
+`sh -o errexit`, so on a machine without Gnome it would otherwise fail the whole run), and the dotbot
+docs in README.md / AGENTS.md were rewritten in the same commit. `install.conf.system.yaml` is kept,
+marked NOT APPLIED, as the list for phase 4.
 
 ### Layout
 

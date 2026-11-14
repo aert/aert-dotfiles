@@ -1,10 +1,6 @@
 # Global mise config (symlinked to ~/.config/mise/config.toml); also used as this repo's dev tools
 
 [tools]
-# dotbot — needed by ./install (pipx is its installer)
-pipx = "latest"
-"pipx:dotbot" = "latest"
-
 bun = "latest"
 crush = "latest"
 gh = "latest"

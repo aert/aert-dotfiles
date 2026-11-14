@@ -1,0 +1,5 @@
+# macOS-only dotfiles — applied by ./install on Darwin (mise bootstrap -E dotfiles,macos).
+
+[dotfiles]
+# lazygit reads ~/Library/Application Support on macOS; only config.yml is linked so state files stay out of the repo
+"~/Library/Application Support/lazygit/config.yml" = { source = "user-config/lazygit/config.yml" }

@@ -154,7 +154,7 @@ and tested in real sessions (tmux with a scratch destination):
 - The existing tig `D`/`B` (diffnav) bindings had the same all-zero-id bug on "Unstaged/Untracked" rows; fixed
   in the same branch (`git diff HEAD` on those rows). `B` (and lazygit's branch `D`) also fall back from `main`
   to `master` now, like `,mobile-review --range`.
-- No dotbot change needed: `~/.tigrc`, the lazygit config and `~/bin/my_scripts` are already linked.
+- No link change needed: `~/.tigrc`, the lazygit config and `~/bin/my_scripts` are already linked.
 
 ## Implementation steps (all done)
 

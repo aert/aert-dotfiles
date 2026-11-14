@@ -8,18 +8,20 @@ My config files and scripts. Linux first (Pop!_OS / Debian / Ubuntu on Gnome), p
 | `user-config/` | per-user dotfiles (zsh, nvim, tmux, ghostty, tig, lazygit, ...) | symlinked into `~/` |
 | `my_scripts/` | shared executable scripts (all `,`-prefixed so they sort first) | on `$PATH` via `~/bin/my_scripts` |
 | `tests_my_scripts/` | automated tests for the scripts (minitest; `tests_my_scripts/run`) | — |
-| `system-config/` | system-level configs (fstab, apt sources, sysctl) | `/etc/` (needs sudo) |
+| `system-config/` | system-level configs (fstab, apt sources, sysctl) | not applied yet (under review) |
 
-Everything is linked with [dotbot](https://github.com/anishathalye/dotbot); `install` picks the right
-config files for the OS (`install.conf.shared.yaml` + `install.conf.linux.yaml` or `.darwin.yaml`).
+Everything is linked with [`mise bootstrap`](https://mise.jdx.dev/bootstrap.html): `install` runs it with
+`mise.dotfiles.toml` (all machines) plus `mise.linux.toml` or `mise.macos.toml`, then installs the global
+mise tools.
 
 ## Setup on a new machine
 
 ```bash
-mise install              # installs dotbot (via pipx) — mise is the only prerequisite
-./install                 # link all dotfiles (idempotent; existing plain files are left alone)
+# prerequisite: mise (https://mise.jdx.dev) — then, in a clone of this repo:
+mise trust                # once: lets mise read this repo's config files
+./install                 # link all dotfiles + Gnome settings + mise tools (idempotent; plain files are left alone)
 ./install -n              # dry run: show what would change
-sudo ./install system     # link the /etc/ configs
+mise -C . -E dotfiles,linux dot status   # what is linked (use macos on a Mac)
 ```
 
 The global mise config (`~/.config/mise/config.toml`) is this repo's `mise.toml` (symlinked by `./install`):

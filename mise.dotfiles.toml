@@ -1,0 +1,27 @@
+# Dotfiles shared by every machine — applied by ./install (mise bootstrap -E dotfiles,<os>).
+# Not the global config: relative sources resolve from this repo, so keep [dotfiles] out of mise.toml.
+# OS-specific entries: mise.linux.toml / mise.macos.toml (`os =` is ignored on [dotfiles] entries).
+
+[dotfiles]
+# ── Shells & environment
+"~/.bashrc" = { source = "user-config/.bashrc" }
+"~/.zshenv" = { source = "user-config/.zshenv" }
+"~/.zshrc" = { source = "user-config/.zshrc" }
+
+# ── Editors / languages
+"~/.gemrc" = { source = "user-config/.gemrc" }
+"~/.config/nvim" = { source = "user-config/config/nvim" }
+
+# ── Terminal / git / multiplexer
+"~/.config/ghostty" = { source = "user-config/ghostty" }
+"~/.tigrc" = { source = "user-config/.tigrc" }
+"~/.tmux.conf" = { source = "user-config/.tmux.conf" }
+
+# ── AI / CLI tools
+"~/.config/opencode.jsonc" = { source = "user-config/opencode.jsonc" }
+"~/.config/crush.json" = { source = "user-config/crush.json" }
+"~/.claude/statusline-command.sh" = { source = "user-config/claude/statusline-command.sh" }
+"~/.config/mise/config.toml" = { source = "mise.toml" }
+
+# ── Scripts on PATH
+"~/bin/my_scripts" = { source = "my_scripts" }

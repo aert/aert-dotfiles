@@ -1,40 +1,27 @@
 #!/usr/bin/env bash
 #
-# Bootstrap script for dotbot — auto-detects OS and loads the right configs
+# Apply the dotfiles with mise bootstrap (https://mise.jdx.dev/bootstrap.html):
+# links the [dotfiles] of mise.dotfiles.toml + mise.<os>.toml, runs their hooks
+# (Gnome settings on Linux), then installs the global [tools] of mise.toml.
 #
 # Usage:
-#   ./install           # install all dotfiles
-#   ./install -n        # dry-run (show what would change)
-#   sudo ./install-system   # install system-level /etc/ configs
+#   ./install        # apply (idempotent; existing plain files are left alone)
+#   ./install -n     # dry run: show what would change
+#   ./install ARGS   # any other `mise bootstrap` flag, e.g. --force-dotfiles, --prune-dotfiles
+#
+# New machine: install mise, clone this repo, `mise trust` it, then ./install.
 
 set -e
 
-DIR="$(cd "$(dirname "$0" )" && pwd)"
-OP="${1:--}"  # first arg or placeholder
-
-# Usage tip: system configs
-if [ "$(basename "$0")" = "install-system" ] || [ "$OP" = "system" ]; then
-  shift 2>/dev/null || true
-  exec sudo env PATH="$PATH" mise exec -- dotbot -d "$DIR" -c "$DIR/install.conf.system.yaml" "$@"
-fi
-
-# Uses dotbot managed by mise (pipx:dotbot): https://github.com/anishathalye/dotbot
-# Install prerequisites: mise install
-
-CONFIGS="$DIR/install.conf.shared.yaml"
+DIR="$(cd "$(dirname "$0")" && pwd)"
 
 case "$(uname -s)" in
-  Linux)
-    CONFIGS="$CONFIGS $DIR/install.conf.linux.yaml"
-    ;;
-  Darwin)
-    CONFIGS="$CONFIGS $DIR/install.conf.darwin.yaml"
-    ;;
+  Linux)  OS=linux ;;
+  Darwin) OS=macos ;;
   *)
     echo "Unknown OS: $(uname -s)" >&2
     exit 1
     ;;
 esac
 
-# shellcheck disable=SC2086
-mise exec -- dotbot -d "$DIR" -c $CONFIGS "$@"
+exec mise -C "$DIR" -E "dotfiles,$OS" bootstrap --only dotfiles,tools "$@"

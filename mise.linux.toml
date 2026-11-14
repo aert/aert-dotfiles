@@ -1,0 +1,31 @@
+# Linux-only dotfiles (Debian/Ubuntu/Pop!_OS, Gnome) — applied by ./install (mise bootstrap -E dotfiles,linux).
+
+[dotfiles]
+# lazygit reads ~/.config on Linux; only config.yml is linked so state files stay out of the repo
+"~/.config/lazygit/config.yml" = { source = "user-config/lazygit/config.yml" }
+
+# Gnome desktop settings. Runs on every ./install (idempotent); skipped where gsettings is missing.
+[bootstrap.hooks]
+post-dotfiles = '''
+command -v gsettings >/dev/null 2>&1 || { echo "gsettings not found: skipping Gnome settings"; exit 0; }
+
+# Workspaces and keybindings: 10 workspaces, Super+N switches, Super+Shift+N moves a window, Super+Q closes
+gsettings set org.gnome.Terminal.Legacy.Settings headerbar false 2>/dev/null || true
+gsettings set org.gnome.desktop.wm.preferences num-workspaces 10
+gsettings set org.gnome.desktop.wm.keybindings close "['<Super>q']"
+for i in $(seq 1 10); do
+  key=$([ "$i" -eq 10 ] && echo 0 || echo "$i")
+  if [ "$i" -ne 10 ]; then
+    gsettings set org.gnome.shell.keybindings "switch-to-application-$i" "[]" 2>/dev/null || true
+  fi
+  gsettings set org.gnome.desktop.wm.keybindings "switch-to-workspace-$i" "['<Super>$key']"
+  dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-$i" "['<Super><Shift>$key']"
+done
+
+# Flameshot on Alt+Shift+4
+FLAMESHOT_PATH="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot/"
+dconf write "${FLAMESHOT_PATH}name" "'Flameshot'"
+dconf write "${FLAMESHOT_PATH}command" "'flameshot gui'"
+dconf write "${FLAMESHOT_PATH}binding" "'<Alt><Shift>4'"
+gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['$FLAMESHOT_PATH']"
+'''
