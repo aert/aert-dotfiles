@@ -4,12 +4,6 @@ Areas for improvement identified in this dotfiles repository.
 
 ## High Priority
 
-### 1. Hardcoded Configuration Values
-
-- `,tplink-status:11` - Hardcoded IP `HOST = "192.168.0.1"`
-
-**Fix:** Externalize to environment variables or config files.
-
 ### 2. Typos in setup_new_machine.sh
 
 - Line 29: `packgekit-offline-update.service` should be `packagekit-offline-update.service`
@@ -17,9 +11,8 @@ Areas for improvement identified in this dotfiles repository.
 
 ### 3. Missing Error Handling
 
-Most shell scripts lack error handling. Only 3 scripts use `set -ex`:
+Most shell scripts lack error handling. Only a few scripts use `set -ex`:
 - `,git-clean-local-branches`
-- `,git-files-recent`
 - `_setup_debian.sh`
 
 **Fix:** Add `set -e` (exit on error) to all shell scripts. Consider `set -u` (error on undefined variables) as well.
@@ -32,22 +25,11 @@ Most shell scripts lack error handling. Only 3 scripts use `set -ex`:
 - Many commented-out sections in `.zshrc` for pyenv/nvm/asdf
 - Multiple commented-out virtualenv configurations
 
-### 5. Script Portability
-
-`net-speed` uses Linux-specific paths:
-```bash
-/sys/class/net/
-```
-
-This breaks on macOS despite the repo claiming multi-OS support.
-
-**Fix:** Add OS detection and platform-specific implementations.
-
 ### 6. Missing Dependency Documentation
 
 - Ruby scripts require `activesupport` gem but no `Gemfile` exists
 - Python scripts have no `requirements.txt`
-- Shell scripts may fail silently if tools aren't installed (yt-dlp, tig, fd-find, etc.)
+- Shell scripts may fail silently if tools aren't installed (unpaper, tig, fd-find, etc.)
 
 **Fix:** Create dependency manifests for each language.
 

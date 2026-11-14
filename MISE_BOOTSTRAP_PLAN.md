@@ -1,6 +1,6 @@
 # Plan: replace dotbot with `mise bootstrap` (+ cleanup pass)
 
-Status: phase 1 done (uncommitted, 2026-11-14); phases 2–5 to do. Checked against mise 2026.11.8.
+Status: phases 1–2 done (2026-11-14); phases 3–5 to do. Checked against mise 2026.11.8.
 
 Docs: <https://mise.jdx.dev/bootstrap.html>, <https://mise.jdx.dev/dotfiles.html>,
 <https://mise.jdx.dev/bootstrap/files.html>, `mise bootstrap --help`.
@@ -75,7 +75,11 @@ Also:
   - Check `.zsh_plugins.txt`: its loader line is commented out, so it may be dead too.
 - Check: open a new zsh and confirm the prompt, `fzf` (Ctrl-T), `atuin`, `zoxide` and `mise` all work.
 
-## Phase 2: review `my_scripts/` (one commit, after you confirm)
+## Phase 2: review `my_scripts/` (one commit, after you confirm) — DONE
+
+Deleted: `,encode-720p`, `,resize-tmpfs`, `sync_me`, `xinput-toggle`, `,tplink-status`,
+`,flatten-pdf-dir`, `,git-files-recent`, `,yd-music`, `,yd-podcast`, `,yd-vid`, `,docker-df`, `net-speed`.
+Kept: `,scan-unpaper`, `,git-clean-local-branches` and the rest.
 
 1. List each script with its last commit date, whether it runs on this machine
    (are its dependencies installed?) and whether anything references it.

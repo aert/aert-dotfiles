@@ -32,7 +32,7 @@ Full list with usage: [`my_scripts/README.md`](my_scripts/README.md).
 
 - **Markdown**: `,md-to-html` (GitLab-flavoured markdown, Mermaid/PlantUML, self-contained output),
   `,md-to-pdf`, `,md-preview`. Their dependencies are installed by `,__install_requirements.sh`.
-- **Git**: `,git-changed`, `,git-clean-local-branches`, `,git-files-recent`.
+- **Git**: `,git-changed`, `,git-clean-local-branches`.
 - **`,mobile-review`**: send things to the Android tablet for review (below).
 
 ## Code review on the tablet (`,mobile-review`)

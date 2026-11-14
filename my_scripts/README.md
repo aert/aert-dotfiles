@@ -146,9 +146,6 @@ Two-letter status code prefix, color-coded output.
 ### `,git-clean-local-branches`
 Removes merged local branches.
 
-### `,git-files-recent`
-Lists recently modified files in git repository.
-
 ## File Management
 
 ### `,clean-filename`
@@ -164,22 +161,7 @@ removes empty dirs. Simulation mode by default.
 ### `,clean-filename-tester`
 Integration test harness for `,clean-filename`.
 
-### `,flatten-pdf-dir`
-Flattens nested PDF directories into a single level.
-
-```bash
-,flatten-pdf-dir ~/Documents/PDFs ~/Documents/PDFs_Flat
-```
-
 ## Media Processing
-
-### `,encode-720p`
-Encodes videos to 720p using ffmpeg.
-
-```bash
-,encode-720p input.mp4
-# Creates: input-720p.mp4
-```
 
 ### `,scan-unpaper`
 Cleans scanned documents using unpaper.
@@ -189,36 +171,15 @@ Cleans scanned documents using unpaper.
 # Creates: scan-cleaned.jpg
 ```
 
-### `,yd-music`, `,yd-podcast`, `,yd-vid`
-YouTube download wrappers (yt-dlp).
+## Editors
 
-## System Utilities
-
-### `,docker-df`
-Docker disk usage statistics.
-
-### `,resize-tmpfs`
-Resizes tmpfs filesystems.
-
-```bash
-,resize-tmpfs <size>
-```
-
-### `,tplink-status`
-Checks TP-Link router status.
-
-### `net-speed`
-Network speed readout (Linux `/sys/class/net/`).
-
-### `sync_me`
-Sync utility.
-
-### `xinput-toggle`
-Toggles XInput device settings.
+### `,code-here`
+Serves the current folder as a VS Code project in the browser (official `code serve-web`),
+sandboxed with bubblewrap and read-only by default. See the header of the script for flags.
 
 ## Dependencies
 
 - **Ruby scripts**: Ruby 2.7+ (use `bundler/inline` for gem dependencies)
 - **Python scripts**: Python 3.6+
 - **Shell scripts**: bash
-- **External tools**: ffmpeg, yt-dlp, unpaper, FontForge, Docker
+- **External tools**: ImageMagick + unpaper (`,scan-unpaper`)

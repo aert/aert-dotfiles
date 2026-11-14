@@ -34,10 +34,10 @@ sudo ./install system  # Apply system-level /etc/ configs
 │   ├── ,__install_requirements.sh  # install missing deps (upgrades only plantuml + mermaid-cli; diff2html-cli only if missing) for ,md-to-html/,md-to-pdf/,mobile-review via global mise
 │   ├── ,clean-filename          #   bulk filename sanitizer (dry-run by default)
 │   ├── ,git-clean-local-branches  # prune merged git branches
-│   ├── ,git-files-recent        #   show recently modified git files
-│   ├── ,docker-df               #   Docker disk usage
-│   ├── net-speed                #   network speed (Linux /sys paths)
-│   └── ...                      #   +20 more scripts (media, wifi, system)
+│   ├── ,git-changed             #   files changed vs a base branch
+│   ├── ,code-here               #   serve the current folder as a browser VS Code (sandboxed)
+│   ├── ,scan-unpaper            #   clean scanned images (ImageMagick + unpaper)
+│   └── ,md-preview, ,clean-filename-tester
 │
 ├── user-config/                 # USER DOTFILES — symlinked to ~/
 │   ├── .zshrc                   #   zsh/oh-my-zsh config (primary shell)
@@ -199,9 +199,7 @@ New machine setup:
 
 (See `IMPROVEMENTS.md` for full audit)
 
-- **Hardcoded paths**: `,tplink-status` has `HOST = "192.168.0.1"` hardcoded
 - **POSIX compatibility**: some `#!/bin/sh` scripts use bash `[[ ]]` syntax (should be `[ ]`)
-- **Linux-only scripts**: `net-speed` reads `/sys/class/net/` — breaks on macOS
 - **Missing dependency manifests**: No Gemfile, requirements.txt, or package.json for script dependencies
 - **Dotbot-managed symlinks**: per-OS config files control all symlinks. Existing plain files are left alone; use `./install -n` to preview. Dotbot's `create: true` auto-creates parent dirs (e.g. `~/.config/`).
 - **`~/.gitconfig` is not in this repo**: it is a hand-made symlink to `~/Sync/Private/20_code/secret-configs/gitconfig` (kept out on purpose; not managed by `./install`)
