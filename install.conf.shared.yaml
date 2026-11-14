@@ -11,12 +11,9 @@
     ~/.bashrc: user-config/.bashrc
     ~/.zshenv: user-config/.zshenv
     ~/.zshrc: user-config/.zshrc
-    ~/.zsh_plugins.txt: user-config/.zsh_plugins.txt
 
     # ── Editors ───────────────────────────────────────────────────────
     ~/.gemrc: user-config/.gemrc
-    ~/.ideavimrc: user-config/.ideavimrc
-    ~/.ackrc: user-config/.ackrc
     ~/.config/nvim: user-config/config/nvim
 
     # ── Terminal emulators ────────────────────────────────────────────
@@ -28,9 +25,6 @@
     # ── Multiplexers ─────────────────────────────────────────────────
     ~/.tmux.conf: user-config/.tmux.conf
 
-    # ── File manager ─────────────────────────────────────────────────
-    ~/.config/ranger: user-config/config/ranger
-
     # ── AI / CLI tools ────────────────────────────────────────────────
     ~/.config/opencode.jsonc: user-config/opencode.jsonc
     ~/.config/crush.json: user-config/crush.json
@@ -39,5 +33,4 @@
 
     # ── Scripts on PATH ───────────────────────────────────────────────
     ~/bin/my_scripts: my_scripts
-    ~/bin/prompt.sh: user-config/bin/prompt.sh
 

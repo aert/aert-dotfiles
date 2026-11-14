@@ -22,8 +22,6 @@ mise install              # installs dotbot (via pipx) — mise is the only prer
 sudo ./install system     # link the /etc/ configs
 ```
 
-Gnome extensions and theme: see `other.rst`.
-
 The global mise config (`~/.config/mise/config.toml`) is this repo's `mise.toml` (symlinked by `./install`):
 ruby, node, python, lazygit, PlantUML, `diff2html-cli`, ... Scripts that need those run on it through
 `,mise-global-exec`, so a project-local `mise.toml` never leaks in.

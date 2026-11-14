@@ -51,15 +51,6 @@ This breaks on macOS despite the repo claiming multi-OS support.
 
 **Fix:** Create dependency manifests for each language.
 
-### 7. POSIX Compatibility Issue in prompt.sh
-
-Line 100 uses bash-specific `[[ ]]` syntax but shebang is `#!/bin/sh`:
-```sh
-if [[ -n "$ZSH_VERSION" ]]; then
-```
-
-**Fix:** Use POSIX-compatible `[ ]` or change shebang to `#!/bin/bash`.
-
 ## Low Priority
 
 ### 8. Minimal Documentation — mostly resolved
