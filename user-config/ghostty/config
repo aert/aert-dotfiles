@@ -1,5 +1,5 @@
-#font-family = "Monaspace Radon NF"
-font-family = "M+1Code Nerd Font Mono"
+font-family = "Monaspace Radon NF"
+#font-family = "M+1Code Nerd Font Mono"
 font-feature=-liga
 font-thicken=true
 font-size = 16
@@ -16,7 +16,7 @@ quit-after-last-window-closed = true
 
 background-opacity = 0.9
 background-blur = true
-#theme = dark:Breeze, light:Belafonte Day
-theme = dark:Broadcast, light:Belafonte Day
+#theme = dark:12-bit Rainbow, light:Belafonte Day
+theme = dark:Fun Forrest, light:Belafonte Day
 
 shell-integration-features = ssh-terminfo,ssh-env
