@@ -19,7 +19,6 @@
 
 # ── AI / CLI tools
 "~/.config/opencode.jsonc" = { source = "user-config/opencode.jsonc" }
-"~/.config/crush.json" = { source = "user-config/crush.json" }
 "~/.claude/statusline-command.sh" = { source = "user-config/claude/statusline-command.sh" }
 "~/.config/mise/config.toml" = { source = "mise.toml" }
 

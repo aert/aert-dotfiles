@@ -49,7 +49,6 @@ Multi-OS (Linux primary — Pop!_OS/Debian/Ubuntu on Gnome — plus macOS).
 │   ├── config/
 │   │   └── nvim/                #   LazyVim (Neovim) config
 │   ├── .bashrc                  #   bash fallback
-│   ├── crush.json               #   Crush AI CLI config (minimal)
 │   ├── opencode.jsonc           #   Opencode AI config
 │
 ├── tests_my_scripts/            # TESTS for my_scripts/ (minitest): run, support/, <script>/{unit,e2e}/ — see its README.md
@@ -108,8 +107,8 @@ Multi-OS (Linux primary — Pop!_OS/Debian/Ubuntu on Gnome — plus macOS).
 | **Terminal** | Ghostty (primary), Gnome Terminal |
 | **Tmux** | Byobu-like keybindings (F2-F12), vi-mode, `extended-keys on`, `tmux-256color` |
 | **Review on tablet** | `,mobile-review` (tig `Y`/`U`, lazygit `Y`) → Syncthing `~/Sync/Mobile/00_review` |
-| **AI** | Crush (`crush.json`), Opencode (`opencode.jsonc`), Claude Code (`claude/`) |
-| **Font** | `M+1Code Nerd Font Mono 16` (Ghostty), `Iosevka Term Slab Medium 11` (Gnome Terminal) |
+| **AI** | Opencode (`opencode.jsonc`), Claude Code (`claude/`) |
+| **Font** | `Monaspace Radon NF 16` (Ghostty), `Iosevka Term Slab Medium 11` (Gnome Terminal) |
 | **File mgmt** | lsd (ls replacement), fd-find, ripgrep |
 | **Docker** | lazygit, lazydocker, portainer |
 
@@ -214,7 +213,6 @@ New machine setup:
 
 ## AI / Agent Config
 
-- **Crush**: minimal `crush.json` at `user-config/crush.json` with only attribution disabled
 - **Opencode**: `opencode.jsonc` at `user-config/opencode.jsonc`
 - **Claude Code**: statusline script at `user-config/claude/statusline-command.sh` → `~/.claude/`
 - `.zshenv` activates mise conditionally for Cursor agent: `[[ -n "$CURSOR_AGENT" ]]`

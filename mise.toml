@@ -2,7 +2,6 @@
 
 [tools]
 bun = "latest"
-crush = "latest"
 gh = "latest"
 "github:can1357/oh-my-pi" = "latest"
 "github:plantuml/plantuml" = "latest"
@@ -14,10 +13,10 @@ node = "latest"
 python = "latest"
 ruby = "latest"
 usage = "latest"
-uv = "0.13.6"
+uv = "0.13.8"
 "npm:diff2html-cli" = "latest"
 glab = "latest"
-opencode = "2.3.0"
+opencode = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = []
