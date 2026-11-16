@@ -1,0 +1,161 @@
+#!/usr/bin/env bash
+# Usage: ,port-relay [options] HOST PORT_SPEC...
+#
+# Makes ports of a remote machine (e.g. a Tailscale host) appear on this machine's localhost, using socat
+# (no SSH). Useful for dev apps that must be opened as http://<something>.localhost:<port>: *.localhost
+# resolves to 127.0.0.1 in browsers, so the request goes through the relay with the Host header the app
+# expects, and cookies/links stay on localhost.
+#
+# PORT_SPEC (as many as you like, mixed):
+#   3000          local 3000  -> HOST:3000
+#   9000-9001     a range, each port to the same port on HOST
+#   13000:3000    local 13000 -> HOST:3000 (when the local port is taken)
+#   @ppm          a preset: a named list of specs from the presets file
+#
+# Options:
+#   -b, --bind ADDR   local address to listen on (default 127.0.0.1; 0.0.0.0 shares the ports with your LAN)
+#   -n, --dry-run     print the relays and exit
+#   -l, --list        list presets and exit
+#   -h, --help        this help
+#
+# Presets file: $PORT_RELAY_PRESETS, else ~/.config/port-relay/presets, else lib/port-relay/presets next to
+# this script (shipped with the dotfiles). One preset per line, `#` comments:
+#   ppm    3000 3200 8025 8080 9000-9001
+#   other  4000 @ppm-mail          (a preset may reference another one)
+#
+# Examples:
+#   ,port-relay cosmos @ppm                 # MagicDNS short name works as HOST
+#   ,port-relay cosmos.tail31bef.ts.net 3000 3200
+#   ,port-relay cosmos @ppm 15432:5432
+#
+# Runs in the foreground; Ctrl-C stops every relay. Needs socat (apt/dnf install socat, brew install socat).
+# Bash 3.2 compatible (macOS).
+
+set -euo pipefail
+
+# Presets: $PORT_RELAY_PRESETS, else ~/.config/port-relay/presets (machine-local), else the one shipped with
+# the dotfiles next to this script (lib/port-relay/presets), so presets travel to every machine.
+PRESETS_FILE="${PORT_RELAY_PRESETS:-$HOME/.config/port-relay/presets}"
+if [ -z "${PORT_RELAY_PRESETS:-}" ] && [ ! -f "$PRESETS_FILE" ]; then
+  PRESETS_FILE="$(dirname "$(realpath "$0" 2> /dev/null || echo "$0")")/lib/port-relay/presets"
+fi
+BIND=127.0.0.1
+DRY_RUN=
+SELF="${0##*/}"
+
+die() { printf '%s: %s\n' "$SELF" "$*" >&2; exit 1; }
+usage() { sed -n '2,/^$/{s/^# \{0,1\}//;p;}' "$0"; }
+
+list_presets() {
+  [ -f "$PRESETS_FILE" ] || die "no presets file at $PRESETS_FILE"
+  sed -e 's/#.*//' -e '/^[[:space:]]*$/d' "$PRESETS_FILE"
+}
+
+# preset_specs NAME: the specs of a preset (whitespace-separated), fails if unknown
+preset_specs() {
+  [ -f "$PRESETS_FILE" ] || die "preset @$1 asked for, but there is no presets file at $PRESETS_FILE"
+  local line
+  line="$(sed -e 's/#.*//' "$PRESETS_FILE" | awk -v n="$1" '$1 == n { $1 = ""; print; found = 1; exit } END { exit !found }')" \
+    || die "unknown preset @$1 (see $SELF --list)"
+  printf '%s\n' "$line"
+}
+
+valid_port() { [[ "$1" =~ ^[0-9]+$ ]] && [ "$1" -ge 1 ] && [ "$1" -le 65535 ]; }
+
+PAIRS=()  # "local:remote"
+
+# expand_spec SPEC DEPTH: append to PAIRS
+expand_spec() {
+  local spec="$1" depth="$2" p from to
+  case "$spec" in
+    @*)
+      [ "$depth" -lt 10 ] || die "presets nest too deep (loop at @${spec#@}?)"
+      local specs
+      specs="$(preset_specs "${spec#@}")" || exit 1
+      for p in $specs; do expand_spec "$p" $((depth + 1)); done
+      ;;
+    *-*)
+      from="${spec%-*}" to="${spec#*-}"
+      valid_port "$from" && valid_port "$to" && [ "$from" -le "$to" ] || die "bad range: $spec"
+      for ((p = from; p <= to; p++)); do PAIRS+=("$p:$p"); done
+      ;;
+    *:*)
+      from="${spec%:*}" to="${spec#*:}"
+      valid_port "$from" && valid_port "$to" || die "bad mapping: $spec (expected LOCAL:REMOTE)"
+      PAIRS+=("$from:$to")
+      ;;
+    *)
+      valid_port "$spec" || die "bad port spec: $spec"
+      PAIRS+=("$spec:$spec")
+      ;;
+  esac
+}
+
+ARGS=()
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -b | --bind) BIND="${2:?--bind needs an address}"; shift 2 ;;
+    --bind=*) BIND="${1#*=}"; shift ;;
+    -n | --dry-run) DRY_RUN=1; shift ;;
+    -l | --list) list_presets; exit 0 ;;
+    -h | --help) usage; exit 0 ;;
+    --) shift; ARGS+=("$@"); break ;;
+    -*) die "unknown option: $1 (see $SELF --help)" ;;
+    *) ARGS+=("$1"); shift ;;
+  esac
+done
+
+[ "${#ARGS[@]}" -ge 2 ] || { usage >&2; exit 2; }
+HOST="${ARGS[0]}"
+for spec in "${ARGS[@]:1}"; do expand_spec "$spec" 0; done
+
+# Drop duplicate local ports (first one wins), so "@ppm 3000" does not try to bind 3000 twice.
+UNIQUE=() SEEN=" "
+for pair in "${PAIRS[@]}"; do
+  case "$SEEN" in *" ${pair%%:*} "*) continue ;; esac
+  SEEN="$SEEN${pair%%:*} "
+  UNIQUE+=("$pair")
+done
+
+if [ -n "$DRY_RUN" ]; then
+  for pair in "${UNIQUE[@]}"; do printf '%s:%s -> %s:%s\n' "$BIND" "${pair%%:*}" "$HOST" "${pair#*:}"; done
+  exit 0
+fi
+
+command -v socat > /dev/null 2>&1 || die "socat not found (apt/dnf install socat, or brew install socat)"
+
+local_in_use() { socat -T1 /dev/null "TCP:127.0.0.1:$1,connect-timeout=1" > /dev/null 2>&1; }
+remote_up() { socat -T2 /dev/null "TCP:$HOST:$1,connect-timeout=2" > /dev/null 2>&1; }
+
+cleanup() {
+  trap - EXIT INT TERM
+  local pids
+  pids="$(jobs -p)"
+  [ -z "$pids" ] || kill $pids 2> /dev/null || true
+  wait 2> /dev/null || true
+}
+trap cleanup EXIT
+trap 'echo; echo "stopping relays"; exit 0' INT TERM
+
+PIDS=()
+for pair in "${UNIQUE[@]}"; do
+  lp="${pair%%:*}" rp="${pair#*:}"
+  if local_in_use "$lp"; then
+    printf '  skip  %s:%s is already in use here (map it, e.g. 1%s:%s)\n' "$BIND" "$lp" "$lp" "$rp" >&2
+    continue
+  fi
+  note=""
+  remote_up "$rp" || note="  (nothing answers on $HOST:$rp yet)"
+  socat "TCP-LISTEN:$lp,bind=$BIND,reuseaddr,fork" "TCP:$HOST:$rp" &
+  PIDS+=("$!")
+  printf '  relay %s:%s -> %s:%s%s\n' "$BIND" "$lp" "$HOST" "$rp" "$note"
+done
+
+[ "${#PIDS[@]}" -gt 0 ] || die "no relay started"
+echo "${#PIDS[@]} relay(s) running, Ctrl-C to stop"
+
+# Stop as soon as any socat dies (e.g. bind failure), so a dead relay is never silently missing.
+while :; do
+  for pid in "${PIDS[@]}"; do kill -0 "$pid" 2> /dev/null || { echo "$SELF: a relay exited, stopping" >&2; exit 1; }; done
+  sleep 2
+done

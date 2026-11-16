@@ -171,6 +171,20 @@ Cleans scanned documents using unpaper.
 # Creates: scan-cleaned.jpg
 ```
 
+## Networking
+
+### `,port-relay`
+Makes ports of a remote machine (e.g. a Tailscale host) appear on this machine's `127.0.0.1` with socat, no SSH. Open a dev app as `http://<app>.localhost:<port>` and the request goes through the relay with the Host header the app expects. Runs in the foreground: Ctrl-C stops every relay.
+
+```bash
+,port-relay cosmos @ppm               # a preset (lib/port-relay/presets)
+,port-relay cosmos 3000 9000-9001     # ports and ranges
+,port-relay cosmos @ppm 13000:3000    # LOCAL:REMOTE when the local port is taken
+,port-relay -n cosmos @ppm            # dry run;  -l lists presets;  -b 0.0.0.0 shares with the LAN
+```
+
+A local port that is already in use is skipped with a hint; a remote port that does not answer yet is still relayed (with a note). If any relay dies, the script stops. Presets: `$PORT_RELAY_PRESETS`, else `~/.config/port-relay/presets`, else `lib/port-relay/presets`. **Needs:** socat.
+
 ## Editors
 
 ### `,code-here`

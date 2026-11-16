@@ -1,0 +1,7 @@
+# Presets for ,port-relay: NAME SPEC... (SPEC = PORT, FROM-TO, LOCAL:REMOTE or @OTHER_PRESET)
+# Override per machine with ~/.config/port-relay/presets or $PORT_RELAY_PRESETS.
+
+# PPM main checkout (bin/pod): web, live reload, Mailpit, Adminer, MinIO API + console
+ppm      3000 3200 8025 8080 9000-9001
+# same plus Postgres, on 15432 so a local Postgres on 5432 is not in the way
+ppm-db   @ppm 15432:5432
